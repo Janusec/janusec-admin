@@ -1,10 +1,10 @@
 # Janusec Application Gateway Web Administration
 
-This project is the Unified Web Administration Portal for [Janusec Application Gateway](https://www.janusec.com/) , [Github](https://github.com/Janusec/janusec) , generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.5.
+This project is the Unified Web Administration Portal for [Janusec Application Gateway](https://www.janusec.com/) , [Github](https://github.com/Janusec/janusec) , generated with [Angular CLI](https://github.com/angular/angular-cli) and Angular 5.
 
 ## Development server
 
-Angular 5+ is required.  
+Angular 5 is required.  
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
@@ -21,7 +21,11 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ## Release
 
-The produced files are under `./dist/`, copy all files  to `./static/` under Janusec Application Gateway.  
+The produced files are under `./dist/`, copy all files  to `./static/` under Janusec Application Gateway. 
+
+## Backend  
+
+Backend source code is available at [Janusec Application Gateway Github](https://github.com/Janusec/janusec).  
 
 ## LICENSE
 
