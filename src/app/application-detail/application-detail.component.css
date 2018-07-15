@@ -1,0 +1,13 @@
+.required {
+    color: #FF0000;
+}
+
+.align-right {
+    text-align: right;
+}
+
+mat-form-field {
+    margin-top:3px;
+    margin-bottom:3px;
+    background-color: #F0F0F0;
+}

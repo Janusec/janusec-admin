@@ -1,0 +1,20 @@
+<div>
+  <mat-card>Certificate Management</mat-card>
+</div>
+<mat-list class="mat-list-item-list-stacked">
+<mat-list-item (click)="addCertificate()">  
+    <mat-icon matListIcon>add_circle_outline</mat-icon>
+    <h3 matLine>Add Certificate</h3>
+</mat-list-item>
+<mat-list-item *ngFor="let certificate of applicationService.certificates"
+ (click)="onSelect(certificate)">    
+    <mat-icon matListIcon matTooltip="This certificate is due to expire!" matTooltipPosition="right" color="warn" *ngIf="certificate.due_to_expire;else elseBlock">lock_outline</mat-icon>
+    <ng-template #elseBlock>
+        <mat-icon matListIcon color="primary">lock_outline</mat-icon>
+    </ng-template> 
+    <h3 matLine> {{certificate.common_name}} ({{certificate.description}}) </h3> 
+    <p matLine>    
+    Expire Time: {{ getDate(certificate.expire_time) }}     
+    </p>    
+</mat-list-item>
+</mat-list>

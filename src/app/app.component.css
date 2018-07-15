@@ -1,0 +1,15 @@
+.sidenav-container {
+    min-height: 500px;
+}
+
+.sidenav {
+    display: flex;
+    align-items: top;
+    justify-content: center;
+    width: 60px;
+    background: rgba(233, 226, 226, 0.1);
+}
+
+mat-icon {
+    font-size: 24px;
+}

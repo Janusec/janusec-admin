@@ -1,0 +1,47 @@
+<ng-container>
+<app-navbar></app-navbar>
+<app-messages></app-messages>
+<mat-sidenav-container class="sidenav-container">
+<mat-sidenav *ngIf="applicationService.auth_user.logged"
+    #sidenav mode="side" opened="true" class="sidenav" role="navigation"> 
+    <mat-nav-list>
+        
+        <mat-list-item matTooltip="Certificate Management" [matTooltipPosition]="position">
+                <a routerLink="/certificates"><mat-icon>lock_outline</mat-icon></a>
+        </mat-list-item>
+        
+        <mat-list-item matTooltip="Application Management" [matTooltipPosition]="position">
+                <a routerLink="/applications"><mat-icon>format_color_text</mat-icon></a>
+        </mat-list-item>        
+
+        <mat-list-item matTooltip="Node Management" [matTooltipPosition]="position">
+            <a routerLink="/nodes"><mat-icon>games</mat-icon></a>            
+        </mat-list-item>
+
+        <mat-list-item matTooltip="User Management" [matTooltipPosition]="position">
+                <a routerLink="/usermgmt"><mat-icon>supervisor_account</mat-icon></a> 
+        </mat-list-item>
+
+        <mat-divider></mat-divider>
+
+        <mat-list-item matTooltip="Dashboard" [matTooltipPosition]="position">
+                <a routerLink="/dashboard"><mat-icon>dashboard</mat-icon></a>
+        </mat-list-item>
+
+        <mat-list-item matTooltip="WAF Management" [matTooltipPosition]="position">
+            <a routerLink="/waf"><mat-icon>security</mat-icon></a>  
+        </mat-list-item>
+
+        <mat-list-item matTooltip="Logs" [matTooltipPosition]="position">
+            <a routerLink="/logs"><mat-icon>assignment</mat-icon></a>  
+        </mat-list-item>
+
+
+    </mat-nav-list>    
+</mat-sidenav>
+<mat-sidenav-content role="region">
+    <router-outlet></router-outlet>
+</mat-sidenav-content>
+</mat-sidenav-container>
+<app-footer></app-footer>
+</ng-container>

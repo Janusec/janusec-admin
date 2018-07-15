@@ -1,0 +1,47 @@
+<div *ngIf="node">
+
+    <h2>
+        <mat-icon>details</mat-icon>
+        Node Details
+    </h2>  
+      
+    <div class="container">
+        <mat-form-field *ngIf="node.id>0">
+            <input matInput [(ngModel)]="node.id" [readonly]="true"
+            placeholder="Node ID" />
+        </mat-form-field>
+
+        <mat-form-field *ngIf="node.id>0">
+          <textarea matInput [(ngModel)]="node.encrypted_key" rows="3" [readonly]="true"
+          placeholder="Node Key (Copy and paste it in the config.json file of the slave node)">
+        </textarea>
+        </mat-form-field>
+        
+        <mat-form-field>
+            <input matInput [(ngModel)]="node.name" [readonly]="readOnlyValue"
+            placeholder="Node Name" required />
+        </mat-form-field>
+
+        <mat-form-field *ngIf="node.id>0">
+            <input matInput [(ngModel)]="node.version" [readonly]="true"
+            placeholder="Node Version" />
+        </mat-form-field>
+
+        <mat-form-field *ngIf="node.id>0">
+            <input matInput [(ngModel)]="node.last_ip" [readonly]="true"
+            placeholder="Node IP" />
+        </mat-form-field>
+        
+        <mat-form-field *ngIf="node.id>0">
+          <input matInput  [value]="getDate(node.last_req_time)" [readonly]="true" placeholder="Last Sync time" >     
+        </mat-form-field>
+        
+        
+        <div>
+        <button mat-raised-button [disabled]="readOnlyValue" (click)="setNode()" color="primary">Save</button>
+        <button mat-raised-button (click)="changeEditable()"  color="primary">{{readOnlyButtonText}}</button>
+        <button *ngIf="node.id>0" mat-raised-button [disabled]="readOnlyValue" (click)="deleteNode()" color="primary">Delete</button>
+        </div>
+    </div>
+    
+    

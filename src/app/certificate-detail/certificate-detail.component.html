@@ -1,0 +1,50 @@
+<div *ngIf="certificate">
+
+<h2>
+    <mat-icon>details</mat-icon>
+    Certificate Details
+</h2>  
+  
+<div class="container">
+  <mat-form-field>
+      <input matInput #common_name [(ngModel)]="certificate.common_name" [readonly]="readOnlyValue"
+      placeholder="Common Name or Subject Alternative Name" maxlength="128" required/>   
+      <mat-hint align="end">{{common_name.value?.length || 0}}/128</mat-hint> 
+    </mat-form-field>
+    
+    <mat-form-field>
+      <textarea matInput #cert_content [(ngModel)]="certificate.cert_content" 
+      placeholder="Public Certificate Content Begin with: -----BEGIN CERTIFICATE-----"
+       rows="5"  [readonly]="readOnlyValue" required>
+      </textarea>
+      <mat-hint align="end">{{cert_content.value?.length || 0}}/16384</mat-hint> 
+    </mat-form-field>   
+    
+    <mat-form-field>
+      <textarea matInput #priv_key_content [(ngModel)]="certificate.priv_key_content" 
+      placeholder="Private Key Content (If RSA certificate, begin with: -----BEGIN RSA PRIVATE KEY-----)"
+       rows="5" [readonly]="readOnlyValue">
+      </textarea>
+      <mat-hint align="end">{{priv_key_content.value?.length || 0}}/4096</mat-hint>
+    </mat-form-field>   
+    
+    <mat-form-field *ngIf="certificate.id>0">
+      <input matInput [value]="getDate(certificate.expire_time)"
+       [readonly]="true"
+       placeholder="Expire time" >     
+    </mat-form-field>
+    
+    <mat-form-field>
+      <input matInput [(ngModel)]="certificate.description" #description
+      placeholder="Description" required
+       [readonly]="readOnlyValue" />
+      <mat-hint align="end">{{description.value?.length || 0}}/256</mat-hint> 
+    </mat-form-field>
+    <div>
+    <button mat-raised-button [disabled]="readOnlyValue" (click)="setCertificate()" color="primary">Save</button>
+    <button mat-raised-button (click)="changeEditable()"  color="primary">{{readOnlyButtonText}}</button>
+    <button *ngIf="certificate.id>0" mat-raised-button [disabled]="readOnlyValue" (click)="deleteCertificate()" color="primary">Delete</button>
+    <button *ngIf="certificate.id==0 && certificate.common_name" mat-raised-button (click)="selfSignCertificate()" color="primary">Self-Sign Certificate</button>
+    </div>
+</div>
+

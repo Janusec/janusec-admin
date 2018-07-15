@@ -1,0 +1,14 @@
+<div *ngIf="messageService.messages.length">
+  <div class="flex-row">
+  <div class="flex-90">
+    <mat-list role="list">
+        <mat-list-item *ngFor="let message of messageService.messages" class="alert"> 
+              {{message}} 
+        </mat-list-item>        
+    </mat-list>
+  </div>  
+  <div class="flex-10 middle" (click)="messageService.clear()" title="Clear">
+    <mat-icon>clear</mat-icon>
+  </div> 
+</div> 
+</div>

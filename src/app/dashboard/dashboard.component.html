@@ -1,0 +1,31 @@
+<div *ngIf="applicationService.auth_user.logged">
+<div>
+    <mat-form-field>
+     <mat-select [(ngModel)]="selected_app_id" placeholder="Application">
+     <mat-option [value]=0>All applications</mat-option>
+     <mat-option *ngFor="let application of applicationService.applications;" [value]="application.id">
+         {{application.name}}
+     </mat-option>  
+     </mat-select> 
+   </mat-form-field>
+   <button mat-raised-button (click)="stat_by_app_id()" color="primary">View</button>
+</div>
+<div class="myChart">
+  <canvas id="todayCanvas">{{ todayVulnChart }}</canvas>
+</div>
+
+<div>
+  <mat-form-field>
+    <mat-select [(ngModel)]="selected_vuln_id" placeholder="Vulnerability">
+        <mat-option [value]=0>All</mat-option>
+    <mat-option *ngFor="let vulntype of applicationService.vulntypes;" [value]="vulntype.id">
+        {{vulntype.name}}
+    </mat-option>  
+    </mat-select> 
+  </mat-form-field>
+  <button mat-raised-button (click)="stat_by_app_and_vuln()" color="primary">View</button>
+  </div>
+  <div class="myChart">
+      <canvas id="week_canvas">{{ weekCountChart }}</canvas>
+    </div>
+</div>

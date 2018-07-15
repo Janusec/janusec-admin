@@ -1,0 +1,13 @@
+mat-card {
+    margin-top: 5px;
+    background-color: rgb(246, 246, 246);    
+}
+
+.card-content {
+    padding: 10px 10px;
+}
+
+.card-image {
+   width: 70%;
+   margin-left: 15%;
+}

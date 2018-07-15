@@ -1,0 +1,48 @@
+<div *ngIf="appadmin">
+
+  <h2>
+      <mat-icon>details</mat-icon>
+      Admin Details
+  </h2> 
+  <div class="container">
+    <mat-form-field>
+        <input matInput #username [(ngModel)]="appadmin.username" [readonly]="readOnlyValue"
+        placeholder="Username" maxlength="128" required/>   
+        <mat-hint align="end">{{username.value?.length || 0}}/128</mat-hint> 
+    </mat-form-field>    
+    
+    <mat-form-field>
+      <input matInput type="password" [(ngModel)]="plainpwd" [readonly]="readOnlyValue"
+      placeholder="Password"/>
+    </mat-form-field>   
+
+    <mat-form-field>
+      <input matInput type="password" [(ngModel)]="plainpwd2" [readonly]="readOnlyValue"
+      placeholder="Confirm Password"/>
+    </mat-form-field>   
+    
+    <mat-form-field>
+      <input matInput #email [(ngModel)]="appadmin.email" [readonly]="readOnlyValue"
+      placeholder="Email" maxlength="128" required/>   
+      <mat-hint align="end">{{email.value?.length || 0}}/128</mat-hint> 
+    </mat-form-field>    
+
+    <section>
+      <mat-checkbox [(ngModel)]="appadmin.is_super_admin" [disabled]="readOnlyValue">Authorization Administrator</mat-checkbox>
+    </section> 
+
+    <section>
+      <mat-checkbox [(ngModel)]="appadmin.is_cert_admin" [disabled]="readOnlyValue">Certificate Administrator</mat-checkbox>
+    </section> 
+
+    <section>
+      <mat-checkbox [(ngModel)]="appadmin.is_app_admin" [disabled]="readOnlyValue">Application Administrator </mat-checkbox>
+    </section> 
+    
+  </div>
+  <div>
+    <button mat-raised-button [disabled]="readOnlyValue" (click)="onSave()" color="primary">Save</button>
+    <button mat-raised-button (click)="changeEditable()"  color="primary">{{readOnlyButtonText}}</button>
+    <button mat-raised-button [disabled]="(appadmin.username=='admin' || appadmin.id==0)?true:readOnlyValue" (click)="onDelete()" color="primary">Delete</button>
+  </div>
+</div>

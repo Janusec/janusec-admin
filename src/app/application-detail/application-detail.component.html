@@ -1,0 +1,83 @@
+<div *ngIf="application">
+  <h2>
+            <mat-icon>details</mat-icon>
+            Application Details
+  </h2>  
+  
+  <div class="container">
+    <mat-form-field>
+      <input matInput #app_name [(ngModel)]="application.name" placeholder="Application Name"  [readonly]="readOnlyValue" required/>    
+      <mat-hint align="end">{{app_name.value?.length || 0}}/128</mat-hint> 
+    </mat-form-field>
+    <mat-form-field>
+        <mat-select [(ngModel)]="application.internal_scheme" placeholder="Backend or Internal Scheme" [disabled]="readOnlyValue">
+          <mat-option value="http">http</mat-option>
+          <mat-option value="https">https</mat-option>
+        </mat-select> 
+    </mat-form-field>  
+      
+    <mat-form-field *ngFor="let dest of application.destinations;let i=index; trackBy:trackByFn">
+      <input matInput [(ngModel)]="application.destinations[i].destination" [readonly]="readOnlyValue" placeholder="Destination( IPv4 Example: 10.10.10.10:80 , IPv6 Example: [::1%lo]:8080 )" required/>
+      <mat-icon matSuffix matTooltip="Add new destination" matTooltipPosition="left" (click)="addDestination()">add_circle_outline</mat-icon>
+      <mat-icon *ngIf="application.destinations.length>1" matSuffix (click)="delDestination(i)">remove_circle_outline</mat-icon> 
+    </mat-form-field>
+ 
+    <div class="inner-container" *ngFor="let domain of application.domains; let i=index; trackBy:trackByFn">
+        <mat-form-field> 
+          <mat-icon matPrefix>language</mat-icon>  
+          <input matInput placeholder="Domain name (editable)" [(ngModel)]="application.domains[i].name" [disabled]="readOnlyValue" list="domains" required>
+          <datalist id="domains">
+              <option *ngFor="let domain of applicationService.domains;">{{domain.name}}</option>
+          </datalist>         
+        </mat-form-field> 
+      
+        <mat-form-field>  
+          <mat-icon matPrefix>lock_outline</mat-icon>         
+          <mat-select placeholder="Certificate"  [(ngModel)]="application.domains[i].cert_id" [disabled]="readOnlyValue" required>   
+              <mat-option *ngFor="let certificate of optionCertificates;" [value]="certificate.id">
+                {{certificate.common_name}}
+              </mat-option>                
+          </mat-select>
+        </mat-form-field>  
+        <div>
+            <mat-icon matTooltip="Add new domain" matTooltipPosition="right"  (click)="addDomain()">add_circle_outline</mat-icon>
+            <mat-icon  *ngIf="application.domains.length>1"  (click)="delDomain(i)">remove_circle_outline</mat-icon>
+        </div>    
+    </div>
+
+    <mat-form-field>
+      <mat-select [(ngModel)]="application.ip_method" placeholder="Client IP for WAF" [disabled]="readOnlyValue">
+      <mat-option *ngFor="let ip_method_value of enum_ip_method_values;" [value]="ip_method_value">
+          {{getIPMethodEnumString(ip_method_value)}}
+      </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <section>
+      <mat-checkbox [(ngModel)]="application.redirect_https" [disabled]="readOnlyValue">
+          Redirect HTTP to HTTPS ( 301 )
+      </mat-checkbox>
+    </section>
+
+    <section>
+      <mat-checkbox [(ngModel)]="application.hsts_enabled" [disabled]="readOnlyValue">
+          Enable HSTS for HTTPS ( Add Response Header: Strict-Transport-Security )
+      </mat-checkbox>
+    </section>
+
+    <section>
+      <mat-checkbox [(ngModel)]="application.waf_enabled" [disabled]="readOnlyValue">
+          Enable WAF ( Web Application Firewall )
+      </mat-checkbox>
+    </section>
+        
+    <mat-form-field>
+        <input matInput #description [(ngModel)]="application.description" [readonly]="readOnlyValue" placeholder="Description"/>
+        <mat-hint align="end">{{description.value?.length || 0}}/256</mat-hint>
+      </mat-form-field> 
+    <div>
+    <button mat-raised-button [disabled]="readOnlyValue" (click)="setApplication()" color="primary">Save</button>
+    <button mat-raised-button (click)="changeEditable()"  color="primary">{{readOnlyButtonText}}</button>
+    <button mat-raised-button [disabled]="readOnlyValue" (click)="deleteApplication()" color="primary">Delete</button>
+  </div>  
+  </div>

@@ -1,0 +1,54 @@
+/* You can add global styles to this file, and also import other style files */
+/* @import "assets/bootstrap/bootstrap.min.css"; */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+
+.inner-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #F0F0F0;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.middle {
+    display:flex;
+    align-items:center;
+}
+
+.flex-row {
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.flex-90 {
+    flex: 90;
+}
+
+.flex-50 {
+    flex: 50;
+}
+
+.flex-40 {
+    flex: 40;
+}
+
+.flex-20 {
+    flex: 20;
+}
+
+.flex-10 {
+    flex: 10;
+    justify-content: center;
+    align-items:center;
+}
+
+.alert {
+    background-color: rgb(206, 202, 166);
+    margin: 1px;
+}

@@ -1,0 +1,16 @@
+<div>
+  <mat-card>Administrators Management</mat-card>
+</div>
+
+<mat-list class="mat-list-item-list-stacked">
+<mat-list-item (click)="addAdmin()">  
+    <mat-icon matListIcon>add_circle_outline</mat-icon>
+    <h3 matLine>Add Administrator</h3>
+</mat-list-item>
+<mat-list-item *ngFor="let admin of applicationService.admins"
+ (click)="onSelect(admin)">
+    <mat-icon matListIcon>lock_outline</mat-icon>   
+    <h3 matLine> {{admin.username}} </h3> 
+    
+</mat-list-item>
+</mat-list>

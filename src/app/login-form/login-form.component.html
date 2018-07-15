@@ -1,0 +1,15 @@
+<div>
+    <div *ngIf="applicationService.auth_user.logged==false" class="container">
+        <h1>Login</h1>        
+        <mat-form-field>
+            <input matInput placeholder="Username" [(ngModel)]="username" required>
+        </mat-form-field>
+    
+        <mat-form-field>
+            <input matInput type="password" placeholder="Password" [(ngModel)]="password" required>
+        </mat-form-field>
+        
+        <button mat-button (click)="onSubmit($event)">Submit</button>
+        
+    </div>
+</div>
