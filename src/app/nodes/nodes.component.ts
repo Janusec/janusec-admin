@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router }            from '@angular/router';
 import { MessageService } from '../message.service';
 import { ApplicationService } from '../application.service';
-import { GateNode } from '../models';
+import { Node } from '../models';
 
 @Component({
   selector: 'app-nodes',
@@ -10,8 +10,8 @@ import { GateNode } from '../models';
   styleUrls: ['./nodes.component.css']
 })
 export class NodesComponent implements OnInit {
-  selectedNode: GateNode;
-
+  selectedNode: Node;
+  hexNodesKey: string;
   constructor(private messageService: MessageService,
     public applicationService: ApplicationService,
     private router: Router) { }
@@ -24,14 +24,17 @@ export class NodesComponent implements OnInit {
     if (this.applicationService.auth_user.need_modify_pwd) {
       this.router.navigate(['/appuser/'+this.applicationService.auth_user.user_id]);
     }
-      this.applicationService.getNodes();
+    this.applicationService.getNodesKey();
+    this.applicationService.getNodes();
   }
 
+  /*
   addNode() {
     this.router.navigate(['/node/0']);
   }
-
-  onSelect(node: GateNode) {
+  */
+ 
+  onSelect(node: Node) {
     this.selectedNode = node;
     this.router.navigate(['/node/'+this.selectedNode.id]);
   }

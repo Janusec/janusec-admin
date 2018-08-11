@@ -1,20 +1,21 @@
 <div>    
-    <mat-card>Node Management</mat-card>    
+    <mat-card>
+                Node Management
+    </mat-card>    
+</div>
+<div>
+    <h3 matLine>Please copy the following node_key into config.json of all slave nodes.</h3>  
+    <mat-icon>vpn_key</mat-icon>
+    <span class="wrapkey">{{ applicationService.hexNodesKey }}</span>    
 </div>
 <mat-list class="mat-list-item-list-stacked">
-  <mat-list-item (click)="addNode()">  
-    <mat-icon matListIcon>add_circle_outline</mat-icon>
-    <h3 matLine>Add Node</h3>      
-  </mat-list-item>
   <mat-list-item *ngFor="let node of applicationService.nodes" (click)="onSelect(node)"
       [class.selected]="node === selectedNode">    
     <mat-icon matListIcon matTooltip="This node may be offline!" matTooltipPosition="right" color="warn" *ngIf="!node.online;else elseBlock">games</mat-icon>
     <ng-template #elseBlock>
         <mat-icon matListIcon color="primary">games</mat-icon>
     </ng-template> 
-    <h3 matLine> {{node.name}}  </h3>
-    <p matLine>
-        {{node.description}}
-    </p>      
+    <h3 matLine> {{node.last_ip}}  &nbsp;&nbsp;&nbsp;&nbsp;( version: {{ node.version }} ) </h3>
+    
   </mat-list-item>
 </mat-list>

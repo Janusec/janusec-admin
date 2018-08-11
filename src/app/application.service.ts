@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
-import { AuthUser, Application, Certificate, Domain, AppAdmin, VulnType, APIResponse, GateNode, SimpleRegexHitLog,LastRegexLogs } from './models';
+import { AuthUser, Application, Certificate, Domain, AppAdmin, VulnType, APIResponse, NodesKey, Node, SimpleRegexHitLog,LastRegexLogs } from './models';
 import { MessageService } from './message.service';
 
 const httpOptions = {
@@ -16,13 +16,14 @@ export class ApplicationService {
   auth_user: AuthUser={user_id: 0, username:"", passwd:"", logged:false, need_modify_pwd: false};
   certificates: Certificate[] = [];
   applications: Application[] = [];
-  nodes: GateNode[] = [];
+  hexNodesKey: string;
+  nodes: Node[] = [];
   domains: Domain[]=[];
   admins: AppAdmin[]=[];
   vulntypes: VulnType[]=[];
   vulntypemap : object = new(Object);
   lastRegexLogs : LastRegexLogs = new(LastRegexLogs);
-
+  
   constructor(private http: HttpClient,
     private messageService: MessageService) { }
 
@@ -76,9 +77,17 @@ export class ApplicationService {
     });
   }
 
+  getNodesKey():string {
+    var self = this;
+    this.getResponse('getnodeskey', function(obj: NodesKey) {
+      self.hexNodesKey = obj.nodes_key;
+    });
+    return self.hexNodesKey;
+  }
+
   getNodes() {
     var self = this;
-    this.getResponse('getnodes', function(obj: GateNode[]){
+    this.getResponse('getnodes', function(obj: Node[]){
       self.nodes = obj;
       var now_ms = (new Date()).getTime();
       for(let node of self.nodes) {

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApplicationService } from '../application.service';
 import { MessageService } from '../message.service';
-import { GateNode } from '../models';
+import { Node } from '../models';
 
 @Component({
   selector: 'app-node-detail',
@@ -10,7 +10,7 @@ import { GateNode } from '../models';
   styleUrls: ['./node-detail.component.css']
 })
 export class NodeDetailComponent implements OnInit {
-  node: GateNode;
+  node: Node;
   readOnlyValue: boolean = true;
   readOnlyButtonText: string = "Edit";
   constructor(private route: ActivatedRoute,
@@ -26,21 +26,21 @@ export class NodeDetailComponent implements OnInit {
     let id = +this.route.snapshot.paramMap.get('id');
     if(id>0) {
       var self = this;
-      this.applicationService.getResponse('getnode', function(obj: GateNode){
+      this.applicationService.getResponse('getnode', function(obj: Node){
         self.node = obj;
       },id);
     } else {
-      this.node=new GateNode();
+      this.node=new Node();
       this.node.id=0; 
-      this.node.name="Node00X";      
       this.readOnlyValue = false;
       this.readOnlyButtonText="Cancel";
     }    
   }
 
+  /*
   setNode() {
     var self=this;
-    this.applicationService.getResponse('updatenode', function(obj: GateNode){
+    this.applicationService.getResponse('updatenode', function(obj: Node){
       let new_id = obj.id;
       if(self.node.id == new_id)  {
         self.node = obj;
@@ -53,7 +53,8 @@ export class NodeDetailComponent implements OnInit {
       self.messageService.add("GateNode "+ obj.name +" Saved.");
     }, null, self.node);
   }
-
+  */
+ 
   changeEditable() {
     this.readOnlyValue = !this.readOnlyValue;
     if(this.readOnlyValue) {
@@ -65,6 +66,11 @@ export class NodeDetailComponent implements OnInit {
 
   getDate(unix: number): string {
     return new Date(unix*1000).toLocaleString('zh-CN', {hour12: false});
+  }
+
+  deleteNode(id: number) {
+    this.applicationService.getResponse('delnode', function(){}, id, null);
+    this.router.navigate(['/nodes']);
   }
 
 }

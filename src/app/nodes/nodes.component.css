@@ -7,3 +7,10 @@ mat-list-item {
   mat-list-item:hover {
     cursor: pointer;
   }
+
+  .wrapkey {
+    background-color: #f4f4f4;
+    padding: 5px;
+    line-height: 2em;
+    word-break: break-all;
+  }

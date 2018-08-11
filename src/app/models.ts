@@ -153,10 +153,12 @@ export class RegexMatch {
     preprocess: boolean;
 }
 
-export class GateNode {
+export class NodesKey {
+    nodes_key: string;
+}
+
+export class Node {
     id: number;
-    encrypted_key: string;
-    name: string;
     version: string;
     last_ip: string;
     last_req_time: number;
