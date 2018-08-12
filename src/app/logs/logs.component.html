@@ -16,7 +16,7 @@
     <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
     <mat-datepicker #pickerEnd></mat-datepicker>
   </mat-form-field>
-  <button mat-raised-button (click)="queryRegexLogs()" color="primary">Query Logs</button>
+  <button mat-raised-button (click)="queryRegexLogs()" color="primary">Query WAF Logs</button>
 </div>
 <div class="mat-elevation-z8">
   <mat-table #table [dataSource]="regexLogDataSource"> 

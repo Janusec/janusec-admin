@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
-import { AuthUser, Application, Certificate, Domain, AppAdmin, VulnType, APIResponse, NodesKey, Node, SimpleRegexHitLog,LastRegexLogs } from './models';
+import { AuthUser, Application, Certificate, Domain, AppAdmin, VulnType, APIResponse, NodesKey, Node, LastRegexLogs, LastCCLogs } from './models';
 import { MessageService } from './message.service';
 
 const httpOptions = {
@@ -21,8 +21,9 @@ export class ApplicationService {
   domains: Domain[]=[];
   admins: AppAdmin[]=[];
   vulntypes: VulnType[]=[];
-  vulntypemap : object = new(Object);
-  lastRegexLogs : LastRegexLogs = new(LastRegexLogs);
+  vulntypemap: object = new(Object);
+  lastRegexLogs: LastRegexLogs = new(LastRegexLogs);
+  lastCCLogs: LastCCLogs = new (LastCCLogs);
   
   constructor(private http: HttpClient,
     private messageService: MessageService) { }

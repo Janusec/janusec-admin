@@ -14,6 +14,8 @@ import { NodeDetailComponent } from '../node-detail/node-detail.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { LogsComponent } from '../logs/logs.component';
 import { LogDetailComponent } from '../log-detail/log-detail.component';
+import { CCLogsComponent } from '../cclogs/cclogs.component';
+import { CCLogDetailComponent } from '../cclog-detail/cclog-detail.component';
 import { SettingsComponent } from '../settings/settings.component';
 import { FrontpageComponent } from '../frontpage/frontpage.component';
 
@@ -32,8 +34,10 @@ const routes: Routes = [
   { path: 'nodes', component: NodesComponent},
   { path: 'node/:id', component: NodeDetailComponent},
   { path: 'logs', component: LogsComponent},
+  { path: 'cclogs', component: CCLogsComponent},
   { path: 'settings', component: SettingsComponent},
   { path: 'log/:id', component: LogDetailComponent},
+  { path: 'cclog/:id', component: CCLogDetailComponent},
   { path: 'login', component: LoginFormComponent}
 ];
 

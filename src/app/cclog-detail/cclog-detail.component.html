@@ -1,0 +1,46 @@
+<div *ngIf="log">
+  <h2>
+            <mat-icon>details</mat-icon>
+            CC Log Details
+  </h2>  
+  
+  <div class="container">
+    <mat-form-field>
+      <input matInput [value]="getDate(log.request_time)" placeholder="Time"  readonly="true"/>    
+     </mat-form-field>
+     <mat-form-field>
+      <input matInput [value]="log.client_ip" placeholder="IP"  readonly="true"/>    
+     </mat-form-field>
+     <mat-form-field>
+      <input matInput [value]="log.host" placeholder="Host"  readonly="true"/>    
+     </mat-form-field>
+     <mat-form-field>
+      <input matInput [value]="log.method" placeholder="Method"  readonly="true"/>    
+     </mat-form-field>
+     <mat-form-field>
+      <input matInput [value]="log.url_path" placeholder="URL Path"  readonly="true"/>    
+     </mat-form-field>
+     <mat-form-field>
+      <input matInput [value]="log.url_query" placeholder="URL Query"  readonly="true"/>    
+     </mat-form-field>
+     <mat-form-field>
+      <input matInput [value]="log.content_type" placeholder="Content Type"  readonly="true"/>    
+     </mat-form-field>
+     <mat-form-field>
+      <textarea matInput [value]="log.user_agent" placeholder="User-Agent" rows="2" readonly="true"></textarea>  
+     </mat-form-field>
+     <mat-form-field>
+      <input matInput [value]="log.cookies" placeholder="Cookie"  readonly="true"/>    
+     </mat-form-field>
+     <mat-form-field>
+      <textarea matInput [value]="log.raw_request" placeholder="Raw Request" rows="16" readonly="true"></textarea>   
+     </mat-form-field>
+     <mat-form-field>
+      <input matInput [value]="getPolicyActionEnumString(log.action)" placeholder="Action"  readonly="true"/>    
+     </mat-form-field>     
+     
+     <section></section>
+    <div>
+  </div> 
+  <button mat-raised-button (click)="goBack()" color="primary">Go Back</button>
+  </div>

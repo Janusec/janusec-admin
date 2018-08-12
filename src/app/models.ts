@@ -165,6 +165,22 @@ export class Node {
     online: boolean;
 }
 
+export class CCLog {
+    id: number;
+    request_time: number;
+    client_ip: string;
+    host: string;
+    method: string;
+    url_path: string;
+    url_query: string;
+    content_type: string;
+    user_agent: string;
+    cookies: string;
+    raw_request: string;
+    action: PolicyAction;
+    app_id: number;
+}
+
 export class RegexHitLog {
     id: number;
     request_time: number;
@@ -194,7 +210,25 @@ export class SimpleRegexHitLog {
     app_id: number;
 }
 
+export class SimpleCCLog {
+    id: number;
+    request_time: number;
+    client_ip: string;
+    host: string;
+    method: string;
+    url_path: string;
+    action: PolicyAction;
+    app_id: number;
+}
+
 export class RegexHitLogsCount {
+    app_id: number;
+    start_time: number;
+    end_time: number;
+    count: number;
+}
+
+export class CCLogsCount {
     app_id: number;
     start_time: number;
     end_time: number;
@@ -208,6 +242,15 @@ export class LastRegexLogs {
     page_index: number;
     length: number;
     regex_logs: SimpleRegexHitLog[]=[];
+}
+
+export class LastCCLogs {
+    app_id : number;  
+    start_date: Date;
+    end_date: Date;
+    page_index: number;
+    length: number;
+    cc_logs: SimpleCCLog[]=[];
 }
 
 export class VulnStat {

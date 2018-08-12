@@ -26,6 +26,8 @@ import { NodeDetailComponent } from './node-detail/node-detail.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LogsComponent } from './logs/logs.component';
 import { LogDetailComponent } from './log-detail/log-detail.component';
+import { CCLogsComponent } from './cclogs/cclogs.component';
+import { CCLogDetailComponent } from './cclog-detail/cclog-detail.component';
 import { SettingsComponent } from './settings/settings.component';
 import { FrontpageComponent } from './frontpage/frontpage.component';
 
@@ -126,6 +128,8 @@ export class MaterialModule{}
     NodeDetailComponent,
     LogsComponent,
     LogDetailComponent,
+    CCLogsComponent, 
+    CCLogDetailComponent,
     SettingsComponent,
     FrontpageComponent
   ],
