@@ -100,4 +100,26 @@ export class CertificateDetailComponent implements OnInit {
     return new Date(unix*1000).toLocaleString('zh-CN', {hour12: false});
   }
 
+  readCertificateFile(event) {
+    if(event.target.files && event.target.files.length > 0) {
+      let file = event.target.files[0];
+      let fileReader = new FileReader();
+      fileReader.onload = (e) => {
+        this.certificate.cert_content = fileReader.result as string;
+      }
+      fileReader.readAsText(file)
+    }    
+  }
+
+  readPrivKeyFile(event) {
+    if(event.target.files && event.target.files.length > 0) {
+      let file = event.target.files[0];
+      let fileReader = new FileReader();
+      fileReader.onload = (e) => {
+        this.certificate.priv_key_content = fileReader.result as string;
+      }
+      fileReader.readAsText(file)
+    }    
+  }
+
 }

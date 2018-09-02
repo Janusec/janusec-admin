@@ -17,6 +17,7 @@
       placeholder="Public Certificate Content Begin with: -----BEGIN CERTIFICATE-----"
        rows="5"  [readonly]="readOnlyValue" required>
       </textarea>
+      <input  [disabled]="readOnlyValue" type="file" (change)="readCertificateFile($event)" />
       <mat-hint align="end">{{cert_content.value?.length || 0}}/16384</mat-hint> 
     </mat-form-field>   
     
@@ -25,8 +26,9 @@
       placeholder="Private Key Content (If RSA certificate, begin with: -----BEGIN RSA PRIVATE KEY-----)"
        rows="5" [readonly]="readOnlyValue">
       </textarea>
+      <input  [disabled]="readOnlyValue" type="file" (change)="readPrivKeyFile($event)" />      
       <mat-hint align="end">{{priv_key_content.value?.length || 0}}/4096</mat-hint>
-    </mat-form-field>   
+    </mat-form-field> 
     
     <mat-form-field *ngIf="certificate.id>0">
       <input matInput [value]="getDate(certificate.expire_time)"
