@@ -1,6 +1,8 @@
 # Janusec Application Gateway Web Administration
 
-This project is the Unified Web Administration Portal for [Janusec Application Gateway](https://www.janusec.com/) , [Github](https://github.com/Janusec/janusec) , generated with [Angular CLI](https://github.com/angular/angular-cli) and Angular 5.
+This project is the Unified Web Administration Portal for [Janusec Application Gateway](https://www.janusec.com/) , [Github](https://github.com/Janusec/janusec) , generated with [Angular CLI](https://github.com/angular/angular-cli) and Angular 5.  
+
+This project is optional, and Janusec Application Gateway has already included it.  
 
 ## Development server
 
@@ -17,7 +19,7 @@ Edit `proxy.config.json` with janusec-api url and run:
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.  
-> ng build --prod --aot  
+> ng build --prod  
 
 ## Release
 
