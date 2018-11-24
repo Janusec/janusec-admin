@@ -23,7 +23,7 @@
     
     <mat-form-field>
       <textarea matInput #priv_key_content [(ngModel)]="certificate.priv_key_content" 
-      placeholder="Private Key Content (If RSA certificate, begin with: -----BEGIN PRIVATE KEY-----)"
+      placeholder="Private Key Content (begin with: -----BEGIN PRIVATE KEY-----)"
        rows="5" [readonly]="readOnlyValue">
       </textarea>
       <input  [disabled]="readOnlyValue" type="file" (change)="readPrivKeyFile($event)" />      
