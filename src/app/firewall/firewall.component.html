@@ -57,8 +57,8 @@
 
             <mat-form-field>
               <mat-select [(ngModel)]="global_cc_policy.action" placeholder="Action">
-              <mat-option *ngFor="let action_value of enum_action_values;" [value]="action_value">
-                  {{getPolicyActionEnumString(action_value)}}
+              <mat-option *ngFor="let action_value of enum_action_values;" [value]="action_value.value">
+                  {{ action_value.name }}
               </mat-option>
               </mat-select>
             </mat-form-field>

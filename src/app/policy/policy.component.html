@@ -61,8 +61,8 @@
 
         <mat-form-field>
             <mat-select [(ngModel)]="group_policy.action" placeholder="Action" [disabled]="readOnlyValue">
-            <mat-option *ngFor="let action_value of enum_action_values;" [value]="action_value">
-                {{getPolicyActionEnumString(action_value)}}
+            <mat-option *ngFor="let action_value of enum_action_values;" [value]="action_value.value">
+                {{ action_value.name }}
             </mat-option>
             </mat-select>
         </mat-form-field>

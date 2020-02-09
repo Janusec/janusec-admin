@@ -21,7 +21,7 @@ export class FirewallComponent implements OnInit {
   is_new_policy:boolean =false;
   global_regex_policies: GroupPolicy[] = [];  
   custom_regex_policies: GroupPolicy[] = [];
-  enum_action_values: number[]=[];
+  enum_action_values: {value: number; name: string}[] = [];//number[]=[];
 
   globalRegexDataSource: MatTableDataSource<GroupPolicy>;
   displayedColumns = ['id', 'description', 'is_enabled'];
@@ -51,10 +51,17 @@ export class FirewallComponent implements OnInit {
     }
     this.getGroupPolicies(0);
     this.getCCPolicy(0);
+    /*
     var enum_policy_action_values = Object.values(PolicyAction);
     var action_length = (enum_policy_action_values.length)/2;
     this.enum_action_values = enum_policy_action_values.slice(action_length);
+    */
+  for(var n in PolicyAction) {
+    if (typeof PolicyAction[n] == 'number') {
+        this.enum_action_values.push({value: <any>PolicyAction[n], name: n});
+    }
   }
+}
 
   getChkPointEnumString(value: number) {
     return ChkPoint[value];

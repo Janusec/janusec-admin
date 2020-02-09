@@ -18,7 +18,7 @@ export class ApplicationDetailComponent implements OnInit {
   certIcon: string = "assets/images/cert.png";
   optionCertificates: Certificate[];
   no_certificate:Certificate;
-  enum_ip_method_values: number[]=[];
+  enum_ip_method_values: {value: number; name: string}[] = []; // number[]=[];
 
   constructor(    
     private route: ActivatedRoute,
@@ -151,9 +151,16 @@ export class ApplicationDetailComponent implements OnInit {
   
   ngOnInit() {
     //init IPMethod enum
+    /*
     var enum_ip_method_values = Object.values(IPMethod);
     var ip_method_length = (enum_ip_method_values.length)/2;
     this.enum_ip_method_values = enum_ip_method_values.slice(ip_method_length);  
+    */
+   for(var n in IPMethod) {
+    if (typeof IPMethod[n] == 'number') {
+        this.enum_ip_method_values.push({value: <any>IPMethod[n], name: n});
+    }
+   }
     
     if(this.applicationService.domains==null || this.applicationService.domains.length==0) {
       this.applicationService.getDomains();

@@ -47,8 +47,8 @@
 
     <mat-form-field>
       <mat-select [(ngModel)]="application.ip_method" placeholder="Client IP for WAF" [disabled]="readOnlyValue">
-      <mat-option *ngFor="let ip_method_value of enum_ip_method_values;" [value]="ip_method_value">
-          {{getIPMethodEnumString(ip_method_value)}}
+      <mat-option *ngFor="let ip_method_value of enum_ip_method_values;" [value]="ip_method_value.value">
+          {{ ip_method_value.name }}
       </mat-option>
       </mat-select>
     </mat-form-field>

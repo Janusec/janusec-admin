@@ -18,6 +18,7 @@ import { CCLogsComponent } from '../cclogs/cclogs.component';
 import { CCLogDetailComponent } from '../cclog-detail/cclog-detail.component';
 import { SettingsComponent } from '../settings/settings.component';
 import { FrontpageComponent } from '../frontpage/frontpage.component';
+import { WebsshComponent } from '../webssh/webssh.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/index', pathMatch: 'full' },
@@ -38,7 +39,8 @@ const routes: Routes = [
   { path: 'settings', component: SettingsComponent},
   { path: 'log/:id', component: LogDetailComponent},
   { path: 'cclog/:id', component: CCLogDetailComponent},
-  { path: 'login', component: LoginFormComponent}
+  { path: 'login', component: LoginFormComponent},
+  { path: 'ssh', component: WebsshComponent }
 ];
 
 @NgModule({

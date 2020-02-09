@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; 
 import { HttpModule }    from '@angular/http';
-import { HttpClientModule } from '@angular/common/http';
+//import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './/app-routing/app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -66,6 +66,7 @@ import {
   MatTooltipModule,
   MatStepperModule,
 } from '@angular/material';
+import { WebsshComponent } from './webssh/webssh.component';
 
 
 @NgModule({
@@ -104,7 +105,7 @@ import {
     MatTooltipModule,
     MatStepperModule,
   ],
-  declarations: []
+  declarations: [WebsshComponent]
 })
 export class MaterialModule{}
 

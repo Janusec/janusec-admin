@@ -14,9 +14,9 @@ export class PolicyComponent implements OnInit {
   readOnlyValue: boolean = true;
   readOnlyButtonText: string = "Edit";
   regex_match: RegexMatch=new RegexMatch();
-  enum_check_values: number[]=[];
-  enum_operation_values: number[]=[];
-  enum_action_values: number[]=[];
+  enum_check_values:  {value: number; name: string}[] = [];//number[]=[];
+  enum_operation_values:  {value: number; name: string}[] = [];//number[]=[];
+  enum_action_values: {value: number; name: string}[] = [];//number[]=[];
 
   constructor(private route: ActivatedRoute,
     private applicationService: ApplicationService,
@@ -76,17 +76,38 @@ export class PolicyComponent implements OnInit {
       this.applicationService.getVulnTypes(function(){});
     }
     //init Check Points enum
+    /*
     var enum_keys_values = Object.values(ChkPoint);    
     var check_length = (enum_keys_values.length)/2;
     this.enum_check_values = enum_keys_values.slice(check_length);
+    */
+   for(var n in ChkPoint) {
+        if (typeof ChkPoint[n] == 'number') {
+            this.enum_check_values.push({value: <any>ChkPoint[n], name: n});
+        }
+    }
     //init Operation enum
+    /*
     var enum_operation_keys_values = Object.values(Operation);
     var operation_length=(enum_operation_keys_values.length)/2;
     this.enum_operation_values = enum_operation_keys_values.slice(operation_length);
+    */
+   for(var n in Operation) {
+    if (typeof Operation[n] == 'number') {
+        this.enum_operation_values.push({value: <any>Operation[n], name: n});
+    }
+}
     //init Action enum
+    /*
     var enum_policy_action_values = Object.values(PolicyAction);
     var action_length = (enum_policy_action_values.length)/2;
-    this.enum_action_values = enum_policy_action_values.slice(action_length);    
+    this.enum_action_values = enum_policy_action_values.slice(action_length);  
+    */
+   for(var n in PolicyAction) {
+    if (typeof PolicyAction[n] == 'number') {
+        this.enum_action_values.push({value: <any>PolicyAction[n], name: n});
+    }
+   }
   }
 
   changeEditable() {
