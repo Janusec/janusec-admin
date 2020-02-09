@@ -3,7 +3,7 @@ import { Application,SimpleCCLog,CCLogsCount,PolicyAction } from '../models';
 import { Router } from '@angular/router';
 import { ApplicationService } from '../application.service';
 import { MessageService } from '../message.service';
-import { MatPaginator, PageEvent } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-cclogs',
@@ -99,8 +99,8 @@ export class CCLogsComponent implements OnInit {
 
 
 import { CollectionViewer, DataSource } from "@angular/cdk/collections";
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 export class LogsDataSource implements DataSource<SimpleCCLog> {
 
   private logsSubject = new BehaviorSubject<SimpleCCLog[]>([]);

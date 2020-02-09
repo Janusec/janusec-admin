@@ -5,7 +5,8 @@ import { CCPolicy,APIResponse } from '../models';
 import { MessageService } from '../message.service';
 import { Application,GroupPolicy,PolicyAction,ChkPoint } from '../models';
 import { ApplicationService } from '../application.service';
-import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-firewall',

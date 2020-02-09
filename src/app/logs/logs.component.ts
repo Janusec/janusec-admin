@@ -3,7 +3,7 @@ import { Application,SimpleRegexHitLog,RegexHitLogsCount,PolicyAction } from '..
 import { Router } from '@angular/router';
 import { ApplicationService } from '../application.service';
 import { MessageService } from '../message.service';
-import { MatPaginator, PageEvent } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-logs',
@@ -97,8 +97,8 @@ export class LogsComponent implements OnInit {
 }
 
 import { CollectionViewer, DataSource } from "@angular/cdk/collections";
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 export class LogsDataSource implements DataSource<SimpleRegexHitLog> {
 
   private logsSubject = new BehaviorSubject<SimpleRegexHitLog[]>([]);
