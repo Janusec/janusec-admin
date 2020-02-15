@@ -6,6 +6,7 @@ import * as cryptojs from 'crypto-js';
 import { AuthUser } from '../models';
 import { MessageService } from '../message.service';
 import { ApplicationService } from '../application.service';
+declare var require: any;
 
 @Component({
   selector: 'app-login-form',

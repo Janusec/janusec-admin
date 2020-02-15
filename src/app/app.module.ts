@@ -60,7 +60,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatStepperModule } from '@angular/material/stepper';
-import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
+import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { WebsshComponent } from './webssh/webssh.component';
 
 
@@ -100,7 +100,7 @@ import { WebsshComponent } from './webssh/webssh.component';
     MatTooltipModule,
     MatStepperModule,
   ],
-  declarations: [WebsshComponent]
+  declarations: []
 })
 export class MaterialModule{}
 
@@ -127,7 +127,8 @@ export class MaterialModule{}
     CCLogsComponent, 
     CCLogDetailComponent,
     SettingsComponent,
-    FrontpageComponent
+    FrontpageComponent,
+    WebsshComponent
   ],
   imports: [
     MaterialModule,

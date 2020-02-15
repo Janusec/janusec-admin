@@ -1,4 +1,20 @@
 <h2>
+    <mat-icon>computer</mat-icon>
     Web SSH Term
 </h2> 
+<div>
+    <mat-form-field>
+        <input matInput [(ngModel)]="server.ip" placeholder="IP Address"  required/>    
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput [(ngModel)]="server.port" placeholder="Port" required/>    
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput [(ngModel)]="server.username" placeholder="Username" required/>    
+    </mat-form-field> 
+    <mat-form-field>
+        <input matInput type="password" [(ngModel)]="server.password" placeholder="Password" required/>    
+    </mat-form-field> 
+    <button mat-raised-button (click)="SSHConnect()" color="primary">SSH</button>
+</div>
 <div #terminalDiv></div>
