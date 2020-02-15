@@ -6,20 +6,26 @@ This project is optional, and Janusec Application Gateway has already included i
 
 ## Development server
 
-Angular 5+ is required.  
+Angular 9+ is required.  
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 Edit `proxy.config.json` with janusec-api url and run:  
 >  `npm start`  
 
- to solve cross-domain warnings.
+instead of `ng serve`, to solve cross-domain warnings.
 
 
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.  
 > ng build --prod  
+
+If `crypto` not found, try to change this file:
+> node_modules@angular-devkit\build-angular\src\angular-cli-files\models\webpack-configs\browser.js  
+and set node to new value:
+
+> node: { crypto: true, stream: true, fs: 'empty', net: 'empty' }  
 
 ## Release
 
