@@ -1,8 +1,8 @@
 # Janusec Application Gateway Web Administration
 
-This project is the Unified Web Administration Portal for [Janusec Application Gateway](https://www.janusec.com/) , [Github](https://github.com/Janusec/janusec) , generated with [Angular CLI](https://github.com/angular/angular-cli) and Angular 5+.  
+This project is the Unified Web Administration Portal for [Janusec Application Gateway](https://www.janusec.com/) , [Github](https://github.com/Janusec/janusec) , generated with Angular 9.  
 
-This project is optional, and Janusec Application Gateway has already included it.  
+> This project is optional, and Janusec Application Gateway has already included distribution files of this project.  
 
 ## Development server
 
