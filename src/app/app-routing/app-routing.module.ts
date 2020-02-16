@@ -21,8 +21,8 @@ import { FrontpageComponent } from '../frontpage/frontpage.component';
 import { WebsshComponent } from '../webssh/webssh.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/index', pathMatch: 'full' },
-  { path: 'index', component: FrontpageComponent},
+  { path: '', redirectTo: '/index.html', pathMatch: 'full' },
+  { path: 'index.html', component: FrontpageComponent},
   { path: 'dashboard', component: DashboardComponent},
   { path: 'application/:id', component: ApplicationDetailComponent },
   { path: 'applications', component: ApplicationsComponent },

@@ -2,6 +2,10 @@
 /* @import "assets/bootstrap/bootstrap.min.css"; */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+body {
+    font-family: Helvetica, Arial, "PingFang SC", "Source Han Serif SC", "Microsoft YaHei";
+}
+
 .container {
     display: flex;
     flex-direction: column;

@@ -11,7 +11,7 @@ const httpOptions = {
 
 @Injectable()
 export class ApplicationService {
-  private apiUrl = '/janusec-api/';
+  private apiUrl = '/janusec-admin/api';
   auth_user: AuthUser={user_id: 0, username:"", passwd:"", logged:false, need_modify_pwd: false};
   certificates: Certificate[] = [];
   applications: Application[] = [];

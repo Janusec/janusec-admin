@@ -30,8 +30,8 @@ export class WebsshComponent implements OnInit {
     } else {
         ws_url = "ws://";
     }
-    ws_url += loc.host + "/webssh";    
-    //var ws_url="ws://192.168.100.107:9080/webssh";
+    ws_url += loc.host + "/janusec-admin/webssh";    
+    //var ws_url="ws://192.168.100.107/janusec-admin/webssh";
     this.term.reset();
     const socket = new WebSocket(ws_url);
     const attachAddon = new AttachAddon(socket);
