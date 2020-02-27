@@ -29,7 +29,7 @@ and set node to new value:
 
 ## Release
 
-The produced files are under `./dist/`, copy all files  to `./static/` under Janusec Application Gateway. 
+The produced files are under `./dist/`, copy all files  to `./static/janusec-admin/` under Janusec Application Gateway. 
 
 ## Backend  
 

@@ -1,5 +1,5 @@
 {
-    "/janusec-admin/api": {
+    "/janusec-admin/": {
         "target": "http://192.168.100.107",
         "secure": false
     },

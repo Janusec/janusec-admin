@@ -53,6 +53,8 @@ export class Domain {
     name: string;
     app_id: number;
     cert_id: number;
+    redirect: boolean;
+    location: string;
 }
 
 export class AppAdmin {

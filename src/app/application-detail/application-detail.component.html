@@ -39,6 +39,12 @@
               </mat-option>                
           </mat-select>
         </mat-form-field>  
+        <mat-form-field>
+            <mat-checkbox matPrefix [(ngModel)]="application.domains[i].redirect" [disabled]="readOnlyValue">
+                Redirect to (301): &nbsp;
+            </mat-checkbox>
+            <input matInput placeholder="https://www.your-domain.com/" [(ngModel)]="application.domains[i].location" [disabled]="readOnlyValue">
+        </mat-form-field>
         <div>
             <mat-icon matTooltip="Add new domain" matTooltipPosition="right"  (click)="addDomain()">add_circle_outline</mat-icon>
             <mat-icon  *ngIf="application.domains.length>1"  (click)="delDomain(i)">remove_circle_outline</mat-icon>
@@ -55,19 +61,19 @@
 
     <section>
       <mat-checkbox [(ngModel)]="application.redirect_https" [disabled]="readOnlyValue">
-          Redirect HTTP to HTTPS ( 301 )
+          Redirect HTTP to HTTPS (301)
       </mat-checkbox>
     </section>
 
     <section>
       <mat-checkbox [(ngModel)]="application.hsts_enabled" [disabled]="readOnlyValue">
-          Enable HSTS for HTTPS ( Add Response Header: Strict-Transport-Security )
+          Enable HSTS for HTTPS (Add Response Header: Strict-Transport-Security)
       </mat-checkbox>
     </section>
 
     <section>
       <mat-checkbox [(ngModel)]="application.waf_enabled" [disabled]="readOnlyValue">
-          Enable WAF ( Web Application Firewall )
+          Enable WAF (Web Application Firewall)
       </mat-checkbox>
     </section>
         

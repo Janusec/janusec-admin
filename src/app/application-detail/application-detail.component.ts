@@ -134,6 +134,8 @@ export class ApplicationDetailComponent implements OnInit {
     new_domain.id=0;
     new_domain.app_id=this.application.id;
     new_domain.cert_id=0;
+    new_domain.redirect=false;
+    new_domain.location="";
     this.application.domains.push(new_domain);
     //console.log(this.application.domains);
   }

@@ -62,7 +62,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { WebsshComponent } from './webssh/webssh.component';
-
+import { APP_BASE_HREF } from '@angular/common';
+import { HashLocationStrategy, LocationStrategy} from '@angular/common';
 
 @NgModule({
   exports:[
@@ -141,6 +142,7 @@ export class MaterialModule{}
   ],
   providers: [MessageService, 
     ApplicationService,
+    { provide: LocationStrategy, useClass: HashLocationStrategy},
     ],
   bootstrap: [AppComponent]
 })
