@@ -23,7 +23,6 @@
     "@angular/platform-browser": "^9.0.0",
     "@angular/platform-browser-dynamic": "^9.0.0",
     "@angular/router": "^9.0.0",
-    "@ng-bootstrap/ng-bootstrap": "^1.1.2",
     "@types/node": "^12.12.27",
     "bcryptjs": "^2.4.3",
     "chart.js": "^2.9.3",
