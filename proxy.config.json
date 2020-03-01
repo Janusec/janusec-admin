@@ -8,5 +8,9 @@
         "secure": false,
         "ws": true,
         "changeOrigin": true
+    },
+    "/favicon.ico": {
+        "target": "http://192.168.100.107/janusec-admin/",
+        "secure": false
     }
 }
