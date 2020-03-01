@@ -62,8 +62,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { WebsshComponent } from './webssh/webssh.component';
-import { APP_BASE_HREF } from '@angular/common';
 import { HashLocationStrategy, LocationStrategy} from '@angular/common';
+import { registerLocaleData } from '@angular/common';
+//import { localeFr } from '@angular/common/locales/fr';
+
+//registerLocaleData(localeFr, 'zh-Hans');
 
 @NgModule({
   exports:[
