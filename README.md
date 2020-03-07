@@ -8,12 +8,11 @@ This project is the Unified Web Administration Portal for [Janusec Application G
 
 Angular 9+ is required.  
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
 Edit `proxy.config.json` with janusec-admin url and run:  
->  `npm start`  
 
-instead of `ng serve`, to solve cross-domain warnings.
+>  `npm start`  (instead of `ng serve`, to solve cross-domain warnings.)  
+
+Navigate to `http://localhost:4200/janusec-admin/`. The app will automatically reload if you change any of the source files.
 
 
 ## Build

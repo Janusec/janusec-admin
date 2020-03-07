@@ -63,10 +63,9 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { WebsshComponent } from './webssh/webssh.component';
 import { HashLocationStrategy, LocationStrategy} from '@angular/common';
-import { registerLocaleData } from '@angular/common';
-//import { localeFr } from '@angular/common/locales/fr';
-
-//registerLocaleData(localeFr, 'zh-Hans');
+//import { registerLocaleData } from '@angular/common';
+//import localeZh from '@angular/common/locales/zh';
+//registerLocaleData(localeZh, 'zh-Hans');
 
 @NgModule({
   exports:[

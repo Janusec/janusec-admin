@@ -12,6 +12,8 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "aot": true,
+            "baseHref": "/janusec-admin/",
+            "deployUrl": "/janusec-admin/",
             "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -24,14 +26,16 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "i18nMissingTranslation": "error"
           },
           "configurations": {
-            "production": {
+            "production": {              
               "budgets": [
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
                 }
               ],
               "optimization": true,
@@ -49,6 +53,9 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ]
+            },
+            "zh": {
+                "localize": ["zh"]
             }
           }
         },
@@ -60,7 +67,10 @@
           "configurations": {
             "production": {
               "browserTarget": "janusec-admin:build:production"
-            }
+            },
+            "zh": {
+                "browserTarget": "janusec-admin:build:zh"
+              }
           }
         },
         "extract-i18n": {
@@ -97,6 +107,12 @@
               "**/node_modules/**"
             ]
           }
+        }
+      },
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "zh": "src/locale/messages.zh.xlf"
         }
       }
     },
