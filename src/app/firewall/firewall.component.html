@@ -87,7 +87,7 @@
           <mat-panel-title>Custom Application CC Policy (Only show when an application selected)</mat-panel-title>
         </mat-expansion-panel-header> 
       <mat-form-field class="fullrow">
-        <mat-select [(ngModel)]="selected_app_id" placeholder="Select the Application" (change)="onSelectApp()">
+        <mat-select [(ngModel)]="selected_app_id" placeholder="Select the Application" (selectionChange)="onSelectApp()">
           <mat-option *ngFor="let application of applicationService.applications;" [value]="application.id">
             {{application.name}}
           </mat-option>  
