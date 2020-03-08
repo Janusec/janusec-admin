@@ -199,9 +199,4 @@ export class ApplicationDetailComponent implements OnInit {
     }
   }
 
-  getIPMethodEnumString(value: number) {
-    return IPMethod[value];
-  }
-
-
 }

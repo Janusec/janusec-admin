@@ -65,14 +65,6 @@ export class FirewallComponent implements OnInit {
   }
 }
 
-  getChkPointEnumString(value: number) {
-    return ChkPoint[value];
-  }
-
-  getPolicyActionEnumString(value: number) {
-    return PolicyAction[value];
-  }
-
   getCCPolicy(id: number) {
     var self = this;
     this.applicationService.getResponse('getccpolicy', function(obj: CCPolicy){

@@ -36,8 +36,4 @@ export class LogDetailComponent implements OnInit {
     this.location.back();
   }
 
-  getPolicyActionEnumString(value: number) {
-    return PolicyAction[value];
-  }
-
 }

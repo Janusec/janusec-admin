@@ -17,6 +17,7 @@ export class PolicyComponent implements OnInit {
   enum_check_values:  {value: number; name: string}[] = [];//number[]=[];
   enum_operation_values:  {value: number; name: string}[] = [];//number[]=[];
   enum_action_values: {value: number; name: string}[] = [];//number[]=[];
+  chkpointHeadValue: number = ChkPoint.HeaderValue;
 
   constructor(private route: ActivatedRoute,
     private applicationService: ApplicationService,
@@ -117,18 +118,6 @@ export class PolicyComponent implements OnInit {
     } else {
       this.readOnlyButtonText="Cancel";
     }
-  }
-
-  getChkPointEnumString(value: number) {
-    return ChkPoint[value];
-  }
-
-  getOperationEnumString(value: number) {
-    return Operation[value];
-  }
-
-  getPolicyActionEnumString(value: number) {
-    return PolicyAction[value];
   }
 
   getDate(unix: number): string {

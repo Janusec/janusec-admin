@@ -89,11 +89,6 @@ export class LogsComponent implements OnInit {
     return new Date(unix*1000).toLocaleString('zh-CN', {hour12: false});
   }
 
-  getPolicyActionEnumString(value: number) {
-    return PolicyAction[value];
-  }
-
-
 }
 
 import { CollectionViewer, DataSource } from "@angular/cdk/collections";

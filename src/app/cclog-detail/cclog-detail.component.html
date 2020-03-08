@@ -36,7 +36,7 @@
       <textarea matInput [value]="log.raw_request" placeholder="Raw Request" rows="16" readonly="true"></textarea>   
      </mat-form-field>
      <mat-form-field>
-      <input matInput [value]="getPolicyActionEnumString(log.action)" placeholder="Action"  readonly="true"/>    
+      <input matInput [value]="log.action.name" placeholder="Action"  readonly="true"/>    
      </mat-form-field>     
      
      <section></section>

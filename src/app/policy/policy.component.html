@@ -22,7 +22,7 @@
         <mat-form-field>
             <mat-select [(ngModel)]="group_policy.vuln_id" placeholder="Vulnerability" [disabled]="readOnlyValue">
             <mat-option *ngFor="let vulntype of applicationService.vulntypes;" [value]="vulntype.id">
-                {{vulntype.name}}
+                {{ vulntype.name }}
             </mat-option>  
             </mat-select> 
         </mat-form-field>
@@ -31,23 +31,23 @@
         <div class="inner-container" *ngFor="let check_item of group_policy.check_items; let i=index; trackBy:trackByFn">
                 <mat-form-field>
                   <mat-select placeholder="Check Point"  [(ngModel)]="group_policy.check_items[i].check_point" [disabled]="readOnlyValue" required>   
-                      <mat-option *ngFor="let check_value of enum_check_values;" [value]="check_value">
-                        {{getChkPointEnumString(check_value)}}
+                      <mat-option *ngFor="let check_value of enum_check_values;" [value]="check_value.value">
+                        {{ check_value.name }}
                     </mat-option>            
                   </mat-select>
                 </mat-form-field> 
 
                 <mat-form-field> 
                     <mat-select placeholder="Operation"  [(ngModel)]="group_policy.check_items[i].operation" [disabled]="readOnlyValue" required>   
-                        <mat-option *ngFor="let operation_value of enum_operation_values;" [value]="operation_value">
-                          {{getOperationEnumString(operation_value)}}
+                        <mat-option *ngFor="let operation_value of enum_operation_values;" [value]="operation_value.value">
+                          {{ operation_value.name }}
                       </mat-option>            
                     </mat-select>
                   </mat-form-field> 
 
-                <mat-form-field *ngIf="getChkPointEnumString(check_item.check_point)=='HeaderValue'">
+                <mat-form-field *ngIf="check_item.check_point==chkpointHeadValue">
                     <input matInput [(ngModel)]="check_item.key_name" placeholder="Designated HeaderKey" [disabled]="readOnlyValue">
-                </mat-form-field>                
+                </mat-form-field>
         
                 <mat-form-field>
                         <input matInput [(ngModel)]="check_item.regex_policy" placeholder="Value or RegexPolicy( Google RE2,start with (?i) if CaseInsensitive required)" required [disabled]="readOnlyValue">
