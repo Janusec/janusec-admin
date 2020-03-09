@@ -37,4 +37,8 @@ export class CCLogDetailComponent implements OnInit {
     this.location.back();
   }
 
+  getPolicyActionEnumString(value: number) {
+    return PolicyAction[value];
+  }
+
 }

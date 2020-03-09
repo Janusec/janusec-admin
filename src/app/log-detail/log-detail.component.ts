@@ -13,7 +13,6 @@ import { RegexHitLog,PolicyAction } from '../models';
 export class LogDetailComponent implements OnInit {
   @Input()  log: RegexHitLog;
 
-
   constructor(private route: ActivatedRoute,
     private applicationService: ApplicationService,
     private router: Router,
@@ -34,6 +33,10 @@ export class LogDetailComponent implements OnInit {
 
   goBack() {
     this.location.back();
+  }
+
+  getPolicyActionEnumString(value: number) {
+    return PolicyAction[value];
   }
 
 }
