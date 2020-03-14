@@ -273,3 +273,9 @@ export class Server {
         this.password = password;
     }  
 }
+
+export class OAuthInfo {
+    use_oauth: boolean;
+    display_name: string;
+    entrance_url: string;
+}

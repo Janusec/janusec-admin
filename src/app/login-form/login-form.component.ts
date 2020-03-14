@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import * as bcrypt from 'bcryptjs';
 import * as cryptojs from 'crypto-js';
-import { AuthUser } from '../models';
+import { AuthUser, OAuthInfo } from '../models';
 import { MessageService } from '../message.service';
 import { ApplicationService } from '../application.service';
 declare var require: any;
@@ -17,6 +17,7 @@ export class LoginFormComponent implements OnInit {
   username: string;
   password: string;
   submitted = false; 
+  oauth: OAuthInfo = new (OAuthInfo);
   
   onSubmit(event) { 
     if(!this.username || !this.password){
@@ -42,7 +43,14 @@ export class LoginFormComponent implements OnInit {
     private http: HttpClient,
     private router: Router) { }
 
-  ngOnInit() {    
+  ngOnInit() { 
+    let self=this;   
+    this.applicationService.getResponseByURL('/janusec-admin/oauth/get',
+      function(obj: OAuthInfo){
+        self.oauth=obj;
+        console.log(self.oauth);
+      })
   }
+  
 
 }

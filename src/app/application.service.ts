@@ -2,7 +2,7 @@ import { Injectable }    from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { AuthUser, Application, Certificate, Domain, AppAdmin, VulnType, APIResponse, NodesKey, Node, LastRegexLogs, LastCCLogs } from './models';
+import { AuthUser, Application, Certificate, Domain, AppAdmin, VulnType, APIResponse, NodesKey, Node, LastRegexLogs, LastCCLogs, OAuthInfo } from './models';
 import { MessageService } from './message.service';
 
 const httpOptions = {
@@ -23,6 +23,7 @@ export class ApplicationService {
   vulntypemap: object = new(Object);
   lastRegexLogs: LastRegexLogs = new(LastRegexLogs);
   lastCCLogs: LastCCLogs = new (LastCCLogs);
+  oauth: OAuthInfo = new (OAuthInfo);
   
   constructor(private http: HttpClient,
     private messageService: MessageService) { }
@@ -44,6 +45,19 @@ export class ApplicationService {
 
   getResponseByCustomBody(body:object, callback:(obj: object)=>any) {    
     this.http.post<APIResponse>(this.apiUrl, body, httpOptions).pipe(
+      tap( _ => {}),
+      catchError(this.handleError<APIResponse>('Get response'))
+    ).subscribe((response: APIResponse) => {  
+      if(response.err==null)  {
+        callback(response.object);
+      }
+      else this.messageService.add('Error:' + response.err);
+    });
+  }
+
+  getResponseByURL(url:string, callback:(obj: object)=>any, id?:number, obj?:object) {
+    // Get Request
+    this.http.get<APIResponse>(url, httpOptions).pipe(
       tap( _ => {}),
       catchError(this.handleError<APIResponse>('Get response'))
     ).subscribe((response: APIResponse) => {  

@@ -9,7 +9,9 @@
             <input matInput type="password" placeholder="Password" [(ngModel)]="password" required>
         </mat-form-field>
         
-        <button mat-button (click)="onSubmit($event)">Submit</button>
-        
+        <button mat-button (click)="onSubmit($event)">Submit</button>        
+    </div>
+    <div *ngIf="oauth.use_oauth==true" class="container">
+        <a href="{{ oauth.entrance_url }}">{{ oauth.display_name }}</a>
     </div>
 </div>

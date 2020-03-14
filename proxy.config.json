@@ -1,16 +1,16 @@
 {
     "/janusec-admin/": {
-        "target": "http://192.168.100.107",
+        "target": "http://192.168.100.107:9080",
         "secure": false
     },
     "/janusec-admin/webssh": {
-        "target": "ws://192.168.100.107",
+        "target": "ws://192.168.100.107:9080",
         "secure": false,
         "ws": true,
         "changeOrigin": true
     },
     "/favicon.ico": {
-        "target": "http://192.168.100.107/janusec-admin/",
+        "target": "http://192.168.100.107:9080/janusec-admin/",
         "secure": false
     }
 }
