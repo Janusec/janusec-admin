@@ -76,6 +76,20 @@
           Enable WAF (Web Application Firewall)
       </mat-checkbox>
     </section>
+
+    <section>
+        <mat-checkbox [(ngModel)]="application.oauth_required" [disabled]="readOnlyValue">
+            OAuth2 Required (Only for Internal Employees and Internal Application, {{ oauth.display_name }})
+        </mat-checkbox>
+    </section>
+
+    <mat-form-field>
+        <input type="number" matInput [(ngModel)]="application.session_seconds" [readonly]="readOnlyValue" placeholder="Session Expire Seconds for OAuth2"/>
+    </mat-form-field> 
+
+    <mat-form-field>
+        <input matInput [(ngModel)]="application.owner" [readonly]="readOnlyValue" placeholder="Application Owner"/>
+    </mat-form-field> 
         
     <mat-form-field>
         <input matInput #description [(ngModel)]="application.description" [readonly]="readOnlyValue" placeholder="Description"/>

@@ -34,14 +34,16 @@ export class UserDetailComponent implements OnInit {
   getAdmin(): void {
     let id = +this.route.snapshot.paramMap.get('id');
     if(id>0) {
-      //let body={action: 'getadmin', user_id: id};
       let self=this;
       this.applicationService.getResponse('getadmin', function(obj:AppAdmin){
         self.appadmin = obj;
       }, id, null);
     } else {
       this.appadmin=new AppAdmin();
-      this.appadmin.id=0;  
+      this.appadmin.id=0; 
+      this.appadmin.is_super_admin=false;
+      this.appadmin.is_cert_admin=false;
+      this.appadmin.is_app_admin=false;
       this.readOnlyValue = false;
       this.readOnlyButtonText="Cancel";
     }    
@@ -58,7 +60,6 @@ export class UserDetailComponent implements OnInit {
 
   onDelete() {
     if(!confirm("Are you sure to delete user: "+this.appadmin.username+"?")) return;
-    //let body={action:"deladmin", id:this.appadmin.id};
     let self=this;
     this.applicationService.getResponse('deladmin', function(){
       self.messageService.add(self.appadmin.username +" deleted.");                  

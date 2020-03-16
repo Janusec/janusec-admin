@@ -5,6 +5,7 @@ import { Application, Domain, Certificate,APIResponse, Destination, IPMethod } f
 import { ApplicationService } from '../application.service'; 
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MessageService } from '../message.service';
+import { OAuthInfo } from '../models'
 
 @Component({
   selector: 'app-application-detail',
@@ -19,6 +20,7 @@ export class ApplicationDetailComponent implements OnInit {
   optionCertificates: Certificate[];
   no_certificate:Certificate;
   enum_ip_method_values: {value: number; name: string}[] = []; // number[]=[];
+  oauth: OAuthInfo = new (OAuthInfo);
 
   constructor(    
     private route: ActivatedRoute,
@@ -52,6 +54,9 @@ export class ApplicationDetailComponent implements OnInit {
       this.application.domains=[];
       this.application.ip_method=1;
       this.application.destinations=[];
+      this.application.oauth_required=false;
+      this.application.session_seconds=86400;
+      this.application.owner=this.applicationService.auth_user.username;
       this.addDomain();
       this.addDestination();
     }
@@ -175,6 +180,13 @@ export class ApplicationDetailComponent implements OnInit {
     this.no_certificate.id=0;
     this.no_certificate.common_name='No Certificate (HTTP Only)';
     this.getCertificates();
+
+    // get oauth config
+    let self=this;  
+    this.applicationService.getResponseByURL('/janusec-admin/oauth/get',
+      function(obj: OAuthInfo){
+        self.oauth=obj;
+      });
   }
 
 

@@ -12,7 +12,15 @@ const httpOptions = {
 @Injectable()
 export class ApplicationService {
   private apiUrl = '/janusec-admin/api';
-  auth_user: AuthUser={user_id: 0, username:"", passwd:"", logged:false, need_modify_pwd: false};
+  auth_user: AuthUser={
+      user_id: 0, 
+      username:"", 
+      passwd:"", 
+      logged:false, 
+      is_super_admin:false, 
+      is_cert_admin:false, 
+      is_app_admin:false,
+      need_modify_pwd: false};
   certificates: Certificate[] = [];
   applications: Application[] = [];
   hexNodesKey: string;
@@ -39,7 +47,7 @@ export class ApplicationService {
       if(response.err==null)  {
         callback(response.object);
       }
-      else this.messageService.add('Error:' + response.err);
+      else this.messageService.add('Error: ' + response.err);
     });
   }
 
@@ -51,7 +59,7 @@ export class ApplicationService {
       if(response.err==null)  {
         callback(response.object);
       }
-      else this.messageService.add('Error:' + response.err);
+      else this.messageService.add('Error: ' + response.err);
     });
   }
 
@@ -64,7 +72,7 @@ export class ApplicationService {
       if(response.err==null)  {
         callback(response.object);
       }
-      else this.messageService.add('Error:' + response.err);
+      else this.messageService.add('Error: ' + response.err);
     });
   }
 

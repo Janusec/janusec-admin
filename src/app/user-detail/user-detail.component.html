@@ -2,7 +2,7 @@
 
   <h2>
       <mat-icon>details</mat-icon>
-      Admin Details
+      User Details
   </h2> 
   <div class="container">
     <mat-form-field>
@@ -27,15 +27,15 @@
       <mat-hint align="end">{{email.value?.length || 0}}/128</mat-hint> 
     </mat-form-field>    
 
-    <section>
+    <section *ngIf="applicationService.auth_user.is_cert_admin==true">
       <mat-checkbox [(ngModel)]="appadmin.is_super_admin" [disabled]="readOnlyValue">Authorization Administrator</mat-checkbox>
     </section> 
 
-    <section>
+    <section *ngIf="applicationService.auth_user.is_cert_admin==true">
       <mat-checkbox [(ngModel)]="appadmin.is_cert_admin" [disabled]="readOnlyValue">Certificate Administrator</mat-checkbox>
     </section> 
 
-    <section>
+    <section *ngIf="applicationService.auth_user.is_cert_admin==true">
       <mat-checkbox [(ngModel)]="appadmin.is_app_admin" [disabled]="readOnlyValue">Application Administrator </mat-checkbox>
     </section> 
     

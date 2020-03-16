@@ -44,7 +44,7 @@
     </mat-form-field>
     <div>
     <button mat-raised-button [disabled]="readOnlyValue" (click)="setCertificate()" color="primary">Save</button>
-    <button mat-raised-button (click)="changeEditable()"  color="primary">{{readOnlyButtonText}}</button>
+    <button mat-raised-button *ngIf="applicationService.auth_user.is_super_admin==true" (click)="changeEditable()"  color="primary">{{readOnlyButtonText}}</button>
     <button *ngIf="certificate.id>0" mat-raised-button [disabled]="readOnlyValue" (click)="deleteCertificate()" color="primary">Delete</button>
     <button *ngIf="certificate.id==0 && certificate.common_name" mat-raised-button (click)="selfSignCertificate()" color="primary">Self-Sign Certificate</button>
     </div>

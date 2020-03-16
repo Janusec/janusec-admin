@@ -3,6 +3,9 @@ export class AuthUser {
     username: string;
     passwd: string;
     logged: boolean;
+    is_super_admin: boolean;
+    is_cert_admin: boolean;
+    is_app_admin: boolean;
     need_modify_pwd: boolean;
 }
 
@@ -17,6 +20,9 @@ export class Application {
     domains: Domain[]; 
     ip_method: IPMethod;    
     description: string;
+    oauth_required: boolean;
+    session_seconds: number;
+    owner: string;
 }
 
 export enum IPMethod {

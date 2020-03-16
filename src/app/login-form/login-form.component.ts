@@ -28,7 +28,15 @@ export class LoginFormComponent implements OnInit {
     this.messageService.clear();
     let salt = '$2a$12$' + String(cryptojs.SHA256('Janusec'+this.username+this.password)).substring(0,22);
     let hashpwd = bcrypt.hashSync(this.password, salt);
-    const login_user:AuthUser = {user_id:0, username: this.username, passwd: hashpwd, logged: false, need_modify_pwd:false};
+    const login_user:AuthUser = {
+        user_id:0, 
+        username: this.username, 
+        passwd: hashpwd, 
+        logged: false, 
+        is_super_admin: false,
+        is_cert_admin: false,
+        is_app_admin: false,
+        need_modify_pwd:false};
     var self=this;
     this.applicationService.getResponse('login', function(obj: AuthUser){
       self.applicationService.auth_user=obj;      
@@ -48,8 +56,7 @@ export class LoginFormComponent implements OnInit {
     this.applicationService.getResponseByURL('/janusec-admin/oauth/get',
       function(obj: OAuthInfo){
         self.oauth=obj;
-        console.log(self.oauth);
-      })
+      });
   }
   
 

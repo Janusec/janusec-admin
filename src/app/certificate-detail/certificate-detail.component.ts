@@ -88,6 +88,7 @@ export class CertificateDetailComponent implements OnInit {
 
 
   changeEditable() {
+    if(this.applicationService.auth_user.is_super_admin==false) return;
     this.readOnlyValue = !this.readOnlyValue;
     if(this.readOnlyValue) {
       this.readOnlyButtonText="Edit";
