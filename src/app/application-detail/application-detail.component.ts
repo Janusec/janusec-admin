@@ -55,7 +55,7 @@ export class ApplicationDetailComponent implements OnInit {
       this.application.ip_method=1;
       this.application.destinations=[];
       this.application.oauth_required=false;
-      this.application.session_seconds=86400;
+      this.application.session_seconds=7200;
       this.application.owner=this.applicationService.auth_user.username;
       this.addDomain();
       this.addDestination();
