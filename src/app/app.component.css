@@ -6,10 +6,17 @@
     display: flex;
     align-items: top;
     justify-content: center;
-    width: 60px;
-    background: rgba(233, 226, 226, 0.1);
+    width: 190px;
 }
 
 mat-icon {
-    font-size: 24px;
+    font-size: 12px;
+}
+
+.mat-sidenav {
+    background-color: #E5E5E5;
+}
+.mat-list-item {
+    font-size: 12px;
+    font-family: 'Arial Narrow', Arial, sans-serif;
 }

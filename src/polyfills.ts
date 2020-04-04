@@ -76,8 +76,9 @@ let zhTranslations = {
     'feature_waf': 'WAF(Web应用防火墙)，CC防护',
     'feature_encryped_private_key': '私钥加密',
     'feature_oauth': 'OAuth2（企业微信/钉钉/飞书扫码登录应用）',
+    'support': '支持',
     // login form
-    'login_title': '登录',
+    'login_title': '管理登录',
     'submit': '提交',
     // certificates
     'add_cert': '添加证书',

@@ -1,7 +1,8 @@
 <mat-toolbar color="secondary">
-  <mat-toolbar-row>
     <span>
-        <a routerLink="/"><img [src]="logoPath"></a>        
+        <a routerLink="/">
+          <img [src]="logoPath" class="logo">
+        </a>        
     </span>    
     <span class="spacer"></span>    
     <button mat-button (click)="switchLanguage()" i18n="@@lang">中文</button>
@@ -20,5 +21,4 @@
         Login
     </button>
     
-  </mat-toolbar-row>
 </mat-toolbar>

@@ -6,6 +6,11 @@
     flex: 1 1 auto;
 }
 
-.navbar {
-    height: 50px;
+.mat-toolbar {
+    height: 40px;
+    padding-left: 1px;
+}
+
+.logo {
+    height: 36px;
 }

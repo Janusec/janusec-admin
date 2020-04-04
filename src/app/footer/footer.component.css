@@ -1,0 +1,10 @@
+.footer {
+    font-size: 14px;
+    font-family: 'Arial Narrow', Arial, sans-serif;
+    text-align: center;        
+}
+
+.mat-toolbar-row {
+    background-color: #D5D5D5;
+    height: 40px;
+}

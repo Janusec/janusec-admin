@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; 
-//import { HttpModule }    from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './/app-routing/app-routing.module';
 import { AppComponent } from './app.component';
@@ -63,9 +62,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { WebsshComponent } from './webssh/webssh.component';
 import { HashLocationStrategy, LocationStrategy} from '@angular/common';
-//import { registerLocaleData } from '@angular/common';
-//import localeZh from '@angular/common/locales/zh';
-//registerLocaleData(localeZh, 'zh-Hans');
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   exports:[
@@ -137,7 +134,7 @@ export class MaterialModule{}
     MaterialModule,
     BrowserModule, 
     BrowserAnimationsModule,
-    //HttpModule,
+    FlexLayoutModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule

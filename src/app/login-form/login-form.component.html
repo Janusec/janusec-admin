@@ -1,6 +1,7 @@
-<div>
-    <div *ngIf="applicationService.auth_user.logged==false" class="container">
-        <h1 i18n="@@login_title">Login</h1>        
+<div fxLayout="row wrap">
+    <div fxFlex="30%"></div>
+    <div fxFlex="40%" *ngIf="applicationService.auth_user.logged==false" class="container">
+        <h1 i18n="@@login_title">Admin Login</h1>        
         <mat-form-field>
             <input matInput i18n-placeholder="@@username" placeholder="Username" [(ngModel)]="username" required>
         </mat-form-field>
@@ -9,9 +10,10 @@
             <input matInput i18n-placeholder="@@password" type="password" placeholder="Password" [(ngModel)]="password" required>
         </mat-form-field>
         
-        <button i18n="@@submit" mat-button (click)="onSubmit($event)">Submit</button>        
+        <button i18n="@@submit" mat-button (click)="onSubmit($event)" class="submit">Submit</button>        
     </div>
     <div *ngIf="oauth.use_oauth==true" class="container">
         <a href="{{ oauth.entrance_url }}">{{ oauth.display_name }}</a>
     </div>
+    <div fxFlex="30%"></div>
 </div>

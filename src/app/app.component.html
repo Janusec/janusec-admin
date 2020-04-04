@@ -4,44 +4,68 @@
 <mat-sidenav-container class="sidenav-container">
 <mat-sidenav *ngIf="applicationService.auth_user.logged"
     #sidenav mode="side" opened="true" class="sidenav" role="navigation"> 
-    <mat-nav-list>
-        
-        <mat-list-item i18n-matTooltip="@@cert_mgmt" matTooltip="Certificate Management" [matTooltipPosition]="position">
-                <a routerLink="/certificates"><mat-icon>lock_outline</mat-icon></a>
+    <mat-nav-list>  
+        <mat-list-item>
+                <a routerLink="/dashboard">
+                    <mat-icon>dashboard</mat-icon>
+                    <span i18n="@@dashboard">Dashboard</span>
+                </a>
         </mat-list-item>
         
-        <mat-list-item i18n-matTooltip="@@app_mgmt" matTooltip="Application Management" [matTooltipPosition]="position">
-                <a routerLink="/applications"><mat-icon>format_color_text</mat-icon></a>
+        <mat-list-item>
+                <a routerLink="/certificates">
+                    <mat-icon>lock_outline</mat-icon>
+                    <span i18n="@@cert_mgmt">Certificate Management</span>
+                </a>
+        </mat-list-item>
+        
+        <mat-list-item>
+                <a routerLink="/applications">
+                    <mat-icon>format_color_text</mat-icon>
+                    <span i18n="@@app_mgmt">Application Management</span>
+                </a>
         </mat-list-item>        
 
-        <mat-list-item i18n-matTooltip="@@node_mgmt" matTooltip="Node Management" [matTooltipPosition]="position">
-            <a routerLink="/nodes"><mat-icon>games</mat-icon></a>            
+        <mat-list-item>
+            <a routerLink="/nodes">
+                <mat-icon>games</mat-icon>
+                <span i18n="@@node_mgmt">Node Management</span>
+            </a>            
         </mat-list-item>
 
-        <mat-list-item i18n-matTooltip="@@user_mgmt"  matTooltip="User Management" [matTooltipPosition]="position">
-                <a routerLink="/usermgmt"><mat-icon>supervisor_account</mat-icon></a> 
+        <mat-list-item>
+            <a routerLink="/usermgmt">
+                <mat-icon>supervisor_account</mat-icon>
+                <span i18n="@@user_mgmt">User Management</span>
+            </a> 
         </mat-list-item>
 
-        <mat-divider></mat-divider>
-
-        <mat-list-item i18n-matTooltip="@@dashboard" matTooltip="Dashboard" [matTooltipPosition]="position">
-                <a routerLink="/dashboard"><mat-icon>dashboard</mat-icon></a>
+        <mat-list-item>
+            <a routerLink="/waf">
+                <mat-icon>security</mat-icon>
+                <span i18n="@@waf_mgmt">WAF Management</span>
+            </a>  
         </mat-list-item>
 
-        <mat-list-item i18n-matTooltip="@@waf_mgmt" matTooltip="WAF Management" [matTooltipPosition]="position">
-            <a routerLink="/waf"><mat-icon>security</mat-icon></a>  
+        <mat-list-item>
+            <a routerLink="/logs">
+                <mat-icon>assignment</mat-icon>
+                <span i18n="@@waf_logs">WAF Logs</span>
+            </a>  
         </mat-list-item>
 
-        <mat-list-item i18n-matTooltip="@@waf_logs" matTooltip="WAF Logs" [matTooltipPosition]="position">
-            <a routerLink="/logs"><mat-icon>assignment</mat-icon></a>  
+        <mat-list-item>
+            <a routerLink="/cclogs">
+                <mat-icon>assignment</mat-icon>
+                <span i18n="@@cc_logs">CC Logs</span>
+            </a>  
         </mat-list-item>
 
-        <mat-list-item i18n-matTooltip="@@cc_logs" matTooltip="CC Logs" [matTooltipPosition]="position">
-            <a routerLink="/cclogs"><mat-icon>assignment</mat-icon></a>  
-        </mat-list-item>
-
-        <mat-list-item matTooltip="SSH" [matTooltipPosition]="position">
-            <a routerLink="/ssh"><mat-icon>computer</mat-icon></a>  
+        <mat-list-item>
+            <a routerLink="/ssh">
+                <mat-icon>computer</mat-icon>
+                <span>Web SSH</span>
+            </a>  
         </mat-list-item>
 
     </mat-nav-list>    

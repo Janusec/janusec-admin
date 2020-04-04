@@ -111,9 +111,7 @@
       },
       "i18n": {
         "sourceLocale": "en-US",
-        "locales": {
-          "zh": "src/locale/messages.zh.xlf"
-        }
+        "locales": { }
       }
     },
     "janusec-admin-e2e": {
