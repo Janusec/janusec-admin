@@ -4,7 +4,7 @@
         <a routerLink="/"><img [src]="logoPath"></a>        
     </span>    
     <span class="spacer"></span>    
-    
+    <button mat-button (click)="switchLanguage()" i18n="@@lang">中文</button>
     <button mat-button [matMenuTriggerFor]="menu" *ngIf="applicationService.auth_user.logged">
         <mat-icon color="secondary">account_circle</mat-icon>
         {{applicationService.auth_user.username}}
@@ -16,7 +16,7 @@
         </button>
     </mat-menu>
     
-    <button mat-button *ngIf="applicationService.auth_user.logged==false" (click)="navigate('/login')">
+    <button mat-button i18n="@@login" *ngIf="applicationService.auth_user.logged==false" (click)="navigate('/login')">
         Login
     </button>
     

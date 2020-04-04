@@ -2,17 +2,17 @@
 
     <h2>
         <mat-icon>details</mat-icon>
-        Policy Details
+        <span i18n="@@policy_detail">Policy Details</span>        
     </h2>  
       
     <div class="container">
         <mat-form-field>
-            <input matInput [(ngModel)]="group_policy.description" placeholder="Name or Description" required [disabled]="readOnlyValue">
+            <input matInput i18n-placeholder="@@policy_description" [(ngModel)]="group_policy.description" placeholder="Name or Description" required [disabled]="readOnlyValue">
         </mat-form-field>
 
         <mat-form-field>
-          <mat-select [(ngModel)]="group_policy.app_id" placeholder="Applies to" [disabled]="true">
-          <mat-option [value]=0>All applications</mat-option>
+          <mat-select i18n-placeholder="@@apply_to" [(ngModel)]="group_policy.app_id" placeholder="Applies to" [disabled]="true">
+          <mat-option i18n="@@all" [value]=0>All applications</mat-option>
           <mat-option *ngFor="let application of applicationService.applications;" [value]="application.id">
               {{application.name}}
           </mat-option>  
@@ -20,7 +20,7 @@
         </mat-form-field>
  
         <mat-form-field>
-            <mat-select [(ngModel)]="group_policy.vuln_id" placeholder="Vulnerability" [disabled]="readOnlyValue">
+            <mat-select i18n-placeholder="@@vulnerability" [(ngModel)]="group_policy.vuln_id" placeholder="Vulnerability" [disabled]="readOnlyValue">
             <mat-option *ngFor="let vulntype of applicationService.vulntypes;" [value]="vulntype.id">
                 {{ vulntype.name }}
             </mat-option>  
@@ -30,7 +30,7 @@
 
         <div class="inner-container" *ngFor="let check_item of group_policy.check_items; let i=index; trackBy:trackByFn">
                 <mat-form-field>
-                  <mat-select placeholder="Check Point"  [(ngModel)]="group_policy.check_items[i].check_point" [disabled]="readOnlyValue" required>   
+                  <mat-select i18n-placeholder="@@check_point" placeholder="Check Point"  [(ngModel)]="group_policy.check_items[i].check_point" [disabled]="readOnlyValue" required>   
                       <mat-option *ngFor="let check_value of enum_check_values;" [value]="check_value.value">
                         {{ check_value.name }}
                     </mat-option>            
@@ -38,7 +38,7 @@
                 </mat-form-field> 
 
                 <mat-form-field> 
-                    <mat-select placeholder="Operation"  [(ngModel)]="group_policy.check_items[i].operation" [disabled]="readOnlyValue" required>   
+                    <mat-select i18n-placeholder="@@operation" placeholder="Operation"  [(ngModel)]="group_policy.check_items[i].operation" [disabled]="readOnlyValue" required>   
                         <mat-option *ngFor="let operation_value of enum_operation_values;" [value]="operation_value.value">
                           {{ operation_value.name }}
                       </mat-option>            
@@ -46,21 +46,23 @@
                   </mat-form-field> 
 
                 <mat-form-field *ngIf="check_item.check_point==chkpointHeadValue">
-                    <input matInput [(ngModel)]="check_item.key_name" placeholder="Designated HeaderKey" [disabled]="readOnlyValue">
+                    <input matInput i18n-placeholder="@@designated_headerkey" 
+                    [(ngModel)]="check_item.key_name" placeholder="Designated HeaderKey" [disabled]="readOnlyValue">
                 </mat-form-field>
         
                 <mat-form-field>
-                        <input matInput [(ngModel)]="check_item.regex_policy" placeholder="Value or RegexPolicy( Google RE2,start with (?i) if CaseInsensitive required)" required [disabled]="readOnlyValue">
+                        <input matInput i18n-placeholder="@@value_or_regex" 
+                        [(ngModel)]="check_item.regex_policy" placeholder="Value or RegexPolicy( Google RE2,start with (?i) if CaseInsensitive required)" required [disabled]="readOnlyValue">
                 </mat-form-field>
                 <div>
-                    <mat-icon matTooltip="Add new check point" matTooltipPosition="right"  (click)="addCheckItem()">add_circle_outline</mat-icon>
+                    <mat-icon i18n-matTooltip="@@add_new_checkpoint" matTooltip="Add new check point" matTooltipPosition="right"  (click)="addCheckItem()">add_circle_outline</mat-icon>
                     <mat-icon  *ngIf="group_policy.check_items.length>1"  (click)="delCheckItem(i)">remove_circle_outline</mat-icon>
                 </div>    
         </div>
         
 
         <mat-form-field>
-            <mat-select [(ngModel)]="group_policy.action" placeholder="Action" [disabled]="readOnlyValue">
+            <mat-select i18n-placeholder="@@action" [(ngModel)]="group_policy.action" placeholder="Action" [disabled]="readOnlyValue">
             <mat-option *ngFor="let action_value of enum_action_values;" [value]="action_value.value">
                 {{ action_value.name }}
             </mat-option>
@@ -69,11 +71,11 @@
 
 
         <mat-form-field *ngIf="group_policy.id>0">
-                <input matInput [value]="getDate(group_policy.update_time)" placeholder="Latest Update Time" disabled="true">
+                <input matInput i18n-placeholder="@@update_time" [value]="getDate(group_policy.update_time)" placeholder="Latest Update Time" disabled="true">
         </mat-form-field>
 
         <section>
-                <mat-checkbox [(ngModel)]="group_policy.is_enabled" [disabled]="readOnlyValue">
+                <mat-checkbox i18n="@@enable_policy" [(ngModel)]="group_policy.is_enabled" [disabled]="readOnlyValue">
                     Enable this policy
                 </mat-checkbox>
         </section>
@@ -85,19 +87,22 @@
         </div>
     </div> 
     <hr>
-    <h3>Regex Test Tool</h3>
+    <h3 i18n="@@regex_test_tool">Regex Test Tool</h3>
     <div class="container">
         <mat-form-field>
-            <input matInput [(ngModel)]="regex_match.pattern" placeholder="Policy Pattern (Google RE2 Regex Expression)" required>
+            <input matInput i18n-placeholder="@@regex_pattern" [(ngModel)]="regex_match.pattern" 
+            placeholder="Policy Pattern (Google RE2 Regex Expression)" required>
         </mat-form-field>
         <mat-form-field>
-            <input matInput [(ngModel)]="regex_match.payload" placeholder="Payload Value to Test" required>
+            <input matInput i18n-placeholder="@@payload_to_test"  
+            [(ngModel)]="regex_match.payload" placeholder="Payload Value to Test" required>
         </mat-form-field>
         <mat-form-field>
-            <input matInput [(ngModel)]="regex_match.matched" placeholder="Match Result" readonly>
+            <input matInput i18n-placeholder="@@matched_result" 
+            [(ngModel)]="regex_match.matched" placeholder="Match Result" readonly>
         </mat-form-field>
         <section>
-            <mat-checkbox [(ngModel)]="regex_match.preprocess">
+            <mat-checkbox i18n="@@regex_preprocess" [(ngModel)]="regex_match.preprocess">
                 Preprocess Payload Value by Janusec (Remove &#34; &#39; /**/ etc.)
             </mat-checkbox>
         </section>

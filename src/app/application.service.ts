@@ -111,6 +111,7 @@ export class ApplicationService {
     var self = this;
     this.getResponse('getnodes', function(obj: Node[]){
       self.nodes = obj;
+      if(self.nodes == null) return;
       var now_ms = (new Date()).getTime();
       for(let node of self.nodes) {
         let ms_diff = now_ms - (new Date(node.last_req_time*1000)).getTime();

@@ -39,6 +39,16 @@ export class NavbarComponent implements OnInit {
   }
 */
 
+  switchLanguage() {    
+    var lang = localStorage.getItem('lang');
+    if(lang=="" || lang=="en") {
+      localStorage.setItem('lang', 'zh-cn');
+    } else {
+      localStorage.setItem('lang', 'en');
+    }
+    window.location.reload();
+  }
+
   logout() {
     const body={action: 'logout'};  
     let self=this;

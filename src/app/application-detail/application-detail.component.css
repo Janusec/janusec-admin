@@ -11,3 +11,8 @@ mat-form-field {
     margin-bottom:3px;
     background-color: #F0F0F0;
 }
+
+.inner-container {
+    border: 1px dashed;
+    padding: 3px;
+}

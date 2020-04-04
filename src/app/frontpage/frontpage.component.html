@@ -1,11 +1,13 @@
 <div>    
-    <mat-card>Janusec Application Gateway 0.9.7</mat-card>    
+    <mat-card>
+      <h2 i18n="@@product_name">Janusec Application Gateway 0.9.7</h2>
+    </mat-card>    
   </div>
   <div class="inner-container">
     <mat-card>
       <mat-card-content class="card-content">
           <img mat-card-image src="/janusec-admin/assets/images/gateway.png" class="card-image">
-          <p>
+          <p i18n="@@product_desc">
             Janusec Application Gateway, a Golang based application security solution which provides WAF (Web Application Firewall), CC attack defense, unified web administration portal, private key protection, web routing and scalable load balancing. 
           </p>
       </mat-card-content>
@@ -13,27 +15,27 @@
   
     <mat-card>
         <mat-card-header>
-          <mat-card-title>          
+          <mat-card-title i18n="@@feature_title">          
             Features of Janusec Application Gateway
           </mat-card-title>
         </mat-card-header>      
         <mat-card-content>
-          <mat-list>
-              <mat-list-item>
-              <mat-icon mat-card-avatar>done</mat-icon>  
-              HTTP(S) Web Application Firewall, No Agent Required
-              </mat-list-item>
+          <mat-list>              
             <mat-list-item>
                 <mat-icon mat-card-avatar>done</mat-icon>  
-                Load Balance
+                <span>HTTP, HTTPS, HTTP2, Web Socket</span>
             </mat-list-item>
             <mat-list-item>
                 <mat-icon mat-card-avatar>done</mat-icon>  
-                Encrypted Digital Certificates Manager
+                <span i18n="@@feature_waf">WAF (Web Application Firewall) and CC denfense</span>
+            </mat-list-item>
+            <mat-list-item>
+                <mat-icon mat-card-avatar>done</mat-icon>  
+                <span i18n="@@feature_encryped_private_key">Encryption of Private Key</span>
             </mat-list-item>
             <mat-list-item>
                 <mat-icon mat-card-avatar>done</mat-icon> 
-                Scalable Architecture
+                <span i18n="@@feature_oauth">OAuth2</span>
             </mat-list-item>
           </mat-list>
         </mat-card-content>

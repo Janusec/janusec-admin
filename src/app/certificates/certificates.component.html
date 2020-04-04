@@ -1,10 +1,12 @@
 <div>
-  <mat-card>Certificate Management</mat-card>
+  <mat-card>
+      <h2 i18n="@@cert_mgmt">Certificate Management</h2>      
+  </mat-card>
 </div>
 <mat-list class="mat-list-item-list-stacked">
 <mat-list-item *ngIf="applicationService.auth_user.is_cert_admin==true" (click)="addCertificate()">  
     <mat-icon matListIcon>add_circle_outline</mat-icon>
-    <h3 matLine>Add Certificate</h3>
+    <h3 matLine i18n="@@add_cert">Add Certificate</h3>
 </mat-list-item>
 <mat-list-item *ngFor="let certificate of applicationService.certificates"
  (click)="onSelect(certificate)">    

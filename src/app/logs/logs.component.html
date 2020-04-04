@@ -1,22 +1,25 @@
 <div>
    <mat-form-field>
-    <mat-select [(ngModel)]="app_id" placeholder="Application">
+    <mat-select i18n-placeholder="@@application" [(ngModel)]="app_id" placeholder="Application">
     <mat-option *ngFor="let application of applicationService.applications;" [value]="application.id">
         {{application.name}}
     </mat-option>  
     </mat-select> 
   </mat-form-field>
   <mat-form-field>
-    <input matInput [(ngModel)]="start_date"  [matDatepicker]="pickerStart" placeholder="Begin Time (00:00:00)">
+    <input matInput i18n-placeholder="@@begin_time" 
+    [(ngModel)]="start_date"  [matDatepicker]="pickerStart" placeholder="Begin Time (00:00:00)">
     <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
     <mat-datepicker #pickerStart></mat-datepicker>
   </mat-form-field>
   <mat-form-field>
-    <input matInput [(ngModel)]="end_date"  [matDatepicker]="pickerEnd" placeholder="End Time (23:59:59)">
+    <input matInput i18n-placeholder="@@end_time" 
+    [(ngModel)]="end_date"  [matDatepicker]="pickerEnd" placeholder="End Time (23:59:59)">
     <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
     <mat-datepicker #pickerEnd></mat-datepicker>
   </mat-form-field>
-  <button mat-raised-button (click)="queryRegexLogs()" color="primary">Query WAF Logs</button>
+  <button mat-raised-button i18n="@@query_waf_logs" 
+  (click)="queryRegexLogs()" color="primary">Query WAF Logs</button>
 </div>
 <div class="mat-elevation-z8">
   <mat-table #table [dataSource]="regexLogDataSource"> 

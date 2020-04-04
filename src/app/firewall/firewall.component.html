@@ -1,6 +1,6 @@
 <div class="container">
 <mat-tab-group>
-  <mat-tab label="Global Vulnerabilities Policy">
+  <mat-tab i18n-label="@@global_vuln_policy" label="Global Vulnerabilities Policy">
     <div>
       <div class="mat-elevation-z8">
         <mat-table #table [dataSource]="globalRegexDataSource"> 
@@ -13,12 +13,12 @@
                 </mat-cell>
           </ng-container>
           <ng-container matColumnDef="description">
-            <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+            <mat-header-cell i18n="@@description" *matHeaderCellDef> Description </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
           </ng-container>
                 
           <ng-container matColumnDef="is_enabled">
-            <mat-header-cell *matHeaderCellDef> Enabled </mat-header-cell>
+            <mat-header-cell i18n="@@enabled" *matHeaderCellDef> Enabled </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{ element.is_enabled }} </mat-cell>
           </ng-container>          
 
@@ -34,46 +34,46 @@
         </mat-paginator>
       </div>
       <div>
-        <button mat-raised-button (click)="newGroupPolicy()" color="primary">Add Policy</button>        
+        <button mat-raised-button i18n="@@add_policy" (click)="newGroupPolicy()" color="primary">Add Policy</button>        
       </div>
     </div>
   </mat-tab>
 
-  <mat-tab label="CC Policy">
+  <mat-tab i18n-label="@@cc_policy" label="CC Policy">
       <mat-accordion>
           <mat-expansion-panel (opened)="getCCPolicy(0)"  class="custommargin">
             <mat-expansion-panel-header>
-              <mat-panel-title>Global CC Policy (Invalid for applications with custom CC policies)</mat-panel-title>
+              <mat-panel-title i18n="@@global_cc_title">Global CC Policy (Invalid for an applications which has custom CC policy)</mat-panel-title>
             </mat-expansion-panel-header>        
             <mat-form-field>
-              <input matInput [(ngModel)]="global_cc_policy.interval_seconds" type="number" placeholder="Statistic Period (Seconds)" required>
+              <input matInput i18n-placeholder="@@interval_seconds" [(ngModel)]="global_cc_policy.interval_seconds" type="number" placeholder="Statistic Period (Seconds)" required>
             </mat-form-field>        
             <mat-form-field>
-              <input matInput [(ngModel)]="global_cc_policy.max_count" type="number" placeholder="Max Requests Count" required>
+              <input matInput i18n-placeholder="@@max_count" [(ngModel)]="global_cc_policy.max_count" type="number" placeholder="Max Requests Count" required>
             </mat-form-field>
             <mat-form-field>
-                <input matInput [(ngModel)]="global_cc_policy.block_seconds" type="number" placeholder="Block Seconds" required>
+                <input matInput i18n-placeholder="@@block_seconds" [(ngModel)]="global_cc_policy.block_seconds" type="number" placeholder="Block Seconds" required>
             </mat-form-field>
 
             <mat-form-field>
-              <mat-select [(ngModel)]="global_cc_policy.action" placeholder="Action">
+              <mat-select i18n-placeholder="@@action" [(ngModel)]="global_cc_policy.action" placeholder="Action">
               <mat-option *ngFor="let action_value of enum_action_values;" [value]="action_value.value">
                   {{ action_value.name }}
               </mat-option>
               </mat-select>
             </mat-form-field>
             <section>
-              <mat-checkbox [(ngModel)]="global_cc_policy.stat_by_url">Count different URL separately</mat-checkbox>
+              <mat-checkbox  i18n="@@count_each_url"  [(ngModel)]="global_cc_policy.stat_by_url">Count each URL separately</mat-checkbox>
             </section>
             <section>
-              <mat-checkbox [(ngModel)]="global_cc_policy.stat_by_ua">Count different User-Agent separately</mat-checkbox>
+              <mat-checkbox i18n="@@count_each_ua"  [(ngModel)]="global_cc_policy.stat_by_ua">Count each User-Agent separately</mat-checkbox>
             </section>
             <section>
-              <mat-checkbox [(ngModel)]="global_cc_policy.stat_by_cookie">Count different Cookies separately</mat-checkbox>
+              <mat-checkbox i18n="@@count_each_cookie"  [(ngModel)]="global_cc_policy.stat_by_cookie">Count different Cookies separately</mat-checkbox>
             </section>
             
             <section>
-              <mat-checkbox [(ngModel)]="global_cc_policy.is_enabled" >Enabled this CC block policy</mat-checkbox>
+              <mat-checkbox i18n="@@enable_policy"  [(ngModel)]="global_cc_policy.is_enabled" >Enabled this CC block policy</mat-checkbox>
             </section>
             <mat-action-row>
             <button mat-button mat-raised-button (click)="updateCCPolicy(0)" color="primary">Save</button>
@@ -84,17 +84,19 @@
       <mat-accordion>
       <mat-expansion-panel [expanded]="true" class="custommargin">
         <mat-expansion-panel-header>
-          <mat-panel-title>Custom Application CC Policy (Only show when an application selected)</mat-panel-title>
+          <mat-panel-title i18n="@@custom_cc_title">Custom Application CC Policy (Only show when an application selected)</mat-panel-title>
         </mat-expansion-panel-header> 
       <mat-form-field class="fullrow">
-        <mat-select [(ngModel)]="selected_app_id" placeholder="Select the Application" (selectionChange)="onSelectApp()">
+        <mat-select [(ngModel)]="selected_app_id" i18n-placeholder="@@select_application" 
+        placeholder="Select the Application" (selectionChange)="onSelectApp()">
           <mat-option *ngFor="let application of applicationService.applications;" [value]="application.id">
             {{application.name}}
           </mat-option>  
         </mat-select> 
       </mat-form-field> 
       <mat-action-row *ngIf="selected_app_id && !has_custom_cc_policy">
-        <button mat-raised-button color="primary" (click)="newCCPolicy(selected_app_id)">Add Custom CC Policy</button>
+        <button mat-raised-button i18n="@@add_custom_cc_policy"
+         color="primary" (click)="newCCPolicy(selected_app_id)">Add Custom CC Policy</button>
       </mat-action-row>      
       </mat-expansion-panel>      
       </mat-accordion>
@@ -105,32 +107,32 @@
             <mat-panel-title>{{application.name}} CC Policy</mat-panel-title>
           </mat-expansion-panel-header>        
           <mat-form-field>
-            <input matInput [(ngModel)]="app_cc_policy.interval_seconds" type="number" placeholder="Statistic Period (Seconds)" required>
+            <input matInput i18n-placeholder="@@interval_seconds" [(ngModel)]="app_cc_policy.interval_seconds" type="number" placeholder="Statistic Period (Seconds)" required>
           </mat-form-field>        
           <mat-form-field>
-            <input matInput [(ngModel)]="app_cc_policy.max_count" type="number" placeholder="Max Requests Count" required>
+            <input matInput i18n-placeholder="@@max_count" [(ngModel)]="app_cc_policy.max_count" type="number" placeholder="Max Requests Count" required>
           </mat-form-field>
           <mat-form-field>
-              <input matInput [(ngModel)]="app_cc_policy.block_seconds" type="number" placeholder="Block Seconds" required>
+              <input matInput i18n-placeholder="@@block_seconds" [(ngModel)]="app_cc_policy.block_seconds" type="number" placeholder="Block Seconds" required>
           </mat-form-field>
           <mat-form-field>
-            <mat-select [(ngModel)]="app_cc_policy.action" placeholder="Action">
+            <mat-select i18n-placeholder="@@action" [(ngModel)]="app_cc_policy.action" placeholder="Action">
             <mat-option *ngFor="let action_value of enum_action_values;" [value]="action_value.value">
                 {{ action_value.name }}
             </mat-option>
             </mat-select>
           </mat-form-field>
           <section>
-            <mat-checkbox [(ngModel)]="app_cc_policy.stat_by_url">Count different URL separately</mat-checkbox>
+            <mat-checkbox i18n="@@count_each_url" [(ngModel)]="app_cc_policy.stat_by_url">Count each URL separately</mat-checkbox>
           </section>
           <section>
-            <mat-checkbox [(ngModel)]="app_cc_policy.stat_by_ua">Count different User-Agent separately</mat-checkbox>
+            <mat-checkbox i18n="@@count_each_ua" [(ngModel)]="app_cc_policy.stat_by_ua">Count each User-Agent separately</mat-checkbox>
           </section>
           <section>
-            <mat-checkbox [(ngModel)]="app_cc_policy.stat_by_cookie">Count different Cookies separately</mat-checkbox>
+            <mat-checkbox i18n="@@count_each_cookie" [(ngModel)]="app_cc_policy.stat_by_cookie">Count different Cookies separately</mat-checkbox>
           </section>
           <section>
-            <mat-checkbox [(ngModel)]="app_cc_policy.is_enabled" >Enabled this CC block policy</mat-checkbox>
+            <mat-checkbox i18n="@@enable_policy" [(ngModel)]="app_cc_policy.is_enabled" >Enabled this CC block policy</mat-checkbox>
           </section>
           <mat-action-row>
               <button mat-button mat-raised-button (click)="updateCCPolicy(selected_app_id)" color="primary">Save</button>

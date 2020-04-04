@@ -1,10 +1,12 @@
 <div>    
-    <mat-card>Application Management</mat-card>    
+    <mat-card>
+      <h2 i18n="@@app_mgmt">Application Management</h2>
+    </mat-card>    
 </div>
 <mat-list class="mat-list-item-list-stacked">
   <mat-list-item (click)="addApplication()">  
     <mat-icon matListIcon>add_circle_outline</mat-icon>
-    <h3 matLine>Add Application</h3>    
+    <h3 matLine i18n="@@add_app">Add Application</h3>    
   </mat-list-item>
   <mat-list-item *ngFor="let application of applicationService.applications" (click)="onSelect(application)"
       [class.selected]="application === selectedApplication">

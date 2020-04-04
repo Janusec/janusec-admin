@@ -1,11 +1,13 @@
 <div>
-  <mat-card>Users Management</mat-card>
+  <mat-card>
+    <h2 i18n="@@user_mgmt">Users Management</h2>
+  </mat-card>
 </div>
 
 <mat-list class="mat-list-item-list-stacked">
 <mat-list-item *ngIf="applicationService.auth_user.is_cert_admin==true" (click)="addAdmin()">  
     <mat-icon matListIcon>add_circle_outline</mat-icon>
-    <h3 matLine>Add User</h3>
+    <h3 matLine i18n="@@add_user">Add User</h3>
 </mat-list-item>
 <mat-list-item *ngFor="let admin of applicationService.admins"
  (click)="onSelect(admin)">

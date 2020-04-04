@@ -1,6 +1,6 @@
 <div>
     <div *ngIf="applicationService.auth_user.logged==false" class="container">
-        <h1>Login</h1>        
+        <h1 i18n="@@login_title">Login</h1>        
         <mat-form-field>
             <input matInput placeholder="Username" [(ngModel)]="username" required>
         </mat-form-field>
@@ -9,7 +9,7 @@
             <input matInput type="password" placeholder="Password" [(ngModel)]="password" required>
         </mat-form-field>
         
-        <button mat-button (click)="onSubmit($event)">Submit</button>        
+        <button i18n="@@submit" mat-button (click)="onSubmit($event)">Submit</button>        
     </div>
     <div *ngIf="oauth.use_oauth==true" class="container">
         <a href="{{ oauth.entrance_url }}">{{ oauth.display_name }}</a>
