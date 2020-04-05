@@ -10,10 +10,11 @@
             <input matInput i18n-placeholder="@@password" type="password" placeholder="Password" [(ngModel)]="password" required>
         </mat-form-field>
         
-        <button i18n="@@submit" mat-button (click)="onSubmit($event)" class="submit">Submit</button>        
-    </div>
-    <div *ngIf="oauth.use_oauth==true" class="container">
-        <a href="{{ oauth.entrance_url }}">{{ oauth.display_name }}</a>
-    </div>
+        <button i18n="@@submit" mat-button (click)="onSubmit($event)" class="submit">Submit</button>    
+
+        <div *ngIf="oauth.use_oauth==true" class="oauth">
+            <a href="{{ oauth.entrance_url }}">{{ oauth.display_name }}</a>
+        </div>
+    </div>    
     <div fxFlex="30%"></div>
 </div>
