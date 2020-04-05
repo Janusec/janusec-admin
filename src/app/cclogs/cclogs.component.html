@@ -1,4 +1,6 @@
-<div>
+<div class="container">
+
+  <div>
   <mat-form-field>
    <mat-select i18n-placeholder="@@application" [(ngModel)]="app_id" placeholder="Application">
    <mat-option *ngFor="let application of applicationService.applications;" [value]="application.id">
@@ -18,6 +20,7 @@
  </mat-form-field>
  <button mat-raised-button i18n="@@query_cc_logs" (click)="queryCCLogs()" color="primary">Query CC Logs</button>
 </div>
+
 <div class="mat-elevation-z8">
  <mat-table #table [dataSource]="ccLogDataSource"> 
    <ng-container matColumnDef="id">
@@ -72,4 +75,5 @@
           [showFirstLastButtons]="true" 
           (page)="pageChanged()">
  </mat-paginator>
+</div>
 </div>

@@ -115,10 +115,10 @@ export enum ChkPoint {
 }
 
 export enum PolicyAction {
-    Block   = 100,
-    BypassAndLog  = 200,
-    Captcha = 300,
-    OK_Pass    = 400
+    BLOCK   = 100,
+    BYPASS_AND_LOG  = 200,
+    CAPTCHA = 300,
+    OK_PASS    = 400
 }
 
 export class VulnType {

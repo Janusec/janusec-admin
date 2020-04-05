@@ -1,12 +1,11 @@
 mat-card {
-    margin-top: 5px;
-    background-color: rgb(246, 246, 246);    
+    margin-bottom: 7px;
     border-radius: 0;
     font-family: Helvetica, Arial, "PingFang SC", "Source Han Serif SC", "Microsoft YaHei";
 }
 
 .card-content {
-    padding: 10px 10px;
+    padding-top: 1px 1px;
 }
 
 .card-image {

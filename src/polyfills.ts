@@ -68,7 +68,7 @@ let zhTranslations = {
     'dashboard': '仪表盘',
     'waf_mgmt': 'WAF管理',
     'waf_logs': 'WAF日志',
-    'cc_logs': 'CC攻击日志',    
+    'cc_logs': 'CC日志',    
     // frontpage
     'product_name': 'JANUSEC应用网关V0.9.7',
     'product_desc': 'JANUSEC应用网关，提供WAF、CC攻击防御、OAuth2身份认证、统一Web化管理入口、证书私钥保护、Web SSH安全运维，Web路由以及可扩展的负载均衡等功能。',
@@ -163,6 +163,10 @@ let zhTranslations = {
     'end_time': '结束时间(23:59:59)',
     'query_waf_logs': '查询WAF日志',
     'query_cc_logs': '查询CC日志',
+    'log_details': 'WAF日志详情',
+    // CC Log
+    'cc_log_details': 'CC日志详情',
+    'go_back': '后退',
     // Web SSH
     'web_ssh_term': '在线SSH运维终端',
     'ip_address': '目标主机IP地址',

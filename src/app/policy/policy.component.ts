@@ -33,7 +33,7 @@ export class PolicyComponent implements OnInit {
       this.group_policy.id=0;
       if(app_id!=null) this.group_policy.app_id=app_id;
       else this.group_policy.app_id=0;
-      this.group_policy.action=PolicyAction.Block;
+      this.group_policy.action=PolicyAction.BLOCK;
       this.group_policy.description="Custom";
       this.group_policy.check_items=[];
       this.addCheckItem();
