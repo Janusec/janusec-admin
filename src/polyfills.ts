@@ -77,6 +77,9 @@ let zhTranslations = {
     'feature_encryped_private_key': '私钥加密',
     'feature_oauth': 'OAuth2（企业微信/钉钉/飞书扫码登录应用）',
     'support': '支持',
+    'official_site': 'JANUSEC官方网站',
+    'source_code': '源代码',
+    'user_agreement': '用户协议',
     // login form
     'login_title': '管理登录',
     'submit': '提交',
@@ -112,6 +115,13 @@ let zhTranslations = {
     'node_notice': '请复制如下node_key到所有从节点config.json文件中：',
     // User Management
     'add_user': '添加用户',
+    // User Details
+    'user_details': '用户详情',
+    'confirm_password': '确认口令',
+    'email': '邮箱地址',
+    'authorization_admin': '授权管理员（授予/撤销用户权限）',
+    'certificate_admin': '证书管理员（可管理所有证书内容）',
+    'application_admin': '应用管理员（可管理所有应用）',
     // Dash Board
     'application': '请选择应用',
     'all': '所有',

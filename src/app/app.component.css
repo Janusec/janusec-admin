@@ -19,4 +19,5 @@ mat-icon {
 .mat-list-item {
     font-size: 12px;
     font-family: 'Arial Narrow', Arial, sans-serif;
+    padding-top: 1px;
 }

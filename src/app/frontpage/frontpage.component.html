@@ -47,14 +47,13 @@
               </mat-card-title>
             </mat-card-header>      
             <mat-card-content>
-                <mat-list>
-                    <mat-list-item>
-                      <a href="https://www.janusec.com" alt="Janusec" target="_blank">https://www.janusec.com</a>
-                    </mat-list-item>
-                    <mat-list-item>
-                        <a href="https://janusec.github.io/documentation/user-agreement/" alt="User Protocol" target="_blank">User Agreement and Privacy Policy</a>
-                    </mat-list-item>
-                </mat-list>
+              <mat-nav-list>
+                <a mat-list-item i18n="@@official_site" href="https://www.janusec.com" target="_blank">Official Site</a>
+                <a mat-list-item href="https://janusec.github.io" target="_blank">User Guide (English)</a>
+                <a mat-list-item href="https://janusec.github.io/cn" target="_blank">用户手册（中文）</a>
+                <a mat-list-item i18n="@@source_code" href="https://github.com/Janusec/janusec" target="_blank">Source Code</a>
+                <a mat-list-item i18n="@@user_agreement" href="https://janusec.github.io/documentation/user-agreement/" target="_blank">User Agreement</a>
+              </mat-nav-list>               
             </mat-card-content>
       </mat-card>
   

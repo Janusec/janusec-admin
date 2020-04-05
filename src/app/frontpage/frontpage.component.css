@@ -1,6 +1,8 @@
 mat-card {
     margin-top: 5px;
     background-color: rgb(246, 246, 246);    
+    border-radius: 0;
+    font-family: Helvetica, Arial, "PingFang SC", "Source Han Serif SC", "Microsoft YaHei";
 }
 
 .card-content {
@@ -10,4 +12,12 @@ mat-card {
 .card-image {
    width: 70%;
    margin-left: 15%;
+}
+
+.mat-list-item {
+    font-size: 14px;
+}
+
+.mat-nav-list {
+    display: flex;
 }

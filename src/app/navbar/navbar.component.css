@@ -9,8 +9,12 @@
 .mat-toolbar {
     height: 40px;
     padding-left: 1px;
+    padding-top: 1px;
 }
 
+.logo-span {
+    height: 38px;
+}
 .logo {
     height: 36px;
 }
