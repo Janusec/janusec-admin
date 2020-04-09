@@ -38,9 +38,9 @@ export class CCLogsComponent implements OnInit {
     } 
     if(this.applicationService.applications.length==0) {
       var self = this;
-      this.applicationService.getResponse('getapps', function(obj: Application[]){
-      self.applicationService.applications = obj;
-      self.app_id = self.applicationService.applications[0].id;
+      this.applicationService.getResponse('getapps', function(obj: Application[]){        
+          self.applicationService.applications = obj;
+          self.app_id = self.applicationService.applications[0].id;
     });
     } else {
       this.app_id = this.applicationService.applications[0].id;

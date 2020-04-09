@@ -40,8 +40,8 @@ export class ApplicationDetailComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');    
     if(id>0) {
       var self = this;
-      this.applicationService.getResponse('getapp', function(obj: Application){
-        self.application = obj;
+      this.applicationService.getResponse('getapp', function(obj: Application){        
+          self.application = obj;
       },id);
     } else {
       this.readOnlyValue = false;
@@ -65,6 +65,10 @@ export class ApplicationDetailComponent implements OnInit {
   setApplication() {
     var self=this;
     this.applicationService.getResponse('updateapp', function(obj: Application){
+      if(obj==null) {
+        self.messageService.add("Update failed.");
+        return;
+      }
       let new_id = obj.id;
       if(self.application.id == new_id)  {
         self.application = obj;
@@ -153,16 +157,10 @@ export class ApplicationDetailComponent implements OnInit {
       return;
     }
     this.application.domains.splice(i,1);
-    //console.log(this.application.domains);
   }
   
   ngOnInit() {
     //init IPMethod enum
-    /*
-    var enum_ip_method_values = Object.values(IPMethod);
-    var ip_method_length = (enum_ip_method_values.length)/2;
-    this.enum_ip_method_values = enum_ip_method_values.slice(ip_method_length);  
-    */
    for(var n in IPMethod) {
     if (typeof IPMethod[n] == 'number') {
         this.enum_ip_method_values.push({value: <any>IPMethod[n], name: n});
@@ -185,15 +183,15 @@ export class ApplicationDetailComponent implements OnInit {
     let self=this;  
     this.applicationService.getResponseByURL('/janusec-admin/oauth/get',
       function(obj: OAuthInfo){
-        self.oauth=obj;
+          self.oauth=obj;
       });
   }
 
 
   getCertificates() {
     var self = this;
-    this.applicationService.getResponse('getcerts', function(obj: Certificate[]){
-      self.optionCertificates = obj.concat(self.no_certificate);
+    this.applicationService.getResponse('getcerts', function(obj: Certificate[]){      
+        self.optionCertificates = obj.concat(self.no_certificate);
     });
   }
 

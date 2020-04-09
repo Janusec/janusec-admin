@@ -34,7 +34,7 @@
         </mat-paginator>
       </div>
       <div>
-        <button mat-raised-button i18n="@@add_policy" (click)="newGroupPolicy()" color="primary">Add Policy</button>        
+        <button *ngIf="applicationService.auth_user.is_super_admin" mat-raised-button i18n="@@add_policy" (click)="newGroupPolicy()" color="primary">Add Policy</button>        
       </div>
     </div>
   </mat-tab>

@@ -15,35 +15,35 @@
         <mat-list-item>
                 <a routerLink="/certificates">
                     <mat-icon>lock_outline</mat-icon>
-                    <span i18n="@@cert_mgmt">Certificate Management</span>
+                    <span i18n="@@cert_mgmt">Certificate</span>
                 </a>
         </mat-list-item>
         
         <mat-list-item>
                 <a routerLink="/applications">
                     <mat-icon>format_color_text</mat-icon>
-                    <span i18n="@@app_mgmt">Application Management</span>
+                    <span i18n="@@app_mgmt">Application</span>
                 </a>
         </mat-list-item>        
 
-        <mat-list-item>
+        <mat-list-item *ngIf="applicationService.auth_user.is_super_admin==true">
             <a routerLink="/nodes">
                 <mat-icon>games</mat-icon>
-                <span i18n="@@node_mgmt">Node Management</span>
+                <span i18n="@@node_mgmt">Node</span>
             </a>            
         </mat-list-item>
 
         <mat-list-item>
             <a routerLink="/usermgmt">
                 <mat-icon>supervisor_account</mat-icon>
-                <span i18n="@@user_mgmt">User Management</span>
+                <span i18n="@@user_mgmt">User</span>
             </a> 
         </mat-list-item>
 
-        <mat-list-item>
+        <mat-list-item *ngIf="applicationService.auth_user.is_super_admin==true">
             <a routerLink="/waf">
                 <mat-icon>security</mat-icon>
-                <span i18n="@@waf_mgmt">WAF Management</span>
+                <span i18n="@@waf_mgmt">WAF</span>
             </a>  
         </mat-list-item>
 

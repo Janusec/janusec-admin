@@ -34,6 +34,16 @@ export class FirewallComponent implements OnInit {
     private router: Router) {
         this.global_cc_policy=new(CCPolicy);
         this.app_cc_policy=new(CCPolicy);
+        if (this.applicationService.auth_user.logged) {
+          if(this.applicationService.applications.length==0) {
+            this.applicationService.getApplications();
+          }
+          if(this.applicationService.vulntypes.length==0) {
+            this.applicationService.getVulnTypes(function(){});
+          }
+          this.getGroupPolicies(0);
+          this.getCCPolicy(0);
+        }        
   }
 
   ngOnInit() {
@@ -44,7 +54,7 @@ export class FirewallComponent implements OnInit {
     if (this.applicationService.auth_user.need_modify_pwd) {
       this.router.navigate(['/appuser/'+this.applicationService.auth_user.user_id]);
     }    
-    
+    /*
     if(this.applicationService.applications.length==0) {
       this.applicationService.getApplications();
     }
@@ -53,6 +63,7 @@ export class FirewallComponent implements OnInit {
     }
     this.getGroupPolicies(0);
     this.getCCPolicy(0);
+    */
     /*
     var enum_policy_action_values = Object.values(PolicyAction);
     var action_length = (enum_policy_action_values.length)/2;

@@ -14,7 +14,12 @@ export class NodesComponent implements OnInit {
   hexNodesKey: string;
   constructor(private messageService: MessageService,
     public applicationService: ApplicationService,
-    private router: Router) { }
+    private router: Router) {
+      if (this.applicationService.auth_user.logged) {
+        this.applicationService.getNodesKey();
+        this.applicationService.getNodes();
+      }      
+    }
 
   ngOnInit() {
     if (this.applicationService.auth_user.logged==false) {
@@ -24,8 +29,10 @@ export class NodesComponent implements OnInit {
     if (this.applicationService.auth_user.need_modify_pwd) {
       this.router.navigate(['/appuser/'+this.applicationService.auth_user.user_id]);
     }
+    /*
     this.applicationService.getNodesKey();
     this.applicationService.getNodes();
+    */
   }
 
   /*

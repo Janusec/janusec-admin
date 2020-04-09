@@ -82,7 +82,7 @@
 
         <div>
         <button mat-raised-button [disabled]="readOnlyValue" (click)="setGroupPolicy()" color="primary">Save</button>
-        <button mat-raised-button (click)="changeEditable()"  color="primary">{{readOnlyButtonText}}</button>
+        <button *ngIf="applicationService.auth_user.is_super_admin" mat-raised-button (click)="changeEditable()"  color="primary">{{readOnlyButtonText}}</button>
         <button mat-raised-button [disabled]="readOnlyValue" (click)="delGroupPolicy()" color="primary">Delete</button>
         </div>
     </div> 

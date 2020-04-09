@@ -119,7 +119,7 @@ let zhTranslations = {
     'user_details': '用户详情',
     'confirm_password': '确认口令',
     'email': '邮箱地址',
-    'authorization_admin': '授权管理员（授予/撤销用户权限）',
+    'authorization_admin': '授权及WAF管理员（授予/撤销用户权限，管理WAF/CC规则）',
     'certificate_admin': '证书管理员（可管理所有证书内容）',
     'application_admin': '应用管理员（可管理所有应用）',
     // Dash Board

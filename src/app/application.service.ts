@@ -45,7 +45,9 @@ export class ApplicationService {
       catchError(this.handleError<APIResponse>('Get response'))
     ).subscribe((response: APIResponse) => {  
       if(response.err==null)  {
-        callback(response.object);
+        if(response.object!=null) {
+          callback(response.object);
+        }  
       }
       else this.messageService.add('Error: ' + response.err);
     });
@@ -57,7 +59,9 @@ export class ApplicationService {
       catchError(this.handleError<APIResponse>('Get response'))
     ).subscribe((response: APIResponse) => {  
       if(response.err==null)  {
-        callback(response.object);
+        if(response.object!=null) {
+          callback(response.object);
+        }  
       }
       else this.messageService.add('Error: ' + response.err);
     });
@@ -70,7 +74,9 @@ export class ApplicationService {
       catchError(this.handleError<APIResponse>('Get response'))
     ).subscribe((response: APIResponse) => {  
       if(response.err==null)  {
-        callback(response.object);
+        if(response.object!=null) {
+          callback(response.object);
+        }
       }
       else this.messageService.add('Error: ' + response.err);
     });
@@ -78,8 +84,8 @@ export class ApplicationService {
 
   getApplications() {
     var self = this;
-    this.getResponse('getapps', function(obj: Application[]){
-      self.applications = obj;
+    this.getResponse('getapps', function(obj: Application[]){      
+        self.applications = obj;      
     });
   }
 
