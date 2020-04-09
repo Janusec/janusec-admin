@@ -53,17 +53,19 @@ export class NavbarComponent implements OnInit {
     const body={action: 'logout'};  
     let self=this;
     this.applicationService.getResponse('logout',function(){
-      self.applicationService.auth_user={
-          user_id:0, 
-          username:"",
-          passwd:"",
-          logged:false, 
-          is_super_admin:false, 
-          is_cert_admin:false, 
-          is_app_admin:false,
-          need_modify_pwd:false};
-      self.router.navigate(['/login']);
+      //
     },null,null);
+    self.applicationService.auth_user={
+      user_id:0, 
+      username:"",
+      passwd:"",
+      logged:false, 
+      is_super_admin:false, 
+      is_cert_admin:false, 
+      is_app_admin:false,
+      need_modify_pwd:false
+    };
+    self.router.navigate(['/login']);
   }
 
 }
