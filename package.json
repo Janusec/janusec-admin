@@ -1,6 +1,6 @@
 {
   "name": "janusec-admin",
-  "version": "0.9.7",
+  "version": "0.9.8",
   "license": "MIT",
   "scripts": {
     "ng": "ng",

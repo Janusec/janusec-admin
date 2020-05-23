@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { Application, Domain, Certificate,APIResponse, Destination, IPMethod } from '../models';
+import { Application, Domain, Certificate,APIResponse, Destination, IPMethod, RouteType } from '../models';
 import { ApplicationService } from '../application.service'; 
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MessageService } from '../message.service';
@@ -19,7 +19,8 @@ export class ApplicationDetailComponent implements OnInit {
   certIcon: string = "assets/images/cert.png";
   optionCertificates: Certificate[];
   no_certificate:Certificate;
-  enum_ip_method_values: {value: number; name: string}[] = []; // number[]=[];
+  enum_ip_method_values: {value: number; name: string}[] = [];
+  enum_route_types: {value: number; name: string}[] = [];
   oauth: OAuthInfo = new (OAuthInfo);
 
   constructor(    
@@ -96,7 +97,10 @@ export class ApplicationDetailComponent implements OnInit {
     if(this.readOnlyValue) return;
     var new_dest: Destination=new Destination();
     new_dest.id = 0;
-    new_dest.destination = "";
+    new_dest.route_type = RouteType.Reverse_Proxy;
+    new_dest.request_route = '/';
+    new_dest.backend_route = '/';
+    new_dest.destination = "127.0.0.1:8080";
     new_dest.app_id = this.application.id;
     new_dest.node_id = 0;
     this.application.destinations.push(new_dest);
@@ -161,11 +165,16 @@ export class ApplicationDetailComponent implements OnInit {
   
   ngOnInit() {
     //init IPMethod enum
-   for(var n in IPMethod) {
-    if (typeof IPMethod[n] == 'number') {
+    for(var n in IPMethod) {
+      if (typeof IPMethod[n] == 'number') {
         this.enum_ip_method_values.push({value: <any>IPMethod[n], name: n});
+      }
     }
-   }
+    for(var n in RouteType) {
+      if (typeof RouteType[n] == 'number') {
+        this.enum_route_types.push({value: <any>RouteType[n], name: n});
+      }
+    }
     
     if(this.applicationService.domains==null || this.applicationService.domains.length==0) {
       this.applicationService.getDomains();

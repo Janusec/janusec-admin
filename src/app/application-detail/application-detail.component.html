@@ -15,15 +15,73 @@
           <mat-option value="https">https</mat-option>
         </mat-select> 
     </mat-form-field>  
+
+    <mat-expansion-panel [expanded]="true"  class="detail_panel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h3 i18n="@@routing_configuration">Routing Configuration</h3>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+       
+        <div class="description_block">  
+          <div i18n="@@reference_configuration">Reference configuration</div> 
+          <mat-list-item>
+              <span i18n="@@request_location">Request Location</span>: 
+              <span i18n="@@default">default</span>&nbsp;<span class="highlighted">/</span>, 
+              <span i18n="@@matching_priority"> include 3 patterns, matching priority</span>: 
+              <span class="highlighted">/abc/</span> &gt; <span class="highlighted">.php</span> &gt; <span class="highlighted">/</span>, 
+              <span i18n="@@more_info_of_request_location">subdirectory /abc/def/ is not supported.</span>
+          </mat-list-item>        
+          <mat-list-item>
+              <span i18n="@@routing_type">Routing Type</span>: 
+              <span i18n="@@default">default</span>&nbsp;<span class="highlighted">Reverse_Proxy</span>, 
+              <span i18n="@@more_info_of_routing_type">Local_FastCGI used for PHP, Python etc., Static_Website used for local static resources without backend servers. </span>
+          </mat-list-item>
+          <mat-list-item>
+              <span i18n="@@destination">Destination</span>: 
+              <span i18n="@@default">default</span>&nbsp;<span class="highlighted">IP:Port</span>, 
+              <span i18n="@@more_info_of_destination">or default file (such as index.html) if the routing type is Static_Website. </span>
+          </mat-list-item>
+          <mat-list-item>
+              <span i18n="@@backend_routing">Backend Routing</span>: 
+              <span i18n="@@default">default</span>&nbsp;<span class="highlighted">/</span>, 
+              <span i18n="@@more_info_of_backend_routing">using /xyz/ if the backend is using different URL Path, or absolute path (/path/to/site_dir/) if the routing type is Static_Website or Local_FastCGI. </span>
+          </mat-list-item>            
+        </div>
       
-    <mat-form-field *ngFor="let dest of application.destinations;let i=index; trackBy:trackByFn">
-      <input matInput i18n-placeholder="@@app_destination" [(ngModel)]="application.destinations[i].destination" [readonly]="readOnlyValue" placeholder="Destination( IPv4 Example: 10.10.10.10:80 , IPv6 Example: [::1%lo]:8080 )" required/>
-      <mat-icon matSuffix i18n-matTooltip="@@add_destination" matTooltip="Add new destination" matTooltipPosition="left" (click)="addDestination()">add_circle_outline</mat-icon>
-      <mat-icon *ngIf="application.destinations.length>1" matSuffix (click)="delDestination(i)">remove_circle_outline</mat-icon> 
-    </mat-form-field>
- 
-    <div class="inner-container" *ngFor="let domain of application.domains; let i=index; trackBy:trackByFn">
-        <mat-form-field> 
+    <div class="inline-form" *ngFor="let dest of application.destinations;let i=index; trackBy:trackByFn">
+      <mat-form-field class="inline-form-field-20">
+          <mat-label i18n="@@request_location">Request Location</mat-label>
+          <input matInput [(ngModel)]="application.destinations[i].request_route" [readonly]="readOnlyValue" required/>         
+      </mat-form-field>
+      <mat-form-field class="inline-form-field-20">
+        <mat-label i18n="@@routing_type">Routing Type</mat-label>
+        <mat-select [(ngModel)]="application.destinations[i].route_type" [disabled]="readOnlyValue" required>   
+            <mat-option *ngFor="let route_type of enum_route_types;" [value]="route_type.value">
+              {{ route_type.name }}
+            </mat-option>                
+        </mat-select>        
+      </mat-form-field>
+      <mat-form-field class="inline-form-field-25">
+        <mat-label i18n="@@destination">Destination</mat-label>
+        <input matInput [(ngModel)]="application.destinations[i].destination" [readonly]="readOnlyValue" required/>        
+      </mat-form-field>
+      <mat-form-field class="inline-form-field-25">
+          <mat-label i18n="@@backend_routing">Backend Routing</mat-label>
+          <input matInput [(ngModel)]="application.destinations[i].backend_route" [readonly]="readOnlyValue" required/>
+          <mat-icon matSuffix i18n-matTooltip="@@add_new_routing" class="clickable_btn" matTooltip="Add new routing" matTooltipPosition="left" (click)="addDestination()">add_circle_outline</mat-icon>
+          <mat-icon *ngIf="application.destinations.length>1" matSuffix class="clickable_btn" (click)="delDestination(i)">remove_circle_outline</mat-icon> 
+      </mat-form-field>
+      
+    </div>    
+    </mat-expansion-panel>
+
+    <mat-expansion-panel [expanded]="true" class="detail_panel">
+      <mat-expansion-panel-header>
+        <mat-panel-title i18n="@@domain_configuration">Domain Configuration</mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="inline-form" *ngFor="let domain of application.domains; let i=index; trackBy:trackByFn">
+        <mat-form-field class="inline-form-field-20"> 
           <mat-icon matPrefix>language</mat-icon>  
           <input matInput i18n-placeholder="@@domain_name" placeholder="Domain name (editable)" [(ngModel)]="application.domains[i].name" [disabled]="readOnlyValue" list="domains" required>
           <datalist id="domains">
@@ -31,7 +89,7 @@
           </datalist>         
         </mat-form-field> 
       
-        <mat-form-field>  
+        <mat-form-field class="inline-form-field-20">  
           <mat-icon matPrefix>lock_outline</mat-icon>         
           <mat-select i18n-placeholder="@@certificate" placeholder="Certificate"  [(ngModel)]="application.domains[i].cert_id" [disabled]="readOnlyValue" required>   
               <mat-option *ngFor="let certificate of optionCertificates;" [value]="certificate.id">
@@ -39,17 +97,18 @@
               </mat-option>                
           </mat-select>
         </mat-form-field>  
-        <mat-form-field>
+        <mat-form-field  class="inline-form-field-50">
             <mat-checkbox matPrefix i18n="@@redirect" [(ngModel)]="application.domains[i].redirect" [disabled]="readOnlyValue">
                 Redirect to (301): &nbsp;
             </mat-checkbox>
             <input matInput placeholder="https://www.your-domain.com/" [(ngModel)]="application.domains[i].location" [disabled]="readOnlyValue">
+            <mat-icon matSuffix i18n-matTooltip="@@add_domain" matTooltip="Add new domain" matTooltipPosition="right"  (click)="addDomain()">add_circle_outline</mat-icon>
+            <mat-icon matSuffix *ngIf="application.domains.length>1"  (click)="delDomain(i)">remove_circle_outline</mat-icon>
         </mat-form-field>
-        <div>
-            <mat-icon i18n-matTooltip="@@add_domain" matTooltip="Add new domain" matTooltipPosition="right"  (click)="addDomain()">add_circle_outline</mat-icon>
-            <mat-icon  *ngIf="application.domains.length>1"  (click)="delDomain(i)">remove_circle_outline</mat-icon>
-        </div>    
     </div>
+   </mat-expansion-panel>
+ 
+    
 
     <mat-form-field>
       <mat-select [(ngModel)]="application.ip_method" i18n-placeholder="@@ip_for_waf"
@@ -80,7 +139,7 @@
 
     <section>
         <mat-checkbox i18n="@@oauth_required" [(ngModel)]="application.oauth_required" [disabled]="readOnlyValue">
-            Enable OAuth2 (Only for Internal Employees and Internal Applications. {{ oauth.display_name }})
+            Enable LDAP or OAuth2 (Depend on configuration file and only for Internal Employees and Internal Applications. {{ oauth.display_name }})
         </mat-checkbox>
     </section>
 

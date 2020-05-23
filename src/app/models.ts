@@ -42,8 +42,17 @@ export class Certificate {
     due_to_expire: boolean;
 }
 
+export enum RouteType {
+    Reverse_Proxy =1,
+    Local_FastCGI =1 << 1,
+    Static_Website = 1 << 2
+}
+
 export class Destination {
     id: number;
+    route_type: RouteType;
+    request_route: string;
+    backend_route: string;
     destination: string;
     app_id: number;
     node_id: number;
