@@ -70,7 +70,7 @@ let zhTranslations = {
     'waf_logs': 'WAF日志',
     'cc_logs': 'CC日志',    
     // frontpage
-    'product_name': 'JANUSEC应用网关V0.9.8',
+    'product_name': 'JANUSEC应用网关V0.9.9',
     'product_desc': 'JANUSEC应用网关，提供WAF、CC攻击防御、LDAP及OAuth2身份认证、统一Web化管理入口、证书私钥保护、Web SSH安全运维，Web路由以及可扩展的负载均衡等功能。',
     'feature_title': 'JANUSEC应用网关主要特性：',
     'feature_waf': 'WAF(Web应用防火墙)，CC防护',
