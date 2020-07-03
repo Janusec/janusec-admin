@@ -46,13 +46,13 @@
               <mat-panel-title i18n="@@global_cc_title">Global CC Policy (Invalid for an applications which has custom CC policy)</mat-panel-title>
             </mat-expansion-panel-header>        
             <mat-form-field>
-              <input matInput i18n-placeholder="@@interval_seconds" [(ngModel)]="global_cc_policy.interval_seconds" type="number" placeholder="Statistic Period (Seconds)" required>
+              <input matInput i18n-placeholder="@@interval_seconds" [(ngModel)]="global_cc_policy.interval_seconds" type="number" placeholder="Time Window (default: 1 second)" required>
             </mat-form-field>        
             <mat-form-field>
-              <input matInput i18n-placeholder="@@max_count" [(ngModel)]="global_cc_policy.max_count" type="number" placeholder="Max Requests Count" required>
+              <input matInput i18n-placeholder="@@max_count" [(ngModel)]="global_cc_policy.max_count" type="number" placeholder="Max Requests Count (default: 6)" required>
             </mat-form-field>
             <mat-form-field>
-                <input matInput i18n-placeholder="@@block_seconds" [(ngModel)]="global_cc_policy.block_seconds" type="number" placeholder="Block Seconds" required>
+                <input matInput i18n-placeholder="@@block_seconds" [(ngModel)]="global_cc_policy.block_seconds" type="number" placeholder="Block Seconds (default: 300)" required>
             </mat-form-field>
 
             <mat-form-field>
@@ -63,17 +63,17 @@
               </mat-select>
             </mat-form-field>
             <section>
-              <mat-checkbox  i18n="@@count_each_url"  [(ngModel)]="global_cc_policy.stat_by_url">Count each URL separately</mat-checkbox>
+              <mat-checkbox  i18n="@@count_each_url"  [(ngModel)]="global_cc_policy.stat_by_url">Count each URL separately (default: selected)</mat-checkbox>
             </section>
             <section>
-              <mat-checkbox i18n="@@count_each_ua"  [(ngModel)]="global_cc_policy.stat_by_ua">Count each User-Agent separately</mat-checkbox>
+              <mat-checkbox i18n="@@count_each_ua"  [(ngModel)]="global_cc_policy.stat_by_ua">Count each User-Agent separately (default: selected)</mat-checkbox>
             </section>
             <section>
-              <mat-checkbox i18n="@@count_each_cookie"  [(ngModel)]="global_cc_policy.stat_by_cookie">Count different Cookies separately</mat-checkbox>
+              <mat-checkbox i18n="@@count_each_cookie"  [(ngModel)]="global_cc_policy.stat_by_cookie">Count different Cookies separately (default: not selected)</mat-checkbox>
             </section>
             
             <section>
-              <mat-checkbox i18n="@@enable_policy"  [(ngModel)]="global_cc_policy.is_enabled" >Enabled this CC block policy</mat-checkbox>
+              <mat-checkbox i18n="@@enable_policy"  [(ngModel)]="global_cc_policy.is_enabled" >Enabled this CC block policy (default: selected)</mat-checkbox>
             </section>
             <mat-action-row>
             <button mat-button mat-raised-button (click)="updateCCPolicy(0)" color="primary">Save</button>
@@ -107,13 +107,13 @@
             <mat-panel-title>{{application.name}} CC Policy</mat-panel-title>
           </mat-expansion-panel-header>        
           <mat-form-field>
-            <input matInput i18n-placeholder="@@interval_seconds" [(ngModel)]="app_cc_policy.interval_seconds" type="number" placeholder="Statistic Period (Seconds)" required>
+            <input matInput i18n-placeholder="@@interval_seconds" [(ngModel)]="app_cc_policy.interval_seconds" type="number" placeholder="Time Window (default: 1 second)" required>
           </mat-form-field>        
           <mat-form-field>
-            <input matInput i18n-placeholder="@@max_count" [(ngModel)]="app_cc_policy.max_count" type="number" placeholder="Max Requests Count" required>
+            <input matInput i18n-placeholder="@@max_count" [(ngModel)]="app_cc_policy.max_count" type="number" placeholder="Max Requests Count (default: 6)" required>
           </mat-form-field>
           <mat-form-field>
-              <input matInput i18n-placeholder="@@block_seconds" [(ngModel)]="app_cc_policy.block_seconds" type="number" placeholder="Block Seconds" required>
+              <input matInput i18n-placeholder="@@block_seconds" [(ngModel)]="app_cc_policy.block_seconds" type="number" placeholder="Block Seconds (default: 300)" required>
           </mat-form-field>
           <mat-form-field>
             <mat-select i18n-placeholder="@@action" [(ngModel)]="app_cc_policy.action" placeholder="Action">
