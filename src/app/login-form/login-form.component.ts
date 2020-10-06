@@ -39,9 +39,11 @@ export class LoginFormComponent implements OnInit {
         need_modify_pwd:false};
     var self=this;
     this.applicationService.getResponse('login', function(obj: AuthUser){
-      self.applicationService.auth_user=obj;      
-      self.submitted = true; 
-      self.router.navigate(['/']);
+        if(obj != null) {
+            self.applicationService.auth_user=obj;      
+            self.submitted = true; 
+            self.router.navigate(['/']);
+        }
     }, null, login_user); 
   }
 
@@ -53,9 +55,10 @@ export class LoginFormComponent implements OnInit {
 
   ngOnInit() { 
     let self=this;   
+    this.messageService.clear();
     this.applicationService.getResponseByURL('/janusec-admin/oauth/get',
       function(obj: OAuthInfo){
-        self.oauth=obj;
+        if(obj != null) self.oauth=obj;
       });
   }
   

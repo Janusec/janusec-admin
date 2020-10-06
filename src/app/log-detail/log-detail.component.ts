@@ -23,7 +23,7 @@ export class LogDetailComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
     var self = this;
     this.applicationService.getResponse('getregexlog', function(obj: RegexHitLog){
-      self.log = obj;
+        if(obj != null) self.log = obj;
     },id);
   }
 

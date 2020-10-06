@@ -36,7 +36,7 @@ export class UserDetailComponent implements OnInit {
     if(id>0) {
       let self=this;
       this.applicationService.getResponse('getadmin', function(obj:AppAdmin){
-        self.appadmin = obj;
+        if(obj != null) self.appadmin = obj;
       }, id, null);
     } else {
       this.appadmin=new AppAdmin();
@@ -81,17 +81,18 @@ export class UserDetailComponent implements OnInit {
     }
     let self=this;
     this.applicationService.getResponse('updateadmin', function(obj:AppAdmin){
-      let new_id = obj.id;
-      if(self.appadmin.id == new_id)  {
-        self.appadmin = obj;
-      }       
-      else {          
-        self.router.navigate(['/appuser/'+ new_id]);
-      }
-      self.readOnlyValue = true;
-      self.readOnlyButtonText="Edit";
-      self.messageService.add(self.appadmin.username +" Saved.");
-      self.applicationService.getAuthUser(function(){});
-    },null,this.appadmin);
+        if(obj == null) return;
+        let new_id = obj.id;
+        if(self.appadmin.id == new_id)  {
+            self.appadmin = obj;
+        }       
+        else {          
+            self.router.navigate(['/appuser/'+ new_id]);
+        }
+        self.readOnlyValue = true;
+        self.readOnlyButtonText="Edit";
+        self.messageService.add(self.appadmin.username +" Saved.");
+        self.applicationService.getAuthUser(function(){});
+        },null,this.appadmin);
   }
 }

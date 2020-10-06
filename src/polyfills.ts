@@ -70,7 +70,7 @@ let zhTranslations = {
     'waf_logs': 'WAF日志',
     'cc_logs': 'CC日志',    
     // frontpage
-    'product_name': 'JANUSEC应用网关V0.9.9',
+    'product_name': 'JANUSEC应用网关V0.9.10',
     'product_desc': 'JANUSEC应用网关，提供WAF、CC攻击防御、LDAP及OAuth2身份认证、统一Web化管理入口、证书私钥保护、Web SSH安全运维，Web路由以及可扩展的负载均衡等功能。',
     'feature_title': 'JANUSEC应用网关主要特性：',
     'feature_waf': 'WAF(Web应用防火墙)，CC防护',
@@ -124,7 +124,7 @@ let zhTranslations = {
     'more_info_of_request_location': '不支持/abc/def/多级子目录路由',
     'more_info_of_routing_type': 'Local_FastCGI用于PHP, Python等, Static_Website用于本地静态资源且不需要后端服务器',
     'more_info_of_destination': '用于静态网站时填写默认文件如index.html',
-    'more_info_of_backend_routing': '前后端路径不一致时可使用/xyz/这种形式，本地静态网站/FastCGI网站填写绝对路径(/path/to/site_dir/)',
+    'more_info_of_backend_routing': '前后端路径不一致时可使用/xyz/这种形式，本地静态网站/FastCGI网站填写绝对路径(/path/to/www/)',
     // nodes
     'node_notice': '请复制如下node_key到所有从节点config.json文件中：',
     // User Management
@@ -150,12 +150,12 @@ let zhTranslations = {
     'select_application': '选择一个应用',
     'add_custom_cc_policy': '添加自定义CC规则',
     'count_each_url': '单独统计每个URL地址的访问次数（默认选中，当只需要统计无差别的全站访问次数时，不勾选）',
-    'count_each_ua': '单独统计每个User-Agent的访问次数（默认选中，当不需要区分用户User-Agent时，不勾选）',
+    'count_each_ua': '单独统计每个User-Agent的访问次数（默认不勾选）',
     'count_each_cookie': '单独统计每个不同的Cookie串（默认不勾选，当Cookie中使用了时间戳或Cookie会经常变化时，不勾选）',
     'enable_policy': '启用该规则（默认选中）',
-    "interval_seconds": '统计时间窗（默认1秒）',
-    'max_count': '时间窗内最大请求数量（默认6）',
-    'block_seconds': '超限锁定秒数（默认300）',
+    "interval_milliseconds": '统计时间窗（默认100毫秒）',
+    'max_count': '时间窗内最大请求数量（默认5）',
+    'block_seconds': '超限锁定秒数（默认7200）',
     'action': '触发动作(阻断/旁路/验证码/放行)',
     // Policy
     'policy_detail': 'WAF规则详情',

@@ -35,7 +35,7 @@ export class CertificateDetailComponent implements OnInit {
     if(id>0) {
       var self = this;
       this.applicationService.getResponse('getcert', function(obj: Certificate){
-        self.certificate = obj;
+        if(obj != null) self.certificate = obj;
       },id);
     } else {
       this.certificate=new Certificate();
@@ -50,16 +50,18 @@ export class CertificateDetailComponent implements OnInit {
   setCertificate() {
     var self=this;
     this.applicationService.getResponse('updatecert', function(obj: Certificate){
-      let new_id = obj.id;
-      if(self.certificate.id == new_id)  {
-        self.certificate = obj;
-      }       
-      else {          
-        self.router.navigate(['/certificate/'+ new_id]);
+      if(obj != null) {
+        let new_id = obj.id;
+        if(self.certificate.id == new_id)  {
+            self.certificate = obj;
+        }       
+        else {          
+            self.router.navigate(['/certificate/'+ new_id]);
+        }
+        self.readOnlyValue = true;
+        self.readOnlyButtonText="Edit";
+        self.messageService.add("Certificate "+ obj.common_name +" Saved.");
       }
-      self.readOnlyValue = true;
-      self.readOnlyButtonText="Edit";
-      self.messageService.add("Certificate "+ obj.common_name +" Saved.");
     }, null, self.certificate);
   }
 
@@ -76,8 +78,10 @@ export class CertificateDetailComponent implements OnInit {
     var self = this;
     var object = {common_name: this.certificate.common_name};
     this.applicationService.getResponse('selfsigncert',function(obj: SelfSignCert){
-      self.certificate.cert_content = obj.cert_content;
-      self.certificate.priv_key_content = obj.priv_key_content;
+        if(obj != null) {
+            self.certificate.cert_content = obj.cert_content;
+            self.certificate.priv_key_content = obj.priv_key_content;
+        }
     },null,object);
   }
 

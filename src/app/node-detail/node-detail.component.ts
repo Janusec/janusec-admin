@@ -27,7 +27,7 @@ export class NodeDetailComponent implements OnInit {
     if(id>0) {
       var self = this;
       this.applicationService.getResponse('getnode', function(obj: Node){
-        self.node = obj;
+        if(obj != null) self.node = obj;
       },id);
     } else {
       this.node=new Node();
@@ -37,23 +37,6 @@ export class NodeDetailComponent implements OnInit {
     }    
   }
 
-  /*
-  setNode() {
-    var self=this;
-    this.applicationService.getResponse('updatenode', function(obj: Node){
-      let new_id = obj.id;
-      if(self.node.id == new_id)  {
-        self.node = obj;
-      }       
-      else {          
-        self.router.navigate(['/node/'+ new_id]);
-      }
-      self.readOnlyValue = true;
-      self.readOnlyButtonText="Edit";
-      self.messageService.add("GateNode "+ obj.name +" Saved.");
-    }, null, self.node);
-  }
-  */
  
   changeEditable() {
     this.readOnlyValue = !this.readOnlyValue;

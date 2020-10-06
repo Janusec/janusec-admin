@@ -41,8 +41,8 @@ export class ApplicationDetailComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');    
     if(id>0) {
       var self = this;
-      this.applicationService.getResponse('getapp', function(obj: Application){        
-          self.application = obj;
+      this.applicationService.getResponse('getapp', function(obj: Application){     
+          if(obj != null) self.application = obj;
       },id);
     } else {
       this.readOnlyValue = false;
@@ -192,7 +192,7 @@ export class ApplicationDetailComponent implements OnInit {
     let self=this;  
     this.applicationService.getResponseByURL('/janusec-admin/oauth/get',
       function(obj: OAuthInfo){
-          self.oauth=obj;
+        if(obj != null) self.oauth=obj;
       });
   }
 
@@ -200,7 +200,7 @@ export class ApplicationDetailComponent implements OnInit {
   getCertificates() {
     var self = this;
     this.applicationService.getResponse('getcerts', function(obj: Certificate[]){      
-        self.optionCertificates = obj.concat(self.no_certificate);
+        if(obj != null) self.optionCertificates = obj.concat(self.no_certificate);
     });
   }
 

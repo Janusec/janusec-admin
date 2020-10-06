@@ -39,9 +39,11 @@ export class LogsComponent implements OnInit {
     if(this.applicationService.applications.length==0) {
       var self = this;
       this.applicationService.getResponse('getapps', function(obj: Application[]){
-      self.applicationService.applications = obj;
-      self.app_id = self.applicationService.applications[0].id;
-    });
+        if(obj != null) {
+            self.applicationService.applications = obj;
+            self.app_id = self.applicationService.applications[0].id;
+        }
+      });
     } else {
       this.app_id = this.applicationService.applications[0].id;
     }
@@ -67,9 +69,11 @@ export class LogsComponent implements OnInit {
     var self = this;
     this.paginator.pageIndex=0;
     this.applicationService.getResponseByCustomBody(body, function(obj: RegexHitLogsCount){
-      self.paginator.length=obj.count;
-      self.regexLogDataSource.loadLogs(self.app_id, start_time, end_time, 0, self.request_count);
-      self.applicationService.lastRegexLogs.length=obj.count;
+        if(obj != null) {
+            self.paginator.length=obj.count;
+            self.regexLogDataSource.loadLogs(self.app_id, start_time, end_time, 0, self.request_count);
+            self.applicationService.lastRegexLogs.length=obj.count;
+        }
     });
   }
 
@@ -117,12 +121,14 @@ export class LogsDataSource implements DataSource<SimpleRegexHitLog> {
       let body={action:"getregexlogs", app_id: app_id, start_time: start_time, end_time: end_time, request_count:pageSize, offset:pageIndex*pageSize}
       var self = this;
       this.applicationService.getResponseByCustomBody(body, function(logs: SimpleRegexHitLog[]){
-        self.logsSubject.next(logs)
-        self.applicationService.lastRegexLogs.app_id=app_id;
-        self.applicationService.lastRegexLogs.start_date = new Date(start_time*1000);
-        self.applicationService.lastRegexLogs.end_date = new Date((end_time-1)*1000);
-        self.applicationService.lastRegexLogs.page_index = pageIndex;
-        self.applicationService.lastRegexLogs.regex_logs = logs;
+        if(logs != null) {
+            self.logsSubject.next(logs)
+            self.applicationService.lastRegexLogs.app_id=app_id;
+            self.applicationService.lastRegexLogs.start_date = new Date(start_time*1000);
+            self.applicationService.lastRegexLogs.end_date = new Date((end_time-1)*1000);
+            self.applicationService.lastRegexLogs.page_index = pageIndex;
+            self.applicationService.lastRegexLogs.regex_logs = logs;
+        }
     });
   }
 

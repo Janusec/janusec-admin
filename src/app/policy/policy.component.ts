@@ -42,8 +42,10 @@ export class PolicyComponent implements OnInit {
     } else {
       var self=this;
       this.applicationService.getResponse('getgrouppolicy', function(obj: GroupPolicy){
-        self.group_policy = obj;
-        self.regex_match.pattern = self.group_policy.check_items[0].regex_policy;        
+        if(obj != null) {
+            self.group_policy = obj;
+            self.regex_match.pattern = self.group_policy.check_items[0].regex_policy;    
+        }    
       },id);
     } 
     this.regex_match.preprocess=true;  
@@ -52,18 +54,19 @@ export class PolicyComponent implements OnInit {
   setGroupPolicy() {
     var self=this;
     this.applicationService.getResponse('updategrouppolicy', function(obj: GroupPolicy){
-      let new_id = obj.id;
-      if(self.group_policy.id == new_id)  {
-        self.group_policy = obj;
-      }       
-      else {
-        self.group_policy = obj;
-        self.router.navigate(['/policy/'+ new_id]);
-      }
-      self.readOnlyValue = true;
-      self.readOnlyButtonText="Edit";
-      self.messageService.add("Policy Saved.");
-    }, null, self.group_policy);
+        if(obj == null) return;
+        let new_id = obj.id;
+        if(self.group_policy.id == new_id)  {
+            self.group_policy = obj;
+        }       
+        else {
+            self.group_policy = obj;
+            self.router.navigate(['/policy/'+ new_id]);
+        }
+        self.readOnlyValue = true;
+        self.readOnlyButtonText="Edit";
+        self.messageService.add("Policy Saved.");
+        }, null, self.group_policy);
   }
 
   
@@ -128,7 +131,7 @@ export class PolicyComponent implements OnInit {
     this.regex_match.matched=null;
     var self=this;
     this.applicationService.getResponse('testregex', function(obj: RegexMatch){      
-        self.regex_match = obj;
+        if(obj != null) self.regex_match = obj;
     }, null, self.regex_match);
   }
 

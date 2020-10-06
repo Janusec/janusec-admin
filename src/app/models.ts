@@ -27,7 +27,7 @@ export class Application {
 
 export enum IPMethod {
     REMOTE_ADDR      = 1,
-    X_Forwareded_For = 1 << 1,
+    X_Forwarded_For  = 1 << 1,
 	X_REAL_IP        = 1 << 2,
 	REAL_IP          = 1 << 3
 }
@@ -89,7 +89,7 @@ export interface APIResponse {
 
 export class CCPolicy {
     app_id: number;
-    interval_seconds: number;
+    interval_milliseconds: number;
     max_count: number;
     block_seconds: number;
     action: number;
