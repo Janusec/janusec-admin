@@ -294,3 +294,9 @@ export class OAuthInfo {
     display_name: string;
     entrance_url: string;
 }
+
+export class PopContent {
+    app_id: number;
+    url_path: string;
+    amount: number;
+}

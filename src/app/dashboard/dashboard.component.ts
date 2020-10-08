@@ -2,7 +2,8 @@ import { Component, OnInit, ElementRef, ViewChild, Inject  } from '@angular/core
 import { Router }            from '@angular/router';
 import { ApplicationService } from '../application.service';
 import { Chart } from 'chart.js';
-import { VulnStat, AuthUser } from '../models';
+import { VulnStat, PopContent } from '../models';
+//import Chart = require('chart.js');
 
 @Component({
   selector: 'app-dashboard',
@@ -12,6 +13,7 @@ import { VulnStat, AuthUser } from '../models';
 export class DashboardComponent implements OnInit {
   todayVulnChart: Chart;
   weekCountChart: Chart;
+  accessStatChart: Chart;
   // today chart
   today_stat_vuln_name: string[];
   today_stat_count: number[];
@@ -21,6 +23,10 @@ export class DashboardComponent implements OnInit {
   week_stat_count: number[];
   selected_app_id: number = 0;
   selected_vuln_id: number =0;
+  // access stat chart
+  access_stat_date: string[];
+  access_stat_count: number[];
+  pop_contents: PopContent[];
 
   //elementRef: ElementRef;
 
@@ -48,7 +54,7 @@ export class DashboardComponent implements OnInit {
           position: 'bottom'
         },
         title: {
-          text: 'Today attack statistics',
+          text: 'Today Attack Statistics',
           display: true
         },
         scales: {
@@ -83,7 +89,46 @@ export class DashboardComponent implements OnInit {
             position: 'bottom'
           },
           title: {
-            text: 'Week attack statistics',
+            text: 'Week Attack Statistics',
+            display: true
+          },
+          scales: {
+            xAxes: [{
+              display: true
+            }],
+            yAxes: [{
+              display: true,
+              ticks: {
+                beginAtZero: true
+              }            
+            }],
+          }
+        }
+      });
+    },300);    
+  }
+
+  init_access_stat_chart() {
+    setTimeout(() => {
+      let htmlRef = this.elementRef.nativeElement.querySelector('#stat_canvas');
+      this.weekCountChart = new Chart(htmlRef, {
+        type: 'bar',
+        data: {
+          labels: this.access_stat_date,        
+          datasets: [{
+            label: 'Count',
+            data: this.access_stat_count,
+            backgroundColor: 'rgba(10,10,250,0.8)',
+            borderWidth: 1
+          }]
+      },
+        options: {
+          legend: {
+            display: true,
+            position: 'bottom'
+          },
+          title: {
+            text: 'Access Statistics',
             display: true
           },
           scales: {
@@ -115,19 +160,28 @@ export class DashboardComponent implements OnInit {
       this.applicationService.getVulnTypes(function(){
         self.getTodayVulnStat(0); 
         self.getWeekStat(0,0);
+        self.getAccessStat(0);
+        self.getPopContents(0);
       });
     } else {
       this.getTodayVulnStat(0);   
       this.getWeekStat(0,0);   
+      this.getAccessStat(0);
+      this.getPopContents(0);
     }
     if(this.applicationService.applications.length==0) {
       this.applicationService.getApplications();
     }
     this.init_week_chart();
+    this.init_access_stat_chart();
   }
 
   getVulnNameByID(vuln_id:number) {
     return this.applicationService.vulntypemap[vuln_id];
+  }
+
+  getAppNameByID(app_id:number) {
+      return this.applicationService.appmap[app_id];
   }
 
   getTodayVulnStat(app_id: number) {
@@ -176,6 +230,34 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  getAccessStat(app_id: number) {
+    let begin_date = new Date();
+    begin_date.setHours(0,0,0,0);
+    let start_time = begin_date.getTime() - 86400*1000*13;
+    this.access_stat_date = [];
+    for(let i=0;i<14;i++) {
+      let tmp_date = new Date(start_time + 86400*1000*i);
+      this.access_stat_date.push(tmp_date.toLocaleDateString());
+    }
+    let body={action:"getaccessstat", app_id: app_id}
+    let self = this;
+    this.applicationService.getResponseByCustomBody(body, function(access_stats: number[]){
+        if(access_stats == null) {
+            access_stats = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        }
+        self.access_stat_count = access_stats;
+        self.init_access_stat_chart();
+    });
+  }
+
+  getPopContents(app_id: number) {
+    let body={action:"getpopcontents", app_id: app_id}
+    let self = this;
+    this.applicationService.getResponseByCustomBody(body, function(pop_contents: PopContent[]){
+        self.pop_contents = pop_contents;
+    });
+  }
+
   getColorString(value: number): string {
     let value_r = value*60;// + Math.floor(Math.random()*20);
     let value_g = value*50;// + Math.floor(Math.random()*20);
@@ -188,6 +270,8 @@ export class DashboardComponent implements OnInit {
   stat_by_app_id() {
     this.getTodayVulnStat(this.selected_app_id);
     this.stat_by_app_and_vuln();
+    this.getAccessStat(this.selected_app_id);
+    this.getPopContents(this.selected_app_id);
   }
 
   stat_by_app_and_vuln() {

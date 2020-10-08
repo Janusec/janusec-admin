@@ -1,6 +1,6 @@
 <div class="container">
-<div *ngIf="applicationService.auth_user.logged">
-<div>
+<div fxLayout="row wrap" *ngIf="applicationService.auth_user.logged">
+<div fxFlex="50%">
     <mat-form-field>
      <mat-select i18n-placeholder="@@application" [(ngModel)]="selected_app_id" placeholder="Application">
      <mat-option i18n="@@all" [value]=0>All applications</mat-option>
@@ -10,12 +10,12 @@
      </mat-select> 
    </mat-form-field>
    <button mat-raised-button i18n="@@view" (click)="stat_by_app_id()" color="primary">View</button>
-</div>
-<div class="myChart">
-  <canvas id="todayCanvas">{{ todayVulnChart }}</canvas>
+    <div class="myChart">
+    <canvas id="todayCanvas">{{ todayVulnChart }}</canvas>
+    </div>
 </div>
 
-<div>
+<div fxFlex="50%">
   <mat-form-field>
     <mat-select i18n-placeholder="@@vulnerability" [(ngModel)]="selected_vuln_id" placeholder="Vulnerability">
         <mat-option i18n="@@all" [value]=0>All</mat-option>
@@ -25,9 +25,44 @@
     </mat-select> 
   </mat-form-field>
   <button mat-raised-button i18n="@@view" (click)="stat_by_app_and_vuln()" color="primary">View</button>
-  </div>
   <div class="myChart">
       <canvas id="week_canvas">{{ weekCountChart }}</canvas>
+  </div>
+</div>
+
+</div>
+
+<div fxLayout="row wrap" *ngIf="applicationService.auth_user.logged">
+    <div fxFlex="100%">      
+       <div class="statChart">
+       <canvas id="stat_canvas">{{ accessStatChart }}</canvas>
+       </div>
     </div>
 </div>
+
+<div fxLayout="row wrap" *ngIf="applicationService.auth_user.logged">
+    <div fxFlex="100%">      
+        <table class="pop_table">
+            <caption>Popular Content Today</caption>
+            <tr>
+                <th width="20%">Application</th>
+                <th width="70%">URL</th>
+                <th width="10%">Count</th>
+            </tr>
+            <tr *ngFor="let popContent of pop_contents">
+                <td>
+                    {{ getAppNameByID(popContent.app_id) }}
+                </td>
+                <td>
+                    {{ popContent.url_path }}
+                </td>
+                <td class="td-align-center">
+                    {{ popContent.amount }}
+                </td>
+            </tr>            
+        </table>
+        
+    </div>
+</div>
+
 </div>

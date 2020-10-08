@@ -23,6 +23,7 @@ export class ApplicationService {
       need_modify_pwd: false};
   certificates: Certificate[] = [];
   applications: Application[] = [];
+  appmap: object = new(Object);
   hexNodesKey: string;
   nodes: Node[] = [];
   domains: Domain[]=[];
@@ -79,7 +80,10 @@ export class ApplicationService {
   getApplications() {
     var self = this;
     this.getResponse('getapps', function(obj: Application[]){      
-        self.applications = obj;      
+        self.applications = obj;    
+        for (let app of self.applications) {
+            self.appmap[app.id]=app.name;
+          }  
     });
   }
 
