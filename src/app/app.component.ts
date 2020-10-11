@@ -8,9 +8,10 @@ import { AuthUser } from './models';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
   position = 'right';
-  //title = 'Janusec admin';
+  showSidenav = true;
   constructor(
     private router: Router,
     public applicationService: ApplicationService) {  
@@ -18,5 +19,9 @@ export class AppComponent {
 
   ngOnInit() {
   }  
+
+  toggleSidenav() {
+      this.showSidenav = !this.showSidenav;
+  }
 
 }

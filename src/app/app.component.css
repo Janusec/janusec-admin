@@ -10,7 +10,7 @@
 }
 
 mat-icon {
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .mat-sidenav {
@@ -20,4 +20,11 @@ mat-icon {
     font-size: 12px;
     font-family: 'Arial Narrow', Arial, sans-serif;
     padding-top: 1px;
+}
+
+.btn_shownav {
+    margin-top: 2px;
+    padding: 10px 5px;
+    border: 0px;
+    height: 36px;
 }

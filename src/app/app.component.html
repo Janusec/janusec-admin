@@ -3,7 +3,7 @@
 <app-messages></app-messages>
 <mat-sidenav-container class="sidenav-container">
 <mat-sidenav *ngIf="applicationService.auth_user.logged"
-    #sidenav mode="side" opened="true" class="sidenav" role="navigation"> 
+    #sidenav mode="side" [(opened)]="showSidenav" class="sidenav" role="navigation"> 
     <mat-nav-list>  
         <mat-list-item>
                 <a routerLink="/dashboard">
@@ -21,7 +21,7 @@
         
         <mat-list-item>
                 <a routerLink="/applications">
-                    <mat-icon>format_color_text</mat-icon>
+                    <mat-icon>explore</mat-icon>
                     <span i18n="@@app_mgmt">Application</span>
                 </a>
         </mat-list-item>        
@@ -62,16 +62,30 @@
         </mat-list-item>
 
         <mat-list-item>
-            <a routerLink="/ssh">
+            <a routerLink="/ssh" target="_blank">
                 <mat-icon>computer</mat-icon>
                 <span>Web SSH</span>
             </a>  
         </mat-list-item>
 
+        <mat-list-item>
+            <a (click)="toggleSidenav()">
+                <mat-icon>navigate_before</mat-icon>
+                <span i18n="@@hide_menu">Hide Menu</span>
+            </a>
+        </mat-list-item>
+
     </mat-nav-list>    
 </mat-sidenav>
 <mat-sidenav-content role="region">
+    <div *ngIf="showSidenav==false">
+    <button (click)="toggleSidenav()" class="btn_shownav">
+        <mat-icon>navigate_next</mat-icon>
+        <span i18n="@@show_menu">Show Menu</span>
+    </button>
+    </div>
     <router-outlet></router-outlet>
+    
 </mat-sidenav-content>
 </mat-sidenav-container>
 <app-footer></app-footer>
