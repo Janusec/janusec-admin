@@ -3,31 +3,31 @@
 }
 
 .myChart{ 
-    width: 620px; 
-    height: 320px;
     background-color: #e5e5e5;
     margin: 15px;
 }
 
 .statChart{
-    width: 1278px;
-    height: 640px;
     background-color: #e5e5e5;
     margin: 15px;
 }
 
-.pop_table {
-    border: 1px solid #d5d5d5;
-    background-color: #e5e5e5;
-    width: 96%;
-    margin: auto;
+.top_access_div {    
+    margin: 0px 15px;
+    
 }
 
-.pop_table th {
+.top_access_table {
+    width: 100%;
+    border: 1px solid #d5d5d5;
+    background-color: #e5e5e5;
+}
+
+.top_access_table th {
     background-color: #d5d5d5;    
 }
 
-.pop_table td {
+.top_access_table td {
     border: 1px solid #f5f5f5;
 }
 
