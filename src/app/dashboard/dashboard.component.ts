@@ -28,16 +28,15 @@ export class DashboardComponent implements OnInit {
   access_stat_count: number[];
   pop_contents: PopContent[];
 
-  //elementRef: ElementRef;
-
+ 
   constructor(private elementRef: ElementRef,
     public applicationService: ApplicationService,
     private router: Router) { 
-      //this.elementRef = elementRef;
     }
 
-  init_today_chart() {
-    let htmlRef = this.elementRef.nativeElement.querySelector('#todayCanvas');     
+  initTodayChart() {
+    let htmlRef = this.elementRef.nativeElement.querySelector('#today_canvas');   
+    if(this.todayVulnChart != null) this.todayVulnChart.destroy();
     this.todayVulnChart = new Chart(htmlRef, {
       type: 'doughnut',
       data: {
@@ -69,9 +68,10 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  init_week_chart() {
+  initWeekChart() {
     setTimeout(() => {
       let htmlRef = this.elementRef.nativeElement.querySelector('#week_canvas');
+      if(this.weekCountChart != null) this.weekCountChart.destroy();
       this.weekCountChart = new Chart(htmlRef, {
         type: 'bar',
         data: {
@@ -108,17 +108,21 @@ export class DashboardComponent implements OnInit {
     },300);    
   }
 
-  init_access_stat_chart() {
+  initAccessStatChart() {
     setTimeout(() => {
       let htmlRef = this.elementRef.nativeElement.querySelector('#stat_canvas');
-      this.weekCountChart = new Chart(htmlRef, {
-        type: 'bar',
+      if(this.accessStatChart != null) this.accessStatChart.destroy();
+      this.accessStatChart = new Chart(htmlRef, {
+        type: 'line',
         data: {
           labels: this.access_stat_date,        
           datasets: [{
             label: 'Count',
+            lineTension: 0,  
+            fill: false,
             data: this.access_stat_count,
-            backgroundColor: 'rgba(10,10,250,0.8)',
+            borderColor: 'rgba(00, 95, 200, 1.0)',
+            /*backgroundColor: 'rgba(10,10,250,0.8)',*/
             borderWidth: 1
           }]
       },
@@ -172,8 +176,8 @@ export class DashboardComponent implements OnInit {
     if(this.applicationService.applications.length==0) {
       this.applicationService.getApplications();
     }
-    this.init_week_chart();
-    this.init_access_stat_chart();
+    this.initWeekChart();
+    this.initAccessStatChart();
   }
 
   getVulnNameByID(vuln_id:number) {
@@ -206,7 +210,7 @@ export class DashboardComponent implements OnInit {
           self.today_stat_count.push(vuln_stat.count);
           self.today_stat_bgcolor.push(self.getColorString(vuln_stat.vuln_id));
         }
-        self.init_today_chart();
+        self.initTodayChart();
     });
   }
 
@@ -226,7 +230,7 @@ export class DashboardComponent implements OnInit {
           week_stats = [0,0,0,0,0,0,0];
         }
         self.week_stat_count = week_stats;
-        self.init_week_chart();
+        self.initWeekChart();
     });
   }
 
@@ -246,7 +250,7 @@ export class DashboardComponent implements OnInit {
             access_stats = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
         }
         self.access_stat_count = access_stats;
-        self.init_access_stat_chart();
+        self.initAccessStatChart();
     });
   }
 
@@ -267,14 +271,14 @@ export class DashboardComponent implements OnInit {
     return color
   }
 
-  stat_by_app_id() {
+  statByAppID() {
     this.getTodayVulnStat(this.selected_app_id);
-    this.stat_by_app_and_vuln();
+    this.statByAppAndVuln();
     this.getAccessStat(this.selected_app_id);
     this.getPopContents(this.selected_app_id);
   }
 
-  stat_by_app_and_vuln() {
+  statByAppAndVuln() {
     this.getWeekStat(this.selected_app_id, this.selected_vuln_id);
   }
 

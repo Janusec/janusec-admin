@@ -24,7 +24,14 @@
                     <mat-icon>explore</mat-icon>
                     <span i18n="@@app_mgmt">Application</span>
                 </a>
-        </mat-list-item>        
+        </mat-list-item>           
+        
+        <mat-list-item>
+            <a routerLink="/health">
+                <mat-icon>check_circle_outline</mat-icon>
+                <span i18n="@@health_check">Health</span>
+            </a>  
+        </mat-list-item>
 
         <mat-list-item *ngIf="applicationService.auth_user.is_super_admin==true">
             <a routerLink="/nodes">
@@ -62,7 +69,7 @@
         </mat-list-item>
 
         <mat-list-item>
-            <a routerLink="/ssh" target="_blank">
+            <a routerLink="/ssh">
                 <mat-icon>computer</mat-icon>
                 <span>Web SSH</span>
             </a>  

@@ -63,6 +63,7 @@ import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { WebsshComponent } from './webssh/webssh.component';
 import { HashLocationStrategy, LocationStrategy} from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { HealthCheckComponent } from './health-check/health-check.component';
 
 @NgModule({
   exports:[
@@ -128,7 +129,8 @@ export class MaterialModule{}
     CCLogDetailComponent,
     SettingsComponent,
     FrontpageComponent,
-    WebsshComponent
+    WebsshComponent,
+    HealthCheckComponent
   ],
   imports: [
     MaterialModule,

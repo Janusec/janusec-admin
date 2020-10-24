@@ -23,6 +23,8 @@ export class Application {
     oauth_required: boolean;
     session_seconds: number;
     owner: string;
+    csp_enabled: boolean;
+    csp: string;
 }
 
 export enum IPMethod {
@@ -56,6 +58,8 @@ export class Destination {
     destination: string;
     app_id: number;
     node_id: number;
+    online: boolean;
+    check_time: number;
 }
 
 export class SelfSignCert {
@@ -299,4 +303,18 @@ export class PopContent {
     app_id: number;
     url_path: string;
     amount: number;
+}
+
+export class GateHealth {
+    start_time: number;
+    cur_time: number;
+    cpu_load1: number;
+    cpu_load5: number;
+    cpu_load15: number;
+    mem_used: number;
+    mem_total: number;
+    disk_used: number;
+    disk_total: number;
+    time_zone: string;
+    time_offset: number;
 }

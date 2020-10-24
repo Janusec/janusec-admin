@@ -43,10 +43,10 @@
       <mat-hint align="end">{{description.value?.length || 0}}/256</mat-hint> 
     </mat-form-field>
     <div>
-    <button i18n="@@save" mat-raised-button [disabled]="readOnlyValue" (click)="setCertificate()" color="primary">Save</button>
-    <button mat-raised-button *ngIf="applicationService.auth_user.is_super_admin==true" (click)="changeEditable()"  color="primary">{{readOnlyButtonText}}</button>
-    <button i18n="@@delete" *ngIf="certificate.id>0" mat-raised-button [disabled]="readOnlyValue" (click)="deleteCertificate()" color="primary">Delete</button>
-    <button i18n="@@cert_self_sign" *ngIf="certificate.id==0 && certificate.common_name" mat-raised-button (click)="selfSignCertificate()" color="primary">Self-Sign Certificate</button>
+    <button i18n="@@save" mat-stroked-button [disabled]="readOnlyValue" (click)="setCertificate()">Save</button>
+    <button mat-stroked-button *ngIf="applicationService.auth_user.is_super_admin==true" (click)="changeEditable()" >{{readOnlyButtonText}}</button>
+    <button i18n="@@delete" *ngIf="certificate.id>0" mat-stroked-button [disabled]="readOnlyValue" (click)="deleteCertificate()">Delete</button>
+    <button i18n="@@cert_self_sign" *ngIf="certificate.id==0 && certificate.common_name" mat-stroked-button (click)="selfSignCertificate()">Self-Sign Certificate</button>
     </div>
 </div>
 

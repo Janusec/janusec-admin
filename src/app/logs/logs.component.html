@@ -19,8 +19,8 @@
     <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
     <mat-datepicker #pickerEnd></mat-datepicker>
   </mat-form-field>
-  <button mat-raised-button i18n="@@query_waf_logs" 
-  (click)="queryRegexLogs()" color="primary">Query WAF Logs</button>
+  <button mat-stroked-button i18n="@@query_waf_logs" 
+  (click)="queryRegexLogs()">Query WAF Logs</button>
 </div>
 <div class="mat-elevation-z8">
   <mat-table #table [dataSource]="regexLogDataSource"> 
@@ -71,7 +71,9 @@
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
   <mat-paginator #paginator
+           [length]="pageLength" 
            [pageSize]="20"
+           [pageIndex]="pageIndex" 
            [pageSizeOptions]="[10, 20, 50]"
            [showFirstLastButtons]="true" 
            (page)="pageChanged()">

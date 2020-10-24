@@ -122,24 +122,6 @@ export class ApplicationDetailComponent implements OnInit {
     
   }
 
-/*
-  addStaticDir():void{
-    if(this.readOnlyValue) return;
-    this.application.static_dirs.push("");
-    console.log(this.application.static_dirs);
-  }
-
-  delStaticDir(i:number):void{
-    if(this.readOnlyValue) return;
-    if(this.application.static_dirs.length==1) {
-      alert("At least one item is required, keep it empty if not required !");
-      return;
-    }
-    this.application.static_dirs.splice(i,1);
-    console.log(this.application.static_dirs);
-  }
-*/
-
   addDomain():void{
     if(this.readOnlyValue) return;
     var new_domain: Domain=new Domain();

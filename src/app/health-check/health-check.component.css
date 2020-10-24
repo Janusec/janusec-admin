@@ -1,0 +1,9 @@
+mat-list-item {
+    background-color: #F0F0F0;
+    margin: 3px 0px;
+}
+
+.refresh_pointer:hover {
+    cursor: pointer;
+    background-color: #e0e0e0;
+}

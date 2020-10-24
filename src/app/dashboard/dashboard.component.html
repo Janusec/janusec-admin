@@ -9,9 +9,9 @@
      </mat-option>  
      </mat-select> 
    </mat-form-field>
-   <button mat-raised-button i18n="@@view" (click)="stat_by_app_id()" color="primary">View</button>
+   <button mat-stroked-button i18n="@@view" (click)="statByAppID()">View</button>
     <div class="myChart">
-    <canvas id="todayCanvas">{{ todayVulnChart }}</canvas>
+    <canvas id="today_canvas">{{ todayVulnChart }}</canvas>
     </div>
 </div>
 
@@ -24,7 +24,7 @@
     </mat-option>  
     </mat-select> 
   </mat-form-field>
-  <button mat-raised-button i18n="@@view" (click)="stat_by_app_and_vuln()" color="primary">View</button>
+  <button mat-stroked-button i18n="@@view" (click)="statByAppAndVuln()">View</button>
   <div class="myChart">
       <canvas id="week_canvas">{{ weekCountChart }}</canvas>
   </div>

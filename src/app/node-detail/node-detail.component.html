@@ -2,7 +2,7 @@
 
     <h2>
         <mat-icon>details</mat-icon>
-        Node Details
+        <span i18n="@@node_detail">Node Details</span>
     </h2>  
       
     <div class="container">
@@ -24,8 +24,8 @@
         
         
         <div>
-        <button mat-raised-button (click)="changeEditable()"  color="primary">{{readOnlyButtonText}}</button>
-        <button *ngIf="node.id>0" mat-raised-button [disabled]="readOnlyValue" (click)="deleteNode(node.id)" color="primary">Delete</button>
+        <button mat-stroked-button (click)="changeEditable()" >{{readOnlyButtonText}}</button>
+        <button *ngIf="node.id>0" mat-stroked-button [disabled]="readOnlyValue" (click)="deleteNode(node.id)">Delete</button>
         </div>
     </div>
     

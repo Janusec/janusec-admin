@@ -1,0 +1,109 @@
+<div class="container">
+    <mat-tab-group>
+      <mat-tab i18n-label="@@gateway_status" label="Gateway Status">
+        <div *ngIf="gate_health">
+            <mat-list class="mat-list-item-list-stacked">
+                <mat-list-item>
+                    <span i18n="@@start_time">Start Time</span>: {{ getDate(gate_health.start_time) }}
+                </mat-list-item>
+                <mat-list-item>
+                    <span i18n="@@current_time">Current Time</span>: {{ getDate(gate_health.cur_time) }}
+                </mat-list-item>
+                <mat-list-item>
+                    <span i18n="@@time_zone">Time Zone</span>: {{ gate_health.time_zone }} {{ gate_health.time_offset }}
+                </mat-list-item>
+                <mat-list-item>
+                    <span i18n="@@cpu_load1">CPU Load (1 Minute)</span>: {{ (gate_health.cpu_load1 * 100).toFixed(2) }}%
+                </mat-list-item>
+                <mat-list-item>
+                    <span i18n="@@cpu_load5">CPU Load (5 Minutes)</span>: {{ (gate_health.cpu_load5 * 100).toFixed(2) }}%
+                </mat-list-item>
+                <mat-list-item>
+                    <span i18n="@@cpu_load15">CPU Load (15 Minutes)</span>: {{ (gate_health.cpu_load15 * 100).toFixed(2) }}%
+                </mat-list-item>
+                <mat-list-item>
+                    <span i18n="@@mem_used">Memory Used</span>: {{ (gate_health.mem_used / (1024*1024*1024)).toFixed(2) }} GB
+                </mat-list-item>
+                <mat-list-item>
+                    <span i18n="@@mem_total">Memory Total</span>: {{ (gate_health.mem_total / (1024*1024*1024)).toFixed(2) }} GB
+                </mat-list-item>    
+                <mat-list-item>
+                    <span i18n="@@disk_used">Storage Used</span>: {{ (gate_health.disk_used / (1024*1024*1024)).toFixed(2) }} GB
+                </mat-list-item>
+                <mat-list-item>
+                    <span i18n="@@disk_total">Storage Total</span>: {{ (gate_health.disk_total / (1024*1024*1024)).toFixed(2) }} GB
+                </mat-list-item>    
+                <button mat-stroked-button (click)="getGatewayHealth()">  
+                    <mat-icon matListIcon>refresh</mat-icon>
+                    <span i18n="@@refresh">Refresh</span>
+                </button>            
+            </mat-list>  
+                     
+        </div>
+        
+      </mat-tab>
+
+      <mat-tab i18n-label="@@hosts_status" label="Hosts Status">
+        <div>
+            <h3 matLine><span i18n="@@offline_hosts">Offline Hosts</span>: {{ offlineDestinations.length }}</h3>
+        </div>
+        <div>
+            <mat-list class="mat-list-item-list-stacked">                
+                <mat-list-item *ngFor="let dest of offlineDestinations">    
+                    <mat-icon matListIcon matTooltip="This host is offline!" matTooltipPosition="right" color="warn">error</mat-icon>
+                    
+                    <h3 matLine> {{dest.destination}} ({{ getAppNameByID(dest.app_id) }}) </h3> 
+                    <p matLine>    
+                    Offline Time: {{ getDate(dest.check_time) }}     
+                    </p>    
+                </mat-list-item>
+            </mat-list>
+        </div>
+
+        <div>
+            <h3 matLine><span i18n="@@unvisited_hosts">Zero Access Hosts within 24 hours</span>: {{ unvisitedDestinations.length }}</h3>
+        </div>
+        <div>
+            <mat-list class="mat-list-item-list-stacked">                
+                <mat-list-item *ngFor="let dest of unvisitedDestinations">    
+                    <mat-icon matListIcon color="accent">help</mat-icon>
+                    
+                    <h3 matLine> {{dest.destination}} ({{ getAppNameByID(dest.app_id) }}) </h3> 
+                    <p matLine>    
+                    Last Access Time: {{ getDate(dest.check_time) }}     
+                    </p>    
+                </mat-list-item>
+            </mat-list>
+        </div>
+        
+        <button mat-stroked-button (click)="updateDestinations()">  
+            <mat-icon matListIcon>refresh</mat-icon>
+            <span i18n="@@refresh">Refresh</span>
+        </button>        
+
+      </mat-tab>
+    
+      <mat-tab i18n-label="@@host_status_by_application" label="Hosts Status by Application">
+        <mat-form-field>
+            <mat-select i18n-placeholder="@@application" [(ngModel)]="selected_app_id" placeholder="Application">
+            <mat-option *ngFor="let application of applicationService.applications;" [value]="application.id">
+                {{application.name}}
+            </mat-option>  
+            </mat-select> 
+        </mat-form-field>
+        <button mat-stroked-button i18n="@@view" (click)="health_check_by_app_id()">Check</button>
+        <div>
+            <mat-list *ngIf="selected_app" class="mat-list-item-list-stacked">                
+                <mat-list-item *ngFor="let dest of selected_app.destinations">    
+                    <mat-icon *ngIf="dest.online==false" matListIcon matTooltip="This host is offline!" matTooltipPosition="right" color="warn">error</mat-icon>
+                    <mat-icon *ngIf="dest.online==true" matListIcon matTooltip="This host is online!" matTooltipPosition="right" color="primary">check_circle_outline</mat-icon>
+                    <h3 matLine> {{dest.destination}} ({{ selected_app.name }}) </h3> 
+                    <p matLine>    
+                    Check Time: {{ getDate(dest.check_time) }}      
+                    </p>    
+                </mat-list-item>
+                </mat-list>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+    </div>

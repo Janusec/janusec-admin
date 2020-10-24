@@ -54,15 +54,11 @@
     
   </div>
   <div>
-    <button mat-raised-button i18n="@@save" 
-    [disabled]="readOnlyValue" (click)="onSave()" color="primary">
-    Save
-    </button>
-    <button mat-raised-button (click)="changeEditable()"  color="primary">{{readOnlyButtonText}}</button>
-    <button mat-raised-button i18n="@@delete" 
+    <button mat-stroked-button i18n="@@save" 
+    [disabled]="readOnlyValue" (click)="onSave()">Save</button>
+    <button mat-stroked-button (click)="changeEditable()" >{{readOnlyButtonText}}</button>
+    <button mat-stroked-button i18n="@@delete" 
     [disabled]="(appadmin.username=='admin' || appadmin.id==0)?true:readOnlyValue" 
-    (click)="onDelete()" color="primary">
-    Delete
-    </button>
+    (click)="onDelete()">Delete</button>
   </div>
 </div>

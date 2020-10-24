@@ -16,7 +16,8 @@ export class LogsComponent implements OnInit {
   start_date: Date;
   end_date: Date;
   request_count: number = 20;
-  
+  pageLength: number;
+  pageIndex: number;
 
   regexLogDataSource: LogsDataSource;
   displayedColumns = ['id', 'request_time', 'client_ip', 'method', 'host', 'url_path', 'action', 'policy_id'];
@@ -57,9 +58,9 @@ export class LogsComponent implements OnInit {
       this.regexLogDataSource.loadLast();
       this.app_id=this.applicationService.lastRegexLogs.app_id;
       this.start_date=this.applicationService.lastRegexLogs.start_date;
-      this.end_date=this.applicationService.lastRegexLogs.end_date;
-      this.paginator.length=this.applicationService.lastRegexLogs.length;
-      this.paginator.pageIndex=this.applicationService.lastRegexLogs.page_index;
+      this.end_date=this.applicationService.lastRegexLogs.end_date;      
+      this.pageLength=this.applicationService.lastRegexLogs.length;
+      this.pageIndex=this.applicationService.lastRegexLogs.page_index;
     }
     
   }

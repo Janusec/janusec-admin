@@ -16,19 +16,7 @@ export class ApplicationsComponent implements OnInit {
   constructor(
     public applicationService: ApplicationService,
     private router: Router) { }
-/*
-  getApplications(): void {
-    this.applicationService
-        .getApplications()
-        .subscribe((applications) => {
-          if (applications==null) {
-            this.router.navigate(['/login']);
-          } else {
-            this.applicationService.applications = applications;
-          }          
-        });
-  }
-*/
+
   ngOnInit(): void {
     if (this.applicationService.auth_user.logged==false) {
       this.router.navigate(['/']);

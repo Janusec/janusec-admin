@@ -147,6 +147,18 @@
         <input i18n-placeholder="@@session_seconds" type="number" matInput [(ngModel)]="application.session_seconds" [readonly]="readOnlyValue" placeholder="Session Expire Seconds for OAuth2"/>
     </mat-form-field> 
 
+    <section>
+        <mat-checkbox i18n="@@csp_enabled" [(ngModel)]="application.csp_enabled" [disabled]="readOnlyValue">
+            Enable CSP (Content-Security-Policy, example: default-src 'self' )
+        </mat-checkbox>
+    </section>
+
+    <mat-form-field *ngIf="application.csp_enabled">
+        <mat-label>Content-Security-Policy</mat-label>
+        <input matInput i18n-placeholder="@@csp" [(ngModel)]="application.csp" #csp [readonly]="readOnlyValue" placeholder=""/>
+        <mat-hint align="end">{{csp.value?.length || 0}}/1024</mat-hint>
+    </mat-form-field> 
+
     <mat-form-field>
         <input matInput i18n-placeholder="@@owner" [(ngModel)]="application.owner" [readonly]="readOnlyValue" placeholder="Application Owner"/>
     </mat-form-field> 
@@ -156,8 +168,8 @@
         <mat-hint align="end">{{description.value?.length || 0}}/256</mat-hint>
       </mat-form-field> 
     <div>
-    <button i18n="@@save" mat-raised-button [disabled]="readOnlyValue" (click)="setApplication()" color="primary">Save</button>
-    <button mat-raised-button (click)="changeEditable()" color="primary">{{readOnlyButtonText}}</button>
-    <button i18n="@@delete" mat-raised-button [disabled]="readOnlyValue" (click)="deleteApplication()" color="primary">Delete</button>
+    <button i18n="@@save" mat-stroked-button [disabled]="readOnlyValue" (click)="setApplication()">Save</button>
+    <button mat-stroked-button (click)="changeEditable()">{{readOnlyButtonText}}</button>
+    <button i18n="@@delete" mat-stroked-button [disabled]="readOnlyValue" (click)="deleteApplication()">Delete</button>
   </div>  
   </div>

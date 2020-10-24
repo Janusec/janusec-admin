@@ -1,11 +1,12 @@
-.mat-tab-field3 {
-    width: 548px;
-}
-
 .fullrow {
     width: 100%;
 }
 
 .custommargin {
     margin-bottom: 10px;
+}
+
+button {
+    margin-top: 5px;
+    margin-right: 5px;
 }

@@ -16,7 +16,7 @@
     <mat-form-field>
         <input matInput i18n-placeholder="@@password" type="password" [(ngModel)]="server.password" placeholder="Password" required/>    
     </mat-form-field> 
-    <button mat-raised-button (click)="SSHConnect()" color="primary">SSH</button>
+    <button mat-stroked-button (click)="SSHConnect()">SSH</button>
 </div>
 <div #terminalDiv></div>
 </div>
