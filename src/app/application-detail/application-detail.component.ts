@@ -58,6 +58,8 @@ export class ApplicationDetailComponent implements OnInit {
       this.application.oauth_required=false;
       this.application.session_seconds=7200;
       this.application.owner=this.applicationService.auth_user.username;
+      this.application.csp_enabled=false;
+      this.application.csp="";
       this.addDomain();
       this.addDestination();
     }
