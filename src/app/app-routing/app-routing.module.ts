@@ -20,6 +20,8 @@ import { SettingsComponent } from '../settings/settings.component';
 import { FrontpageComponent } from '../frontpage/frontpage.component';
 import { WebsshComponent } from '../webssh/webssh.component';
 import { HealthCheckComponent } from '../health-check/health-check.component';
+import { VipAppsComponent } from '../vip-apps/vip-apps.component';
+import { VipAppComponent } from '../vip-app/vip-app.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/index.html', pathMatch: 'full' },
@@ -27,6 +29,8 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent},
   { path: 'application/:id', component: ApplicationDetailComponent },
   { path: 'applications', component: ApplicationsComponent },
+  { path: 'forwarding', component: VipAppsComponent },
+  { path: 'vip/:id', component: VipAppComponent },
   { path: 'certificates', component: CertificatesComponent },
   { path: 'certificate/:id', component: CertificateDetailComponent },
   { path: 'usermgmt', component: UsermgmtComponent},

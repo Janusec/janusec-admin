@@ -64,6 +64,8 @@ import { WebsshComponent } from './webssh/webssh.component';
 import { HashLocationStrategy, LocationStrategy} from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HealthCheckComponent } from './health-check/health-check.component';
+import { VipAppsComponent } from './vip-apps/vip-apps.component';
+import { VipAppComponent } from './vip-app/vip-app.component';
 
 @NgModule({
   exports:[
@@ -130,7 +132,9 @@ export class MaterialModule{}
     SettingsComponent,
     FrontpageComponent,
     WebsshComponent,
-    HealthCheckComponent
+    HealthCheckComponent,
+    VipAppsComponent,
+    VipAppComponent
   ],
   imports: [
     MaterialModule,

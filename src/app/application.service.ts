@@ -2,7 +2,7 @@ import { Injectable }    from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { AuthUser, Application, Certificate, Domain, AppAdmin, VulnType, APIResponse, NodesKey, Node, LastRegexLogs, LastCCLogs, OAuthInfo } from './models';
+import { AuthUser, Application, Certificate, Domain, AppAdmin, VulnType, APIResponse, NodesKey, Node, LastRegexLogs, LastCCLogs, OAuthInfo, VipApp } from './models';
 import { MessageService } from './message.service';
 
 const httpOptions = {
@@ -23,7 +23,9 @@ export class ApplicationService {
       need_modify_pwd: false};
   certificates: Certificate[] = [];
   applications: Application[] = [];
+  vip_apps: VipApp[] = [];
   appmap: object = new(Object);
+  vip_app_map: object = new(Object);
   hexNodesKey: string;
   nodes: Node[] = [];
   domains: Domain[]=[];
@@ -79,11 +81,29 @@ export class ApplicationService {
 
   getApplications() {
     var self = this;
-    this.getResponse('getapps', function(obj: Application[]){      
-        self.applications = obj;    
-        for (let app of self.applications) {
-            self.appmap[app.id]=app.name;
-          }  
+    this.getResponse('getapps', function(obj: Application[]){ 
+        if(obj==null) {
+            self.applications = [];
+        } else {
+            self.applications = obj;    
+            for (let app of self.applications) {
+                self.appmap[app.id]=app.name;
+            }  
+        }
+    });
+  }
+
+  getVipApps() {
+    var self = this;
+    this.getResponse('get_vip_apps', function(obj: VipApp[]){
+        if(obj==null) {
+            self.vip_apps = []; 
+        } else {
+            self.vip_apps = obj;  
+            for (let vip_app of self.vip_apps) {
+                self.vip_app_map[vip_app.id]=vip_app.name;
+            }  
+        }        
     });
   }
 

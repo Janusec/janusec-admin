@@ -1,0 +1,22 @@
+<div class="container">
+    <div>    
+        <mat-card>
+          <h2 i18n="@@vip_app">Port Forwarding</h2>
+        </mat-card>    
+    </div>
+    <mat-list class="mat-list-item-list-stacked">
+      <mat-list-item (click)="addVipApp()">  
+        <mat-icon matListIcon>add_circle_outline</mat-icon>
+        <h3 matLine i18n="@@add_vip">Add Port Forwarding</h3>    
+      </mat-list-item>
+      <mat-list-item *ngFor="let vip_app of applicationService.vip_apps" (click)="onSelect(vip_app)"
+          [class.selected]="vip_app === selectedPort">
+          <mat-icon matListIcon>explore</mat-icon>   
+        <h3 matLine> {{vip_app.name}}  </h3>
+        <p matLine>
+            {{vip_app.description}}
+        </p>   
+         
+      </mat-list-item>
+    </mat-list>
+    </div>

@@ -27,6 +27,24 @@ export class Application {
     csp: string;
 }
 
+export class VipApp {
+    id: number;
+    name: string;
+    listen_port: string;
+    is_tcp: boolean;
+    targets: VipTarget[];
+    owner: string;
+    description: string;
+}
+
+export class VipTarget {
+    id: number;
+    vip_app_id: number;
+    destination: string;
+    online: boolean;
+    check_time: number;
+}
+
 export enum IPMethod {
     REMOTE_ADDR      = 1,
     X_Forwarded_For  = 1 << 1,
