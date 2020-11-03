@@ -36,9 +36,12 @@ export class VipAppComponent implements OnInit {
       this.readOnlyValue = false;
       this.vip_app=new VipApp();
       this.vip_app.id=0;
+      this.vip_app.name='XXX',
+      this.vip_app.listen_port=8001,
       this.vip_app.is_tcp=true;
       this.vip_app.targets=[];
       this.vip_app.owner=this.applicationService.auth_user.username;
+      this.vip_app.description='Used for YYY';
       this.addTarget();
     }
   }
@@ -59,6 +62,45 @@ export class VipAppComponent implements OnInit {
       return;
     }
     this.vip_app.targets.splice(i,1);
+  }
+
+  updateVipApp() {
+    var self=this;
+    this.applicationService.getResponse('update_vip_app', function(obj: VipApp){
+      if(obj==null) {
+        self.messageService.add("Update failed.");
+        return;
+      }
+      let new_id = obj.id;
+      if(self.vip_app.id == new_id)  {
+        self.vip_app = obj;
+      }       
+      else {
+        self.vip_app.id = new_id;
+        self.router.navigate(['/vip/'+ new_id]);
+      }
+      self.readOnlyValue = true;
+      self.readOnlyButtonText="Edit";
+      self.messageService.add("Port forwarding "+ obj.name +" Saved.");
+    }, null, self.vip_app);
+  }
+
+  deleteVipApp() {
+    if(!confirm("Are you sure to delete application: "+this.vip_app.name+"?")) return;
+    var self = this;
+    this.applicationService.getResponse('del_vip_app',function(){
+      self.messageService.add(self.vip_app.name +" deleted.");                  
+      self.router.navigate(['/forwarding']);
+    },this.vip_app.id,null);
+  }
+
+  changeEditable() {
+    this.readOnlyValue = !this.readOnlyValue;
+    if(this.readOnlyValue) {
+      this.readOnlyButtonText="Edit";
+    } else {
+      this.readOnlyButtonText="Cancel";
+    }
   }
 
 }

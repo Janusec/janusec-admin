@@ -119,11 +119,6 @@ export class ApplicationDetailComponent implements OnInit {
     //console.log(this.application.destinations);
   }
 
-  showDestDialog(i:number) {
-    let dest = this.application.destinations[i];
-    
-  }
-
   addDomain():void{
     if(this.readOnlyValue) return;
     var new_domain: Domain=new Domain();

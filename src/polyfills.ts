@@ -130,8 +130,14 @@ let zhTranslations = {
     'more_info_of_backend_routing': '前后端路径不一致时可使用/xyz/这种形式，本地静态网站/FastCGI网站填写绝对路径(/path/to/www/)',
     'csp_enabled': "(默认不勾选)启用CSP(内容安全策略，如default-src 'self' )",
     // Port forwarding
+    'port_forwarding': '端口转发',
     'vip_app': '端口转发',
-    'add_vip': '添加VIP(端口转发)',
+    'add_vip': '添加端口转发',
+    'target_configuration': '后端配置',
+    'add_new_target': '新增后端IP:Port',
+    'listen_port': '监听端口(1025-65535)',
+    'target': '后端IP:Port',
+    'vip_owner': '应用负责人',
     // Health Check
     'gateway_status': '网关状态',
     'hosts_status': '主机状态',

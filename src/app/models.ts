@@ -30,7 +30,7 @@ export class Application {
 export class VipApp {
     id: number;
     name: string;
-    listen_port: string;
+    listen_port: number;
     is_tcp: boolean;
     targets: VipTarget[];
     owner: string;

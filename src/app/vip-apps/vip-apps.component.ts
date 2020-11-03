@@ -25,5 +25,10 @@ export class VipAppsComponent implements OnInit {
   addVipApp() {
     this.router.navigate(['/vip/0']);
   }
+  
+  onSelect(vip_app: VipApp):void {
+    this.selectedVipApp = vip_app;
+    this.router.navigate(['/vip/'+ this.selectedVipApp.id]);
+}
 
 }
