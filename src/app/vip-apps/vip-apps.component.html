@@ -10,8 +10,9 @@
         <h3 matLine i18n="@@add_vip">Add Port Forwarding</h3>    
       </mat-list-item>
       <mat-list-item *ngFor="let vip_app of applicationService.vip_apps" (click)="onSelect(vip_app)">
-          <mat-icon matListIcon>forward</mat-icon>   
-        <h3 matLine> {{vip_app.listen_port}} ({{vip_app.name}})  </h3>
+        <mat-icon matListIcon>forward</mat-icon>   
+        <h3 matLine *ngIf="vip_app.is_tcp">TCP: {{vip_app.listen_port}} ({{vip_app.name}}) </h3>
+        <h3 matLine *ngIf="!vip_app.is_tcp">UDP: {{vip_app.listen_port}} ({{vip_app.name}}) </h3>
         <p matLine>
             {{vip_app.description}}
         </p>   
