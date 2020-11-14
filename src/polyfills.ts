@@ -133,6 +133,7 @@ let zhTranslations = {
     'port_forwarding': '端口转发',
     'vip_app': '端口转发',
     'add_vip': '添加端口转发',
+    'forward_note': '备注：仅支持直接从监听端口响应的服务（不支持多个端口或反向连接）。',
     'target_configuration': '后端配置',
     'add_new_target': '新增后端IP:Port',
     'listen_port': '监听端口(1025-65535)',

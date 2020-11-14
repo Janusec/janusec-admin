@@ -41,7 +41,7 @@ export class NavbarComponent implements OnInit {
 
   switchLanguage() {    
     var lang = localStorage.getItem('lang');
-    if(lang=="" || lang=="en") {
+    if(lang==null ||lang=="" || lang=="en") {
       localStorage.setItem('lang', 'zh-cn');
     } else {
       localStorage.setItem('lang', 'en');

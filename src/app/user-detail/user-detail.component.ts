@@ -37,6 +37,7 @@ export class UserDetailComponent implements OnInit {
       let self=this;
       this.applicationService.getResponse('getadmin', function(obj:AppAdmin){
         if(obj != null) self.appadmin = obj;
+        if(self.appadmin.need_modify_pwd) self.readOnlyValue=false;
       }, id, null);
     } else {
       this.appadmin=new AppAdmin();
@@ -44,6 +45,7 @@ export class UserDetailComponent implements OnInit {
       this.appadmin.is_super_admin=false;
       this.appadmin.is_cert_admin=false;
       this.appadmin.is_app_admin=false;
+      this.appadmin.need_modify_pwd=true;
       this.readOnlyValue = false;
       this.readOnlyButtonText="Cancel";
     }    

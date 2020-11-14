@@ -61,6 +61,4 @@ export class LoginFormComponent implements OnInit {
         if(obj != null) self.oauth=obj;
       });
   }
-  
-
 }

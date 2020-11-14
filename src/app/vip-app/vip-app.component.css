@@ -16,7 +16,7 @@ mat-radio-group {
 }
 
 mat-radio-button {
-    margin-right: 10px;
+    margin-right: 30px;
 }
 
 .detail_panel {
@@ -25,4 +25,10 @@ mat-radio-button {
 
 button {
     margin-right: 5px;
+}
+
+.notes {
+    background-color: #f5f5f5;
+    padding: 5px;
+    margin-top: 5px;    
 }

@@ -45,7 +45,7 @@
 
       <mat-tab i18n-label="@@hosts_status" label="Hosts Status">
         <div>
-            <h3 matLine><span i18n="@@offline_hosts">Offline Hosts</span>: {{ offlineDestinations.length }}</h3>
+            <h3 matLine><span i18n="@@offline_hosts">Offline Hosts</span>: {{ offlineDestinations.length + offlineVipTargets.length }}</h3>
         </div>
         <div>
             <mat-list class="mat-list-item-list-stacked">                
@@ -57,11 +57,19 @@
                     Offline Time: {{ getDate(dest.check_time) }}     
                     </p>    
                 </mat-list-item>
+                <mat-list-item *ngFor="let target of offlineVipTargets">    
+                    <mat-icon matListIcon matTooltip="This host is offline!" matTooltipPosition="right" color="warn">error</mat-icon>
+                    
+                    <h3 matLine> {{target.destination}} ({{ getVipAppNameByID(target.vip_app_id) }}) </h3> 
+                    <p matLine>    
+                    Offline Time: {{ getDate(target.check_time) }}     
+                    </p>    
+                </mat-list-item>
             </mat-list>
         </div>
 
         <div>
-            <h3 matLine><span i18n="@@unvisited_hosts">Zero Access Hosts within 24 hours</span>: {{ unvisitedDestinations.length }}</h3>
+            <h3 matLine><span i18n="@@unvisited_hosts">Zero Access Hosts within 24 hours</span>: {{ unvisitedDestinations.length + unvisitedVipTargets.length }}</h3>
         </div>
         <div>
             <mat-list class="mat-list-item-list-stacked">                
@@ -71,6 +79,14 @@
                     <h3 matLine> {{dest.destination}} ({{ getAppNameByID(dest.app_id) }}) </h3> 
                     <p matLine>    
                     Last Access Time: {{ getDate(dest.check_time) }}     
+                    </p>    
+                </mat-list-item>
+                <mat-list-item *ngFor="let target of unvisitedVipTargets">    
+                    <mat-icon matListIcon color="accent">help</mat-icon>
+                    
+                    <h3 matLine> {{target.destination}} ({{ getVipAppNameByID(target.vip_app_id) }}) </h3> 
+                    <p matLine>    
+                    Last Access Time: {{ getDate(target.check_time) }}     
                     </p>    
                 </mat-list-item>
             </mat-list>

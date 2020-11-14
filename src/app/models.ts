@@ -9,6 +9,17 @@ export class AuthUser {
     need_modify_pwd: boolean;
 }
 
+export class AppAdmin {
+    id: number;
+    username: string;
+    password: string;
+    email: string;
+    is_super_admin: boolean;
+    is_cert_admin: boolean;
+    is_app_admin: boolean;
+    need_modify_pwd: boolean;
+}
+
 export class Application {
     id: number;
     name: string;
@@ -94,15 +105,6 @@ export class Domain {
     location: string;
 }
 
-export class AppAdmin {
-    id: number;
-    username: string;
-    password: string;
-    email: string;
-    is_super_admin: boolean;
-    is_cert_admin: boolean;
-    is_app_admin: boolean;
-}
 
 export interface APIResponse {
     err: string;

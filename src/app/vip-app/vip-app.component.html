@@ -1,7 +1,7 @@
 <div *ngIf="vip_app" class="container">
     <h2>
-              <span i18n="@@port_forwarding">Port Forwarding</span>
-    </h2>  
+        <span i18n="@@port_forwarding">Port Forwarding</span>
+    </h2>
     
     <div>
       <mat-form-field>
@@ -19,6 +19,7 @@
         <mat-radio-button [value]=false>UDP</mat-radio-button>
       </mat-radio-group>
       
+      <div class="notes" i18n="@@forward_note">Note: Only support services which respond directly from the listening port. Multiple ports or reverse connections are not supported.</div>
   
       <mat-expansion-panel [expanded]="true"  class="detail_panel">
           <mat-expansion-panel-header>

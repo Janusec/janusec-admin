@@ -5,7 +5,7 @@
         </mat-card>    
     </div>
     <mat-list class="mat-list-item-list-stacked">
-      <mat-list-item (click)="addVipApp()">  
+      <mat-list-item *ngIf="applicationService.auth_user.is_super_admin==true" (click)="addVipApp()">  
         <mat-icon matListIcon>add_circle_outline</mat-icon>
         <h3 matLine i18n="@@add_vip">Add Port Forwarding</h3>    
       </mat-list-item>

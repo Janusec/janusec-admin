@@ -1,10 +1,9 @@
-<div *ngIf="appadmin">
+<div *ngIf="appadmin" class="container">
 
   <h2>
-      <mat-icon>details</mat-icon>
       <span i18n="@@user_details">User Details</span>
   </h2> 
-  <div class="container">
+  <div>
     <mat-form-field>
         <input matInput i18n-placeholder="@@username" 
         #username [(ngModel)]="appadmin.username" [readonly]="readOnlyValue"
