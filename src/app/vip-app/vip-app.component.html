@@ -14,7 +14,7 @@
         <mat-hint align="end">{{listen_port.value?.length || 0}}/5</mat-hint> 
       </mat-form-field>
 
-      <mat-radio-group aria-label="Protocol" [(ngModel)]="vip_app.is_tcp">
+      <mat-radio-group aria-label="Protocol" [(ngModel)]="vip_app.is_tcp" [disabled]="readOnlyValue">
         <mat-radio-button [value]=true>TCP</mat-radio-button>
         <mat-radio-button [value]=false>UDP</mat-radio-button>
       </mat-radio-group>

@@ -1,8 +1,5 @@
 <div *ngIf="application">
-  <h2>
-            <mat-icon>details</mat-icon>
-            <span i18n="@@app_detail">Application Detail</span>
-  </h2>  
+  <h2 i18n="@@app_detail" class="container">Application Detail</h2>
   
   <div class="container">
     <mat-form-field>
@@ -23,40 +20,20 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
        
-        <div class="description_block">  
-          <div i18n="@@reference_configuration">Reference configuration</div> 
-          <mat-list-item>
-              <span i18n="@@request_location">Request Location</span>: 
-              <span i18n="@@default">default</span>&nbsp;<span class="highlighted">/</span>, 
-              <span i18n="@@matching_priority"> include 3 patterns, matching priority</span>: 
-              <span class="highlighted">/abc/</span> &gt; <span class="highlighted">.php</span> &gt; <span class="highlighted">/</span>, 
-              <span i18n="@@more_info_of_request_location">subdirectory /abc/def/ is not supported.</span>
-          </mat-list-item>        
-          <mat-list-item>
-              <span i18n="@@routing_type">Routing Type</span>: 
-              <span i18n="@@default">default</span>&nbsp;<span class="highlighted">Reverse_Proxy</span>, 
-              <span i18n="@@more_info_of_routing_type">Local_FastCGI used for PHP, Python etc., Static_Website used for local static resources without backend servers. </span>
-          </mat-list-item>
-          <mat-list-item>
-              <span i18n="@@destination">Destination</span>: 
-              <span i18n="@@default">default</span>&nbsp;<span class="highlighted">IP:Port</span>, 
-              <span i18n="@@more_info_of_destination">or default file (such as index.html) if the routing type is Static_Website. </span>
-          </mat-list-item>
-          <mat-list-item>
-              <span i18n="@@backend_routing">Backend Routing</span>: 
-              <span i18n="@@default">default</span>&nbsp;<span class="highlighted">/</span>, 
-              <span i18n="@@more_info_of_backend_routing">using /xyz/ if the backend is using different URL Path, or absolute path (/path/to/www/) if the routing type is Static_Website or Local_FastCGI. </span>
-          </mat-list-item>            
-        </div>
-      
     <div class="inline-form" *ngFor="let dest of application.destinations;let i=index; trackBy:trackByFn">
       <mat-form-field class="inline-form-field-20">
           <mat-label i18n="@@request_location">Request Location</mat-label>
-          <input matInput [(ngModel)]="application.destinations[i].request_route" [readonly]="readOnlyValue" required/>         
+          <input matInput [(ngModel)]="application.destinations[i].request_route"  
+          i18n-matTooltip="@@request_location_tooltip" matTooltipPosition="below"  
+          matTooltip="Default: / , options:  (1) /abc/  (2) .php  (3) / , ordered from highest priority to lowest, and /abc/def/ is not supported."            
+          [readonly]="readOnlyValue" required/>         
       </mat-form-field>
       <mat-form-field class="inline-form-field-20">
         <mat-label i18n="@@routing_type">Routing Type</mat-label>
-        <mat-select [(ngModel)]="application.destinations[i].route_type" [disabled]="readOnlyValue" required>   
+        <mat-select [(ngModel)]="application.destinations[i].route_type" 
+        i18n-matTooltip="@@routing_type_tooltip" matTooltipPosition="below"   
+        matTooltip="Default: Reverse_Proxy, other options: Local_FastCGI used for PHP, Python etc., Static_Website used for local static resources without backend servers."  
+        [disabled]="readOnlyValue" required>   
             <mat-option *ngFor="let route_type of enum_route_types;" [value]="route_type.value">
               {{ route_type.name }}
             </mat-option>                
@@ -64,11 +41,17 @@
       </mat-form-field>
       <mat-form-field class="inline-form-field-25">
         <mat-label i18n="@@destination">Destination</mat-label>
-        <input matInput [(ngModel)]="application.destinations[i].destination" [readonly]="readOnlyValue" required/>        
+        <input matInput [(ngModel)]="application.destinations[i].destination" 
+        i18n-matTooltip="@@destination_tooltip" matTooltipPosition="below"   
+        matTooltip="Default IP:Port (such as 10.0.0.1:80), or default file (such as index.html) if Static_Website was selected." 
+        [readonly]="readOnlyValue" required/>        
       </mat-form-field>
       <mat-form-field class="inline-form-field-25">
           <mat-label i18n="@@backend_routing">Backend Routing</mat-label>
-          <input matInput [(ngModel)]="application.destinations[i].backend_route" [readonly]="readOnlyValue" required/>
+          <input matInput [(ngModel)]="application.destinations[i].backend_route" 
+          i18n-matTooltip="@@backend_routing_tooltip" matTooltipPosition="below"  
+          matTooltip="Default /, using /xyz/ if the backend is using different URL Path. Please fill in absolute path (/path/to/www/) if the routing type is Static_Website or Local_FastCGI."     
+          [readonly]="readOnlyValue" required/>
           <mat-icon matSuffix i18n-matTooltip="@@add_new_routing" class="clickable_btn" matTooltip="Add new routing" matTooltipPosition="left" (click)="addDestination()">add_circle_outline</mat-icon>
           <mat-icon *ngIf="application.destinations.length>1" matSuffix class="clickable_btn" (click)="delDestination(i)">remove_circle_outline</mat-icon> 
       </mat-form-field>
@@ -99,9 +82,10 @@
               </mat-option>                
           </mat-select>
         </mat-form-field>  
+
         <mat-form-field  class="inline-form-field-50">
             <mat-checkbox matPrefix i18n="@@redirect" [(ngModel)]="application.domains[i].redirect" [disabled]="readOnlyValue">
-                Redirect to (301): &nbsp;
+                (Not checked by default) Redirect to (301): &nbsp;
             </mat-checkbox>
             <input matInput placeholder="https://www.your-domain.com/" [(ngModel)]="application.domains[i].location" [disabled]="readOnlyValue">
             <mat-icon matSuffix i18n-matTooltip="@@add_domain" matTooltip="Add new domain" matTooltipPosition="right"  (click)="addDomain()">add_circle_outline</mat-icon>
@@ -151,7 +135,7 @@
 
     <section>
         <mat-checkbox i18n="@@csp_enabled" [(ngModel)]="application.csp_enabled" [disabled]="readOnlyValue">
-            Enable CSP (Content-Security-Policy, example: default-src 'self' )
+            (Not checked by default) Enable CSP (Content-Security-Policy, example: default-src 'self' )
         </mat-checkbox>
     </section>
 

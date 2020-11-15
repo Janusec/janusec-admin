@@ -48,9 +48,10 @@ export class ApplicationDetailComponent implements OnInit {
       this.readOnlyValue = false;
       this.application=new Application();
       this.application.id=0;
+      this.application.name="XXX";
       this.application.internal_scheme="http";
       this.application.redirect_https=true;
-      this.application.hsts_enabled=true;
+      this.application.hsts_enabled=false;
       this.application.waf_enabled=true;
       this.application.domains=[];
       this.application.ip_method=1;
@@ -60,6 +61,7 @@ export class ApplicationDetailComponent implements OnInit {
       this.application.owner=this.applicationService.auth_user.username;
       this.application.csp_enabled=false;
       this.application.csp="";
+      this.application.description="Used for ...";
       this.addDomain();
       this.addDestination();
     }
