@@ -39,7 +39,7 @@ export class LogsComponent implements OnInit {
     } 
     if(this.applicationService.applications.length==0) {
       var self = this;
-      this.applicationService.getResponse('getapps', function(obj: Application[]){
+      this.applicationService.getResponse('get_apps', function(obj: Application[]){
         if(obj != null) {
             self.applicationService.applications = obj;
             self.app_id = self.applicationService.applications[0].id;
@@ -66,7 +66,7 @@ export class LogsComponent implements OnInit {
   }
 
   getRegexLogsCount(app_id: number, start_time:number, end_time:number) {
-    let body={action:"getregexlogscount", app_id: app_id, start_time: start_time, end_time: end_time}
+    let body={action:"get_regex_logs_count", app_id: app_id, start_time: start_time, end_time: end_time}
     var self = this;
     this.paginator.pageIndex=0;
     this.applicationService.getResponseByCustomBody(body, function(obj: RegexHitLogsCount){
@@ -119,7 +119,7 @@ export class LogsDataSource implements DataSource<SimpleRegexHitLog> {
 
   loadLogs(app_id: number, start_time: number, end_time: number, pageIndex = 0, pageSize) {
       this.loadingSubject.next(true);
-      let body={action:"getregexlogs", app_id: app_id, start_time: start_time, end_time: end_time, request_count:pageSize, offset:pageIndex*pageSize}
+      let body={action:"get_regex_logs", app_id: app_id, start_time: start_time, end_time: end_time, request_count:pageSize, offset:pageIndex*pageSize}
       var self = this;
       this.applicationService.getResponseByCustomBody(body, function(logs: SimpleRegexHitLog[]){
         if(logs != null) {

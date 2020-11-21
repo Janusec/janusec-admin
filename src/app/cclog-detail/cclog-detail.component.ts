@@ -24,7 +24,7 @@ export class CCLogDetailComponent implements OnInit {
   ngOnInit() {
     const id = +this.route.snapshot.paramMap.get('id');
     var self = this;
-    this.applicationService.getResponse('getcclog', function(obj: CCLog){
+    this.applicationService.getResponse('get_cc_log', function(obj: CCLog){
         if(obj != null) self.log = obj;
     },id);
   }

@@ -73,7 +73,7 @@ let zhTranslations = {
     'show_menu': '显示导航',
     'health_check': '健康检查',
     // frontpage
-    'product_name': 'JANUSEC应用网关V0.9.12',
+    'product_name': 'JANUSEC应用网关V0.9.13',
     'product_desc': 'JANUSEC应用网关，提供WAF、CC攻击防御、LDAP及OAuth2身份认证、统一Web化管理入口、证书私钥保护、Web SSH安全运维，Web路由以及可扩展的负载均衡等功能。',
     'feature_title': 'JANUSEC应用网关主要特性：',
     'feature_waf': 'WAF(Web应用防火墙)，CC防护',
@@ -128,6 +128,7 @@ let zhTranslations = {
     'backend_routing_tooltip': '默认 /, 前后端路径不一致时可使用/xyz/这种形式，本地静态网站或FastCGI网站请填写绝对路径(/path/to/www/)',
     // Port forwarding
     'port_forwarding': '端口转发',
+    'port_forwarding_warning': '注意：端口转发可能带来严重的安全风险，只能用于非Web应用发布，使用时请遵守内部安全管理规定。',
     'vip_app': '端口转发',
     'add_vip': '添加端口转发',
     'forward_note': '备注：仅支持直接从监听端口响应的服务（不支持多个端口或反向连接）。',

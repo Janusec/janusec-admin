@@ -1,7 +1,11 @@
 <div *ngIf="vip_app" class="container">
-    <h2>
-        <span i18n="@@port_forwarding">Port Forwarding</span>
-    </h2>
+    <div> 
+        <h2 i18n="@@port_forwarding">Port Forwarding</h2>
+        
+        <div i18n="@@port_forwarding_warning" class="forward_note">
+            Caution: Port forwarding may bring serious security risks and can only be used for non-web application publishing. Please follow the internal security management regulations when using it.
+        </div>             
+    </div>
     
     <div>
       <mat-form-field>

@@ -41,7 +41,7 @@ export class PolicyComponent implements OnInit {
       this.readOnlyButtonText="Cancel";
     } else {
       var self=this;
-      this.applicationService.getResponse('getgrouppolicy', function(obj: GroupPolicy){
+      this.applicationService.getResponse('get_group_policy', function(obj: GroupPolicy){
         if(obj != null) {
             self.group_policy = obj;
             self.regex_match.pattern = self.group_policy.check_items[0].regex_policy;    
@@ -53,7 +53,7 @@ export class PolicyComponent implements OnInit {
 
   setGroupPolicy() {
     var self=this;
-    this.applicationService.getResponse('updategrouppolicy', function(obj: GroupPolicy){
+    this.applicationService.getResponse('update_group_policy', function(obj: GroupPolicy){
         if(obj == null) return;
         let new_id = obj.id;
         if(self.group_policy.id == new_id)  {
@@ -130,7 +130,7 @@ export class PolicyComponent implements OnInit {
   testRegex(){
     this.regex_match.matched=null;
     var self=this;
-    this.applicationService.getResponse('testregex', function(obj: RegexMatch){      
+    this.applicationService.getResponse('test_regex', function(obj: RegexMatch){      
         if(obj != null) self.regex_match = obj;
     }, null, self.regex_match);
   }
@@ -158,7 +158,7 @@ export class PolicyComponent implements OnInit {
   delGroupPolicy() {
     if(this.readOnlyValue) return;
     var self=this;
-    this.applicationService.getResponse('delgrouppolicy', function(){        
+    this.applicationService.getResponse('del_group_policy', function(){        
       self.router.navigate(['/waf']);
       self.messageService.add("Policy Deleted.");
     }, this.group_policy.id, null);

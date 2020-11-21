@@ -26,7 +26,7 @@ export class NodeDetailComponent implements OnInit {
     let id = +this.route.snapshot.paramMap.get('id');
     if(id>0) {
       var self = this;
-      this.applicationService.getResponse('getnode', function(obj: Node){
+      this.applicationService.getResponse('get_node', function(obj: Node){
         if(obj != null) self.node = obj;
       },id);
     } else {
@@ -52,7 +52,7 @@ export class NodeDetailComponent implements OnInit {
   }
 
   deleteNode(id: number) {
-    this.applicationService.getResponse('delnode', function(){}, id, null);
+    this.applicationService.getResponse('del_node', function(){}, id, null);
     this.router.navigate(['/nodes']);
   }
 

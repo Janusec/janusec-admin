@@ -38,7 +38,7 @@ export class CCLogsComponent implements OnInit {
     } 
     if(this.applicationService.applications.length==0) {
       var self = this;
-      this.applicationService.getResponse('getapps', function(obj: Application[]){   
+      this.applicationService.getResponse('get_apps', function(obj: Application[]){   
       if(obj != null) {
             self.applicationService.applications = obj;
             self.app_id = self.applicationService.applications[0].id;
@@ -65,7 +65,7 @@ export class CCLogsComponent implements OnInit {
   }
 
   getCCLogsCount(app_id: number, start_time:number, end_time:number) {
-    let body={action:"getcclogscount", app_id: app_id, start_time: start_time, end_time: end_time}
+    let body={action:"get_cc_logs_count", app_id: app_id, start_time: start_time, end_time: end_time}
     var self = this;
     this.paginator.pageIndex=0;
     this.applicationService.getResponseByCustomBody(body, function(obj: CCLogsCount){
@@ -119,7 +119,7 @@ export class LogsDataSource implements DataSource<SimpleCCLog> {
 
   loadLogs(app_id: number, start_time: number, end_time: number, pageIndex = 0, pageSize) {
       this.loadingSubject.next(true);
-      let body={action:"getcclogs", app_id: app_id, start_time: start_time, end_time: end_time, request_count:pageSize, offset:pageIndex*pageSize}
+      let body={action:"get_cc_logs", app_id: app_id, start_time: start_time, end_time: end_time, request_count:pageSize, offset:pageIndex*pageSize}
       var self = this;
       this.applicationService.getResponseByCustomBody(body, function(logs: SimpleCCLog[]){
         if(logs != null) {

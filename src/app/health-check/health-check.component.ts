@@ -37,7 +37,7 @@ export class HealthCheckComponent implements OnInit {
     this.unvisitedVipTargets = [];
     let self = this;
     var now_ms = (new Date()).getTime();
-    this.applicationService.getResponse('getapps', function(obj: Application[]){      
+    this.applicationService.getResponse('get_apps', function(obj: Application[]){      
         self.applicationService.applications = obj;    
         for (let app of self.applicationService.applications) {
             self.applicationService.appmap[app.id]=app.name;

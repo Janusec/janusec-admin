@@ -35,7 +35,7 @@ export class UserDetailComponent implements OnInit {
     let id = +this.route.snapshot.paramMap.get('id');
     if(id>0) {
       let self=this;
-      this.applicationService.getResponse('getadmin', function(obj:AppAdmin){
+      this.applicationService.getResponse('get_app_user', function(obj:AppAdmin){
         if(obj != null) self.appadmin = obj;
         if(self.appadmin.need_modify_pwd) self.readOnlyValue=false;
       }, id, null);
@@ -63,7 +63,7 @@ export class UserDetailComponent implements OnInit {
   onDelete() {
     if(!confirm("Are you sure to delete user: "+this.appadmin.username+"?")) return;
     let self=this;
-    this.applicationService.getResponse('deladmin', function(){
+    this.applicationService.getResponse('del_app_user', function(){
       self.messageService.add(self.appadmin.username +" deleted.");                  
       self.router.navigate(['/usermgmt']);
     }, this.appadmin.id, null);
@@ -82,7 +82,7 @@ export class UserDetailComponent implements OnInit {
       this.appadmin.password="";
     }
     let self=this;
-    this.applicationService.getResponse('updateadmin', function(obj:AppAdmin){
+    this.applicationService.getResponse('update_app_user', function(obj:AppAdmin){
         if(obj == null) return;
         let new_id = obj.id;
         if(self.appadmin.id == new_id)  {

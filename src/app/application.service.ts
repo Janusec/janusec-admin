@@ -11,7 +11,7 @@ const httpOptions = {
 
 @Injectable()
 export class ApplicationService {
-  private apiUrl = '/janusec-admin/api';
+  private apiUrl = '/janusec-admin/ui-api';
   auth_user: AuthUser={
       user_id: 0, 
       username:"", 
@@ -81,7 +81,7 @@ export class ApplicationService {
 
   getApplications() {
     var self = this;
-    this.getResponse('getapps', function(obj: Application[]){ 
+    this.getResponse('get_apps', function(obj: Application[]){ 
         if(obj==null) {
             self.applications = [];
         } else {
@@ -109,7 +109,7 @@ export class ApplicationService {
 
   getCertificates() {
     var self = this;
-    this.getResponse('getcerts', function(obj: Certificate[]) {
+    this.getResponse('get_certs', function(obj: Certificate[]) {
       self.certificates = obj;
       var now_ms = (new Date()).getTime();
       for(let cert of self.certificates) {
@@ -125,7 +125,7 @@ export class ApplicationService {
 
   getNodesKey():string {
     var self = this;
-    this.getResponse('getnodeskey', function(obj: NodesKey) {
+    this.getResponse('get_nodes_key', function(obj: NodesKey) {
       self.hexNodesKey = obj.nodes_key;
     });
     return self.hexNodesKey;
@@ -133,7 +133,7 @@ export class ApplicationService {
 
   getNodes() {
     var self = this;
-    this.getResponse('getnodes', function(obj: Node[]){
+    this.getResponse('get_nodes', function(obj: Node[]){
       self.nodes = obj;
       if(self.nodes == null) return;
       var now_ms = (new Date()).getTime();
@@ -150,7 +150,7 @@ export class ApplicationService {
   
   getAuthUser(callback:(auth_user: AuthUser)=>any) {
     var self = this;
-    this.getResponse('getauthuser', function(obj: AuthUser){
+    this.getResponse('get_auth_user', function(obj: AuthUser){
       self.auth_user = obj;
       callback(self.auth_user);
     });    
@@ -158,7 +158,7 @@ export class ApplicationService {
 
   getVulnTypes(callback:()=>any) {
     var self = this;
-    this.getResponse('getvulntypes', function(obj: VulnType[]){
+    this.getResponse('get_vuln_types', function(obj: VulnType[]){
       self.vulntypes = obj;
       for (let vulntype of self.vulntypes) {
         self.vulntypemap[vulntype.id]=vulntype.name;
@@ -169,21 +169,21 @@ export class ApplicationService {
 
   getDomains() {
     var self = this;
-    this.getResponse('getdomains', function(obj: Domain[]){
+    this.getResponse('get_domains', function(obj: Domain[]){
       self.domains = obj;
     });
   }
 
   getAdmins() {
     var self = this;
-    this.getResponse('getadmins', function(obj: AppAdmin[]){
+    this.getResponse('get_app_users', function(obj: AppAdmin[]){
       self.admins = obj;
     });
   }
 
 
   saveCertificate(cert: Certificate): Observable<Certificate>  {
-    let body={action: 'updatecert', certificate: cert};
+    let body={action: 'update_cert', certificate: cert};
     return this.http.post<Certificate>(this.apiUrl, body, httpOptions).pipe(
       tap( _ => {}),
       catchError(this.handleError<Certificate>('Save certificate'))

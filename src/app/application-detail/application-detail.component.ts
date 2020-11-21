@@ -41,7 +41,7 @@ export class ApplicationDetailComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');    
     if(id>0) {
       var self = this;
-      this.applicationService.getResponse('getapp', function(obj: Application){     
+      this.applicationService.getResponse('get_app', function(obj: Application){     
           if(obj != null) self.application = obj;
       },id);
     } else {
@@ -69,7 +69,7 @@ export class ApplicationDetailComponent implements OnInit {
 
   setApplication() {
     var self=this;
-    this.applicationService.getResponse('updateapp', function(obj: Application){
+    this.applicationService.getResponse('update_app', function(obj: Application){
       if(obj==null) {
         self.messageService.add("Update failed.");
         return;
@@ -91,7 +91,7 @@ export class ApplicationDetailComponent implements OnInit {
   deleteApplication() {
     if(!confirm("Are you sure to delete application: "+this.application.name+"?")) return;
     var self = this;
-    this.applicationService.getResponse('delapp',function(){
+    this.applicationService.getResponse('del_app',function(){
       self.messageService.add(self.application.name +" deleted.");                  
       self.router.navigate(['/applications']);
     },this.application.id,null);
@@ -180,7 +180,7 @@ export class ApplicationDetailComponent implements OnInit {
 
   getCertificates() {
     var self = this;
-    this.applicationService.getResponse('getcerts', function(obj: Certificate[]){      
+    this.applicationService.getResponse('get_certs', function(obj: Certificate[]){      
         if(obj != null) self.optionCertificates = obj.concat(self.no_certificate);
     });
   }

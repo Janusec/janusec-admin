@@ -49,7 +49,7 @@ export class CertificateDetailComponent implements OnInit {
 
   setCertificate() {
     var self=this;
-    this.applicationService.getResponse('updatecert', function(obj: Certificate){
+    this.applicationService.getResponse('update_cert', function(obj: Certificate){
       if(obj != null) {
         let new_id = obj.id;
         if(self.certificate.id == new_id)  {
@@ -68,7 +68,7 @@ export class CertificateDetailComponent implements OnInit {
   deleteCertificate() {
     if(!confirm("Are you sure to delete certificate: "+this.certificate.common_name+"?")) return;
     var self = this;
-    this.applicationService.getResponse('delcert',function(){
+    this.applicationService.getResponse('del_cert',function(){
       self.messageService.add(self.certificate.common_name +" deleted.");                  
       self.router.navigate(['/certificates']);
     },this.certificate.id,null);
@@ -77,7 +77,7 @@ export class CertificateDetailComponent implements OnInit {
   selfSignCertificate() {
     var self = this;
     var object = {common_name: this.certificate.common_name};
-    this.applicationService.getResponse('selfsigncert',function(obj: SelfSignCert){
+    this.applicationService.getResponse('self_sign_cert',function(obj: SelfSignCert){
         if(obj != null) {
             self.certificate.cert_content = obj.cert_content;
             self.certificate.priv_key_content = obj.priv_key_content;

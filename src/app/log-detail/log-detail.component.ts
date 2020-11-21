@@ -22,7 +22,7 @@ export class LogDetailComponent implements OnInit {
   ngOnInit() {
     const id = +this.route.snapshot.paramMap.get('id');
     var self = this;
-    this.applicationService.getResponse('getregexlog', function(obj: RegexHitLog){
+    this.applicationService.getResponse('get_regex_log', function(obj: RegexHitLog){
         if(obj != null) self.log = obj;
     },id);
   }

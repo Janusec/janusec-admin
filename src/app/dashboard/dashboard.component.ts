@@ -198,7 +198,7 @@ export class DashboardComponent implements OnInit {
     this.today_stat_vuln_name = [];
     this.today_stat_count = [];
     this.today_stat_bgcolor = [];
-    let body={action:"getvulnstat", app_id: app_id, start_time: start_time, end_time: end_time}
+    let body={action:"get_vuln_stat", app_id: app_id, start_time: start_time, end_time: end_time}
       let self = this;
       this.applicationService.getResponseByCustomBody(body, function(vuln_stats: VulnStat[]){
         if(vuln_stats == null) {
@@ -223,7 +223,7 @@ export class DashboardComponent implements OnInit {
       let tmp_date = new Date(start_time + 86400*1000*i);
       this.week_stat_date.push(tmp_date.toLocaleDateString());
     }
-    let body={action:"getweekstat", app_id: app_id, vuln_id: vuln_id, start_time: start_time/1000}
+    let body={action:"get_week_stat", app_id: app_id, vuln_id: vuln_id, start_time: start_time/1000}
       let self = this;
       this.applicationService.getResponseByCustomBody(body, function(week_stats: number[]){
         if(week_stats == null) {
@@ -243,7 +243,7 @@ export class DashboardComponent implements OnInit {
       let tmp_date = new Date(start_time + 86400*1000*i);
       this.access_stat_date.push(tmp_date.toLocaleDateString());
     }
-    let body={action:"getaccessstat", app_id: app_id}
+    let body={action:"get_access_stat", app_id: app_id}
     let self = this;
     this.applicationService.getResponseByCustomBody(body, function(access_stats: number[]){
         if(access_stats == null) {
@@ -255,7 +255,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getPopContents(app_id: number) {
-    let body={action:"getpopcontents", app_id: app_id}
+    let body={action:"get_pop_contents", app_id: app_id}
     let self = this;
     this.applicationService.getResponseByCustomBody(body, function(pop_contents: PopContent[]){
         self.pop_contents = pop_contents;

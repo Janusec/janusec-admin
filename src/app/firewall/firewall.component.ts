@@ -63,7 +63,7 @@ export class FirewallComponent implements OnInit {
 
   getCCPolicy(id: number) {
     var self = this;
-    this.applicationService.getResponse('getccpolicy', function(obj: CCPolicy){
+    this.applicationService.getResponse('get_cc_policy', function(obj: CCPolicy){
         if(obj == null) return;
         if(id==0) {
             self.global_cc_policy = obj;
@@ -97,7 +97,7 @@ export class FirewallComponent implements OnInit {
       }
     }
     let self=this;
-    this.applicationService.getResponse('updateccpolicy', function(){
+    this.applicationService.getResponse('update_cc_policy', function(){
       self.messageService.add("CC policy updated!");  
     },app_id,cc_policy);
   }
@@ -106,14 +106,14 @@ export class FirewallComponent implements OnInit {
     if(app_id==0) return;
     this.has_custom_cc_policy=false;
     let self=this;
-    this.applicationService.getResponse('delccpolicy', function(){
+    this.applicationService.getResponse('del_cc_policy', function(){
       self.messageService.add("CC policy deleted!");  
     },app_id,null);
   }
 
   onSelectApp() {
     var self = this;
-    this.applicationService.getResponse('getapp', function(obj:Application){
+    this.applicationService.getResponse('get_app', function(obj:Application){
         if(obj != null) self.application = obj;
     },this.selected_app_id);    
     this.getCCPolicy(this.selected_app_id);
@@ -122,7 +122,7 @@ export class FirewallComponent implements OnInit {
 
   getGroupPolicies(app_id: number) {
     var self = this;
-    this.applicationService.getResponse('getgrouppolicies', function(obj: GroupPolicy[]){
+    this.applicationService.getResponse('get_group_policies', function(obj: GroupPolicy[]){
         if(obj == null) return;
         if(app_id==0) {
             self.global_regex_policies =  obj;
