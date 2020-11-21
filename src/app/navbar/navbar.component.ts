@@ -25,19 +25,12 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
+    var lang = localStorage.getItem('lang');
+    if(lang==null && navigator.language.indexOf('zh')>-1) {
+        localStorage.setItem('lang', 'zh-cn');
+        window.location.reload();
+    }
   }
-
-/*
-  getUser(): void {
-    this.applicationService.getUser()
-    .subscribe(resp => {
-      if(resp != null) {
-        this.applicationService.auth_user.username=resp["username"];
-        this.applicationService.auth_user.logged=resp["logged"];
-      }
-    });
-  }
-*/
 
   switchLanguage() {    
     var lang = localStorage.getItem('lang');
