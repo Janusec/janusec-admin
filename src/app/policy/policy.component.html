@@ -1,9 +1,6 @@
 <div *ngIf="group_policy">
 
-    <h2>
-        <mat-icon>details</mat-icon>
-        <span i18n="@@policy_detail">Policy Details</span>        
-    </h2>  
+    <h2 i18n="@@policy_detail" class="container">Policy Details</h2>  
       
     <div class="container">
         <mat-form-field>
@@ -87,8 +84,9 @@
         </div>
     </div> 
     <hr>
-    <h3 i18n="@@regex_test_tool">Regex Test Tool</h3>
+    
     <div class="container">
+        <h3 i18n="@@regex_test_tool">Regex Test Tool</h3>
         <mat-form-field>
             <input matInput i18n-placeholder="@@regex_pattern" [(ngModel)]="regex_match.pattern" 
             placeholder="Policy Pattern (Google RE2 Regex Expression)" required>

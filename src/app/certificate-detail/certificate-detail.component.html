@@ -1,11 +1,7 @@
 <div *ngIf="certificate">
-
-<h2>
-    <mat-icon>details</mat-icon>
-    <span i18n="@@cert_detail_title">Certificate Details</span>
-</h2>  
   
 <div class="container">
+  <h2 i18n="@@cert_detail_title">Certificate Details</h2>
   <mat-form-field>
       <input matInput i18n-placeholder="@@cert_common_name" #common_name [(ngModel)]="certificate.common_name" [readonly]="readOnlyValue"
       placeholder="Common Name or Subject Alternative Name" maxlength="128" required/>   

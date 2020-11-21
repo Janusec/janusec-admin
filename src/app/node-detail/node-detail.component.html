@@ -1,12 +1,7 @@
 <div *ngIf="node">
-
-    <h2>
-        <mat-icon>details</mat-icon>
-        <span i18n="@@node_detail">Node Details</span>
-    </h2>  
       
     <div class="container">
-
+        <h2 i18n="@@node_detail">Node Details</h2>
         <mat-form-field *ngIf="node.id>0">
                 <input matInput [(ngModel)]="node.last_ip" [readonly]="true"
                 placeholder="Node IP" />

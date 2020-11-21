@@ -1,10 +1,7 @@
 <div *ngIf="log">
-  <h2>
-      <mat-icon>details</mat-icon>
-      <span i18n="@@cc_log_details">CC Log Details</span>
-  </h2>  
   
   <div class="container">
+    <h2 i18n="@@cc_log_details">CC Log Details</h2>
     <mat-form-field>
       <input matInput [value]="getDate(log.request_time)" placeholder="Time"  readonly="true"/>    
      </mat-form-field>
