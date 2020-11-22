@@ -338,3 +338,11 @@ export class GateHealth {
     time_zone: string;
     time_offset: number;
 }
+
+export class License {
+    edition: string;
+    max_users_count: number;
+    max_apps_count: number;
+    max_concurrency: number;
+    expire_time: number;
+}

@@ -2,7 +2,7 @@ import { Injectable }    from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { AuthUser, Application, Certificate, Domain, AppAdmin, VulnType, APIResponse, NodesKey, Node, LastRegexLogs, LastCCLogs, OAuthInfo, VipApp } from './models';
+import { AuthUser, Application, Certificate, Domain, AppAdmin, VulnType, APIResponse, NodesKey, Node, LastRegexLogs, LastCCLogs, OAuthInfo, VipApp, License } from './models';
 import { MessageService } from './message.service';
 
 const httpOptions = {
@@ -35,6 +35,7 @@ export class ApplicationService {
   lastRegexLogs: LastRegexLogs = new(LastRegexLogs);
   lastCCLogs: LastCCLogs = new (LastCCLogs);
   oauth: OAuthInfo = new (OAuthInfo);
+  license: License;
   
   constructor(private http: HttpClient,
     private messageService: MessageService) { }

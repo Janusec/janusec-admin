@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router }            from '@angular/router';
 import { ApplicationService } from '../application.service';
 import { MessageService } from '../message.service';
-import { AuthUser } from '../models';
+import { AuthUser, License } from '../models';
 
 @Component({
   selector: 'app-frontpage',
@@ -25,10 +25,21 @@ export class FrontpageComponent implements OnInit {
         if(auth_user.need_modify_pwd) {
           self.messageService.add("Please modify your password before next step!")
           self.router.navigate(['/appuser/'+auth_user.user_id]);
-        return
+          return
         }
+        self.applicationService.getResponse('get_license', function(obj: License){
+            self.applicationService.license = obj;
+            if(obj != null && obj.edition=="Trial") {
+                let expireTime = self.getDate(obj.expire_time);
+                self.messageService.add("This is a trial edition, and will expire at " + expireTime + ". Limitation: maximum number of users: "+ obj.max_users_count + ", max number of applications: "+obj.max_apps_count+", max concurrency:"+obj.max_concurrency);
+            }
+        })
       }
     });    
+  }
+
+  getDate(unix: number): string {
+    return new Date(unix*1000).toLocaleString('zh-CN', {hour12: false});
   }
 
 }
