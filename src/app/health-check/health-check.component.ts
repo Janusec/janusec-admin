@@ -92,7 +92,7 @@ export class HealthCheckComponent implements OnInit {
 
   getGatewayHealth() {
     let self = this;
-    this.applicationService.getResponse('gate_health', function(obj: GateHealth){
+    this.applicationService.getResponse('get_gateway_health', function(obj: GateHealth){
         self.gate_health = obj;
     });
   }
