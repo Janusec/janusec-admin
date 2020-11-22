@@ -31,7 +31,7 @@ export class FrontpageComponent implements OnInit {
             self.applicationService.license = obj;
             if(obj != null && obj.edition=="Trial") {
                 let expireTime = self.getDate(obj.expire_time);
-                self.messageService.add("This is a trial edition, and will expire at " + expireTime + ". Limitation: maximum number of users: "+ obj.max_users_count + ", max number of applications: "+obj.max_apps_count+", max concurrency:"+obj.max_concurrency);
+                self.messageService.add("This is a trial edition, and will expire at " + expireTime + ". Limitation: max number of users: "+ obj.max_users_count + ", max number of applications: "+obj.max_apps_count+", max concurrency: "+obj.max_concurrency);
             }
         })
       }
