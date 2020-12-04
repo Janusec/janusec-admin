@@ -34,7 +34,7 @@ export class CertificateDetailComponent implements OnInit {
     let id = +this.route.snapshot.paramMap.get('id');
     if(id>0) {
       var self = this;
-      this.applicationService.getResponse('getcert', function(obj: Certificate){
+      this.applicationService.getResponse('get_cert', function(obj: Certificate){
         if(obj != null) self.certificate = obj;
       },id);
     } else {
