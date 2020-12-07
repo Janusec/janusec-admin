@@ -11,6 +11,9 @@
                 </mat-list-item>
                 <mat-list-item>
                     <span i18n="@@time_zone">Time Zone</span>: {{ gate_health.time_zone }} {{ gate_health.time_offset }}
+                </mat-list-item>                  
+                <mat-list-item>
+                    <span i18n="@@concurrency">Concurrency</span>: {{ gate_health.concurrency }}
                 </mat-list-item>
                 <mat-list-item>
                     <span i18n="@@cpu_load1">CPU Load (1 Minute)</span>: {{ (gate_health.cpu_load1 * 100).toFixed(2) }}%
@@ -32,7 +35,7 @@
                 </mat-list-item>
                 <mat-list-item>
                     <span i18n="@@disk_total">Storage Total</span>: {{ (gate_health.disk_total / (1024*1024*1024)).toFixed(2) }} GB
-                </mat-list-item>    
+                </mat-list-item> 
                 <button mat-stroked-button (click)="getGatewayHealth()">  
                     <mat-icon matListIcon>refresh</mat-icon>
                     <span i18n="@@refresh">Refresh</span>

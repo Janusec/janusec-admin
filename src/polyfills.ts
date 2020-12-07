@@ -89,7 +89,7 @@ let zhTranslations = {
     // certificates
     'add_cert': '添加证书',
     // certificate-detail
-    'cert_detail_title': '证书详情',
+    'cert_detail_title': '证书配置',
     'cert_common_name': '通用名/使用者可选名称',
     'cert_public': '证书公钥（以-----BEGIN CERTIFICATE-----开头）',
     'cert_priv': '证书私钥（以-----BEGIN PRIVATE KEY-----开头）',
@@ -98,7 +98,7 @@ let zhTranslations = {
     // Applications
     'add_app': '添加应用',
     // Application Detail
-    'app_detail': '应用详情',
+    'app_detail': '应用配置',
     'app_name': '应用名称',
     'app_internal_scheme': '后端/内部Scheme（网关访问后端使用HTTP还是HTTPS，默认HTTP）',
     'app_destination': '目标地址及端口（如：10.10.10.10:80 或者 [::1%lo]:8080 ）',
@@ -109,7 +109,7 @@ let zhTranslations = {
     'add_domain': '添加域名',
     'ip_for_waf': '网关获取用户IP地址的方式（默认REMOTE_ADDR，流量来自其他CDN时才需要修改）',
     'redirect_https': '将HTTP请求重定向到HTTPS',
-    'hsts_enabled': '启用HSTS（添加头部Strict-Transport-Security，告诉浏览器接下来一年内只使用HTTPS）',
+    'hsts_enabled': '启用HSTS（添加头部Strict-Transport-Security，通知浏览器一年内只使用HTTPS）',
     'waf_enabled': '启用WAF（Web应用防火墙）',
     'oauth_required': '启用LDAP认证或OAuth2扫码登录（依赖配置文件，仅用于内部员工登录企业内部网站）',
     'session_seconds': '启用OAuth2时，会话超时时间（默认7200秒）',
@@ -122,10 +122,10 @@ let zhTranslations = {
     'domain_configuration': '域名配置',
     'reference_configuration': '配置参考',
     'csp_enabled': "(默认不勾选)启用CSP(内容安全策略，如default-src 'self' )",
-    'request_location_tooltip': '默认 / ,选项包括： (1) /abc/ (2) .php (3) / ；优先级从高到低，不支持/abc/def/多级路由。',
-    'routing_type_tooltip': '默认 Reverse_Proxy （反向代理）, Local_FastCGI用于PHP/Python等, Static_Website用于本地静态资源且不需要后端服务器。',
+    'request_location_tooltip': '默认 / ,选项包括： (1) /abc/ (2) .php (3) / ；优先级从高到低，不支持多级路由如 /abc/def/ ',
+    'routing_type_tooltip': '默认 Reverse_Proxy （反向代理）, Local_FastCGI 用于PHP/Python等, Static_Website 用于本地静态网站(不需要后端服务器)',
     'destination_tooltip': '默认 IP:Port （如10.0.0.1:80）, 用于静态网站时填写默认文件（如index.html）',
-    'backend_routing_tooltip': '默认 /, 前后端路径不一致时可使用/xyz/这种形式，本地静态网站或FastCGI网站请填写绝对路径(/path/to/www/)',
+    'backend_routing_tooltip': '默认 / , 前后端路径不一致时可使用 /xyz/ 这种形式，本地静态网站或FastCGI网站请填写绝对路径 /path/to/www/ ',
     // Port forwarding
     'port_forwarding': '端口转发',
     'port_forwarding_warning': '注意：端口转发可能带来严重的安全风险，只能用于非Web应用发布，使用时请遵守内部安全管理规定。',
@@ -153,6 +153,7 @@ let zhTranslations = {
     'mem_total': '内存总量',
     'disk_used': '存储使用',
     'disk_total': '存储总量',
+    'concurrency': '并发数',
     'refresh': '刷新',
     // nodes
     'node_notice': '请复制如下node_key到所有从节点config.json文件中：',
@@ -160,7 +161,7 @@ let zhTranslations = {
     // User Management
     'add_user': '添加用户',
     // User Details
-    'user_details': '用户详情',
+    'user_details': '用户配置',
     'confirm_password': '确认口令',
     'email': '邮箱地址',
     'authorization_admin': '授权及WAF管理员（授予/撤销用户权限，管理WAF/CC规则）',
@@ -189,7 +190,7 @@ let zhTranslations = {
     'block_seconds': '超限锁定秒数（默认7200）',
     'action': '触发动作(阻断/旁路/验证码/放行)',
     // Policy
-    'policy_detail': 'WAF规则详情',
+    'policy_detail': 'WAF规则配置',
     'policy_description': '规则名称或描述',
     'apply_to': '用于哪个应用',
     'check_point': '检查点',

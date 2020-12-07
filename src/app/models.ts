@@ -337,6 +337,7 @@ export class GateHealth {
     disk_total: number;
     time_zone: string;
     time_offset: number;
+    concurrency: number;
 }
 
 export class License {

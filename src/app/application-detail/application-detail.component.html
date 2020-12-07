@@ -116,7 +116,7 @@
           Enable HSTS for HTTPS (Add Response Header: Strict-Transport-Security)
       </mat-checkbox>
     </section>
-
+    
     <section>
       <mat-checkbox i18n="@@waf_enabled" [(ngModel)]="application.waf_enabled" [disabled]="readOnlyValue">
           Enable WAF (Web Application Firewall)
@@ -129,7 +129,7 @@
         </mat-checkbox>
     </section>
 
-    <mat-form-field>
+    <mat-form-field *ngIf="application.oauth_required">
         <input i18n-placeholder="@@session_seconds" type="number" matInput [(ngModel)]="application.session_seconds" [readonly]="readOnlyValue" placeholder="Session Expire Seconds for OAuth2"/>
     </mat-form-field> 
 
