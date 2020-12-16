@@ -146,6 +146,7 @@ let zhTranslations = {
     'start_time': '启动时间',
     'current_time': '当前时间',
     'time_zone': '时区',
+    'cpu_percent': 'CPU百分比',
     'cpu_load1': 'CPU负载(01分钟)',
     'cpu_load5': 'CPU负载(05分钟)',
     'cpu_load15': 'CPU负载(15分钟)',

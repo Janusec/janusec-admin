@@ -16,13 +16,16 @@
                     <span i18n="@@concurrency">Concurrency</span>: {{ gate_health.concurrency }}
                 </mat-list-item>
                 <mat-list-item>
-                    <span i18n="@@cpu_load1">CPU Load (1 Minute)</span>: {{ (gate_health.cpu_load1 * 100).toFixed(2) }}%
+                    <span i18n="@@cpu_percent">CPU Percent</span>: {{ (gate_health.cpu_percent * 100).toFixed(2) }}%
                 </mat-list-item>
                 <mat-list-item>
-                    <span i18n="@@cpu_load5">CPU Load (5 Minutes)</span>: {{ (gate_health.cpu_load5 * 100).toFixed(2) }}%
+                    <span i18n="@@cpu_load1">CPU Load (1 Minute)</span>: {{ gate_health.cpu_load1.toFixed(2) }}
                 </mat-list-item>
                 <mat-list-item>
-                    <span i18n="@@cpu_load15">CPU Load (15 Minutes)</span>: {{ (gate_health.cpu_load15 * 100).toFixed(2) }}%
+                    <span i18n="@@cpu_load5">CPU Load (5 Minutes)</span>: {{ gate_health.cpu_load5.toFixed(2) }}
+                </mat-list-item>
+                <mat-list-item>
+                    <span i18n="@@cpu_load15">CPU Load (15 Minutes)</span>: {{ gate_health.cpu_load15.toFixed(2) }}
                 </mat-list-item>
                 <mat-list-item>
                     <span i18n="@@mem_used">Memory Used</span>: {{ (gate_health.mem_used / (1024*1024*1024)).toFixed(2) }} GB
