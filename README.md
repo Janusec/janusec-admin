@@ -1,18 +1,18 @@
-# Janusec Application Gateway Web Administration
+# Luccitech LCD Series Web Administration
 
-This project is the Unified Web Administration Portal for [Janusec Application Gateway](https://www.janusec.com/) , [Github](https://github.com/Janusec/janusec) , generated with Angular 9.  
+This project is the Unified Web Administration Portal for Luccitech LCD Series, generated with Angular 9.  
 
-> This project is optional, and Janusec Application Gateway has already included distribution files of this project.  
+> This project is optional, and Luccitech LCD Series has already included distribution files of this project.  
 
 ## Development server
 
 Angular 9+ is required.  
 
-Edit `proxy.config.json` with janusec-admin url and run:  
+Edit `proxy.config.json` with luci-admin url and run:  
 
 >  `npm start`  (instead of `ng serve`, to solve cross-domain warnings.)  
 
-Navigate to `http://localhost:4200/janusec-admin/`. The app will automatically reload if you change any of the source files.
+Navigate to `http://localhost:4200/luci-admin/`. The app will automatically reload if you change any of the source files.
 
 
 ## Build
@@ -28,12 +28,5 @@ and set node to new value:
 
 ## Release
 
-The produced files are under `./dist/`, copy all files  to `./static/janusec-admin/` under Janusec Application Gateway. 
+The produced files are under `./dist/`, copy all files  to `./static/luci-admin/` under Luccitech LCD Series. 
 
-## Backend  
-
-Backend source code is available at [Janusec Application Gateway Github](https://github.com/Janusec/janusec).  
-
-## LICENSE
-
-Janusec Application Gateway source files are made available under the terms of the GNU Affero General Public License ([GNU AGPLv3](http://www.gnu.org/licenses/agpl-3.0.html)).  

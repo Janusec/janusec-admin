@@ -73,14 +73,14 @@ let zhTranslations = {
     'show_menu': '显示导航',
     'health_check': '健康检查',
     // frontpage
-    'product_name': 'JANUSEC应用网关V0.9.14',
-    'product_desc': 'JANUSEC应用网关，提供WAF、CC攻击防御、LDAP及OAuth2身份认证、统一Web化管理入口、证书私钥保护、Web SSH安全运维，Web路由以及可扩展的负载均衡等功能。',
-    'feature_title': 'JANUSEC应用网关主要特性：',
+    'product_name': '鸬鹚安全云应用交付系统',
+    'product_desc': '鸬鹚安全云应用交付系统，提供WAF、CC攻击防御、LDAP及OAuth2身份认证、统一Web化管理入口、证书私钥保护、Web SSH安全运维，Web路由以及可扩展的负载均衡等功能。',
+    'feature_title': '鸬鹚安全云应用交付系统主要特性：',
     'feature_waf': 'WAF(Web应用防火墙)，CC防护',
     'feature_encryped_private_key': '私钥加密',
     'feature_oauth': 'LDAP身份认证, OAuth2身份认证（企业微信/钉钉/飞书扫码登录应用）',
     'support': '支持',
-    'official_site': 'JANUSEC官方网站',
+    'official_site': 'LucciTech官方网站',
     'source_code': '源代码',
     'user_agreement': '用户协议',
     // login form

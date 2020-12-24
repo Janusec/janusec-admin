@@ -171,7 +171,7 @@ export class ApplicationDetailComponent implements OnInit {
 
     // get oauth config
     let self=this;  
-    this.applicationService.getResponseByURL('/janusec-admin/oauth/get',
+    this.applicationService.getResponseByURL('/luci-admin/oauth/get',
       function(obj: OAuthInfo){
         if(obj != null) self.oauth=obj;
       });

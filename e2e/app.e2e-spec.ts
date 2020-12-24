@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('janusec-admin App', () => {
+describe('luci-admin App', () => {
   let page: AppPage;
 
   beforeEach(() => {

@@ -1,5 +1,5 @@
 {
-  "name": "janusec-admin",
+  "name": "luci-admin",
   "version": "0.9.14",
   "license": "MIT",
   "scripts": {

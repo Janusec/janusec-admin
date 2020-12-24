@@ -56,7 +56,7 @@ export class LoginFormComponent implements OnInit {
   ngOnInit() { 
     let self=this;   
     this.messageService.clear();
-    this.applicationService.getResponseByURL('/janusec-admin/oauth/get',
+    this.applicationService.getResponseByURL('/luci-admin/oauth/get',
       function(obj: OAuthInfo){
         if(obj != null) self.oauth=obj;
       });

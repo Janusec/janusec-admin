@@ -11,7 +11,7 @@ const httpOptions = {
 
 @Injectable()
 export class ApplicationService {
-  private apiUrl = '/janusec-admin/ui-api';
+  private apiUrl = '/luci-admin/ui-api';
   auth_user: AuthUser={
       user_id: 0, 
       username:"", 
