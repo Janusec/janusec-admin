@@ -328,6 +328,7 @@ export class PopContent {
 export class GateHealth {
     start_time: number;
     cur_time: number;
+    version: string;
     cpu_percent: number;
     cpu_load1: number;
     cpu_load5: number;
