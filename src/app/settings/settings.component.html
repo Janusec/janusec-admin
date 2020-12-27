@@ -1,3 +1,21 @@
-<p>
-  Coming soon!
-</p>
+<div *ngIf="settings">
+    <div class="container">
+        <h2 i18n="@@settings">Settings</h2>  
+
+        <mat-form-field>
+            <input i18n-placeholder="@@waf_log_days" type="number" matInput [(ngModel)]="settings.waf_log_days" [readonly]="readOnlyValue" placeholder="WAF Log Days"/>
+        </mat-form-field> 
+
+        <mat-form-field>
+            <input i18n-placeholder="@@cc_log_days" type="number" matInput [(ngModel)]="settings.cc_log_days" [readonly]="readOnlyValue" placeholder="CC Log Days"/>
+        </mat-form-field> 
+
+        <mat-form-field>
+            <input i18n-placeholder="@@access_log_days" type="number" matInput [(ngModel)]="settings.access_log_days" [readonly]="readOnlyValue" placeholder="Access Log Days"/>
+        </mat-form-field> 
+        <div>
+        <button i18n="@@save" mat-stroked-button [disabled]="readOnlyValue" (click)="saveSettings()">Save</button>
+        <button mat-stroked-button (click)="changeEditable()">{{readOnlyButtonText}}</button>
+        </div>
+    </div>
+</div>

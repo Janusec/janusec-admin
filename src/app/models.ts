@@ -349,3 +349,9 @@ export class License {
     max_concurrency: number;
     expire_time: number;
 }
+
+export class Settings {
+    waf_log_days: number;
+    cc_log_days: number;
+    access_log_days: number;
+}

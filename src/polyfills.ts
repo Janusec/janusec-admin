@@ -220,6 +220,11 @@ let zhTranslations = {
     'port': '端口',
     'username': '用户名',
     'password': '口令',
+    // Settings
+    'settings': '设置',
+    'waf_log_days': 'WAF日志保存天数',
+    'cc_log_days': 'CC日志保存天数',
+    'access_log_days': '访问日志保存天数'
 }
 
 
