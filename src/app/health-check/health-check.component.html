@@ -10,6 +10,9 @@
                     <span i18n="@@current_time">Current Time</span>: {{ getDate(gate_health.cur_time) }}
                 </mat-list-item>
                 <mat-list-item>
+                    <span i18n="@@version">Version</span>: {{ gate_health.version }}
+                </mat-list-item>
+                <mat-list-item>
                     <span i18n="@@time_zone">Time Zone</span>: {{ gate_health.time_zone }} {{ gate_health.time_offset }}
                 </mat-list-item>                  
                 <mat-list-item>
@@ -19,14 +22,12 @@
                     <span i18n="@@cpu_percent">CPU Percent</span>: {{ (gate_health.cpu_percent).toFixed(2) }}%
                 </mat-list-item>
                 <mat-list-item>
-                    <span i18n="@@cpu_load1">CPU Load (1 Minute)</span>: {{ gate_health.cpu_load1.toFixed(2) }}
+                    <span i18n="@@cpu_load1_5_15">CPU Load (1/5/15 Minutes)</span>: 
+                    {{ gate_health.cpu_load1.toFixed(2) }} 
+                    {{ gate_health.cpu_load5.toFixed(2) }} 
+                    {{ gate_health.cpu_load15.toFixed(2) }} 
                 </mat-list-item>
-                <mat-list-item>
-                    <span i18n="@@cpu_load5">CPU Load (5 Minutes)</span>: {{ gate_health.cpu_load5.toFixed(2) }}
-                </mat-list-item>
-                <mat-list-item>
-                    <span i18n="@@cpu_load15">CPU Load (15 Minutes)</span>: {{ gate_health.cpu_load15.toFixed(2) }}
-                </mat-list-item>
+                
                 <mat-list-item>
                     <span i18n="@@mem_used">Memory Used</span>: {{ (gate_health.mem_used / (1024*1024*1024)).toFixed(2) }} GB
                 </mat-list-item>

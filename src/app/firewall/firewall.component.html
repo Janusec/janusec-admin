@@ -45,7 +45,7 @@
   <mat-tab i18n-label="@@global_cc_policy" label="Global CC Policy">
       <div>          
             <h2 i18n="@@global_cc_title">Global CC Policy (Priority is lower than custom policy)</h2>
-             
+            
             <mat-form-field>
               <input matInput i18n-placeholder="@@interval_milliseconds" [(ngModel)]="global_cc_policy.interval_milliseconds" type="number" placeholder="Time Window (100 ms)" required>
             </mat-form-field>        
@@ -78,6 +78,12 @@
             </section>
             
             <button mat-button mat-stroked-button i18n="@@save" (click)="updateCCPolicy(0)">Save</button>
+
+            <hr/>
+
+            <div i18n="@@slow_cc_notice" class="notes">
+                Note: Slow CC detection is also enabled using 15 time windows (other parameters are the same).
+            </div> 
              
     </div>
 
