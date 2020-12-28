@@ -82,7 +82,7 @@
             </a>  
         </mat-list-item>
 
-        <mat-list-item>
+        <mat-list-item *ngIf="applicationService.auth_user.is_super_admin==true">
             <a routerLink="/settings">
                 <mat-icon>settings</mat-icon>
                 <span i18n="@@settings">Settings</span>
