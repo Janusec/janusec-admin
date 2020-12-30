@@ -59,7 +59,7 @@
 
     <ng-container matColumnDef="action">
       <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{ element.action.name }} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{ getPolicyActionEnumString(element.action) }} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="policy_id">
