@@ -68,7 +68,10 @@
       <div class="inline-form" *ngFor="let domain of application.domains; let i=index; trackBy:trackByFn">
         <mat-form-field class="inline-form-field-20"> 
           <mat-icon matPrefix>language</mat-icon>  
-          <input matInput i18n-placeholder="@@domain_name" placeholder="Domain name (editable)" [(ngModel)]="application.domains[i].name" [disabled]="readOnlyValue" list="domains" required>
+          <input matInput i18n-placeholder="@@domain_name" placeholder="Domain name (editable)"  
+          i18n-matTooltip="@@domain_name_tooltip" matTooltipPosition="below"  
+          matTooltip="Required, format: www.your-domain.com"  
+          [(ngModel)]="application.domains[i].name" [disabled]="readOnlyValue" list="domains" required>
           <datalist id="domains">
               <option *ngFor="let domain of applicationService.domains;">{{domain.name}}</option>
           </datalist>         
@@ -107,7 +110,7 @@
 
     <section>
       <mat-checkbox i18n="@@redirect_https" [(ngModel)]="application.redirect_https" [disabled]="readOnlyValue">
-          Redirect HTTP to HTTPS (301)
+          Redirect HTTP to HTTPS (Certificate Required)
       </mat-checkbox>
     </section>
 
@@ -119,13 +122,13 @@
     
     <section>
       <mat-checkbox i18n="@@waf_enabled" [(ngModel)]="application.waf_enabled" [disabled]="readOnlyValue">
-          Enable WAF (Web Application Firewall)
+          Enable WAF (Web Application Firewall) and CC Defense
       </mat-checkbox>
     </section>
 
     <section>
         <mat-checkbox i18n="@@oauth_required" [(ngModel)]="application.oauth_required" [disabled]="readOnlyValue">
-            Enable LDAP or OAuth2 (Depend on configuration file and only for Internal Employees and Internal Applications. {{ oauth.display_name }})
+            Enable Authentication (Depend on configuration file and only for Internal Employees and Internal Applications. {{ oauth.display_name }})
         </mat-checkbox>
     </section>
 
