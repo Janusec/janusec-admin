@@ -3,7 +3,7 @@ import { Component, OnInit,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CCPolicy,APIResponse } from '../models';
 import { MessageService } from '../message.service';
-import { Application,GroupPolicy,PolicyAction,ChkPoint } from '../models';
+import { Application,GroupPolicy,PolicyAction,IPPolicy } from '../models';
 import { ApplicationService } from '../application.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -26,8 +26,16 @@ export class FirewallComponent implements OnInit {
 
   globalRegexDataSource: MatTableDataSource<GroupPolicy>;
   displayedColumns = ['id', 'description', 'is_enabled'];
+  regexLength: number;
+  regexPageIndex: number;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  ipPolicyDataSource: MatTableDataSource<IPPolicy>;
+  ipDisplayedColumns = ['ip_addr', 'is_allow', 'apply_to_waf', 'apply_to_cc', 'editable'];
+  ip_policies: IPPolicy[] = [];
+  ipPageLength: number;
+
+  @ViewChild('paginator') paginator: MatPaginator;
+  @ViewChild('ipPaginator') ipPaginator: MatPaginator;
 
   constructor(public messageService: MessageService,
     public applicationService: ApplicationService,
@@ -43,6 +51,7 @@ export class FirewallComponent implements OnInit {
           }
           this.getGroupPolicies(0);
           this.getCCPolicy(0);
+          this.getIPPolicies();
         }        
   }
 
@@ -128,6 +137,8 @@ export class FirewallComponent implements OnInit {
             self.global_regex_policies =  obj;
             self.globalRegexDataSource = new MatTableDataSource<GroupPolicy>(self.global_regex_policies);
             self.globalRegexDataSource.paginator = self.paginator;
+            self.regexLength = self.global_regex_policies.length;
+            self.paginator.pageIndex = 0;
         }
         else self.custom_regex_policies = obj;
     }, app_id);
@@ -139,6 +150,55 @@ export class FirewallComponent implements OnInit {
 
   newGroupPolicy() {
     this.router.navigate(['/policy/0']);
+  }
+
+  getIPPolicies() {
+    var self = this;
+    this.applicationService.getResponse('get_ip_policies', function(obj: IPPolicy[]){
+        self.ip_policies =  obj;
+        self.ipPolicyDataSource = new MatTableDataSource<IPPolicy>(self.ip_policies);
+        self.ipPolicyDataSource.paginator = self.ipPaginator;
+        self.ipPaginator.pageIndex = 0;
+        self.ipPageLength = self.ip_policies.length;
+    });
+  }
+
+  addIPPolicy() {
+    let ip_policy = new IPPolicy();
+    ip_policy.id = 0;
+    ip_policy.ip_addr = "127.0.0.1";
+    ip_policy.is_allow = true;
+    ip_policy.apply_to_waf = true;
+    ip_policy.apply_to_cc = true;
+    ip_policy.editable = true;
+    this.ip_policies.splice(0, 0, ip_policy);
+    this.ipPolicyDataSource.data=this.ip_policies;
+    //
+  }
+
+  saveIP(index: number) {
+    let self = this;
+    let ip_policy = this.ip_policies[index];
+    this.applicationService.getResponse('update_ip_policy', function(obj: IPPolicy){
+        self.ip_policies[index] = obj;
+        self.ip_policies[index].editable = false;
+        self.ipPolicyDataSource.data=self.ip_policies;
+    }, 0, ip_policy);
+
+  }
+
+  deleteIP(index: number) {
+      let self =this;
+      let ip_policy = this.ip_policies[index];
+      if(ip_policy.id==0) {
+        self.ip_policies.splice(index, 1);
+        self.ipPolicyDataSource.data=self.ip_policies;
+      } else {
+        this.applicationService.getResponse('del_ip_policy', function(){
+            self.ip_policies.splice(index, 1);
+            self.ipPolicyDataSource.data=self.ip_policies;
+      },ip_policy.id, null);
+    }
   }
 
 }
