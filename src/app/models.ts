@@ -355,3 +355,12 @@ export class Settings {
     cc_log_days: number;
     access_log_days: number;
 }
+
+export class IPPolicy {
+    id: number;
+    ip_addr: string;
+    is_allow: boolean;
+    apply_to_waf: boolean;
+    apply_to_cc: boolean;
+    editable: boolean;
+}

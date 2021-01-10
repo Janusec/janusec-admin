@@ -31,9 +31,9 @@
           <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
         <mat-paginator #paginator
+                 [length]="regexLength"
                  [pageSize]="20"
-                 [pageSizeOptions]="[10, 20, 50]"
-                 [showFirstLastButtons]="true">
+                 [pageSizeOptions]="[10, 20, 50]">
         </mat-paginator>
       </div>
       <div>
@@ -145,7 +145,88 @@
         </div>
 </div>
 
-</mat-tab>
+  </mat-tab>
+
+  <mat-tab i18n-label="@@ip_policy" label="IP Policy">
+      <div>
+        <h2 i18n="@@ip_policy">IP Policy</h2>        
+        <ul class="notes">
+            <li i18n="@@ip_policy_allow" >
+                Allow: allow security testing if WAF applicable, allow high frequency access if CC applicable. 
+            </li>    
+            <li i18n="@@ip_policy_block">
+                Block: show block information if WAF applicable only, block access if CC applicable.
+            </li> 
+        </ul>
+        <div class="mat-elevation-z8">
+            <mat-table #table [dataSource]="ipPolicyDataSource"> 
+              <ng-container matColumnDef="ip_addr">
+                    <mat-header-cell i18n="@@ip_addr" *matHeaderCellDef> IP Address </mat-header-cell>
+                    <mat-cell *matCellDef="let element">   
+                    <input matInput [(ngModel)]="element.ip_addr" [disabled]="!element.editable" 
+                     placeholder="IP Address" required>                     
+                    </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="is_allow">
+                <mat-header-cell i18n="@@is_allow" *matHeaderCellDef> Action </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-select class="custom_select" [(ngModel)]="element.is_allow" [disabled]="!element.editable">
+                        <mat-option i18n="@@allow" [value]=true>Allow</mat-option>
+                        <mat-option i18n="@@block" [value]=false>Block</mat-option>
+                    </mat-select>
+                </mat-cell>
+              </ng-container>     
+
+              <ng-container matColumnDef="apply_to_waf">
+                <mat-header-cell *matHeaderCellDef> WAF </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-select class="custom_select" [(ngModel)]="element.apply_to_waf" [disabled]="!element.editable">
+                        <mat-option i18n="@@applicable" [value]=true>Applicable</mat-option>
+                        <mat-option i18n="@@not_applicable" [value]=false>Not Applicable</mat-option>
+                    </mat-select>
+                </mat-cell>
+              </ng-container>          
+    
+              <ng-container matColumnDef="apply_to_cc">
+                <mat-header-cell *matHeaderCellDef> CC </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-select class="custom_select" [(ngModel)]="element.apply_to_cc" [disabled]="!element.editable">
+                        <mat-option i18n="@@applicable" [value]=true>Applicable</mat-option>
+                        <mat-option i18n="@@not_applicable" [value]=false>Not Applicable</mat-option>
+                    </mat-select>
+                </mat-cell>
+              </ng-container>   
+
+              <ng-container matColumnDef="editable">
+                <mat-header-cell i18n="@@ip_operation" *matHeaderCellDef> Operation </mat-header-cell>
+                <mat-cell *matCellDef="let element; let i = index;">
+                    <mat-icon class="btn_icon" *ngIf="element.editable"  (click)="saveIP(i)"  
+                    matTooltip="Save" matTooltipPosition="left">save</mat-icon>
+                    <mat-icon class="btn_icon" *ngIf="!element.editable" (click)="element.editable=true"  
+                    matTooltip="Edit" matTooltipPosition="left">edit</mat-icon>
+                    <mat-icon class="btn_icon" (click)="deleteIP(i)" matTooltip="Delete" matTooltipPosition="right">delete_outline</mat-icon>
+                </mat-cell>
+              </ng-container>   
+                    
+              <mat-header-row *matHeaderRowDef="ipDisplayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: ipDisplayedColumns;"></mat-row>
+            </mat-table>
+            <mat-paginator #ipPaginator
+                     [length]="ipPageLength"
+                     [pageSize]="20"
+                     [pageSizeOptions]="[10, 20, 50]"
+                     [showFirstLastButtons]="true">
+            </mat-paginator>
+          </div>
+
+        <button mat-stroked-button (click)="addIPPolicy()">  
+            <mat-icon matListIcon>add_circle_outline</mat-icon>
+            <span i18n="@@add_ip">Add IP</span>
+        </button> 
+      </div>
+      
+  </mat-tab>
 
 </mat-tab-group>
 </div>
