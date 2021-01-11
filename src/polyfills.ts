@@ -111,7 +111,7 @@ let zhTranslations = {
     'ip_for_waf': '网关获取用户IP地址的方式（默认REMOTE_ADDR，流量来自其他CDN时才需要修改）',
     'redirect_https': '将HTTP请求重定向到HTTPS（需要配置证书）',
     'hsts_enabled': '启用HSTS（添加头部Strict-Transport-Security，通知浏览器一年内只使用HTTPS）',
-    'waf_enabled': '启用WAF（Web应用防火墙）和CC防护', 
+    'waf_enabled': '启用WAF（Web应用防火墙）', 
     'oauth_required': '启用身份认证（依赖配置文件，仅用于内部员工登录企业内部网站）',
     'session_seconds': '启用OAuth2时，会话超时时间（默认7200秒）',
     'owner': '应用负责人（使用登录用户名或完整的英文ID，只有应用管理员和应用负责人才能操作应用）',
