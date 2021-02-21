@@ -192,6 +192,12 @@ export class ApplicationService {
   }
 
 
+  getDateString(unix: number): string {
+    let now = new Date(unix*1000);
+    let nowStr = now.toLocaleDateString() + ' ' + now.toLocaleTimeString('UTC', {hour12: false})
+    return nowStr;
+  }
+
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 
