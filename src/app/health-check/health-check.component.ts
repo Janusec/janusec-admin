@@ -87,9 +87,7 @@ export class HealthCheckComponent implements OnInit {
   }
 
   getDate(unix: number): string {
-    let now = new Date(unix*1000);
-    let nowStr = now.toLocaleDateString() + ' ' + now.toLocaleTimeString('UTC', {hour12: false})
-    return nowStr;
+    return this.applicationService.getDateString(unix);
   }
 
   getGatewayHealth() {
