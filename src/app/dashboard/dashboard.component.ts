@@ -287,6 +287,7 @@ export class DashboardComponent implements OnInit {
     this.statByAppAndVuln();
     this.getAccessStat(this.selected_app_id);
     this.getPopContents(this.selected_app_id);
+    this.getRefererStat(this.selected_app_id);
   }
 
   statByAppAndVuln() {
