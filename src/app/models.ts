@@ -319,6 +319,12 @@ export class OAuthInfo {
     entrance_url: string;
 }
 
+export class RefererStatByHost {
+    Host: string;
+	PV:   number;
+	UV:   number;
+}
+
 export class PopContent {
     app_id: number;
     url_path: string;

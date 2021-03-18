@@ -103,7 +103,7 @@ let zhTranslations = {
     'app_internal_scheme': '后端/内部Scheme（网关访问后端使用HTTP还是HTTPS，默认HTTP）',
     'app_destination': '目标地址及端口（如：10.10.10.10:80 或者 [::1%lo]:8080 ）',
     'add_new_routing': '添加新的路由',
-    'domain_name': '域名（可编辑）',
+    'domain_name': '域名（必填）',
     'domain_name_tooltip': '必填，格式：www.your-domain.com',
     'certificate': '证书',
     'redirect': '（默认不勾选）重定向到： ',
@@ -172,6 +172,8 @@ let zhTranslations = {
     'application': '请选择应用',
     'all': '所有',
     'vulnerability': '请选择漏洞类型',
+    'popular_content_today': '今日流行内容',
+    'referring_sites': '来源网站（14天）',
     // WAF, Firewall, CC
     'global_vuln_policy': '全局WAF规则',
     'global_cc_policy': '全局CC防护规则',

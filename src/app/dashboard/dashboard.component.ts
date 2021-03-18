@@ -2,8 +2,8 @@ import { Component, OnInit, ElementRef, ViewChild, Inject  } from '@angular/core
 import { Router }            from '@angular/router';
 import { ApplicationService } from '../application.service';
 import { Chart } from 'chart.js';
-import { VulnStat, PopContent } from '../models';
-//import Chart = require('chart.js');
+import { VulnStat, PopContent, RefererStatByHost } from '../models';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -27,6 +27,7 @@ export class DashboardComponent implements OnInit {
   access_stat_date: string[];
   access_stat_count: number[];
   pop_contents: PopContent[];
+  referer_stat: RefererStatByHost[];
 
  
   constructor(private elementRef: ElementRef,
@@ -166,12 +167,14 @@ export class DashboardComponent implements OnInit {
         self.getWeekStat(0,0);
         self.getAccessStat(0);
         self.getPopContents(0);
+        self.getRefererStat(0);
       });
     } else {
       this.getTodayVulnStat(0);   
       this.getWeekStat(0,0);   
       this.getAccessStat(0);
       this.getPopContents(0);
+      this.getRefererStat(0);
     }
     if(this.applicationService.applications.length==0) {
       this.applicationService.getApplications();
@@ -259,6 +262,14 @@ export class DashboardComponent implements OnInit {
     let self = this;
     this.applicationService.getResponseByCustomBody(body, function(pop_contents: PopContent[]){
         self.pop_contents = pop_contents;
+    });
+  }
+
+  getRefererStat(app_id: number) {
+    let body={action:"get_referer_stat", app_id: app_id}
+    let self = this;
+    this.applicationService.getResponseByCustomBody(body, function(referer_stat: RefererStatByHost[]){
+        self.referer_stat = referer_stat;
     });
   }
 

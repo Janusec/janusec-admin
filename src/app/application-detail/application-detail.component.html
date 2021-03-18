@@ -68,7 +68,7 @@
       <div class="inline-form" *ngFor="let domain of application.domains; let i=index; trackBy:trackByFn">
         <mat-form-field class="inline-form-field-20"> 
           <mat-icon matPrefix>language</mat-icon>  
-          <input matInput i18n-placeholder="@@domain_name" placeholder="Domain name (editable)"  
+          <input matInput i18n-placeholder="@@domain_name" placeholder="Domain name (required)"  
           i18n-matTooltip="@@domain_name_tooltip" matTooltipPosition="below"  
           matTooltip="Required, format: www.your-domain.com"  
           [(ngModel)]="application.domains[i].name" [disabled]="readOnlyValue" list="domains" required>
