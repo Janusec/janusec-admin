@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild, Inject  } from '@angular/core
 import { Router }            from '@angular/router';
 import { ApplicationService } from '../application.service';
 import { Chart } from 'chart.js';
-import { VulnStat, PopContent, RefererStatByHost } from '../models';
+import { VulnStat, PopContent, RefererHost } from '../models';
 
 
 @Component({
@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
   access_stat_date: string[];
   access_stat_count: number[];
   pop_contents: PopContent[];
-  referer_stat: RefererStatByHost[];
+  referer_hosts: RefererHost[];
 
  
   constructor(private elementRef: ElementRef,
@@ -167,14 +167,14 @@ export class DashboardComponent implements OnInit {
         self.getWeekStat(0,0);
         self.getAccessStat(0);
         self.getPopContents(0);
-        self.getRefererStat(0);
+        self.getRefererHosts(0);
       });
     } else {
       this.getTodayVulnStat(0);   
       this.getWeekStat(0,0);   
       this.getAccessStat(0);
       this.getPopContents(0);
-      this.getRefererStat(0);
+      this.getRefererHosts(0);
     }
     if(this.applicationService.applications.length==0) {
       this.applicationService.getApplications();
@@ -265,11 +265,11 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  getRefererStat(app_id: number) {
-    let body={action:"get_referer_stat", app_id: app_id}
+  getRefererHosts(app_id: number) {
+    let body={action:"get_referer_hosts", app_id: app_id}
     let self = this;
-    this.applicationService.getResponseByCustomBody(body, function(referer_stat: RefererStatByHost[]){
-        self.referer_stat = referer_stat;
+    this.applicationService.getResponseByCustomBody(body, function(referer_hosts: RefererHost[]){
+        self.referer_hosts = referer_hosts;
     });
   }
 
@@ -287,7 +287,7 @@ export class DashboardComponent implements OnInit {
     this.statByAppAndVuln();
     this.getAccessStat(this.selected_app_id);
     this.getPopContents(this.selected_app_id);
-    this.getRefererStat(this.selected_app_id);
+    this.getRefererHosts(this.selected_app_id);
   }
 
   statByAppAndVuln() {

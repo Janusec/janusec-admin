@@ -319,9 +319,15 @@ export class OAuthInfo {
     entrance_url: string;
 }
 
-export class RefererStatByHost {
-    Host: string;
+export class RefererHost {
+    host: string;
 	PV:   number;
+	UV:   number;
+}
+
+export class RefererURL {
+    url:  string;
+    PV:   number;
 	UV:   number;
 }
 

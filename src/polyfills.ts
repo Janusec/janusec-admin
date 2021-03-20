@@ -236,6 +236,8 @@ let zhTranslations = {
     'password': '口令',
     // Referring
     'referring_site': '来源网站',
+    'target_site': '目标网站',
+    'referring_link': '来源链接',
     // Settings
     'settings': '设置',
     'waf_log_days': 'WAF日志保存天数',

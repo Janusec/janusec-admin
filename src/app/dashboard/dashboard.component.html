@@ -74,10 +74,10 @@
                 <th width="35%">PV</th>
                 <th width="35%">UV</th>
             </tr>
-            <tr *ngFor="let referer of referer_stat">
+            <tr *ngFor="let referer of referer_hosts">
                 <td>
-                    <a routerLink="/referring/{{ selected_app_id }}/{{ referer.Host }}">
-                        {{ referer.Host }}
+                    <a routerLink="/referring/{{ selected_app_id }}/{{ referer.host }}">
+                        {{ referer.host }}
                     </a>                   
                 </td>
                 <td class="td-align-center">

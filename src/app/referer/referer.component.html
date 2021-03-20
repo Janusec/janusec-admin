@@ -1,10 +1,37 @@
 <div class="container">
     <div>    
-        <mat-card>
-          <h2 i18n="@@referring_site">Referring Site</h2>
+        <mat-card>            
+            <div>
+                <span i18n="@@referring_site">Referring site</span>: {{ host }}
+            </div>
+            <div>
+                <span i18n="@@target_site">Target site</span>: {{ getAppNameByID(app_id) }}                
+            </div>          
         </mat-card>    
     </div>
-    <div>
-        
+    
+    <div fxLayout="row wrap">
+        <div fxFlex="100%" class="access_div">      
+            <table class="referer_table">
+                <tr>
+                    <th width="30%" i18n="@@referring_link">Referring Link</th>
+                    <th width="35%">PV (14 days)</th>
+                    <th width="35%">UV (14 days)</th>
+                </tr>
+                <tr *ngFor="let referer of referer_urls">
+                    <td>
+                        <a href="{{ referer.url }}" target="_blank">
+                            {{ referer.url }}
+                        </a>                   
+                    </td>
+                    <td class="td-align-center">
+                        {{ referer.PV }}
+                    </td>
+                    <td class="td-align-center">
+                        {{ referer.UV }}
+                    </td>
+                </tr>            
+            </table>        
+        </div>
     </div>
 </div>
