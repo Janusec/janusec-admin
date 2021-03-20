@@ -234,6 +234,8 @@ let zhTranslations = {
     'port': '端口',
     'username': '用户名',
     'password': '口令',
+    // Referring
+    'referring_site': '来源网站',
     // Settings
     'settings': '设置',
     'waf_log_days': 'WAF日志保存天数',

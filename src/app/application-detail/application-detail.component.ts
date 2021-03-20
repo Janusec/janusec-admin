@@ -16,7 +16,7 @@ export class ApplicationDetailComponent implements OnInit {
   @Input() application: Application;
   readOnlyValue: boolean = true;
   readOnlyButtonText: string = "Edit"
-  certIcon: string = "assets/images/cert.png";
+  //certIcon: string = "assets/images/cert.png";
   optionCertificates: Certificate[];
   no_certificate:Certificate;
   enum_ip_method_values: {value: number; name: string}[] = [];
