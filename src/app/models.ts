@@ -365,7 +365,7 @@ export class License {
 export class Settings {
     auth_enabled: boolean;
     auth_provider: string;
-    
+    webssh_enabled: boolean;
     waf_log_days: number;
     cc_log_days: number;
     access_log_days: number;
@@ -378,4 +378,12 @@ export class IPPolicy {
     apply_to_waf: boolean;
     apply_to_cc: boolean;
     editable: boolean;
+}
+
+export class WxworkConfig {
+    display_name: string;
+    callback: string;
+    corpid: string;
+    agentid: string;
+    corpsecret: string;
 }

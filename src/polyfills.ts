@@ -246,6 +246,7 @@ let zhTranslations = {
     'settings': '设置',
     'security_auth': '安全身份认证',
     'auth_enabled': '启用SSO身份认证',
+    'auth_provider': '认证服务提供商',
     'security_operation': '安全运维',
     'webssh_enabled': '启用基于Web的SSH运维通道',
     'security_audit': '安全审计',

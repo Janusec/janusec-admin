@@ -10,18 +10,21 @@
                 <mat-form-field>
                     <mat-select [(ngModel)]="settings.auth_provider" 
                     i18n-placeholder="@@auth_provider" placeholder="Authentication Provider" 
-                    [disabled]="readOnlyValue">
-                    <mat-option [value]="wxwork">WxWork（企业微信扫码）</mat-option>
-                    <mat-option [value]="dingtalk">DingTalk（钉钉扫码）</mat-option>
-                    <mat-option [value]="feishu">Feishu（飞书扫码）</mat-option>
-                    <mat-option [value]="ldap">LDAP</mat-option>
-                    <mat-option [value]="cas2">CAS 2.0 Protocol</mat-option>
-                    <mat-option [value]="">N/A</mat-option>
+                    [disabled]="readOnlyValue"  (selectionChange)="onChangeAuthProvider()">
+                    <mat-option value="wxwork">WxWork（企业微信扫码）</mat-option>
+                    <mat-option value="dingtalk">DingTalk（钉钉扫码）</mat-option>
+                    <mat-option value="feishu">Feishu（飞书扫码）</mat-option>
+                    <mat-option value="ldap">LDAP</mat-option>
+                    <mat-option value="cas2">CAS 2.0 Protocol</mat-option>
+                    <mat-option value="">N/A</mat-option>
                     </mat-select>
                 </mat-form-field>
 
-                <div *ngIf="settings.auth_provider=='wxwork'">
-                    Wxwork
+                <div *ngIf="wxworkConfig">
+                    <mat-form-field>
+                        <input matInput [(ngModel)]="wxworkConfig.display_name" [readonly]="readOnlyValue" 
+                        i18n-placeholder="@@display_name"  placeholder="Display Name"/>
+                    </mat-form-field> 
                 </div>
 
 
@@ -54,8 +57,10 @@
             </div>
         </mat-tab>
     </mat-tab-group>
-    <div>
-        <button i18n="@@save" mat-stroked-button [disabled]="readOnlyValue" (click)="saveSettings()">Save</button>
-        <button mat-stroked-button (click)="changeEditable()">{{readOnlyButtonText}}</button>
+    <div class="container">
+        <section>
+            <button i18n="@@save" mat-stroked-button [disabled]="readOnlyValue" (click)="saveSettings()">Save</button>
+            <button mat-stroked-button (click)="changeEditable()">{{readOnlyButtonText}}</button>
+        </section>        
     </div>
 </div>
