@@ -363,6 +363,9 @@ export class License {
 }
 
 export class Settings {
+    auth_enabled: boolean;
+    auth_provider: string;
+    
     waf_log_days: number;
     cc_log_days: number;
     access_log_days: number;

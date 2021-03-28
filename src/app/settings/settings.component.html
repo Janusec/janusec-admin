@@ -1,21 +1,61 @@
 <div *ngIf="settings">
-    <div class="container">
-        <h2 i18n="@@settings">Settings</h2>  
+    <mat-tab-group>
+        <mat-tab i18n-label="@@security_auth" label="Security Authentication">
+            <div class="container">
+                <section>
+                    <mat-checkbox i18n="@@auth_enabled" [(ngModel)]="settings.auth_enabled" [disabled]="readOnlyValue">
+                        Enable Single Sign On Authentication
+                    </mat-checkbox>
+                </section>
+                <mat-form-field>
+                    <mat-select [(ngModel)]="settings.auth_provider" 
+                    i18n-placeholder="@@auth_provider" placeholder="Authentication Provider" 
+                    [disabled]="readOnlyValue">
+                    <mat-option [value]="wxwork">WxWork（企业微信扫码）</mat-option>
+                    <mat-option [value]="dingtalk">DingTalk（钉钉扫码）</mat-option>
+                    <mat-option [value]="feishu">Feishu（飞书扫码）</mat-option>
+                    <mat-option [value]="ldap">LDAP</mat-option>
+                    <mat-option [value]="cas2">CAS 2.0 Protocol</mat-option>
+                    <mat-option [value]="">N/A</mat-option>
+                    </mat-select>
+                </mat-form-field>
 
-        <mat-form-field>
-            <input i18n-placeholder="@@waf_log_days" type="number" matInput [(ngModel)]="settings.waf_log_days" [readonly]="readOnlyValue" placeholder="WAF Log Days"/>
-        </mat-form-field> 
+                <div *ngIf="settings.auth_provider=='wxwork'">
+                    Wxwork
+                </div>
 
-        <mat-form-field>
-            <input i18n-placeholder="@@cc_log_days" type="number" matInput [(ngModel)]="settings.cc_log_days" [readonly]="readOnlyValue" placeholder="CC Log Days"/>
-        </mat-form-field> 
 
-        <mat-form-field>
-            <input i18n-placeholder="@@access_log_days" type="number" matInput [(ngModel)]="settings.access_log_days" [readonly]="readOnlyValue" placeholder="Access Log Days"/>
-        </mat-form-field> 
-        <div>
+            </div>
+        </mat-tab>
+
+        <mat-tab i18n-label="@@security_operation" label="Security Operation">
+            <div class="container">
+                <section>
+                    <mat-checkbox i18n="@@webssh_enabled" [(ngModel)]="settings.webssh_enabled" [disabled]="readOnlyValue">
+                        Enable Web-based SSH
+                    </mat-checkbox>
+                  </section>
+            </div>
+        </mat-tab>
+
+        <mat-tab i18n-label="@@security_audit" label="Security Audit">
+            <div class="container">        
+                <mat-form-field>
+                    <input i18n-placeholder="@@waf_log_days" type="number" matInput [(ngModel)]="settings.waf_log_days" [readonly]="readOnlyValue" placeholder="WAF Log Days"/>
+                </mat-form-field> 
+        
+                <mat-form-field>
+                    <input i18n-placeholder="@@cc_log_days" type="number" matInput [(ngModel)]="settings.cc_log_days" [readonly]="readOnlyValue" placeholder="CC Log Days"/>
+                </mat-form-field> 
+        
+                <mat-form-field>
+                    <input i18n-placeholder="@@access_log_days" type="number" matInput [(ngModel)]="settings.access_log_days" [readonly]="readOnlyValue" placeholder="Access Log Days"/>
+                </mat-form-field>                 
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+    <div>
         <button i18n="@@save" mat-stroked-button [disabled]="readOnlyValue" (click)="saveSettings()">Save</button>
         <button mat-stroked-button (click)="changeEditable()">{{readOnlyButtonText}}</button>
-        </div>
     </div>
 </div>

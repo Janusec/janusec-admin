@@ -88,6 +88,7 @@ let zhTranslations = {
     'submit': '提交',
     // certificates
     'add_cert': '添加证书',
+    'acme_note': '备注：ACME自动证书由文件系统自动管理，不在此处列出。',
     // certificate-detail
     'cert_detail_title': '证书配置',
     'cert_common_name': '通用名/使用者可选名称',
@@ -106,6 +107,8 @@ let zhTranslations = {
     'domain_name': '域名（必填）',
     'domain_name_tooltip': '必填，格式：www.your-domain.com',
     'certificate': '证书',
+    'acme_requirement': '如果使用ACME自动证书，网关须使用默认80/443端口、向互联网开放、单节点部署',
+    'automated_certificate': 'ACME自动证书',
     'redirect': '（默认不勾选）重定向到： ',
     'add_domain': '添加域名',
     'ip_for_waf': '网关获取用户IP地址的方式（默认REMOTE_ADDR，流量来自其他CDN时才需要修改）',
@@ -129,6 +132,7 @@ let zhTranslations = {
     'backend_routing_tooltip': '默认 / , 前后端路径不一致时可使用 /xyz/ 这种形式，本地静态网站或FastCGI网站请填写绝对路径 /path/to/www/ ',
     // Port forwarding
     'port_forwarding': '端口转发',
+    'vip_note': '备注：四层TCP/UDP端口转发，无WAF/CC防护功能。',
     'port_forwarding_warning': '注意：端口转发可能带来严重的安全风险，只能用于非Web应用发布，使用时请遵守内部安全管理规定。',
     'vip_app': '端口转发',
     'add_vip': '添加端口转发',
@@ -189,8 +193,8 @@ let zhTranslations = {
     'count_each_cookie': '单独统计每个不同的Cookie串（默认不勾选，当Cookie中使用了时间戳或Cookie会经常变化时，不勾选）',
     'enable_policy': '启用该规则（默认选中）',
     "interval_milliseconds": '统计时间窗（默认100毫秒）',
-    'max_count': '时间窗内最大请求数量（默认5）',
-    'block_seconds': '超限锁定秒数（默认7200）',
+    'max_count': '最大请求数（默认6次）',
+    'block_seconds': '超限锁定（默认900秒）',
     'action': '触发动作(阻断/旁路/验证码/放行)',
     'slow_cc_notice': '备注：慢速CC检测同时启用，使用15个统计时间窗（其他参数相同）。',
     'ip_policy': 'IP策略',
@@ -218,7 +222,7 @@ let zhTranslations = {
     'regex_pattern': '正则表达式（采用Google RE2正则）',
     'payload_to_test': '用来测试的payload用例',
     'matched_result': '匹配结果',
-    'regex_preprocess': '使用内置WAF预处理（建议勾选，会统一删除单双引号和/**/，自定义规则不需要额外处理单双引号和/**/）',
+    'regex_preprocess': '使用内置WAF预处理（勾选，会统一删除单双引号，用空格替换/**/，自定义规则不需要处理单双引号和/**/）',
     // WAF log
     'begin_time': '开始时间(00:00:00)',
     'end_time': '结束时间(23:59:59)',
@@ -240,6 +244,11 @@ let zhTranslations = {
     'referring_link': '来源链接',
     // Settings
     'settings': '设置',
+    'security_auth': '安全身份认证',
+    'auth_enabled': '启用SSO身份认证',
+    'security_operation': '安全运维',
+    'webssh_enabled': '启用基于Web的SSH运维通道',
+    'security_audit': '安全审计',
     'waf_log_days': 'WAF日志保存天数',
     'cc_log_days': 'CC日志保存天数',
     'access_log_days': '访问日志保存天数'

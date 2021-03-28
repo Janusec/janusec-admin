@@ -15,10 +15,9 @@ import { OAuthInfo } from '../models'
 export class ApplicationDetailComponent implements OnInit {
   @Input() application: Application;
   readOnlyValue: boolean = true;
-  readOnlyButtonText: string = "Edit"
-  //certIcon: string = "assets/images/cert.png";
+  readOnlyButtonText: string = "Edit";
   optionCertificates: Certificate[];
-  no_certificate:Certificate;
+  acme_certificate:Certificate;
   enum_ip_method_values: {value: number; name: string}[] = [];
   enum_route_types: {value: number; name: string}[] = [];
   oauth: OAuthInfo = new (OAuthInfo);
@@ -164,9 +163,9 @@ export class ApplicationDetailComponent implements OnInit {
       this.applicationService.getCertificates();
     }    
     this.getApplication();
-    this.no_certificate = new Certificate();
-    this.no_certificate.id=0;
-    this.no_certificate.common_name='No Certificate (HTTP Only)';
+    this.acme_certificate = new Certificate();
+    this.acme_certificate.id=0;
+    this.acme_certificate.common_name='Automated Certificate';
     this.getCertificates();
 
     // get oauth config
@@ -181,7 +180,7 @@ export class ApplicationDetailComponent implements OnInit {
   getCertificates() {
     var self = this;
     this.applicationService.getResponse('get_certs', function(obj: Certificate[]){      
-        if(obj != null) self.optionCertificates = obj.concat(self.no_certificate);
+        if(obj != null) self.optionCertificates = obj; //.concat(self.acme_certificate);
     });
   }
 

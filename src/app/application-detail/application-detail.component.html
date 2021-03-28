@@ -79,7 +79,11 @@
       
         <mat-form-field class="inline-form-field-20">  
           <mat-icon matPrefix>lock_outline</mat-icon>         
-          <mat-select i18n-placeholder="@@certificate" placeholder="Certificate"  [(ngModel)]="application.domains[i].cert_id" [disabled]="readOnlyValue" required>   
+          <mat-select i18n-placeholder="@@certificate" placeholder="Certificate"  
+          i18n-matTooltip="@@acme_requirement" matTooltipPosition="below"   
+          matTooltip="If ACME automated certificate used, default port 80/443, open to Internet, single node are required."  
+          [(ngModel)]="application.domains[i].cert_id" [disabled]="readOnlyValue" required> 
+              <mat-option [value]=0 i18n="@@automated_certificate">ACME Automated Certificate</mat-option>  
               <mat-option *ngFor="let certificate of optionCertificates;" [value]="certificate.id">
                 {{certificate.common_name}}
               </mat-option>                
