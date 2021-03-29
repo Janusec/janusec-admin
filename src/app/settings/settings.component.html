@@ -19,13 +19,26 @@
                     <mat-option value="">N/A</mat-option>
                     </mat-select>
                 </mat-form-field>
+                
+                <mat-form-field *ngIf="settings.auth_provider=='wxwork' && wxworkConfig">
+                    <input matInput [(ngModel)]="wxworkConfig.display_name" [readonly]="readOnlyValue" 
+                    i18n-placeholder="@@display_name"  placeholder="Display Name"/>
+                </mat-form-field> 
+                <mat-form-field *ngIf="settings.auth_provider=='wxwork' && wxworkConfig">
+                    <input matInput [(ngModel)]="wxworkConfig.callback" [readonly]="readOnlyValue" 
+                    i18n-placeholder="@@callback"  placeholder="Callback"/>
+                </mat-form-field> 
+                <mat-form-field *ngIf="settings.auth_provider=='wxwork' && wxworkConfig">
+                    <input matInput [(ngModel)]="wxworkConfig.corpid" [readonly]="readOnlyValue" placeholder="corpid"/>
+                </mat-form-field> 
+                <mat-form-field *ngIf="settings.auth_provider=='wxwork' && wxworkConfig">
+                    <input matInput [(ngModel)]="wxworkConfig.agentid" [readonly]="readOnlyValue" placeholder="agentid"/>
+                </mat-form-field>
+                <mat-form-field *ngIf="settings.auth_provider=='wxwork' && wxworkConfig">
+                    <input matInput [(ngModel)]="wxworkConfig.corpsecret" [readonly]="readOnlyValue" placeholder="corpsecret"/>
+                </mat-form-field> 
 
-                <div *ngIf="wxworkConfig">
-                    <mat-form-field>
-                        <input matInput [(ngModel)]="wxworkConfig.display_name" [readonly]="readOnlyValue" 
-                        i18n-placeholder="@@display_name"  placeholder="Display Name"/>
-                    </mat-form-field> 
-                </div>
+
 
 
             </div>

@@ -252,7 +252,9 @@ let zhTranslations = {
     'security_audit': '安全审计',
     'waf_log_days': 'WAF日志保存天数',
     'cc_log_days': 'CC日志保存天数',
-    'access_log_days': '访问日志保存天数'
+    'access_log_days': '访问日志保存天数',
+    'display_name': '显示名称',
+    'callback': '回调地址'
 }
 
 

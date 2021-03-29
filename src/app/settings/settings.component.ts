@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApplicationService } from '../application.service'; 
-import { Settings, WxworkConfig } from '../models';
+import { Settings, WxworkConfig, DingtalkConfig, FeishuConfig, LDAPConfig, CAS2Config } from '../models';
 import { MessageService } from '../message.service';
 
 @Component({
@@ -13,6 +13,10 @@ export class SettingsComponent implements OnInit {
   readOnlyValue: boolean = true;
   readOnlyButtonText: string = "Edit";
   wxworkConfig: WxworkConfig;
+  dingtalkConfig: DingtalkConfig;
+  feishuConfig: FeishuConfig;
+  ldapConfig: LDAPConfig;
+  cas2Config: CAS2Config;
 
   constructor(private applicationService: ApplicationService,
     private messageService: MessageService) { }
@@ -20,29 +24,37 @@ export class SettingsComponent implements OnInit {
   ngOnInit() {
       let self = this;
       this.applicationService.getResponse('get_global_settings', function(obj: Settings){
-          self.settings = obj;
-          
-          
+          self.settings = obj;             
       });
   }
 
   onChangeAuthProvider() {
-      console.log("onChangeAuthProvider", this.settings);
       let self =this;
       switch(this.settings.auth_provider) {
         case "wxwork":                  
             this.applicationService.getResponse('get_wxwork_config', function(obj: WxworkConfig){
               self.wxworkConfig = obj;
-              console.log("get_wxwork_config", self.wxworkConfig);
-            })
+            });
             break;
         case "dingtalk":
+            this.applicationService.getResponse('get_dingtalk_config', function(obj: DingtalkConfig){
+                self.dingtalkConfig = obj;
+              });
             break;
         case "feishu":
+            this.applicationService.getResponse('get_feishu_config', function(obj: FeishuConfig){
+                self.feishuConfig = obj;
+              });
             break;
         case "ldap":
+            this.applicationService.getResponse('get_ldap_config', function(obj: LDAPConfig){
+                self.ldapConfig = obj;
+              });
             break;
         case "cas2":
+            this.applicationService.getResponse('get_cas2_config', function(obj: CAS2Config){
+                self.cas2Config = obj;
+              });
             break;
     }
   }

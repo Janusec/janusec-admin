@@ -387,3 +387,32 @@ export class WxworkConfig {
     agentid: string;
     corpsecret: string;
 }
+
+export class DingtalkConfig {
+    display_name: string;
+    callback: string;
+    appid: string;
+    appsecret: string;
+}
+
+export class FeishuConfig {
+    display_name: string;
+    callback: string;
+    appid: string;
+    appsecret: string;
+}
+
+export class LDAPConfig {
+    display_name: string;
+    entrance: string;
+    address: string;
+    dn: string;
+    using_tls: boolean;
+    authenticator_enabled: boolean;
+}
+
+export class CAS2Config {
+    display_name: string;
+    entrance: string;
+    callback: string;
+}
