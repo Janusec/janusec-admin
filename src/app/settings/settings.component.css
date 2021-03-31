@@ -5,6 +5,14 @@ mat-form-field {
     font-family: Helvetica, Arial, "PingFang SC", "Source Han Serif SC", "Microsoft YaHei";
 }
 
+mat-radio-group {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+mat-radio-button {
+    margin-right: 30px;
+}
 
 button {
     margin-right: 5px;

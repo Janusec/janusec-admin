@@ -24,11 +24,12 @@ export class SettingsComponent implements OnInit {
   ngOnInit() {
       let self = this;
       this.applicationService.getResponse('get_global_settings', function(obj: Settings){
-          self.settings = obj;             
+          self.settings = obj;    
+          self.loadAuthProvider(self.settings.auth_provider);         
       });
   }
 
-  onChangeAuthProvider() {
+  loadAuthProvider(provide:string) {
       let self =this;
       switch(this.settings.auth_provider) {
         case "wxwork":                  
