@@ -68,6 +68,34 @@ export class SettingsComponent implements OnInit {
         self.readOnlyButtonText="Edit";
         self.messageService.add("Settings Saved.");
     }, null, this.settings);
+    // update auth_provider
+    switch(this.settings.auth_provider) {
+        case "wxwork":                  
+        this.applicationService.getResponse('update_wxwork_config', function(obj: WxworkConfig){
+          self.wxworkConfig = obj;
+        }, 0, this.wxworkConfig);
+        break;
+    case "dingtalk":
+        this.applicationService.getResponse('update_dingtalk_config', function(obj: DingtalkConfig){
+            self.dingtalkConfig = obj;
+          }, 0, this.dingtalkConfig);
+        break;
+    case "feishu":
+        this.applicationService.getResponse('update_feishu_config', function(obj: FeishuConfig){
+            self.feishuConfig = obj;
+          }, 0, this.feishuConfig);
+        break;
+    case "ldap":
+        this.applicationService.getResponse('update_ldap_config', function(obj: LDAPConfig){
+            self.ldapConfig = obj;
+          }, 0, this.ldapConfig);
+        break;
+    case "cas2":
+        this.applicationService.getResponse('update_cas2_config', function(obj: CAS2Config){
+            self.cas2Config = obj;
+          }, 0, this.cas2Config);
+        break;
+    }
   }
 
   changeEditable() {

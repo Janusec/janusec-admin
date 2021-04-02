@@ -88,7 +88,7 @@ let zhTranslations = {
     'submit': '提交',
     // certificates
     'add_cert': '添加证书',
-    'acme_note': '备注：ACME自动证书由文件系统自动管理，不在此处列出。',
+    'acme_note': '备注：此处导入的证书私钥将被加密存储。ACME自动证书由文件系统自动管理（不在此处列出）。',
     // certificate-detail
     'cert_detail_title': '证书配置',
     'cert_common_name': '通用名/使用者可选名称',
@@ -254,7 +254,11 @@ let zhTranslations = {
     'cc_log_days': 'CC日志保存天数',
     'access_log_days': '访问日志保存天数',
     'display_name': '显示名称',
-    'callback': '回调地址'
+    'callback': '回调地址',
+    'using_tls': '使用TLS',
+    'no_tls': '无TLS',
+    'enable_authenticator': '启用认证器（Authenticator）',
+    'no_authenticator': '无认证器（Authenticator）'
 }
 
 
