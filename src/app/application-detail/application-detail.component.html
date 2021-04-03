@@ -81,7 +81,7 @@
           <mat-icon matPrefix>lock_outline</mat-icon>         
           <mat-select i18n-placeholder="@@certificate" placeholder="Certificate"  
           i18n-matTooltip="@@acme_requirement" matTooltipPosition="below"   
-          matTooltip="If ACME automated certificate used, default port 80/443, open to Internet, single node are required."  
+          matTooltip="If ACME automated certificate used, default port 80/443, open to Internet, and single node are required."  
           [(ngModel)]="application.domains[i].cert_id" [disabled]="readOnlyValue" required> 
               <mat-option [value]=0 i18n="@@automated_certificate">ACME Automated Certificate</mat-option>  
               <mat-option *ngFor="let certificate of optionCertificates;" [value]="certificate.id">
@@ -132,7 +132,7 @@
 
     <section>
         <mat-checkbox i18n="@@oauth_required" [(ngModel)]="application.oauth_required" [disabled]="readOnlyValue">
-            Enable Authentication (Depend on configuration file and only for Internal Employees and Internal Applications. {{ oauth.display_name }})
+            Enable Authentication (The provider needs to be registered and enabled in the settings, used for Internal Employees and Internal Applications. {{ oauth.display_name }})
         </mat-checkbox>
     </section>
 

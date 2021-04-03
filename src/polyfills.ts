@@ -115,7 +115,7 @@ let zhTranslations = {
     'redirect_https': '将HTTP请求重定向到HTTPS（需要配置证书）',
     'hsts_enabled': '启用HSTS（添加头部Strict-Transport-Security，通知浏览器一年内只使用HTTPS）',
     'waf_enabled': '启用WAF（Web应用防火墙）', 
-    'oauth_required': '启用身份认证（依赖配置文件，仅用于内部员工登录企业内部网站）',
+    'oauth_required': '启用身份认证（需在设置中登记提供商并启用，用于内部员工登录企业内部网站）',
     'session_seconds': '启用OAuth2时，会话超时时间（默认7200秒）',
     'owner': '应用负责人（使用登录用户名或完整的英文ID，只有应用管理员和应用负责人才能操作应用）',
     'request_location': '请求路由',
@@ -132,7 +132,7 @@ let zhTranslations = {
     'backend_routing_tooltip': '默认 / , 前后端路径不一致时可使用 /xyz/ 这种形式，本地静态网站或FastCGI网站请填写绝对路径 /path/to/www/ ',
     // Port forwarding
     'port_forwarding': '端口转发',
-    'vip_note': '备注：四层TCP/UDP端口转发，无WAF/CC防护功能。',
+    'vip_note': '备注：本模块为四层TCP/UDP端口转发（无WAF/CC防护功能）。',
     'port_forwarding_warning': '注意：端口转发可能带来严重的安全风险，只能用于非Web应用发布，使用时请遵守内部安全管理规定。',
     'vip_app': '端口转发',
     'add_vip': '添加端口转发',
