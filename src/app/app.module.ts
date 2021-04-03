@@ -66,6 +66,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { HealthCheckComponent } from './health-check/health-check.component';
 import { VipAppsComponent } from './vip-apps/vip-apps.component';
 import { VipAppComponent } from './vip-app/vip-app.component';
+import { RefererComponent } from './referer/referer.component';
 
 @NgModule({
   exports:[
@@ -134,7 +135,8 @@ export class MaterialModule{}
     WebsshComponent,
     HealthCheckComponent,
     VipAppsComponent,
-    VipAppComponent
+    VipAppComponent,
+    RefererComponent
   ],
   imports: [
     MaterialModule,

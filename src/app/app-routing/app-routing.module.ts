@@ -22,6 +22,7 @@ import { WebsshComponent } from '../webssh/webssh.component';
 import { HealthCheckComponent } from '../health-check/health-check.component';
 import { VipAppsComponent } from '../vip-apps/vip-apps.component';
 import { VipAppComponent } from '../vip-app/vip-app.component';
+import { RefererComponent } from '../referer/referer.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/index.html', pathMatch: 'full' },
@@ -47,6 +48,7 @@ const routes: Routes = [
   { path: 'login', component: LoginFormComponent},
   { path: 'ssh', component: WebsshComponent },
   { path: 'health', component: HealthCheckComponent },
+  { path: 'referring/:app_id/:host', component: RefererComponent }
 ];
 
 @NgModule({

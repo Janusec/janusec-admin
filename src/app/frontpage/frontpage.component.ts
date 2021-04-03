@@ -35,7 +35,13 @@ export class FrontpageComponent implements OnInit {
             }
         })
       }
-    });    
+    }); 
+    setTimeout(() => 
+    {
+      if (this.applicationService.auth_user.logged==false) {
+        this.router.navigate(['/login']);
+      } 
+    },500);
   }
 
   getDate(unix: number): string {

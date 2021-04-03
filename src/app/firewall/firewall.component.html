@@ -50,10 +50,10 @@
               <input matInput i18n-placeholder="@@interval_milliseconds" [(ngModel)]="global_cc_policy.interval_milliseconds" type="number" placeholder="Time Window (100 ms)" required>
             </mat-form-field>        
             <mat-form-field>
-              <input matInput i18n-placeholder="@@max_count" [(ngModel)]="global_cc_policy.max_count" type="number" placeholder="Max Requests Count (5)" required>
+              <input matInput i18n-placeholder="@@max_count" [(ngModel)]="global_cc_policy.max_count" type="number" placeholder="Max Requests Count (6)" required>
             </mat-form-field>
             <mat-form-field>
-                <input matInput i18n-placeholder="@@block_seconds" [(ngModel)]="global_cc_policy.block_seconds" type="number" placeholder="Block Seconds (7200)" required>
+                <input matInput i18n-placeholder="@@block_seconds" [(ngModel)]="global_cc_policy.block_seconds" type="number" placeholder="Block Seconds (900)" required>
             </mat-form-field>
 
             <mat-form-field>
@@ -115,10 +115,10 @@
           <input matInput i18n-placeholder="@@interval_milliseconds" [(ngModel)]="app_cc_policy.interval_milliseconds" type="number" placeholder="Time Window (100 ms)" required>
         </mat-form-field>        
         <mat-form-field>
-          <input matInput i18n-placeholder="@@max_count" [(ngModel)]="app_cc_policy.max_count" type="number" placeholder="Max Requests Count (5)" required>
+          <input matInput i18n-placeholder="@@max_count" [(ngModel)]="app_cc_policy.max_count" type="number" placeholder="Max Requests Count (6)" required>
         </mat-form-field>
         <mat-form-field>
-            <input matInput i18n-placeholder="@@block_seconds" [(ngModel)]="app_cc_policy.block_seconds" type="number" placeholder="Block Seconds (7200)" required>
+            <input matInput i18n-placeholder="@@block_seconds" [(ngModel)]="app_cc_policy.block_seconds" type="number" placeholder="Block Seconds (900)" required>
         </mat-form-field>
         <mat-form-field>
           <mat-select i18n-placeholder="@@action" [(ngModel)]="app_cc_policy.action" placeholder="Action">

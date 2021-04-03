@@ -41,12 +41,12 @@
 </div>
 
 <div fxLayout="row wrap" *ngIf="applicationService.auth_user.logged">
-    <div fxFlex="100%" class="top_access_div">      
+    <div fxFlex="100%" class="access_div">      
         <table class="top_access_table">
-            <caption>Popular Content Today</caption>
+            <caption i18n="@@popular_content_today">Popular Content Today</caption>
             <tr>
-                <th width="20%">Application</th>
-                <th width="70%">URL</th>
+                <th width="30%">Application</th>
+                <th width="60%">URL</th>
                 <th width="10%">Count</th>
             </tr>
             <tr *ngFor="let popContent of pop_contents">
@@ -62,6 +62,32 @@
             </tr>            
         </table>
         
+    </div>
+</div>
+<br/>
+<div fxLayout="row wrap" *ngIf="applicationService.auth_user.logged">
+    <div fxFlex="100%" class="access_div">      
+        <table class="top_access_table">
+            <caption i18n="@@referring_sites">Referring Sites (14 days)</caption>
+            <tr>
+                <th width="30%">Site</th>
+                <th width="35%">PV</th>
+                <th width="35%">UV</th>
+            </tr>
+            <tr *ngFor="let referer of referer_hosts">
+                <td>
+                    <a routerLink="/referring/{{ selected_app_id }}/{{ referer.host }}">
+                        {{ referer.host }}
+                    </a>                   
+                </td>
+                <td class="td-align-center">
+                    {{ referer.PV }}
+                </td>
+                <td class="td-align-center">
+                    {{ referer.UV }}
+                </td>
+            </tr>            
+        </table>        
     </div>
 </div>
 

@@ -4,6 +4,7 @@
       <h2 i18n="@@cert_mgmt">Certificate Management</h2>      
   </mat-card>
 </div>
+<div>
 <mat-list class="mat-list-item-list-stacked">
 <mat-list-item *ngIf="applicationService.auth_user.is_cert_admin==true" (click)="addCertificate()">  
     <mat-icon matListIcon>add_circle_outline</mat-icon>
@@ -21,4 +22,10 @@
     </p>    
 </mat-list-item>
 </mat-list>
+</div>
+<br/>
+<mat-divider></mat-divider>
+<div i18n="@@acme_note" class="notes">
+    Note: The private key imported here will be stored encrypted. ACME automatic certificates are automatically managed by the file system (not listed here). 
+</div> 
 </div>

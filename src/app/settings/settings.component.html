@@ -1,21 +1,152 @@
 <div *ngIf="settings">
+    <mat-tab-group>
+        <mat-tab i18n-label="@@security_auth" label="Security Authentication">
+            <div class="container">
+                <section>
+                    <mat-checkbox i18n="@@auth_enabled" [(ngModel)]="settings.auth_enabled" [disabled]="readOnlyValue">
+                        Enable Single Sign On Authentication
+                    </mat-checkbox>
+                </section>
+                <br/>
+                <mat-form-field>
+                    <mat-select [(ngModel)]="settings.auth_provider" 
+                    i18n-placeholder="@@auth_provider" placeholder="Authentication Provider" 
+                    [disabled]="readOnlyValue"  (selectionChange)="loadAuthProvider(settings.auth_provider)">
+                    <mat-option value="wxwork">WxWork（企业微信扫码）</mat-option>
+                    <mat-option value="dingtalk">DingTalk（钉钉扫码）</mat-option>
+                    <mat-option value="feishu">Feishu（飞书扫码）</mat-option>
+                    <mat-option value="ldap">LDAP</mat-option>
+                    <mat-option value="cas2">CAS 2.0 Protocol</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                
+                <!-- WxWork -->
+                <mat-form-field *ngIf="settings.auth_provider=='wxwork' && wxworkConfig">
+                    <input matInput [(ngModel)]="wxworkConfig.display_name" [readonly]="readOnlyValue" 
+                    i18n-placeholder="@@display_name"  placeholder="Display Name"/>
+                </mat-form-field> 
+                <mat-form-field *ngIf="settings.auth_provider=='wxwork' && wxworkConfig">
+                    <input matInput [(ngModel)]="wxworkConfig.callback" [readonly]="readOnlyValue" 
+                    i18n-placeholder="@@callback"  placeholder="Callback"/>
+                </mat-form-field> 
+                <mat-form-field *ngIf="settings.auth_provider=='wxwork' && wxworkConfig">
+                    <input matInput [(ngModel)]="wxworkConfig.corpid" [readonly]="readOnlyValue" placeholder="corpid"/>
+                </mat-form-field> 
+                <mat-form-field *ngIf="settings.auth_provider=='wxwork' && wxworkConfig">
+                    <input matInput [(ngModel)]="wxworkConfig.agentid" [readonly]="readOnlyValue" placeholder="agentid"/>
+                </mat-form-field>
+                <mat-form-field *ngIf="settings.auth_provider=='wxwork' && wxworkConfig">
+                    <input matInput [(ngModel)]="wxworkConfig.corpsecret" [readonly]="readOnlyValue" placeholder="corpsecret"/>
+                </mat-form-field> 
+
+                <!-- DingTalk -->
+                <mat-form-field *ngIf="settings.auth_provider=='dingtalk' && dingtalkConfig">
+                    <input matInput [(ngModel)]="dingtalkConfig.display_name" [readonly]="readOnlyValue" 
+                    i18n-placeholder="@@display_name"  placeholder="Display Name"/>
+                </mat-form-field> 
+                <mat-form-field *ngIf="settings.auth_provider=='dingtalk' && dingtalkConfig">
+                    <input matInput [(ngModel)]="dingtalkConfig.callback" [readonly]="readOnlyValue" 
+                    i18n-placeholder="@@callback"  placeholder="Callback"/>
+                </mat-form-field> 
+                <mat-form-field *ngIf="settings.auth_provider=='dingtalk' && dingtalkConfig">
+                    <input matInput [(ngModel)]="dingtalkConfig.appid" [readonly]="readOnlyValue" placeholder="appid"/>
+                </mat-form-field> 
+                <mat-form-field *ngIf="settings.auth_provider=='dingtalk' && dingtalkConfig">
+                    <input matInput [(ngModel)]="dingtalkConfig.appsecret" [readonly]="readOnlyValue" placeholder="appsecret"/>
+                </mat-form-field> 
+
+                <!-- Feishu -->
+                <mat-form-field *ngIf="settings.auth_provider=='feishu' && feishuConfig">
+                    <input matInput [(ngModel)]="feishuConfig.display_name" [readonly]="readOnlyValue" 
+                    i18n-placeholder="@@display_name"  placeholder="Display Name"/>
+                </mat-form-field> 
+                <mat-form-field *ngIf="settings.auth_provider=='feishu' && feishuConfig">
+                    <input matInput [(ngModel)]="feishuConfig.callback" [readonly]="readOnlyValue" 
+                    i18n-placeholder="@@callback"  placeholder="Callback"/>
+                </mat-form-field> 
+                <mat-form-field *ngIf="settings.auth_provider=='feishu' && feishuConfig">
+                    <input matInput [(ngModel)]="feishuConfig.appid" [readonly]="readOnlyValue" placeholder="appid"/>
+                </mat-form-field> 
+                <mat-form-field *ngIf="settings.auth_provider=='feishu' && feishuConfig">
+                    <input matInput [(ngModel)]="feishuConfig.appsecret" [readonly]="readOnlyValue" placeholder="appsecret"/>
+                </mat-form-field> 
+
+                 <!-- LDAP -->
+                <mat-form-field *ngIf="settings.auth_provider=='ldap' && ldapConfig">
+                    <input matInput [(ngModel)]="ldapConfig.display_name" [readonly]="readOnlyValue" 
+                    i18n-placeholder="@@display_name"  placeholder="Display Name"/>
+                </mat-form-field> 
+                <mat-form-field *ngIf="settings.auth_provider=='ldap' && ldapConfig">
+                    <input matInput [(ngModel)]="ldapConfig.entrance" [readonly]="readOnlyValue" 
+                    placeholder="entrance"/>
+                </mat-form-field> 
+                <mat-form-field *ngIf="settings.auth_provider=='ldap' && ldapConfig">
+                    <input matInput [(ngModel)]="ldapConfig.address" [readonly]="readOnlyValue" placeholder="address"/>
+                </mat-form-field> 
+                <mat-form-field *ngIf="settings.auth_provider=='ldap' && ldapConfig">
+                    <input matInput [(ngModel)]="ldapConfig.dn" [readonly]="readOnlyValue" placeholder="dn"/>
+                </mat-form-field> 
+                <mat-radio-group *ngIf="settings.auth_provider=='ldap' && ldapConfig" aria-label="TLS" [(ngModel)]="ldapConfig.using_tls" [disabled]="readOnlyValue">
+                    <mat-radio-button [value]=true i18n="@@using_tls">Using TLS</mat-radio-button>
+                    <mat-radio-button [value]=false i18n="@@no_tls">No TLS</mat-radio-button>
+                </mat-radio-group>
+                <mat-divider *ngIf="settings.auth_provider=='ldap' && ldapConfig"></mat-divider>
+                <mat-radio-group *ngIf="settings.auth_provider=='ldap' && ldapConfig" [(ngModel)]="ldapConfig.authenticator_enabled" [disabled]="readOnlyValue">
+                    <mat-radio-button [value]=true i18n="@@enable_authenticator">Enable Authenticator</mat-radio-button>
+                    <mat-radio-button [value]=false i18n="@@no_authenticator">No Authenticator</mat-radio-button>
+                </mat-radio-group>
+
+                 <!-- CAS2 -->
+                <mat-form-field *ngIf="settings.auth_provider=='cas2' && cas2Config">
+                    <input matInput [(ngModel)]="cas2Config.display_name" [readonly]="readOnlyValue" 
+                    i18n-placeholder="@@display_name"  placeholder="Display Name"/>
+                </mat-form-field> 
+                <mat-form-field *ngIf="settings.auth_provider=='cas2' && cas2Config">
+                    <input matInput [(ngModel)]="cas2Config.entrance" [readonly]="readOnlyValue" 
+                    placeholder="entrance"/>
+                </mat-form-field> 
+                <mat-form-field *ngIf="settings.auth_provider=='cas2' && cas2Config">
+                    <input matInput [(ngModel)]="cas2Config.callback" [readonly]="readOnlyValue" i18n-placeholder="@@callback"  placeholder="callback"/>
+                </mat-form-field> 
+
+                <br/>
+                <mat-divider></mat-divider>
+                <div i18n="@@auth_provider_note" class="notes">
+                    Note: Janusec on replica nodes need to be restarted if authentication provider changed.
+                </div> 
+            </div>
+        </mat-tab>
+
+        <mat-tab i18n-label="@@security_operation" label="Security Operation">
+            <div class="container">
+                <section>
+                    <mat-checkbox i18n="@@webssh_enabled" [(ngModel)]="settings.webssh_enabled" [disabled]="readOnlyValue">
+                        Enable Web-based SSH
+                    </mat-checkbox>
+                  </section>
+            </div>
+        </mat-tab>
+
+        <mat-tab i18n-label="@@security_audit" label="Security Audit">
+            <div class="container">        
+                <mat-form-field>
+                    <input i18n-placeholder="@@waf_log_days" type="number" matInput [(ngModel)]="settings.waf_log_days" [readonly]="readOnlyValue" placeholder="WAF Log Days"/>
+                </mat-form-field> 
+        
+                <mat-form-field>
+                    <input i18n-placeholder="@@cc_log_days" type="number" matInput [(ngModel)]="settings.cc_log_days" [readonly]="readOnlyValue" placeholder="CC Log Days"/>
+                </mat-form-field> 
+        
+                <mat-form-field>
+                    <input i18n-placeholder="@@access_log_days" type="number" matInput [(ngModel)]="settings.access_log_days" [readonly]="readOnlyValue" placeholder="Access Log Days"/>
+                </mat-form-field>                 
+            </div>
+        </mat-tab>
+    </mat-tab-group>
     <div class="container">
-        <h2 i18n="@@settings">Settings</h2>  
-
-        <mat-form-field>
-            <input i18n-placeholder="@@waf_log_days" type="number" matInput [(ngModel)]="settings.waf_log_days" [readonly]="readOnlyValue" placeholder="WAF Log Days"/>
-        </mat-form-field> 
-
-        <mat-form-field>
-            <input i18n-placeholder="@@cc_log_days" type="number" matInput [(ngModel)]="settings.cc_log_days" [readonly]="readOnlyValue" placeholder="CC Log Days"/>
-        </mat-form-field> 
-
-        <mat-form-field>
-            <input i18n-placeholder="@@access_log_days" type="number" matInput [(ngModel)]="settings.access_log_days" [readonly]="readOnlyValue" placeholder="Access Log Days"/>
-        </mat-form-field> 
-        <div>
-        <button i18n="@@save" mat-stroked-button [disabled]="readOnlyValue" (click)="saveSettings()">Save</button>
-        <button mat-stroked-button (click)="changeEditable()">{{readOnlyButtonText}}</button>
-        </div>
+        <section>
+            <button i18n="@@save" mat-stroked-button [disabled]="readOnlyValue" (click)="saveSettings()">Save</button>
+            <button mat-stroked-button (click)="changeEditable()">{{readOnlyButtonText}}</button>
+        </section>        
     </div>
 </div>

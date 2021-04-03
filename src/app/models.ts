@@ -319,6 +319,18 @@ export class OAuthInfo {
     entrance_url: string;
 }
 
+export class RefererHost {
+    host: string;
+	PV:   number;
+	UV:   number;
+}
+
+export class RefererURL {
+    url:  string;
+    PV:   number;
+	UV:   number;
+}
+
 export class PopContent {
     app_id: number;
     url_path: string;
@@ -351,6 +363,9 @@ export class License {
 }
 
 export class Settings {
+    auth_enabled: boolean;
+    auth_provider: string;
+    webssh_enabled: boolean;
     waf_log_days: number;
     cc_log_days: number;
     access_log_days: number;
@@ -363,4 +378,41 @@ export class IPPolicy {
     apply_to_waf: boolean;
     apply_to_cc: boolean;
     editable: boolean;
+}
+
+export class WxworkConfig {
+    display_name: string;
+    callback: string;
+    corpid: string;
+    agentid: string;
+    corpsecret: string;
+}
+
+export class DingtalkConfig {
+    display_name: string;
+    callback: string;
+    appid: string;
+    appsecret: string;
+}
+
+export class FeishuConfig {
+    display_name: string;
+    callback: string;
+    appid: string;
+    appsecret: string;
+}
+
+export class LDAPConfig {
+    display_name: string;
+    entrance: string;
+    address: string;
+    dn: string;
+    using_tls: boolean;
+    authenticator_enabled: boolean;
+}
+
+export class CAS2Config {
+    display_name: string;
+    entrance: string;
+    callback: string;
 }

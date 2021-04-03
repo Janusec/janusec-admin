@@ -68,7 +68,7 @@
       <div class="inline-form" *ngFor="let domain of application.domains; let i=index; trackBy:trackByFn">
         <mat-form-field class="inline-form-field-20"> 
           <mat-icon matPrefix>language</mat-icon>  
-          <input matInput i18n-placeholder="@@domain_name" placeholder="Domain name (editable)"  
+          <input matInput i18n-placeholder="@@domain_name" placeholder="Domain name (required)"  
           i18n-matTooltip="@@domain_name_tooltip" matTooltipPosition="below"  
           matTooltip="Required, format: www.your-domain.com"  
           [(ngModel)]="application.domains[i].name" [disabled]="readOnlyValue" list="domains" required>
@@ -79,7 +79,11 @@
       
         <mat-form-field class="inline-form-field-20">  
           <mat-icon matPrefix>lock_outline</mat-icon>         
-          <mat-select i18n-placeholder="@@certificate" placeholder="Certificate"  [(ngModel)]="application.domains[i].cert_id" [disabled]="readOnlyValue" required>   
+          <mat-select i18n-placeholder="@@certificate" placeholder="Certificate"  
+          i18n-matTooltip="@@acme_requirement" matTooltipPosition="below"   
+          matTooltip="If ACME automated certificate used, default port 80/443, open to Internet, and single node are required."  
+          [(ngModel)]="application.domains[i].cert_id" [disabled]="readOnlyValue" required> 
+              <mat-option [value]=0 i18n="@@automated_certificate">ACME Automated Certificate</mat-option>  
               <mat-option *ngFor="let certificate of optionCertificates;" [value]="certificate.id">
                 {{certificate.common_name}}
               </mat-option>                
@@ -128,7 +132,7 @@
 
     <section>
         <mat-checkbox i18n="@@oauth_required" [(ngModel)]="application.oauth_required" [disabled]="readOnlyValue">
-            Enable Authentication (Depend on configuration file and only for Internal Employees and Internal Applications. {{ oauth.display_name }})
+            Enable Authentication (The provider needs to be registered and enabled in the settings, used for Internal Employees and Internal Applications. {{ oauth.display_name }})
         </mat-checkbox>
     </section>
 

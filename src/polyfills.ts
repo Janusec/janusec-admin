@@ -88,6 +88,7 @@ let zhTranslations = {
     'submit': '提交',
     // certificates
     'add_cert': '添加证书',
+    'acme_note': '备注：此处导入的证书私钥将被加密存储。ACME自动证书由文件系统自动管理（不在此处列出）。',
     // certificate-detail
     'cert_detail_title': '证书配置',
     'cert_common_name': '通用名/使用者可选名称',
@@ -103,16 +104,18 @@ let zhTranslations = {
     'app_internal_scheme': '后端/内部Scheme（网关访问后端使用HTTP还是HTTPS，默认HTTP）',
     'app_destination': '目标地址及端口（如：10.10.10.10:80 或者 [::1%lo]:8080 ）',
     'add_new_routing': '添加新的路由',
-    'domain_name': '域名（可编辑）',
+    'domain_name': '域名（必填）',
     'domain_name_tooltip': '必填，格式：www.your-domain.com',
     'certificate': '证书',
+    'acme_requirement': '如果使用ACME自动证书，网关须使用默认80/443端口、向互联网开放、单节点部署',
+    'automated_certificate': 'ACME自动证书',
     'redirect': '（默认不勾选）重定向到： ',
     'add_domain': '添加域名',
     'ip_for_waf': '网关获取用户IP地址的方式（默认REMOTE_ADDR，流量来自其他CDN时才需要修改）',
     'redirect_https': '将HTTP请求重定向到HTTPS（需要配置证书）',
     'hsts_enabled': '启用HSTS（添加头部Strict-Transport-Security，通知浏览器一年内只使用HTTPS）',
     'waf_enabled': '启用WAF（Web应用防火墙）', 
-    'oauth_required': '启用身份认证（依赖配置文件，仅用于内部员工登录企业内部网站）',
+    'oauth_required': '启用身份认证（需在设置中登记提供商并启用，用于内部员工登录企业内部网站）',
     'session_seconds': '启用OAuth2时，会话超时时间（默认7200秒）',
     'owner': '应用负责人（使用登录用户名或完整的英文ID，只有应用管理员和应用负责人才能操作应用）',
     'request_location': '请求路由',
@@ -129,6 +132,7 @@ let zhTranslations = {
     'backend_routing_tooltip': '默认 / , 前后端路径不一致时可使用 /xyz/ 这种形式，本地静态网站或FastCGI网站请填写绝对路径 /path/to/www/ ',
     // Port forwarding
     'port_forwarding': '端口转发',
+    'vip_note': '备注：本模块为四层TCP/UDP端口转发（无WAF/CC防护功能）。',
     'port_forwarding_warning': '注意：端口转发可能带来严重的安全风险，只能用于非Web应用发布，使用时请遵守内部安全管理规定。',
     'vip_app': '端口转发',
     'add_vip': '添加端口转发',
@@ -172,6 +176,8 @@ let zhTranslations = {
     'application': '请选择应用',
     'all': '所有',
     'vulnerability': '请选择漏洞类型',
+    'popular_content_today': '今日流行内容',
+    'referring_sites': '来源网站（14天）',
     // WAF, Firewall, CC
     'global_vuln_policy': '全局WAF规则',
     'global_cc_policy': '全局CC防护规则',
@@ -187,8 +193,8 @@ let zhTranslations = {
     'count_each_cookie': '单独统计每个不同的Cookie串（默认不勾选，当Cookie中使用了时间戳或Cookie会经常变化时，不勾选）',
     'enable_policy': '启用该规则（默认选中）',
     "interval_milliseconds": '统计时间窗（默认100毫秒）',
-    'max_count': '时间窗内最大请求数量（默认5）',
-    'block_seconds': '超限锁定秒数（默认7200）',
+    'max_count': '最大请求数（默认6次）',
+    'block_seconds': '超限锁定（默认900秒）',
     'action': '触发动作(阻断/旁路/验证码/放行)',
     'slow_cc_notice': '备注：慢速CC检测同时启用，使用15个统计时间窗（其他参数相同）。',
     'ip_policy': 'IP策略',
@@ -216,7 +222,7 @@ let zhTranslations = {
     'regex_pattern': '正则表达式（采用Google RE2正则）',
     'payload_to_test': '用来测试的payload用例',
     'matched_result': '匹配结果',
-    'regex_preprocess': '使用内置WAF预处理（建议勾选，会统一删除单双引号和/**/，自定义规则不需要额外处理单双引号和/**/）',
+    'regex_preprocess': '使用内置WAF预处理（勾选，会统一删除单双引号，用空格替换/**/，自定义规则不需要处理单双引号和/**/）',
     // WAF log
     'begin_time': '开始时间(00:00:00)',
     'end_time': '结束时间(23:59:59)',
@@ -232,11 +238,28 @@ let zhTranslations = {
     'port': '端口',
     'username': '用户名',
     'password': '口令',
+    // Referring
+    'referring_site': '来源网站',
+    'target_site': '目标网站',
+    'referring_link': '来源链接',
     // Settings
     'settings': '设置',
+    'security_auth': '安全身份认证',
+    'auth_enabled': '启用网关SSO身份认证',
+    'auth_provider': '认证服务提供商',
+    'security_operation': '安全运维',
+    'webssh_enabled': '启用基于Web的SSH运维通道',
+    'security_audit': '安全审计',
     'waf_log_days': 'WAF日志保存天数',
     'cc_log_days': 'CC日志保存天数',
-    'access_log_days': '访问日志保存天数'
+    'access_log_days': '访问日志保存天数',
+    'display_name': '显示名称',
+    'callback': '回调地址',
+    'using_tls': '使用TLS',
+    'no_tls': '无TLS',
+    'enable_authenticator': '启用认证器（Authenticator）',
+    'no_authenticator': '无认证器（Authenticator）',
+    'auth_provider_note': '备注：如果修改了身份认证配置，子节点的JANUSEC服务需重新启动。'
 }
 
 
