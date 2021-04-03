@@ -258,7 +258,8 @@ let zhTranslations = {
     'using_tls': '使用TLS',
     'no_tls': '无TLS',
     'enable_authenticator': '启用认证器（Authenticator）',
-    'no_authenticator': '无认证器（Authenticator）'
+    'no_authenticator': '无认证器（Authenticator）',
+    'auth_provider_note': '备注：如果修改了身份认证配置，子节点的JANUSEC服务需重新启动。'
 }
 
 

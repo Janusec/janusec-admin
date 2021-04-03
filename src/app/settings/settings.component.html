@@ -108,8 +108,12 @@
                 <mat-form-field *ngIf="settings.auth_provider=='cas2' && cas2Config">
                     <input matInput [(ngModel)]="cas2Config.callback" [readonly]="readOnlyValue" i18n-placeholder="@@callback"  placeholder="callback"/>
                 </mat-form-field> 
-                
 
+                <br/>
+                <mat-divider></mat-divider>
+                <div i18n="@@auth_provider_note" class="notes">
+                    Note: Janusec on replica nodes need to be restarted if authentication provider changed.
+                </div> 
             </div>
         </mat-tab>
 
