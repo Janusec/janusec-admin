@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApplicationService } from '../application.service'; 
-import { Settings, WxworkConfig, DingtalkConfig, FeishuConfig, LDAPConfig, CAS2Config } from '../models';
+import { Settings, WxworkConfig, DingtalkConfig, FeishuConfig, LDAPConfig, CAS2Config, LarkConfig } from '../models';
 import { MessageService } from '../message.service';
 
 @Component({
@@ -15,6 +15,7 @@ export class SettingsComponent implements OnInit {
   wxworkConfig: WxworkConfig;
   dingtalkConfig: DingtalkConfig;
   feishuConfig: FeishuConfig;
+  larkConfig: LarkConfig;
   ldapConfig: LDAPConfig;
   cas2Config: CAS2Config;
 
@@ -46,6 +47,11 @@ export class SettingsComponent implements OnInit {
             this.applicationService.getResponse('get_feishu_config', function(obj: FeishuConfig){
                 self.feishuConfig = obj;
               });
+            break;
+        case "lark":
+            this.applicationService.getResponse('get_lark_config', function(obj: LarkConfig){
+                self.larkConfig = obj;
+                });
             break;
         case "ldap":
             this.applicationService.getResponse('get_ldap_config', function(obj: LDAPConfig){
@@ -84,6 +90,11 @@ export class SettingsComponent implements OnInit {
         this.applicationService.getResponse('update_feishu_config', function(obj: FeishuConfig){
             self.feishuConfig = obj;
           }, 0, this.feishuConfig);
+        break;
+    case "lark":
+        this.applicationService.getResponse('update_lark_config', function(obj: LarkConfig){
+            self.larkConfig = obj;
+            }, 0, this.larkConfig);
         break;
     case "ldap":
         this.applicationService.getResponse('update_ldap_config', function(obj: LDAPConfig){

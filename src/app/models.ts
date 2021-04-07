@@ -402,6 +402,13 @@ export class FeishuConfig {
     appsecret: string;
 }
 
+export class LarkConfig {
+    display_name: string;
+    callback: string;
+    appid: string;
+    appsecret: string;
+}
+
 export class LDAPConfig {
     display_name: string;
     entrance: string;
