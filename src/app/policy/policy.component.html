@@ -8,7 +8,7 @@
         </mat-form-field>
 
         <mat-form-field>
-          <mat-select i18n-placeholder="@@apply_to" [(ngModel)]="group_policy.app_id" placeholder="Applies to" [disabled]="true">
+          <mat-select i18n-placeholder="@@apply_to" [(ngModel)]="group_policy.app_id" placeholder="Applies to" [disabled]="readOnlyValue">
           <mat-option i18n="@@all" [value]=0>All applications</mat-option>
           <mat-option *ngFor="let application of applicationService.applications;" [value]="application.id">
               {{application.name}}

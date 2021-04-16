@@ -78,7 +78,7 @@ let zhTranslations = {
     'feature_title': 'JANUSEC应用网关主要特性：',
     'feature_waf': 'WAF(Web应用防火墙)，CC防护',
     'feature_full_site_https': '全站HTTPS: 证书管理与私钥加密',
-    'feature_oauth': '身份认证: 企业微信、钉钉、飞书、LDAP、CAS2',
+    'feature_oauth': '身份认证: LDAP、CAS2、企业微信扫码、钉钉扫码、飞书扫码、Lark扫码',
     'support': '支持',
     'official_site': 'JANUSEC官方网站',
     'source_code': '源代码',
