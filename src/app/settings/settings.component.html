@@ -15,6 +15,7 @@
                     <mat-option value="wxwork">WxWork（企业微信扫码）</mat-option>
                     <mat-option value="dingtalk">DingTalk（钉钉扫码）</mat-option>
                     <mat-option value="feishu">Feishu（飞书扫码）</mat-option>
+                    <mat-option value="lark">Lark（Lark扫码）</mat-option>
                     <mat-option value="ldap">LDAP</mat-option>
                     <mat-option value="cas2">CAS 2.0 Protocol</mat-option>
                     </mat-select>
@@ -69,6 +70,22 @@
                 </mat-form-field> 
                 <mat-form-field *ngIf="settings.auth_provider=='feishu' && feishuConfig">
                     <input matInput [(ngModel)]="feishuConfig.appsecret" [readonly]="readOnlyValue" placeholder="appsecret"/>
+                </mat-form-field> 
+
+                <!-- Lark -->
+                <mat-form-field *ngIf="settings.auth_provider=='lark' && larkConfig">
+                    <input matInput [(ngModel)]="larkConfig.display_name" [readonly]="readOnlyValue" 
+                    i18n-placeholder="@@display_name"  placeholder="Display Name"/>
+                </mat-form-field> 
+                <mat-form-field *ngIf="settings.auth_provider=='lark' && larkConfig">
+                    <input matInput [(ngModel)]="larkConfig.callback" [readonly]="readOnlyValue" 
+                    i18n-placeholder="@@callback"  placeholder="Callback"/>
+                </mat-form-field> 
+                <mat-form-field *ngIf="settings.auth_provider=='lark' && larkConfig">
+                    <input matInput [(ngModel)]="larkConfig.appid" [readonly]="readOnlyValue" placeholder="appid"/>
+                </mat-form-field> 
+                <mat-form-field *ngIf="settings.auth_provider=='lark' && larkConfig">
+                    <input matInput [(ngModel)]="larkConfig.appsecret" [readonly]="readOnlyValue" placeholder="appsecret"/>
                 </mat-form-field> 
 
                  <!-- LDAP -->

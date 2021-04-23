@@ -129,10 +129,12 @@ export enum ChkPoint {
 	Method              = 1 << 2,
 	URLPath             = 1 << 3,
 	URLQuery            = 1 << 4,
-	ValueLength         = 1 << 6,
+    FileExt             = 1 << 5,
+	// ValueLength         = 1 << 6,
 	GetPostKey          = 1 << 7,
 	GetPostValue        = 1 << 8,
 	UploadFileExt       = 1 << 9,
+    Referer             = 1 << 10,
 	CookieKey           = 1 << 11,
 	CookieValue         = 1 << 12,
 	UserAgent           = 1 << 13,
@@ -143,7 +145,7 @@ export enum ChkPoint {
 	ResponseStatusCode  = 1 << 25,
 	ResponseHeaderKey   = 1 << 26,
 	ResponseHeaderValue = 1 << 27,
-	ResponseBodyLength  = 1 << 28,
+	//ResponseBodyLength  = 1 << 28,
 	ResponseBody        = 1 << 29
 }
 
@@ -172,10 +174,12 @@ export class GroupPolicy {
 }
 
 export enum Operation {
-    Regex_Match                    = 1,
-    Equals_String_Case_InSensitive = 1 << 1,
-    GreaterThan_Integer            = 1 << 2,
-    Equals_Integer                 = 1 << 3
+    Regex_Match                     = 1,
+    Equals_String_Case_Insensitive  = 1 << 1,
+    Greater_Than_Integer            = 1 << 2,
+    Equals_Integer                  = 1 << 3,
+    Length_Greater_Than_Integer     = 1 << 4,
+    Regex_Not_Match                 = 1 << 5
 }
 
 export class CheckItem {
@@ -396,6 +400,13 @@ export class DingtalkConfig {
 }
 
 export class FeishuConfig {
+    display_name: string;
+    callback: string;
+    appid: string;
+    appsecret: string;
+}
+
+export class LarkConfig {
     display_name: string;
     callback: string;
     appid: string;
