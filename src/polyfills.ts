@@ -88,7 +88,7 @@ let zhTranslations = {
     'submit': '提交',
     // certificates
     'add_cert': '添加证书',
-    'acme_note': '备注：此处导入的证书私钥将被加密存储。ACME自动证书由文件系统自动管理（不在此处列出）。',
+    'acme_note': '备注：1.此处导入的证书私钥将被加密存储；2.ACME自动证书由文件系统自动管理（不在此处列出）。',
     // certificate-detail
     'cert_detail_title': '证书配置',
     'cert_common_name': '通用名/使用者可选名称',
@@ -223,6 +223,7 @@ let zhTranslations = {
     'payload_to_test': '用来测试的payload用例',
     'matched_result': '匹配结果',
     'regex_preprocess': '使用内置WAF预处理（需勾选，会统一删除单双引号，用空格替换/**/，自定义规则不需要处理单双引号和/**/）',
+    'test': '测试',
     // WAF log
     'begin_time': '开始时间(00:00:00)',
     'end_time': '结束时间(23:59:59)',

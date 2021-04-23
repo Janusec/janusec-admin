@@ -78,6 +78,7 @@
         </section>
 
         <div>
+        <br/>
         <button mat-stroked-button [disabled]="readOnlyValue" (click)="setGroupPolicy()" i18n="@@save">Save</button>
         <button *ngIf="applicationService.auth_user.is_super_admin" mat-stroked-button (click)="changeEditable()" >{{readOnlyButtonText}}</button>
         <button mat-stroked-button [disabled]="readOnlyValue" (click)="delGroupPolicy()" i18n="@@delete">Delete</button>
@@ -105,7 +106,8 @@
             </mat-checkbox>
         </section>
         <div>
-            <button mat-stroked-button (click)="testRegex()">Test</button>
+            <br/>
+            <button mat-stroked-button (click)="testRegex()" i18n="@@test">Test</button>
         </div>
     </div>
 </div>
