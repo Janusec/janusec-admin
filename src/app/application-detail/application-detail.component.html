@@ -92,7 +92,7 @@
 
         <mat-form-field  class="inline-form-field-50">
             <mat-checkbox matPrefix i18n="@@redirect" [(ngModel)]="application.domains[i].redirect" [disabled]="readOnlyValue">
-                (Not checked by default) Redirect to (301): &nbsp;
+                (Disabled by default) Redirect to (301): &nbsp;
             </mat-checkbox>
             <input matInput placeholder="https://www.your-domain.com/" [(ngModel)]="application.domains[i].location" [disabled]="readOnlyValue">
             <mat-icon matSuffix i18n-matTooltip="@@add_domain" matTooltip="Add new domain" matTooltipPosition="right"  (click)="addDomain()">add_circle_outline</mat-icon>
@@ -131,6 +131,12 @@
     </section>
 
     <section>
+        <mat-checkbox i18n="@@shield_enabled" [(ngModel)]="application.shield_enabled" [disabled]="readOnlyValue">
+            Enable 5-second shield (not friendly to search engines, disabled by default) 
+        </mat-checkbox>
+      </section>
+
+    <section>
         <mat-checkbox i18n="@@oauth_required" [(ngModel)]="application.oauth_required" [disabled]="readOnlyValue">
             Enable Authentication (The provider needs to be registered and enabled in the settings, used for Internal Employees and Internal Applications. {{ oauth.display_name }})
         </mat-checkbox>
@@ -142,7 +148,7 @@
 
     <section>
         <mat-checkbox i18n="@@csp_enabled" [(ngModel)]="application.csp_enabled" [disabled]="readOnlyValue">
-            (Not checked by default) Enable CSP (Content-Security-Policy, example: default-src 'self' )
+            Enable CSP (Content-Security-Policy, example: default-src 'self', disabled by default)
         </mat-checkbox>
     </section>
 

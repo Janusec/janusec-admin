@@ -27,6 +27,7 @@ export class Application {
     redirect_https: boolean;  
     hsts_enabled: boolean;
     waf_enabled: boolean;
+    shield_enabled: boolean; 
     destinations: Destination[];	
     domains: Domain[]; 
     ip_method: IPMethod;    
