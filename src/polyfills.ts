@@ -115,7 +115,7 @@ let zhTranslations = {
     'redirect_https': '将HTTP请求重定向到HTTPS（需要配置证书）',
     'hsts_enabled': '启用HSTS（添加头部Strict-Transport-Security，通知浏览器一年内只使用HTTPS）',
     'waf_enabled': '启用WAF（Web应用防火墙）', 
-    'shield_enabled': '启用5秒盾拦截爬虫（对搜索引擎不友好，需要SEO的网站请勿启用，默认不启用）',
+    'shield_enabled': '启用5秒盾拦截爬虫（默认不启用，需要SEO的网站请在WAF管理中维护搜索引擎清单，谨慎开启）',
     'oauth_required': '启用身份认证（需在设置中登记提供商并启用，用于内部员工登录企业内部网站）',
     'session_seconds': '启用OAuth2时，会话超时时间（默认7200秒）',
     'owner': '应用负责人（使用登录用户名或完整的英文ID，只有应用管理员和应用负责人才能操作应用）',
@@ -209,6 +209,10 @@ let zhTranslations = {
     'applicable': '适用',
     'not_applicable': '不适用',
     'ip_operation': '操作',
+    'five_second_shield': '5秒盾',
+    'search_engine_list': '搜索引擎清单',
+    'search_engine_label': '搜索引擎（不区分大小写，使用英文半角 | 分隔）',
+    'five_second_shield_note': '备注：上面列出的搜索引擎(User-Agent)不受5秒盾影响。',
     // Policy
     'policy_detail': 'WAF规则配置',
     'policy_description': '规则名称或描述',
@@ -261,7 +265,9 @@ let zhTranslations = {
     'no_tls': '无TLS',
     'enable_authenticator': '启用认证器（Authenticator）',
     'no_authenticator': '无认证器（Authenticator）',
-    'auth_provider_note': '备注：如果修改了身份认证配置，子节点的JANUSEC服务需重新启动。'
+    'auth_provider_note': '备注：如果修改了身份认证配置，子节点的JANUSEC服务需重新启动。',
+    'email_notification': '邮件通知',
+    'smtp_server': '服务器'
 }
 
 

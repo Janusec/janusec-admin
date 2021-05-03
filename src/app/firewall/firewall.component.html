@@ -147,6 +147,22 @@
 
   </mat-tab>
 
+  <mat-tab i18n-label="@@five_second_shield" label="5-Second Shield">
+    <div class="container">          
+        <h2 i18n="@@search_engine_list">Search Engine List</h2>
+        <mat-form-field>
+            <mat-label i18n="@@search_engine_label">Search Engines (case insensitive, seperated by | )</mat-label>
+            <input matInput [(ngModel)]="search_engine_setting.value" required>
+          </mat-form-field>
+    </div>
+    <button mat-button mat-stroked-button i18n="@@save" (click)="updateSetting(search_engine_setting)">Save</button>
+
+    <hr/>
+        <div i18n="@@five_second_shield_note" class="notes">
+            Note: Search engines (User-Agent) are not affected by the 5-Second Shield.
+        </div> 
+  </mat-tab>
+
   <mat-tab i18n-label="@@ip_policy" label="IP Policy">
       <div>
         <h2 i18n="@@ip_policy">IP Policy</h2>        

@@ -1,3 +1,5 @@
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
+
 export class AuthUser {
     user_id: number;
     username: string;
@@ -374,6 +376,11 @@ export class Settings {
     waf_log_days: number;
     cc_log_days: number;
     access_log_days: number;
+    smtp_server: string;
+    smtp_port: string;
+    smtp_tls: boolean;
+    smtp_account: string;
+    smtp_password: string;
 }
 
 export class IPPolicy {
@@ -427,4 +434,10 @@ export class CAS2Config {
     display_name: string;
     entrance: string;
     callback: string;
+}
+
+// Setting such as search engines
+export class Setting {
+    name: string;
+    value: string;
 }
