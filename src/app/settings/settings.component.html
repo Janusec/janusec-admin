@@ -161,7 +161,12 @@
         </mat-tab>
 
         <mat-tab i18n-label="@@email_notification" label="Email Notification">
-            <div class="container">        
+            <div class="container">  
+                <section>
+                    <mat-checkbox i18n="@@smtp_enabled" [(ngModel)]="settings.smtp_enabled" [disabled]="readOnlyValue">
+                        Enable SMTP Notification (certificate expire, server offline etc.)
+                    </mat-checkbox>
+                </section>      
                 <mat-form-field>
                     <mat-label i18n="@@smtp_server">Server</mat-label>
                     <input matInput [(ngModel)]="settings.smtp_server" [readonly]="readOnlyValue" required/>
