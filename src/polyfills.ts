@@ -169,7 +169,7 @@ let zhTranslations = {
     // User Details
     'user_details': '用户配置',
     'confirm_password': '确认口令',
-    'email': '邮箱地址',
+    'email': '邮箱地址(用于发送告警)',
     'authorization_admin': '授权及WAF管理员（授予/撤销用户权限，管理WAF/CC规则）',
     'certificate_admin': '证书管理员（可管理所有证书内容）',
     'application_admin': '应用管理员（可管理所有应用）',
@@ -267,7 +267,10 @@ let zhTranslations = {
     'no_authenticator': '无认证器（Authenticator）',
     'auth_provider_note': '备注：如果修改了身份认证配置，子节点的JANUSEC服务需重新启动。',
     'email_notification': '邮件通知',
-    'smtp_server': '服务器'
+    'smtp_server': '服务器',
+    'smtp_port': '端口(25或587)',
+    'smtp_account': '发送账号(Email地址)',
+    'smtp_password': '口令'
 }
 
 

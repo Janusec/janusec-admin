@@ -164,9 +164,20 @@
             <div class="container">        
                 <mat-form-field>
                     <mat-label i18n="@@smtp_server">Server</mat-label>
-                    <input matInput [(ngModel)]="settings.smtp_server" [readonly]="readOnlyValue"/>
+                    <input matInput [(ngModel)]="settings.smtp_server" [readonly]="readOnlyValue" required/>
                 </mat-form-field> 
-         
+                <mat-form-field>
+                    <mat-label i18n="@@smtp_port">Port (25 or 587)</mat-label>
+                    <input matInput [(ngModel)]="settings.smtp_port" [readonly]="readOnlyValue" required/>
+                </mat-form-field> 
+                <mat-form-field>
+                    <mat-label i18n="@@smtp_account">Account (Sender's Email)</mat-label>
+                    <input matInput [(ngModel)]="settings.smtp_account" [readonly]="readOnlyValue" required/>
+                </mat-form-field> 
+                <mat-form-field>
+                    <mat-label i18n="@@smtp_password">Password</mat-label>
+                    <input matInput [(ngModel)]="settings.smtp_password" type="password" [readonly]="readOnlyValue" required/>
+                </mat-form-field> 
             </div>
         </mat-tab>
 

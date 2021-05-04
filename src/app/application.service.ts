@@ -194,7 +194,7 @@ export class ApplicationService {
 
   getDateString(unix: number): string {
     let now = new Date(unix*1000);
-    let nowStr = now.toLocaleDateString() + ' ' + now.toLocaleTimeString('UTC', {hour12: false})
+    let nowStr = now.toLocaleDateString() + ' ' + now.toLocaleTimeString('en-GB', {hour12: false});
     return nowStr;
   }
 

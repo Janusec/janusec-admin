@@ -378,7 +378,6 @@ export class Settings {
     access_log_days: number;
     smtp_server: string;
     smtp_port: string;
-    smtp_tls: boolean;
     smtp_account: string;
     smtp_password: string;
 }

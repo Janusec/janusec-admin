@@ -26,7 +26,7 @@
     <mat-form-field>
       <input matInput i18n-placeholder="@@email" 
       #email [(ngModel)]="appadmin.email" [readonly]="readOnlyValue"
-      placeholder="Email" maxlength="128" required/>   
+      placeholder="Email (Used for alarms)" maxlength="128" required/>   
       <mat-hint align="end">{{email.value?.length || 0}}/128</mat-hint> 
     </mat-form-field>    
 
