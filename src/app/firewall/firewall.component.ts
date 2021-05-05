@@ -34,7 +34,7 @@ export class FirewallComponent implements OnInit {
   ip_policies: IPPolicy[] = [];
   ipPageLength: number;
 
-  search_engine_setting: Setting = {name:"search_engines", value:""};
+  //search_engine_setting: Setting = {name:"search_engines", value:""};
 
 
   @ViewChild('paginator') paginator: MatPaginator;
@@ -55,7 +55,6 @@ export class FirewallComponent implements OnInit {
           this.getGroupPolicies(0);
           this.getCCPolicy(0);
           this.getIPPolicies();
-          this.getSearchEngines();
         }        
   }
 
@@ -205,6 +204,7 @@ export class FirewallComponent implements OnInit {
     }
   }
 
+  /*
   getSearchEngines() {
       let self =this;
       this.applicationService.getResponse('get_setting', function(obj: Setting){
@@ -219,5 +219,6 @@ export class FirewallComponent implements OnInit {
         self.messageService.add('Search engines saved.');
     }, 0, self.search_engine_setting);
   }
+  */
 
 }

@@ -369,18 +369,23 @@ export class License {
     expire_time: number;
 }
 
-export class Settings {
+export class SMTPSetting {
+    smtp_enabled: boolean;
+    smtp_server: string;
+    smtp_port: string;
+    smtp_account: string;
+    smtp_password: string;
+}
+
+export class PrimarySetting {
     auth_enabled: boolean;
     auth_provider: string;
     webssh_enabled: boolean;
     waf_log_days: number;
     cc_log_days: number;
     access_log_days: number;
-    smtp_enabled: boolean;
-    smtp_server: string;
-    smtp_port: string;
-    smtp_account: string;
-    smtp_password: string;
+    search_engines: string;
+    smtp: SMTPSetting;
 }
 
 export class IPPolicy {
