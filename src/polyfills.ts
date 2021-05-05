@@ -115,6 +115,7 @@ let zhTranslations = {
     'redirect_https': '将HTTP请求重定向到HTTPS（需要配置证书）',
     'hsts_enabled': '启用HSTS（添加头部Strict-Transport-Security，通知浏览器一年内只使用HTTPS）',
     'waf_enabled': '启用WAF（Web应用防火墙）', 
+    'shield_enabled': '启用5秒盾拦截爬虫（默认不启用，需要SEO的网站请在设置中维护搜索引擎清单，谨慎开启）',
     'oauth_required': '启用身份认证（需在设置中登记提供商并启用，用于内部员工登录企业内部网站）',
     'session_seconds': '启用OAuth2时，会话超时时间（默认7200秒）',
     'owner': '应用负责人（使用登录用户名或完整的英文ID，只有应用管理员和应用负责人才能操作应用）',
@@ -125,7 +126,7 @@ let zhTranslations = {
     'routing_configuration': '路由配置',
     'domain_configuration': '域名配置',
     'reference_configuration': '配置参考',
-    'csp_enabled': "(默认不勾选)启用CSP(内容安全策略，如default-src 'self' )",
+    'csp_enabled': "启用CSP(内容安全策略，如default-src 'self'，默认不启用)",
     'request_location_tooltip': '默认 / ,选项包括： (1) /abc/ (2) .php (3) / ；优先级从高到低，不支持多级路由如 /abc/def/ ',
     'routing_type_tooltip': '默认 Reverse_Proxy （反向代理）, Local_FastCGI 用于PHP/Python等, Static_Website 用于本地静态网站(不需要后端服务器)',
     'destination_tooltip': '默认 IP:Port （如10.0.0.1:80）, 用于静态网站时填写默认文件（如index.html）',
@@ -168,7 +169,7 @@ let zhTranslations = {
     // User Details
     'user_details': '用户配置',
     'confirm_password': '确认口令',
-    'email': '邮箱地址',
+    'email': '邮箱地址(用于发送告警)',
     'authorization_admin': '授权及WAF管理员（授予/撤销用户权限，管理WAF/CC规则）',
     'certificate_admin': '证书管理员（可管理所有证书内容）',
     'application_admin': '应用管理员（可管理所有应用）',
@@ -207,7 +208,7 @@ let zhTranslations = {
     'block': '阻断',
     'applicable': '适用',
     'not_applicable': '不适用',
-    'ip_operation': '操作',
+    'ip_operation': '操作',  
     // Policy
     'policy_detail': 'WAF规则配置',
     'policy_description': '规则名称或描述',
@@ -244,11 +245,17 @@ let zhTranslations = {
     'target_site': '目标网站',
     'referring_link': '来源链接',
     // Settings
-    'settings': '设置',
-    'security_auth': '安全身份认证',
+    'settings': '全局设置',
+    'security_auth': '身份认证',
     'auth_enabled': '启用网关SSO身份认证',
     'auth_provider': '认证服务提供商',
-    'security_operation': '安全运维',
+    'access_control_five_second_shield': '访问控制（5秒盾）',
+    'five_second_shield': '5秒盾',  
+    'search_engine_list': '搜索引擎清单',
+    'skip_se_enabled': '允许下列搜索引擎绕过5秒盾（如需SEO请允许）',
+    'search_engine_label': '搜索引擎（不能为空，不区分大小写，使用英文半角 | 分隔）',
+    'five_second_shield_note': '备注：当应用开启5秒盾，且允许搜索引擎绕过时，5秒盾不拦截上面列出的搜索引擎(User-Agent)。',
+    'security_operation': '访问控制（运维）',
     'webssh_enabled': '启用基于Web的SSH运维通道',
     'security_audit': '安全审计',
     'waf_log_days': 'WAF日志保存天数',
@@ -260,7 +267,13 @@ let zhTranslations = {
     'no_tls': '无TLS',
     'enable_authenticator': '启用认证器（Authenticator）',
     'no_authenticator': '无认证器（Authenticator）',
-    'auth_provider_note': '备注：如果修改了身份认证配置，子节点的JANUSEC服务需重新启动。'
+    'auth_provider_note': '备注：如果修改了身份认证配置，子节点的JANUSEC服务需重新启动。',
+    'email_notification': '邮件提醒',
+    'smtp_enabled': '启用SMTP邮件提醒（证书30天内到期/后端服务器离线等）',
+    'smtp_server': '服务器',
+    'smtp_port': '端口(25或587)',
+    'smtp_account': '发送账号(Email地址)',
+    'smtp_password': '口令'
 }
 
 
