@@ -384,6 +384,7 @@ export class PrimarySetting {
     waf_log_days: number;
     cc_log_days: number;
     access_log_days: number;
+    skip_se_enabled: boolean;
     search_engines: string;
     smtp: SMTPSetting;
 }

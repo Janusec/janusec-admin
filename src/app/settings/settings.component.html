@@ -134,17 +134,23 @@
             </div>
         </mat-tab>
 
-        <mat-tab i18n-label="@@five_second_shield" label="Access Control (5-Second Shield)">
+        <mat-tab i18n-label="@@access_control_five_second_shield" label="Access Control (5-Second Shield)">
             <div class="container">          
-                <h2 i18n="@@search_engine_list">Search Engine List</h2>
+                <h2 i18n="@@five_second_shield">5-second Shield</h2>
+                <section>
+                    <mat-checkbox i18n="@@skip_se_enabled" [(ngModel)]="settings.skip_se_enabled" [disabled]="readOnlyValue">
+                        Allow search engines bypass 5-second shield.
+                    </mat-checkbox>
+                </section>
+                <br>
                 <mat-form-field>
-                    <mat-label i18n="@@search_engine_label">Search Engines (case insensitive, seperated by | )</mat-label>
+                    <mat-label i18n="@@search_engine_label">Search Engines (not empty, case insensitive, seperated by | )</mat-label>
                     <input matInput [(ngModel)]="settings.search_engines" [readonly]="readOnlyValue" required>
                 </mat-form-field>            
                 <br/>
                 <mat-divider></mat-divider>
                 <div i18n="@@five_second_shield_note" class="notes">
-                    Note: When 5-Second Shield is enabled, the above search engines (User-Agent) are not affected.
+                    Note: If 5-Second Shield is enabled under application management, and allow search engines bypass it, the 5-second shiled will not block the above search engines (User-Agent).
                 </div> 
             </div>
         </mat-tab>
@@ -155,7 +161,7 @@
                     <mat-checkbox i18n="@@webssh_enabled" [(ngModel)]="settings.webssh_enabled" [disabled]="readOnlyValue">
                         Enable Web-based SSH
                     </mat-checkbox>
-                  </section>
+                </section>
             </div>
         </mat-tab>
 
