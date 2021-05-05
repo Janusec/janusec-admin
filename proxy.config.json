@@ -3,7 +3,7 @@
         "target": "http://192.168.100.110:9080",
         "secure": false
     },
-    "/janusec-admin/webssh": {
+    "/janusec-admin/#/ssh": {
         "target": "ws://192.168.100.110:9080",
         "secure": false,
         "ws": true,

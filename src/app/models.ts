@@ -1,3 +1,5 @@
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
+
 export class AuthUser {
     user_id: number;
     username: string;
@@ -27,6 +29,7 @@ export class Application {
     redirect_https: boolean;  
     hsts_enabled: boolean;
     waf_enabled: boolean;
+    shield_enabled: boolean; 
     destinations: Destination[];	
     domains: Domain[]; 
     ip_method: IPMethod;    
@@ -366,13 +369,24 @@ export class License {
     expire_time: number;
 }
 
-export class Settings {
+export class SMTPSetting {
+    smtp_enabled: boolean;
+    smtp_server: string;
+    smtp_port: string;
+    smtp_account: string;
+    smtp_password: string;
+}
+
+export class PrimarySetting {
     auth_enabled: boolean;
     auth_provider: string;
     webssh_enabled: boolean;
     waf_log_days: number;
     cc_log_days: number;
     access_log_days: number;
+    skip_se_enabled: boolean;
+    search_engines: string;
+    smtp: SMTPSetting;
 }
 
 export class IPPolicy {
@@ -426,4 +440,10 @@ export class CAS2Config {
     display_name: string;
     entrance: string;
     callback: string;
+}
+
+// Setting such as search engines
+export class Setting {
+    name: string;
+    value: string;
 }

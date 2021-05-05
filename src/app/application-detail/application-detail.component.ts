@@ -52,6 +52,7 @@ export class ApplicationDetailComponent implements OnInit {
       this.application.redirect_https=true;
       this.application.hsts_enabled=false;
       this.application.waf_enabled=true;
+      this.application.shield_enabled=false;
       this.application.domains=[];
       this.application.ip_method=1;
       this.application.destinations=[];

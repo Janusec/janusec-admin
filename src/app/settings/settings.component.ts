@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApplicationService } from '../application.service'; 
-import { Settings, WxworkConfig, DingtalkConfig, FeishuConfig, LDAPConfig, CAS2Config, LarkConfig } from '../models';
+import { PrimarySetting, WxworkConfig, DingtalkConfig, FeishuConfig, LDAPConfig, CAS2Config, LarkConfig } from '../models';
 import { MessageService } from '../message.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { MessageService } from '../message.service';
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent implements OnInit {
-  settings : Settings;
+  settings : PrimarySetting;
   readOnlyValue: boolean = true;
   readOnlyButtonText: string = "Edit";
   wxworkConfig: WxworkConfig;
@@ -24,7 +24,7 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit() {
       let self = this;
-      this.applicationService.getResponse('get_global_settings', function(obj: Settings){
+      this.applicationService.getResponse('get_primary_setting', function(obj: PrimarySetting){
           self.settings = obj;    
           self.loadAuthProvider(self.settings.auth_provider);         
       });
@@ -68,7 +68,7 @@ export class SettingsComponent implements OnInit {
 
   saveSettings() {
     let self = this;
-    this.applicationService.getResponse('update_global_settings', function(obj: Settings){
+    this.applicationService.getResponse('update_primary_setting', function(obj: PrimarySetting){
         self.settings = obj;
         self.readOnlyValue = true;
         self.readOnlyButtonText="Edit";

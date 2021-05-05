@@ -1,6 +1,6 @@
 {
   "name": "janusec-admin",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -46,7 +46,7 @@
   "devDependencies": {
     "@angular-builders/custom-webpack": "^8.4.1",
     "@angular-devkit/build-angular": "~0.900.4",
-    "@angular/cli": "^9.0.4",
+    "@angular/cli": "^9.1.15",
     "@angular/compiler": "^9.0.4",
     "@angular/compiler-cli": "^9.0.4",
     "@angular/language-service": "^9.0.4",
@@ -68,6 +68,6 @@
     "protractor": "~5.1.2",
     "ts-node": "~3.2.0",
     "tslint": "~5.7.0",
-    "typescript": "^3.7.5"
+    "typescript": "^3.7.7"
   }
 }
