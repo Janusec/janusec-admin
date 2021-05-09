@@ -118,4 +118,11 @@ export class SettingsComponent implements OnInit {
     }
   }
 
+  testSMTP() {
+      let self = this;
+      this.applicationService.getResponse('test_smtp', function(){
+        self.messageService.add('Email sent, please check your inbox. If not, check your information under user management.');
+      }, 0, this.settings.smtp);
+  }
+
 }

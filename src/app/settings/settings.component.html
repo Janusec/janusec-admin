@@ -208,6 +208,9 @@
                     <mat-label i18n="@@smtp_password">Password</mat-label>
                     <input matInput [(ngModel)]="settings.smtp.smtp_password" type="password" [readonly]="readOnlyValue" required/>
                 </mat-form-field> 
+                <section>
+                    <button mat-button mat-stroked-button i18n="@@test_smtp" (click)="testSMTP()">Test SMTP</button>
+                </section>                
             </div>
         </mat-tab>
 
