@@ -273,7 +273,8 @@ let zhTranslations = {
     'smtp_server': '服务器',
     'smtp_port': '端口(25或587)',
     'smtp_account': '发送账号(Email地址)',
-    'smtp_password': '口令'
+    'smtp_password': '口令',
+    'test_smtp': '测试SMTP'
 }
 
 
