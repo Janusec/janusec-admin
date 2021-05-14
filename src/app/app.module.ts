@@ -67,6 +67,8 @@ import { HealthCheckComponent } from './health-check/health-check.component';
 import { VipAppsComponent } from './vip-apps/vip-apps.component';
 import { VipAppComponent } from './vip-app/vip-app.component';
 import { RefererComponent } from './referer/referer.component';
+import { QRCodeModule } from 'angularx-qrcode';
+import { AuthcodeRegisterComponent } from './authcode-register/authcode-register.component';
 
 @NgModule({
   exports:[
@@ -136,7 +138,8 @@ export class MaterialModule{}
     HealthCheckComponent,
     VipAppsComponent,
     VipAppComponent,
-    RefererComponent
+    RefererComponent,
+    AuthcodeRegisterComponent
   ],
   imports: [
     MaterialModule,
@@ -145,7 +148,8 @@ export class MaterialModule{}
     FlexLayoutModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    QRCodeModule
   ],
   providers: [MessageService, 
     ApplicationService,

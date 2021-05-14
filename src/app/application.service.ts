@@ -20,7 +20,10 @@ export class ApplicationService {
       is_super_admin:false, 
       is_cert_admin:false, 
       is_app_admin:false,
-      need_modify_pwd: false};
+      need_modify_pwd: false,
+      totp_key:"",
+      totp_verified: false
+    };
   certificates: Certificate[] = [];
   applications: Application[] = [];
   vip_apps: VipApp[] = [];

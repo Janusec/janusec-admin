@@ -3,8 +3,13 @@
         <mat-tab i18n-label="@@security_auth" label="Authentication">
             <div class="container">
                 <section>
+                    <mat-checkbox i18n="@@authenticator_enabled" [(ngModel)]="settings.authenticator_enabled" [disabled]="readOnlyValue">
+                        Enable Authenticator (2-factor Authentication) for Gateway Management
+                    </mat-checkbox>
+                </section>
+                <section>                    
                     <mat-checkbox i18n="@@auth_enabled" [(ngModel)]="settings.auth_enabled" [disabled]="readOnlyValue">
-                        Enable Single Sign On Authentication
+                        Enable Single Sign On Authentication for Applications
                     </mat-checkbox>
                 </section>
                 <br/>

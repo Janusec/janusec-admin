@@ -9,6 +9,8 @@ export class AuthUser {
     is_cert_admin: boolean;
     is_app_admin: boolean;
     need_modify_pwd: boolean;
+    totp_key: string;
+    totp_verified: boolean;
 }
 
 export class AppAdmin {
@@ -324,6 +326,7 @@ export class OAuthInfo {
     use_oauth: boolean;
     display_name: string;
     entrance_url: string;
+    authenticator_enabled: boolean;
 }
 
 export class RefererHost {
@@ -440,10 +443,4 @@ export class CAS2Config {
     display_name: string;
     entrance: string;
     callback: string;
-}
-
-// Setting such as search engines
-export class Setting {
-    name: string;
-    value: string;
 }
