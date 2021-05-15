@@ -14,37 +14,45 @@ declare var require: any;
   styleUrls: ['./login-form.component.css']
 })
 export class LoginFormComponent implements OnInit {
-  username: string;
+  //username: string;
   password: string;
   submitted = false; 
   oauth: OAuthInfo = new (OAuthInfo);
+  login_user:AuthUser = {
+    user_id:0, 
+    username: '', 
+    passwd: '', 
+    logged: false, 
+    is_super_admin: false,
+    is_cert_admin: false,
+    is_app_admin: false,
+    need_modify_pwd:false,
+    totp_key: '',
+    totp_verified: false
+};
   
   onSubmit(event) { 
-    if(!this.username || !this.password){
+    if(!this.login_user.username || !this.password){
       this.messageService.add("Please input your username and password!");
       this.submitted = false; 
       return;
     }
     this.messageService.clear();
-    let salt = '$2a$12$' + String(cryptojs.SHA256('Janusec'+this.username+this.password)).substring(0,22);
+    let salt = '$2a$12$' + String(cryptojs.SHA256('Janusec'+this.login_user.username+this.password)).substring(0,22);
     let hashpwd = bcrypt.hashSync(this.password, salt);
-    const login_user:AuthUser = {
-        user_id:0, 
-        username: this.username, 
-        passwd: hashpwd, 
-        logged: false, 
-        is_super_admin: false,
-        is_cert_admin: false,
-        is_app_admin: false,
-        need_modify_pwd:false};
+    this.login_user.passwd = hashpwd;
     var self=this;
     this.applicationService.getResponse('login', function(obj: AuthUser){
         if(obj != null) {
             self.applicationService.auth_user=obj;      
             self.submitted = true; 
-            self.router.navigate(['/']);
+            if(self.oauth.authenticator_enabled && !self.applicationService.auth_user.logged) {
+                self.router.navigate(['/authcode-register']);
+            } else {
+                self.router.navigate(['/']);
+            }            
         }
-    }, null, login_user); 
+    }, null, this.login_user); 
   }
 
   constructor(
@@ -56,7 +64,7 @@ export class LoginFormComponent implements OnInit {
   ngOnInit() { 
     let self=this;   
     this.messageService.clear();
-    this.applicationService.getResponseByURL('/janusec-admin/oauth/get',
+    this.applicationService.getResponseByURL('/janusec-admin/oauth/info',
       function(obj: OAuthInfo){
         if(obj != null) self.oauth=obj;
       });

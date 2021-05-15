@@ -3,7 +3,7 @@ import { Component, OnInit,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CCPolicy,APIResponse } from '../models';
 import { MessageService } from '../message.service';
-import { Application, GroupPolicy, PolicyAction, IPPolicy, Setting } from '../models';
+import { Application, GroupPolicy, PolicyAction, IPPolicy } from '../models';
 import { ApplicationService } from '../application.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -34,8 +34,7 @@ export class FirewallComponent implements OnInit {
   ip_policies: IPPolicy[] = [];
   ipPageLength: number;
 
-  //search_engine_setting: Setting = {name:"search_engines", value:""};
-
+  
 
   @ViewChild('paginator') paginator: MatPaginator;
   @ViewChild('ipPaginator') ipPaginator: MatPaginator;
@@ -203,22 +202,5 @@ export class FirewallComponent implements OnInit {
       },ip_policy.id, null);
     }
   }
-
-  /*
-  getSearchEngines() {
-      let self =this;
-      this.applicationService.getResponse('get_setting', function(obj: Setting){
-          self.search_engine_setting = obj;
-      }, 0, self.search_engine_setting);
-  }
-
-  updateSetting(setting: Setting) {
-    let self =this;
-    this.applicationService.getResponse('update_setting', function(obj: Setting){
-        self.search_engine_setting = obj;
-        self.messageService.add('Search engines saved.');
-    }, 0, self.search_engine_setting);
-  }
-  */
-
+  
 }

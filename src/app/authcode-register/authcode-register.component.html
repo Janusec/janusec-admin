@@ -1,0 +1,23 @@
+<div class="container">
+    <h1 i18n="@@authenticator_register">Authenticator Registration</h1>
+    <div i18n="@@authenticator_notice" class="notes">
+        Please scan the following QRCode with Google Authenticator, or Microsoft Authenticator:
+    </div>
+    <qrcode [qrdata]="qrData" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+    <div>
+        <span i18n="@@input_key_notice">
+            Or input the Secret Key in your mobile app: 
+        </span>
+        {{ applicationService.auth_user.totp_key }}
+    </div>
+   <br>
+    <mat-form-field>
+        <mat-label i18n="@@input_code_notice">Input 6-digit Code</mat-label>
+        <input matInput [(ngModel)]="code" required>
+    </mat-form-field>
+
+    <section>
+        <button mat-button mat-stroked-button i18n="@@verify" (click)="verify()">Verify and Register</button>
+    </section>
+
+</div>

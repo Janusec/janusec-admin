@@ -85,7 +85,15 @@ let zhTranslations = {
     'user_agreement': '用户协议',
     // login form
     'login_title': '管理登录',
+    'authenticator_code': '认证码',
+    'authenticator_code_tip': '首次使用000000',
     'submit': '提交',
+    // authenticator
+    'authenticator_register': '认证器注册',
+    'authenticator_notice': '请使用手机认证码APP (Google Authenticator或Microsoft Authenticator) 扫描如下二维码：',
+    'input_key_notice': '或直接在移动APP中输入密钥: ',
+    'input_code_notice': '输入6位认证码',
+    'verify': '验证并注册',
     // certificates
     'add_cert': '添加证书',
     'acme_note': '备注：1.此处导入的证书私钥将被加密存储；2.ACME自动证书由文件系统自动管理（不在此处列出）。',
@@ -247,7 +255,8 @@ let zhTranslations = {
     // Settings
     'settings': '全局设置',
     'security_auth': '身份认证',
-    'auth_enabled': '启用网关SSO身份认证',
+    'authenticator_enabled': '为网关后台管理启用双因子身份认证（认证器）',
+    'auth_enabled': '为应用启用统一身份认证',
     'auth_provider': '认证服务提供商',
     'access_control_five_second_shield': '访问控制（5秒盾）',
     'five_second_shield': '5秒盾',  

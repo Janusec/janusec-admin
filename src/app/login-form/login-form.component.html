@@ -3,11 +3,17 @@
     <div fxFlex="40%" *ngIf="applicationService.auth_user.logged==false" class="container">
         <h1 i18n="@@login_title">Admin Login</h1>        
         <mat-form-field>
-            <input matInput i18n-placeholder="@@username" placeholder="Username" [(ngModel)]="username" required>
+            <input matInput i18n-placeholder="@@username" placeholder="Username" [(ngModel)]="login_user.username" required>
         </mat-form-field>
     
         <mat-form-field>
-            <input matInput i18n-placeholder="@@password" type="password" placeholder="Password" [(ngModel)]="password" (change)="onSubmit($event)" required>
+            <input matInput i18n-placeholder="@@password" type="password" placeholder="Password" [(ngModel)]="password" required>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="oauth.authenticator_enabled">
+            <input matInput i18n-placeholder="@@authenticator_code" placeholder="Authenticator Code" 
+            matTooltip="000000 for first use" i18n-matTooltip="@@authenticator_code_tip" matTooltipPosition="below"  
+            [(ngModel)]="login_user.totp_key" required>
         </mat-form-field>
         
         <button i18n="@@submit" mat-button (click)="onSubmit($event)" class="submit">Submit</button>    
