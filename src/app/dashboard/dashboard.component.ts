@@ -84,7 +84,7 @@ export class DashboardComponent implements OnInit {
             borderWidth: 1
           }]
       },
-        options: {
+        options: {          
           legend: {
             display: true,
             position: 'bottom'
@@ -128,6 +128,7 @@ export class DashboardComponent implements OnInit {
           }]
       },
         options: {
+          maintainAspectRatio: false,
           legend: {
             display: true,
             position: 'bottom'
