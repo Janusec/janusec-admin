@@ -92,7 +92,7 @@
 
         <mat-form-field  class="inline-form-field-50">
             <mat-checkbox matPrefix i18n="@@redirect" [(ngModel)]="application.domains[i].redirect" [disabled]="readOnlyValue">
-                (Disabled by default) Redirect to (301): &nbsp;
+                (Disabled by default) Redirect to (308): &nbsp;
             </mat-checkbox>
             <input matInput placeholder="https://www.your-domain.com/" [(ngModel)]="application.domains[i].location" [disabled]="readOnlyValue">
             <mat-icon matSuffix i18n-matTooltip="@@add_domain" matTooltip="Add new domain" matTooltipPosition="right"  (click)="addDomain()">add_circle_outline</mat-icon>
