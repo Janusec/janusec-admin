@@ -123,6 +123,7 @@ let zhTranslations = {
     'redirect_https': '将HTTP请求重定向到HTTPS（需要配置证书）',
     'hsts_enabled': '启用HSTS（添加头部Strict-Transport-Security，通知浏览器一年内只使用HTTPS）',
     'waf_enabled': '启用WAF（Web应用防火墙）', 
+    'cache_enabled': '启用静态文件缓存（仅限10MB以内文件，支持brotli与gzip压缩加速）',
     'shield_enabled': '启用5秒盾拦截爬虫（默认不启用，需要SEO的网站请在设置中维护搜索引擎清单，谨慎开启）',
     'oauth_required': '启用身份认证（需在设置中登记提供商并启用，用于内部员工登录企业内部网站）',
     'session_seconds': '启用OAuth2时，会话超时时间（默认7200秒）',
