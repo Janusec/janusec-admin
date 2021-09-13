@@ -41,6 +41,7 @@ export class Application {
     owner: string;
     csp_enabled: boolean;
     csp: string;
+    cache_enabled: boolean;
 }
 
 export class VipApp {

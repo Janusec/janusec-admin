@@ -131,6 +131,12 @@
     </section>
 
     <section>
+        <mat-checkbox i18n="@@cache_enabled" [(ngModel)]="application.cache_enabled" [disabled]="readOnlyValue">
+            Enable caching for static files less than 10MB (brotli, gzip compression supported)
+        </mat-checkbox>
+    </section>
+
+    <section>
         <mat-checkbox i18n="@@shield_enabled" [(ngModel)]="application.shield_enabled" [disabled]="readOnlyValue">
             Enable 5-second shield (Please check the search engines list in settings, disabled by default) 
         </mat-checkbox>
