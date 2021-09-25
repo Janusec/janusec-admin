@@ -106,6 +106,7 @@ let zhTranslations = {
     'cert_self_sign': '自签名证书',
     // Applications
     'add_app': '添加应用',
+    'waf_enabled2': 'WAF启用',
     // Application Detail
     'app_detail': '应用配置',
     'app_name': '应用名称',
@@ -273,9 +274,11 @@ let zhTranslations = {
     'access_log_days': '访问日志保存天数',
     'display_name': '显示名称',
     'callback': '回调地址',
-    'using_tls': '使用TLS',
+    // LDAP
+    'bind_required': '启用BindDN（适用于Active Directory）',
+    'using_tls': '使用TLS加密通道',
     'no_tls': '无TLS',
-    'enable_authenticator': '启用认证器（Authenticator）',
+    'enable_authenticator': '启用双因子身份认证器（Authenticator）',
     'no_authenticator': '无认证器（Authenticator）',
     'auth_provider_note': '备注：如果修改了身份认证配置，子节点的JANUSEC服务需重新启动。',
     'email_notification': '邮件提醒',

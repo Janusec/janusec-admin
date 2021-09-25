@@ -438,6 +438,10 @@ export class LDAPConfig {
     dn: string;
     using_tls: boolean;
     authenticator_enabled: boolean;
+    bind_required: boolean;
+    base_dn: string;
+    bind_username: string;
+    bind_password: string;
 }
 
 export class CAS2Config {

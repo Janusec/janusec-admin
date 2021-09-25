@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router }            from '@angular/router';
 import { Application } from '../models';
 import { ApplicationService } from '../application.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 //import 'rxjs/add/operator/switchMap';
 
 @Component({
@@ -12,6 +14,12 @@ import { ApplicationService } from '../application.service';
 export class ApplicationsComponent implements OnInit {
   
   selectedApplication: Application;
+  appDataSource: MatTableDataSource<Application>;
+  displayedColumns = ['id', 'name', 'description', 'waf_enabled'];
+  appLength: number;
+  keyword: string;
+
+  @ViewChild('appPaginator') appPaginator: MatPaginator;
 
   constructor(
     public applicationService: ApplicationService,
@@ -31,6 +39,8 @@ export class ApplicationsComponent implements OnInit {
       if (this.applicationService.auth_user.logged==false) {
         this.router.navigate(['/login']);
       } 
+      this.appDataSource = new MatTableDataSource<Application>(this.applicationService.applications);
+      this.appLength = this.applicationService.applications.length;
     },500); 
   }
 
@@ -45,6 +55,10 @@ export class ApplicationsComponent implements OnInit {
 
   addApplication():void {
     this.router.navigate(['/application/0']);
+  }
+
+  applyFilter(filterValue: string) {
+    this.appDataSource.filter = filterValue.trim().toLowerCase();
   }
 
 }

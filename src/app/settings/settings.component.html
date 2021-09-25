@@ -108,15 +108,44 @@
                 <mat-form-field *ngIf="settings.auth_provider=='ldap' && ldapConfig">
                     <input matInput [(ngModel)]="ldapConfig.dn" [readonly]="readOnlyValue" placeholder="dn"/>
                 </mat-form-field> 
-                <mat-radio-group *ngIf="settings.auth_provider=='ldap' && ldapConfig" aria-label="TLS" [(ngModel)]="ldapConfig.using_tls" [disabled]="readOnlyValue">
-                    <mat-radio-button [value]=true i18n="@@using_tls">Using TLS</mat-radio-button>
-                    <mat-radio-button [value]=false i18n="@@no_tls">No TLS</mat-radio-button>
-                </mat-radio-group>
+
+                <section *ngIf="settings.auth_provider=='ldap' && ldapConfig">
+                    <mat-checkbox i18n="@@bind_required" [(ngModel)]="ldapConfig.bind_required" [disabled]="readOnlyValue">
+                        BindDN required (for Active Directory)
+                    </mat-checkbox>
+                </section>
+
+                <mat-form-field *ngIf="settings.auth_provider=='ldap' && ldapConfig && ldapConfig.bind_required">
+                    <input matInput [(ngModel)]="ldapConfig.base_dn" [readonly]="readOnlyValue" placeholder="BaseDN"/>
+                </mat-form-field> 
+
+                <mat-form-field *ngIf="settings.auth_provider=='ldap' && ldapConfig && ldapConfig.bind_required">
+                    <mat-label>Bind Username</mat-label>
+                    <input matInput [(ngModel)]="ldapConfig.bind_username" [readonly]="readOnlyValue" />
+                </mat-form-field> 
+
+                <mat-form-field *ngIf="settings.auth_provider=='ldap' && ldapConfig && ldapConfig.bind_required">
+                    <mat-label>Bind Password</mat-label>
+                    <input type="password" matInput [(ngModel)]="ldapConfig.bind_password" [readonly]="readOnlyValue" />
+                </mat-form-field> 
+
                 <mat-divider *ngIf="settings.auth_provider=='ldap' && ldapConfig"></mat-divider>
-                <mat-radio-group *ngIf="settings.auth_provider=='ldap' && ldapConfig" [(ngModel)]="ldapConfig.authenticator_enabled" [disabled]="readOnlyValue">
-                    <mat-radio-button [value]=true i18n="@@enable_authenticator">Enable Authenticator</mat-radio-button>
-                    <mat-radio-button [value]=false i18n="@@no_authenticator">No Authenticator</mat-radio-button>
-                </mat-radio-group>
+
+                <section *ngIf="settings.auth_provider=='ldap' && ldapConfig">
+                    <mat-checkbox i18n="@@using_tls" [(ngModel)]="ldapConfig.using_tls" [disabled]="readOnlyValue">
+                        Using TLS Encryption
+                    </mat-checkbox>
+                </section>
+
+                <section *ngIf="settings.auth_provider=='ldap' && ldapConfig">
+                    <mat-checkbox i18n="@@enable_authenticator" [(ngModel)]="ldapConfig.authenticator_enabled" [disabled]="readOnlyValue">
+                        Enable Authenticator
+                    </mat-checkbox>
+                </section>
+
+                
+                
+                
 
                  <!-- CAS2 -->
                 <mat-form-field *ngIf="settings.auth_provider=='cas2' && cas2Config">

@@ -4,22 +4,59 @@
       <h2 i18n="@@app_mgmt">Application Management</h2>
     </mat-card>    
 </div>
-<mat-list class="mat-list-item-list-stacked">
-  <mat-list-item (click)="addApplication()">  
-    <mat-icon matListIcon>add_circle_outline</mat-icon>
-    <h3 matLine i18n="@@add_app">Add Application</h3>    
-  </mat-list-item>
-  <mat-list-item *ngFor="let application of applicationService.applications" (click)="onSelect(application)"
-      [class.selected]="application === selectedApplication">
-      <mat-icon matListIcon>explore</mat-icon>   
-    <h3 matLine> {{application.name}}  </h3>
-    <p matLine>
-        {{application.description}}
-    </p>   
-    <mat-icon matSuffix *ngIf="application.waf_enabled;else elseBlock" matTooltip="WAF Enabled!" matTooltipPosition="left" color="primary">security</mat-icon> 
-    <ng-template #elseBlock>
-      <mat-icon matSuffix matTooltip="WAF Disabled!" matTooltipPosition="left" color="warn">security</mat-icon>
-    </ng-template>   
-  </mat-list-item>
-</mat-list>
+
+<div>
+    <span>
+        <button mat-stroked-button i18n="@@add_app" (click)="addApplication()">Add Application</button>        
+    </span>
+    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <mat-form-field appearance="none">
+        <input matInput (keyup)="applyFilter($event.target.value)" class="search_box" placeholder="Filter">
+    </mat-form-field> 
+</div>
+
+
+<div class="mat-elevation-z8">
+    <mat-table #table [dataSource]="appDataSource"> 
+      <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+            <mat-cell *matCellDef="let element"> 
+              <a routerLink="/application/{{element.id}}">
+              {{element.id}} 
+              </a>
+            </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell i18n="@@app_name" *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> 
+            <a routerLink="/application/{{element.id}}">
+                {{element.name}} 
+            </a>           
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <mat-header-cell i18n="@@description" *matHeaderCellDef> Description </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+      </ng-container>
+            
+      <ng-container matColumnDef="waf_enabled">
+        <mat-header-cell i18n="@@waf_enabled2" *matHeaderCellDef class="center_column"> WAF Enabled </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="center_column">
+            <mat-icon *ngIf="element.waf_enabled" color="primary">security</mat-icon>
+            <mat-icon *ngIf="!element.waf_enabled" color="warn">security</mat-icon>
+        </mat-cell>
+      </ng-container> 
+            
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator #appPaginator
+             [length]="appLength"
+             [pageSize]="20"
+             [pageSizeOptions]="[10, 20, 50]">
+    </mat-paginator>
+  </div>
+  
 </div>
