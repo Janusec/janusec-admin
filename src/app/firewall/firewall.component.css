@@ -30,3 +30,15 @@ button {
 .btn_icon {
     cursor: pointer;
 }
+
+.search_box {
+    background-color: #FFFFFF;
+    border: solid 1px #D0D0D0;
+    border-radius: 15px;
+    padding: 6px;
+    vertical-align: middle;
+}
+
+.center_column {
+    justify-content: center;
+}

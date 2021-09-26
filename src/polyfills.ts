@@ -96,6 +96,9 @@ let zhTranslations = {
     'verify': '验证并注册',
     // certificates
     'add_cert': '添加证书',
+    'common_name': '通用名',
+    'expire_time': '到期时间',
+    'cert_status': '证书状态',
     'acme_note': '备注：1.此处导入的证书私钥将被加密存储；2.ACME自动证书由文件系统自动管理（不在此处列出）。',
     // certificate-detail
     'cert_detail_title': '证书配置',
@@ -176,11 +179,14 @@ let zhTranslations = {
     'node_detail': '节点详情',
     // User Management
     'add_user': '添加用户',
+    'is_super_admin': '超级管理员',
+    'is_cert_admin': '证书管理员',
+    'is_app_admin': '应用管理员',
     // User Details
     'user_details': '用户配置',
     'confirm_password': '确认口令',
     'email': '邮箱地址(用于发送告警)',
-    'authorization_admin': '授权及WAF管理员（授予/撤销用户权限，管理WAF/CC规则）',
+    'super_admin': '超级管理员（授予/撤销用户权限，管理WAF/CC规则）',
     'certificate_admin': '证书管理员（可管理所有证书内容）',
     'application_admin': '应用管理员（可管理所有应用）',
     // Dash Board

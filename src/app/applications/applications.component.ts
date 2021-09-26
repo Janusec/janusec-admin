@@ -13,7 +13,7 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class ApplicationsComponent implements OnInit {
   
-  selectedApplication: Application;
+  //selectedApplication: Application;
   appDataSource: MatTableDataSource<Application>;
   displayedColumns = ['id', 'name', 'description', 'waf_enabled'];
   appLength: number;
@@ -44,6 +44,7 @@ export class ApplicationsComponent implements OnInit {
     },500); 
   }
 
+  /*
   onSelect(application: Application): void {
     this.selectedApplication = application;
     this.router.navigate(['/application/'+this.selectedApplication.id]);
@@ -52,6 +53,7 @@ export class ApplicationsComponent implements OnInit {
   gotoDetail(): void {
     this.router.navigate(['/detail', this.selectedApplication.id]);
   }
+  */
 
   addApplication():void {
     this.router.navigate(['/application/0']);

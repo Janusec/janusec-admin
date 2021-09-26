@@ -202,5 +202,9 @@ export class FirewallComponent implements OnInit {
       },ip_policy.id, null);
     }
   }
+
+  applyFilter(filterValue: string) {
+    this.globalRegexDataSource.filter = filterValue.trim().toLowerCase();
+  }
   
 }

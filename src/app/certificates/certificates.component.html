@@ -4,25 +4,67 @@
       <h2 i18n="@@cert_mgmt">Certificate Management</h2>      
   </mat-card>
 </div>
+
 <div>
-<mat-list class="mat-list-item-list-stacked">
-<mat-list-item *ngIf="applicationService.auth_user.is_cert_admin==true" (click)="addCertificate()">  
-    <mat-icon matListIcon>add_circle_outline</mat-icon>
-    <h3 matLine i18n="@@add_cert">Add Certificate</h3>
-</mat-list-item>
-<mat-list-item *ngFor="let certificate of applicationService.certificates"
- (click)="onSelect(certificate)">    
-    <mat-icon matListIcon matTooltip="This certificate is due to expire!" matTooltipPosition="right" color="warn" *ngIf="certificate.due_to_expire;else elseBlock">lock_outline</mat-icon>
-    <ng-template #elseBlock>
-        <mat-icon matListIcon color="primary">lock_outline</mat-icon>
-    </ng-template> 
-    <h3 matLine> {{certificate.common_name}} ({{certificate.description}}) </h3> 
-    <p matLine>    
-    Expire Time: {{ getDate(certificate.expire_time) }}     
-    </p>    
-</mat-list-item>
-</mat-list>
+    <span *ngIf="applicationService.auth_user.is_cert_admin==true">
+        <button mat-stroked-button i18n="@@add_cert" (click)="addCertificate()">Add Certificate</button>        
+    </span>
+    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <mat-form-field appearance="none">
+        <input matInput (keyup)="applyFilter($event.target.value)" class="search_box" placeholder="Filter">
+    </mat-form-field> 
 </div>
+
+
+<div class="mat-elevation-z8">
+    <mat-table #table [dataSource]="certDataSource"> 
+      <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+            <mat-cell *matCellDef="let element"> 
+              <a routerLink="/certificate/{{element.id}}">
+              {{element.id}} 
+              </a>
+            </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="common_name">
+        <mat-header-cell i18n="@@common_name" *matHeaderCellDef> Common Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> 
+            <a routerLink="/certificate/{{element.id}}">
+                {{element.common_name}} 
+            </a>           
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <mat-header-cell i18n="@@description" *matHeaderCellDef> Description </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+      </ng-container>
+            
+      <ng-container matColumnDef="expire_time">
+        <mat-header-cell i18n="@@expire_time" *matHeaderCellDef> Expire Time </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            {{ getDate(element.expire_time) }}
+        </mat-cell>
+      </ng-container> 
+
+      <ng-container matColumnDef="due_to_expire">
+        <mat-header-cell i18n="@@cert_status" *matHeaderCellDef class="center_column"> Status </mat-header-cell>
+        <mat-cell *matCellDef="let element"  class="center_column">
+            <mat-icon *ngIf="!element.due_to_expire" color="primary">check_circle_outline</mat-icon>
+            <mat-icon *ngIf="element.due_to_expire" color="warn" matTooltip="This certificate is due to expire!">info</mat-icon>
+        </mat-cell>
+      </ng-container> 
+            
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator #certPaginator
+             [length]="certLength"
+             [pageSize]="20"
+             [pageSizeOptions]="[10, 20, 50]">
+    </mat-paginator>
+  </div>
 <br/>
 <mat-divider></mat-divider>
 <div i18n="@@acme_note" class="notes">

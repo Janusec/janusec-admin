@@ -31,9 +31,9 @@
     </mat-form-field>    
 
     <section *ngIf="applicationService.auth_user.is_super_admin==true">
-      <mat-checkbox i18n="@@authorization_admin" 
+      <mat-checkbox i18n="@@super_admin" 
       [(ngModel)]="appadmin.is_super_admin" [disabled]="readOnlyValue">
-      Authorization and WAF Administrator
+      Super Administrator (Authorization and WAF Management) 
     </mat-checkbox>
     </section> 
 

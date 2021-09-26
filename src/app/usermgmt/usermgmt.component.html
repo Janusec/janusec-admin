@@ -4,17 +4,66 @@
     <h2 i18n="@@user_mgmt">Users Management</h2>
   </mat-card>
 </div>
+<div>
+    <span *ngIf="applicationService.auth_user.is_super_admin==true">
+        <button mat-stroked-button i18n="@@add_user" (click)="addAdmin()">Add User</button>        
+    </span>
+    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <mat-form-field appearance="none">
+        <input matInput (keyup)="applyFilter($event.target.value)" class="search_box" placeholder="Filter">
+    </mat-form-field> 
+</div>
 
-<mat-list class="mat-list-item-list-stacked">
-<mat-list-item *ngIf="applicationService.auth_user.is_super_admin==true" (click)="addAdmin()">  
-    <mat-icon matListIcon>add_circle_outline</mat-icon>
-    <h3 matLine i18n="@@add_user">Add User</h3>
-</mat-list-item>
-<mat-list-item *ngFor="let admin of applicationService.admins"
- (click)="onSelect(admin)">
-    <mat-icon matListIcon>account_circle</mat-icon>   
-    <h3 matLine> {{admin.username}} </h3> 
-    
-</mat-list-item>
-</mat-list>
+
+<div class="mat-elevation-z8">
+    <mat-table #table [dataSource]="userDataSource"> 
+      <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+            <mat-cell *matCellDef="let element"> 
+              <a routerLink="/appuser/{{element.id}}">
+              {{element.id}} 
+              </a>
+            </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="username">
+        <mat-header-cell *matHeaderCellDef i18n="@@username"> Username </mat-header-cell>
+        <mat-cell *matCellDef="let element"> 
+            <a routerLink="/appuser/{{element.id}}">
+                {{element.username}} 
+            </a>           
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="is_super_admin">
+        <mat-header-cell i18n="@@is_super_admin" *matHeaderCellDef class="center_column"> Super Admin </mat-header-cell>
+        <mat-cell *matCellDef="let element"  class="center_column">
+            <mat-icon *ngIf="element.is_super_admin" color="primary">check_circle_outline</mat-icon>
+        </mat-cell>
+      </ng-container> 
+
+      <ng-container matColumnDef="is_cert_admin">
+        <mat-header-cell i18n="@@is_cert_admin" *matHeaderCellDef class="center_column"> Certificate Admin </mat-header-cell>
+        <mat-cell *matCellDef="let element"  class="center_column">
+            <mat-icon *ngIf="element.is_cert_admin" color="primary">check_circle_outline</mat-icon>
+        </mat-cell>
+      </ng-container> 
+
+      <ng-container matColumnDef="is_app_admin">
+        <mat-header-cell i18n="@@is_app_admin" *matHeaderCellDef class="center_column"> Application Admin </mat-header-cell>
+        <mat-cell *matCellDef="let element"  class="center_column">
+            <mat-icon *ngIf="element.is_app_admin" color="primary">check_circle_outline</mat-icon>
+        </mat-cell>
+      </ng-container> 
+            
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator #userPaginator
+             [length]="userLength"
+             [pageSize]="20"
+             [pageSizeOptions]="[10, 20, 50]">
+    </mat-paginator>
+</div>
+
 </div>

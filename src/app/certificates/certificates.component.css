@@ -16,3 +16,15 @@ mat-list-item:hover {
     margin-right: 0px;
     list-style-type: none;
 }
+
+.search_box {
+    background-color: #FFFFFF;
+    border: solid 1px #D0D0D0;
+    border-radius: 15px;
+    padding: 6px;
+    vertical-align: middle;
+}
+
+.center_column {
+    justify-content: center;
+}
