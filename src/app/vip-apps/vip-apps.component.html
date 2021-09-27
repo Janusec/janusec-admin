@@ -4,21 +4,69 @@
           <h2 i18n="@@port_forwarding">Port Forwarding</h2>
         </mat-card>    
     </div>
-    <mat-list class="mat-list-item-list-stacked">
-      <mat-list-item *ngIf="applicationService.auth_user.is_super_admin==true" (click)="addVipApp()">  
-        <mat-icon matListIcon>add_circle_outline</mat-icon>
-        <h3 matLine i18n="@@add_vip">Add Port Forwarding</h3>    
-      </mat-list-item>
-      <mat-list-item *ngFor="let vip_app of applicationService.vip_apps" (click)="onSelect(vip_app)">
-        <mat-icon matListIcon>forward</mat-icon>   
-        <h3 matLine *ngIf="vip_app.is_tcp">TCP: {{vip_app.listen_port}} ({{vip_app.name}}) </h3>
-        <h3 matLine *ngIf="!vip_app.is_tcp">UDP: {{vip_app.listen_port}} ({{vip_app.name}}) </h3>
-        <p matLine>
-            {{vip_app.description}}
-        </p>   
-         
-      </mat-list-item>
-    </mat-list>
+
+    <div>
+        <span>
+            <button mat-stroked-button *ngIf="applicationService.auth_user.is_super_admin" i18n="@@add_vip" (click)="addVipApp()">Add Port Forwarding</button>        
+        </span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <mat-form-field appearance="none">
+            <input matInput (keyup)="applyFilter($event.target.value)" class="search_box" placeholder="Filter">
+        </mat-form-field> 
+    </div>
+
+    <div>
+        <mat-table #table [dataSource]="appDataSource" class="mat-elevation-z8"> 
+          <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+                <mat-cell *matCellDef="let element"> 
+                  <a routerLink="/vip/{{element.id}}">
+                  {{element.id}} 
+                  </a>
+                </mat-cell>
+          </ng-container>
+    
+          <ng-container matColumnDef="is_tcp">
+            <mat-header-cell i18n="@@protocol" *matHeaderCellDef> Protocol </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <span *ngIf="element.is_tcp" color="primary">TCP</span>
+                <span *ngIf="!element.is_tcp" color="primary">UDP</span>
+            </mat-cell>
+          </ng-container> 
+
+          <ng-container matColumnDef="listen_port">
+            <mat-header-cell i18n="@@listen_port2" *matHeaderCellDef> Listen Port </mat-header-cell>
+            <mat-cell *matCellDef="let element"> 
+                <a routerLink="/vip/{{element.id}}">
+                    {{element.listen_port}} 
+                </a>           
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="name">
+            <mat-header-cell i18n="@@app_name" *matHeaderCellDef> Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> 
+                <a routerLink="/vip/{{element.id}}">
+                    {{element.name}} 
+                </a>           
+            </mat-cell>
+          </ng-container>
+    
+          <ng-container matColumnDef="description">
+            <mat-header-cell i18n="@@description" *matHeaderCellDef> Description </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+          </ng-container>          
+                
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator #appPaginator
+                 [length]="appLength"
+                 [pageSize]="20"
+                 [pageSizeOptions]="[10, 20, 50]">
+        </mat-paginator>
+      </div>
+    
     <br/>
     <mat-divider></mat-divider>
     <div i18n="@@vip_note" class="notes">

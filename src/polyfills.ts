@@ -154,6 +154,8 @@ let zhTranslations = {
     'target_configuration': '后端配置',
     'add_new_target': '新增后端IP:Port',
     'listen_port': '监听端口(1025-65535)',
+    'listen_port2': '监听端口',
+    'protocol': '协议',
     'target': '后端IP:Port',
     'vip_owner': '应用负责人',
     // Health Check
