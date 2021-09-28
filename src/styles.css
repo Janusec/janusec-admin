@@ -1,7 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 /* @import "assets/bootstrap/bootstrap.min.css"; */
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
-
+@import "~@angular/material/prebuilt-themes/indigo-pink.css"; 
 
 body {
     font-family: Helvetica, Arial, "PingFang SC", "Source Han Serif SC", "Microsoft YaHei";

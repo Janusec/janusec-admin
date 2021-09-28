@@ -1,5 +1,5 @@
 .sidenav-container {
-    min-height: 700px;
+    min-height: 800px;
 }
 
 .sidenav {
@@ -27,4 +27,8 @@ mat-icon {
     padding: 10px 5px;
     border: 0px;
     height: 36px;
+}
+
+.content {
+    height: 800px;
 }
