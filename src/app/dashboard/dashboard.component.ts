@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
   // today chart
   today_stat_vuln_name: string[];
   today_stat_count: number[];
+  today_stat_counts: number;
   today_stat_bgcolor: string[];
   // week chart
   week_stat_date: string[];
@@ -201,6 +202,7 @@ export class DashboardComponent implements OnInit {
     let end_time = end_date.getTime()/1000 + 1;  
     this.today_stat_vuln_name = [];
     this.today_stat_count = [];
+    this.today_stat_counts = 0;
     this.today_stat_bgcolor = [];
     let body={action:"get_vuln_stat", app_id: app_id, start_time: start_time, end_time: end_time}
       let self = this;
@@ -212,8 +214,13 @@ export class DashboardComponent implements OnInit {
           let vuln_name = self.getVulnNameByID(vuln_stat.vuln_id);
           self.today_stat_vuln_name.push(vuln_name);
           self.today_stat_count.push(vuln_stat.count);
+          self.today_stat_counts += vuln_stat.count;
           self.today_stat_bgcolor.push(self.getColorString(vuln_stat.vuln_id));
         }
+        if(self.today_stat_counts==0) {
+            self.today_stat_vuln_name.push("None");
+            self.today_stat_count.push(1e-9);
+        }        
         self.initTodayChart();
     });
   }

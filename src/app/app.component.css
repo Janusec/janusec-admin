@@ -1,12 +1,12 @@
-.sidenav-container {
-    min-height: 800px;
+.sidenav-container {    
+    min-height: 700px;
 }
 
 .sidenav {
     display: flex;
     align-items: top;
     justify-content: center;
-    width: 140px;
+    width: 144px;
 }
 
 mat-icon {
@@ -27,8 +27,4 @@ mat-icon {
     padding: 10px 5px;
     border: 0px;
     height: 36px;
-}
-
-.content {
-    height: 800px;
 }

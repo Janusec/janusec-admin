@@ -15,16 +15,12 @@
 .logo-span {
     height: 38px;
 }
-.logo {
-    height: 36px;
-    width: 139px;
-}
 
 .text-logo {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 24px;   
     color: #f5f5f5;
-    width: 133px;
+    width: 137px;
     text-decoration: none;
     text-shadow: 2px 2px 4px #000000;
     box-shadow: 1px 1px 1px #d5d5d5;
