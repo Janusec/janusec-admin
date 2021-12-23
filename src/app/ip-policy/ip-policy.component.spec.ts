@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FirewallComponent } from './firewall.component';
+import { IpPolicyComponent } from './ip-policy.component';
 
-describe('FirewallComponent', () => {
-  let component: FirewallComponent;
-  let fixture: ComponentFixture<FirewallComponent>;
+describe('IpPolicyComponent', () => {
+  let component: IpPolicyComponent;
+  let fixture: ComponentFixture<IpPolicyComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FirewallComponent ]
+      declarations: [ IpPolicyComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FirewallComponent);
+    fixture = TestBed.createComponent(IpPolicyComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,112 +1,174 @@
 <ng-container>
-<app-navbar></app-navbar>
-<app-messages></app-messages>
-<mat-sidenav-container class="sidenav-container">
-<mat-sidenav *ngIf="applicationService.auth_user.logged"
-    #sidenav mode="side" [(opened)]="showSidenav" class="sidenav" role="navigation"> 
-    <mat-nav-list>  
-        <mat-list-item>
-                <a routerLink="/dashboard">
-                    <mat-icon>dashboard</mat-icon>
-                    <span i18n="@@dashboard">Dashboard</span>
-                </a>
-        </mat-list-item>
-        
-        <mat-list-item>
-                <a routerLink="/certificates">
-                    <mat-icon>lock_outline</mat-icon>
-                    <span i18n="@@cert_mgmt">Certificate</span>
-                </a>
-        </mat-list-item>
-        
-        <mat-list-item>
-                <a routerLink="/applications">
-                    <mat-icon>explore</mat-icon>
-                    <span i18n="@@app_mgmt">Application</span>
-                </a>
-        </mat-list-item>        
-        
-        <mat-list-item *ngIf="applicationService.auth_user.is_super_admin==true">
-            <a routerLink="/forwarding">
-                <mat-icon>forward</mat-icon>
-                <span i18n="@@vip_app">Forwarding</span>
-            </a>
-        </mat-list-item>
-        
-        <mat-list-item>
-            <a routerLink="/health">
-                <mat-icon>check_circle_outline</mat-icon>
-                <span i18n="@@health_check">Health</span>
-            </a>  
-        </mat-list-item>
+    <app-navbar></app-navbar>
+    <app-messages></app-messages>
+    <mat-sidenav-container class="sidenav-container">
+        <mat-sidenav *ngIf="applicationService.auth_user.logged" #sidenav mode="side" [(opened)]="showSidenav"
+            class="sidenav" role="navigation">
+            <mat-nav-list>
+                <mat-list-item>
+                    <a routerLink="/dashboard">
+                        <mat-icon>dashboard</mat-icon>
+                        <span i18n="@@dashboard">Dashboard</span>
+                    </a>
+                </mat-list-item>
 
-        <mat-list-item *ngIf="applicationService.auth_user.is_super_admin==true">
-            <a routerLink="/nodes">
-                <mat-icon>games</mat-icon>
-                <span i18n="@@node_mgmt">Node</span>
-            </a>            
-        </mat-list-item>
+                <mat-accordion>
+                    <mat-expansion-panel [expanded]="true" class="nav-panel">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <mat-icon>list</mat-icon>
+                                <span i18n="@@basic_configuration">Basic Configuration</span>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
 
-        <mat-list-item>
-            <a routerLink="/usermgmt">
-                <mat-icon>supervisor_account</mat-icon>
-                <span i18n="@@user_mgmt">User</span>
-            </a> 
-        </mat-list-item>
+                        <mat-list-item>
+                            <a routerLink="/certificates">
+                                <mat-icon>lock_outline</mat-icon>
+                                <span i18n="@@cert_mgmt">Certificate</span>
+                            </a>
+                        </mat-list-item>
 
-        <mat-list-item *ngIf="applicationService.auth_user.is_super_admin==true">
-            <a routerLink="/waf">
-                <mat-icon>security</mat-icon>
-                <span i18n="@@waf_mgmt">WAF</span>
-            </a>  
-        </mat-list-item>
+                        <mat-list-item>
+                            <a routerLink="/applications">
+                                <mat-icon>explore</mat-icon>
+                                <span i18n="@@app_mgmt">Application</span>
+                            </a>
+                        </mat-list-item>
 
-        <mat-list-item>
-            <a routerLink="/logs">
-                <mat-icon>assignment</mat-icon>
-                <span i18n="@@waf_logs">WAF Logs</span>
-            </a>  
-        </mat-list-item>
+                        <mat-list-item *ngIf="applicationService.auth_user.is_super_admin==true">
+                            <a routerLink="/forwarding">
+                                <mat-icon>forward</mat-icon>
+                                <span i18n="@@vip_app">Forwarding</span>
+                            </a>
+                        </mat-list-item>
 
-        <mat-list-item>
-            <a routerLink="/cclogs">
-                <mat-icon>assignment</mat-icon>
-                <span i18n="@@cc_logs">CC Logs</span>
-            </a>  
-        </mat-list-item>
+                    </mat-expansion-panel>
+                </mat-accordion>
 
-        <mat-list-item>
-            <a routerLink="/ssh">
-                <mat-icon>computer</mat-icon>
-                <span>Web SSH</span>
-            </a>  
-        </mat-list-item>
+                <mat-accordion>
+                    <mat-expansion-panel [expanded]="true" class="nav-panel">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <mat-icon>security</mat-icon>
+                                <span i18n="@@security_defense">Security Defense</span>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
 
-        <mat-list-item *ngIf="applicationService.auth_user.is_super_admin==true">
-            <a routerLink="/settings">
-                <mat-icon>settings</mat-icon>
-                <span i18n="@@settings">Settings</span>
-            </a>  
-        </mat-list-item>
+                        <mat-list-item *ngIf="applicationService.auth_user.is_super_admin==true">
+                            <a routerLink="/waf">
+                                <mat-icon>blur_on</mat-icon>
+                                <span i18n="@@waf_mgmt">WAF</span>
+                            </a>
+                        </mat-list-item>
 
-        <mat-list-item>
-            <a (click)="toggleSidenav()">
-                <mat-icon>navigate_before</mat-icon>
-                <span i18n="@@hide_menu">Hide Menu</span>
-            </a>
-        </mat-list-item>
+                        <mat-list-item *ngIf="applicationService.auth_user.is_super_admin==true">
+                            <a routerLink="/cc">
+                                <mat-icon>blur_on</mat-icon>
+                                <span i18n="@@cc_defense">CC Defense</span>
+                            </a>
+                        </mat-list-item>
 
-    </mat-nav-list>    
-</mat-sidenav>
-<mat-sidenav-content role="region" class="content">
-    <div *ngIf="showSidenav==false">
-    <button (click)="toggleSidenav()" class="btn_shownav">
-        <mat-icon>navigate_next</mat-icon>
-        <span i18n="@@show_menu">Show Menu</span>
-    </button>
-    </div>
-    <router-outlet></router-outlet>
-</mat-sidenav-content>
-</mat-sidenav-container>
-<app-footer></app-footer>
+                        <mat-list-item *ngIf="applicationService.auth_user.is_super_admin==true">
+                            <a routerLink="/ip-policy">
+                                <mat-icon>blur_on</mat-icon>
+                                <span i18n="@@ip_policy">IP Policy</span>
+                            </a>
+                        </mat-list-item>
+
+                    </mat-expansion-panel>
+                </mat-accordion>
+
+                <mat-accordion>
+                    <mat-expansion-panel [expanded]="true" class="nav-panel">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <mat-icon>cloud_queue</mat-icon>
+                                <span i18n="@@security_operation">Security Operation</span>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                        <mat-list-item>
+                            <a routerLink="/ssh">
+                                <mat-icon>computer</mat-icon>
+                                <span>Web SSH</span>
+                            </a>
+                        </mat-list-item>
+
+                        <mat-list-item *ngIf="applicationService.auth_user.is_super_admin==true">
+                            <a routerLink="/nodes">
+                                <mat-icon>games</mat-icon>
+                                <span i18n="@@node_mgmt">Node</span>
+                            </a>
+                        </mat-list-item>
+
+                        <mat-list-item>
+                            <a routerLink="/health">
+                                <mat-icon>check_circle_outline</mat-icon>
+                                <span i18n="@@health_check">Health</span>
+                            </a>
+                        </mat-list-item>
+
+                    </mat-expansion-panel>
+                </mat-accordion>
+
+                <mat-accordion>
+                    <mat-expansion-panel [expanded]="true" class="nav-panel">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <mat-icon>assignment</mat-icon>
+                                <span i18n="@@security_audit">Security Audit</span>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                        <mat-list-item>
+                            <a routerLink="/logs">
+                                <mat-icon>blur_on</mat-icon>
+                                <span i18n="@@waf_logs">WAF Logs</span>
+                            </a>
+                        </mat-list-item>
+
+                        <mat-list-item>
+                            <a routerLink="/cclogs">
+                                <mat-icon>blur_on</mat-icon>
+                                <span i18n="@@cc_logs">CC Logs</span>
+                            </a>
+                        </mat-list-item>
+
+                    </mat-expansion-panel>
+                </mat-accordion>
+
+                <mat-list-item>
+                    <a routerLink="/usermgmt">
+                        <mat-icon>supervisor_account</mat-icon>
+                        <span i18n="@@user_mgmt">User Management</span>
+                    </a>
+                </mat-list-item>
+
+                <mat-list-item *ngIf="applicationService.auth_user.is_super_admin==true">
+                    <a routerLink="/settings">
+                        <mat-icon>settings</mat-icon>
+                        <span i18n="@@global_settings">Global Settings</span>
+                    </a>
+                </mat-list-item>
+
+                <mat-list-item>
+                    <a (click)="toggleSidenav()">
+                        <mat-icon>navigate_before</mat-icon>
+                        <span i18n="@@hide_menu">Hide Menu</span>
+                    </a>
+                </mat-list-item>
+
+            </mat-nav-list>
+        </mat-sidenav>
+        <mat-sidenav-content role="region" class="content">
+            <div *ngIf="showSidenav==false">
+                <button (click)="toggleSidenav()" class="btn_shownav">
+                    <mat-icon>navigate_next</mat-icon>
+                    <span i18n="@@show_menu">Show Menu</span>
+                </button>
+            </div>
+            <router-outlet></router-outlet>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+    <app-footer></app-footer>
 </ng-container>

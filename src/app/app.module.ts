@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'; 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './/app-routing/app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,7 +18,7 @@ import { FooterComponent } from './footer/footer.component';
 import { CdkTableModule } from '@angular/cdk/table';
 import { UsermgmtComponent } from './usermgmt/usermgmt.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
-import { FirewallComponent } from './firewall/firewall.component';
+import { WAFComponent } from './waf/waf.component';
 import { PolicyComponent } from './policy/policy.component';
 import { NodesComponent } from './nodes/nodes.component';
 import { NodeDetailComponent } from './node-detail/node-detail.component';
@@ -61,7 +61,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { WebsshComponent } from './webssh/webssh.component';
-import { HashLocationStrategy, LocationStrategy} from '@angular/common';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HealthCheckComponent } from './health-check/health-check.component';
 import { VipAppsComponent } from './vip-apps/vip-apps.component';
@@ -69,92 +69,96 @@ import { VipAppComponent } from './vip-app/vip-app.component';
 import { RefererComponent } from './referer/referer.component';
 import { QRCodeModule } from 'angularx-qrcode';
 import { AuthcodeRegisterComponent } from './authcode-register/authcode-register.component';
+import { CcComponent } from './cc/cc.component';
+import { IpPolicyComponent } from './ip-policy/ip-policy.component';
 
 @NgModule({
-  exports:[
-    CdkTableModule,
-    MatAutocompleteModule,
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatChipsModule,
-    MatDatepickerModule,
-    MatDialogModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatGridListModule,
-    MatIconModule,
-    MatInputModule,
-    MatListModule,
-    MatMenuModule,
-    MatNativeDateModule,
-    MatPaginatorModule,
-    MatProgressBarModule,
-    MatProgressSpinnerModule,
-    MatRadioModule,
-    MatRippleModule,
-    MatSelectModule,
-    MatSidenavModule,
-    MatSliderModule,
-    MatSlideToggleModule,
-    MatSnackBarModule,
-    MatSortModule,
-    MatTableModule,
-    MatTabsModule,
-    MatToolbarModule,
-    MatTooltipModule,
-    MatStepperModule,
-  ],
-  declarations: []
-})
-export class MaterialModule{}
-
-@NgModule({
-  declarations: [
-    AppComponent, 
-    DashboardComponent,
-    NavbarComponent,
-    LoginFormComponent,
-    MessagesComponent,
-    ApplicationsComponent,
-    ApplicationDetailComponent,
-    CertificatesComponent,
-    CertificateDetailComponent,
-    FooterComponent,
-    UsermgmtComponent,
-    UserDetailComponent,
-    FirewallComponent,
-    PolicyComponent,
-    NodesComponent, 
-    NodeDetailComponent,
-    LogsComponent,
-    LogDetailComponent,
-    CCLogsComponent, 
-    CCLogDetailComponent,
-    SettingsComponent,
-    FrontpageComponent,
-    WebsshComponent,
-    HealthCheckComponent,
-    VipAppsComponent,
-    VipAppComponent,
-    RefererComponent,
-    AuthcodeRegisterComponent
-  ],
-  imports: [
-    MaterialModule,
-    BrowserModule, 
-    BrowserAnimationsModule,
-    FlexLayoutModule,
-    FormsModule,
-    HttpClientModule,
-    AppRoutingModule,
-    QRCodeModule
-  ],
-  providers: [MessageService, 
-    ApplicationService,
-    { provide: LocationStrategy, useClass: HashLocationStrategy},
+    exports: [
+        CdkTableModule,
+        MatAutocompleteModule,
+        MatButtonModule,
+        MatButtonToggleModule,
+        MatCardModule,
+        MatCheckboxModule,
+        MatChipsModule,
+        MatDatepickerModule,
+        MatDialogModule,
+        MatExpansionModule,
+        MatFormFieldModule,
+        MatGridListModule,
+        MatIconModule,
+        MatInputModule,
+        MatListModule,
+        MatMenuModule,
+        MatNativeDateModule,
+        MatPaginatorModule,
+        MatProgressBarModule,
+        MatProgressSpinnerModule,
+        MatRadioModule,
+        MatRippleModule,
+        MatSelectModule,
+        MatSidenavModule,
+        MatSliderModule,
+        MatSlideToggleModule,
+        MatSnackBarModule,
+        MatSortModule,
+        MatTableModule,
+        MatTabsModule,
+        MatToolbarModule,
+        MatTooltipModule,
+        MatStepperModule,
     ],
-  bootstrap: [AppComponent]
+    declarations: []
+})
+export class MaterialModule { }
+
+@NgModule({
+    declarations: [
+        AppComponent,
+        DashboardComponent,
+        NavbarComponent,
+        LoginFormComponent,
+        MessagesComponent,
+        ApplicationsComponent,
+        ApplicationDetailComponent,
+        CcComponent,
+        CertificatesComponent,
+        CertificateDetailComponent,
+        FooterComponent,
+        UsermgmtComponent,
+        UserDetailComponent,
+        WAFComponent,
+        IpPolicyComponent,
+        PolicyComponent,
+        NodesComponent,
+        NodeDetailComponent,
+        LogsComponent,
+        LogDetailComponent,
+        CCLogsComponent,
+        CCLogDetailComponent,
+        SettingsComponent,
+        FrontpageComponent,
+        WebsshComponent,
+        HealthCheckComponent,
+        VipAppsComponent,
+        VipAppComponent,
+        RefererComponent,
+        AuthcodeRegisterComponent
+    ],
+    imports: [
+        MaterialModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        FlexLayoutModule,
+        FormsModule,
+        HttpClientModule,
+        AppRoutingModule,
+        QRCodeModule
+    ],
+    providers: [MessageService,
+        ApplicationService,
+        { provide: LocationStrategy, useClass: HashLocationStrategy },
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

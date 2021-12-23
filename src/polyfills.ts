@@ -61,6 +61,12 @@ let zhTranslations = {
     'delete': '删除',
     'view': '查看',
     // app left menu
+    'basic_configuration': '基本配置',
+    'security_defense': '安全防御',
+    'security_operation': '安全运维',
+    'security_audit': '安全审计',
+    'cc_defense': "CC防御",
+    'ip_policy': 'IP策略',
     'cert_mgmt': '证书管理',
     'app_mgmt': '应用管理',
     'node_mgmt': '节点管理',
@@ -68,7 +74,7 @@ let zhTranslations = {
     'dashboard': '仪表盘',
     'waf_mgmt': 'WAF管理',
     'waf_logs': 'WAF日志',
-    'cc_logs': 'CC日志',    
+    'cc_logs': 'CC日志',
     'hide_menu': '隐藏导航',
     'show_menu': '显示导航',
     'health_check': '健康检查',
@@ -126,7 +132,7 @@ let zhTranslations = {
     'ip_for_waf': '网关获取用户IP地址的方式（默认REMOTE_ADDR，流量来自其他CDN时才需要修改）',
     'redirect_https': '将HTTP请求重定向到HTTPS（需要配置证书）',
     'hsts_enabled': '启用HSTS（添加头部Strict-Transport-Security，通知浏览器一年内只使用HTTPS）',
-    'waf_enabled': '启用WAF（Web应用防火墙）', 
+    'waf_enabled': '启用WAF（Web应用防火墙）',
     'cache_enabled': '启用静态文件缓存（仅限10MB以内文件，支持brotli与gzip压缩加速）',
     'shield_enabled': '启用5秒盾拦截爬虫（默认不启用，需要SEO的网站请在设置中维护搜索引擎清单，谨慎开启）',
     'oauth_required': '启用身份认证（需在设置中登记提供商并启用，用于内部员工登录企业内部网站）',
@@ -216,7 +222,6 @@ let zhTranslations = {
     'block_seconds': '超限锁定（默认900秒）',
     'action': '触发动作(阻断/旁路/验证码/放行)',
     'slow_cc_notice': '备注：慢速CC检测同时启用，使用15个统计时间窗（其他参数相同）。',
-    'ip_policy': 'IP策略',
     'ip_policy_allow': '放行：WAF适用则允许安全测试，CC适用则允许高频访问。',
     'ip_policy_block': '阻断：WAF单独适用则显示阻断信息，CC适用则封禁访问。',
     'add_ip': '添加IP',
@@ -226,7 +231,7 @@ let zhTranslations = {
     'block': '阻断',
     'applicable': '适用',
     'not_applicable': '不适用',
-    'ip_operation': '操作',  
+    'ip_operation': '操作',
     // Policy
     'policy_detail': 'WAF规则配置',
     'policy_description': '规则名称或描述',
@@ -263,20 +268,19 @@ let zhTranslations = {
     'target_site': '目标网站',
     'referring_link': '来源链接',
     // Settings
-    'settings': '全局设置',
+    'global_settings': '全局设置',
     'security_auth': '身份认证',
     'authenticator_enabled': '为网关后台管理启用双因子身份认证（认证器）',
     'auth_enabled': '为应用启用统一身份认证',
     'auth_provider': '认证服务提供商',
     'access_control_five_second_shield': '访问控制（5秒盾）',
-    'five_second_shield': '5秒盾',  
+    'five_second_shield': '5秒盾',
     'search_engine_list': '搜索引擎清单',
     'skip_se_enabled': '允许下列搜索引擎绕过5秒盾（如需SEO请允许）',
     'search_engine_label': '搜索引擎（不能为空，不区分大小写，使用英文半角 | 分隔）',
     'five_second_shield_note': '备注：当应用开启5秒盾，且允许搜索引擎绕过时，5秒盾不拦截上面列出的搜索引擎(User-Agent)。',
-    'security_operation': '访问控制（运维）',
+    'access_control_operation': '访问控制（运维）',
     'webssh_enabled': '启用基于Web的SSH运维通道',
-    'security_audit': '安全审计',
     'waf_log_days': 'WAF日志保存天数',
     'cc_log_days': 'CC日志保存天数',
     'access_log_days': '访问日志保存天数',
@@ -300,7 +304,7 @@ let zhTranslations = {
 
 
 var lang = localStorage.getItem('lang');
-switch(lang) {
+switch (lang) {
     case 'zh-cn':
         loadTranslations(zhTranslations);
         break;

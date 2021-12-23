@@ -1,0 +1,44 @@
+<div class="container">
+    <div>
+        <div>
+            <span *ngIf="applicationService.auth_user.is_super_admin">
+                <button mat-stroked-button i18n="@@add_policy" (click)="newGroupPolicy()">Add Policy</button>
+            </span>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <mat-form-field appearance="none">
+                <input matInput (keyup)="applyFilter($event.target.value)" class="search_box" placeholder="Filter">
+            </mat-form-field>
+        </div>
+        <div class="mat-elevation-z8">
+            <mat-table #table [dataSource]="globalRegexDataSource">
+                <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <a routerLink="/policy/{{element.id}}">
+                            {{element.id}}
+                        </a>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="description">
+                    <mat-header-cell i18n="@@description" *matHeaderCellDef> Description </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="is_enabled">
+                    <mat-header-cell i18n="@@enabled" *matHeaderCellDef> Enabled </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <mat-icon *ngIf="element.is_enabled" color="primary">check_circle_outline</mat-icon>
+                        <mat-icon *ngIf="!element.is_enabled" color="warn">highlight_off</mat-icon>
+                    </mat-cell>
+                </ng-container>
+
+
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+            <mat-paginator #paginator [length]="regexLength" [pageSize]="20" [pageSizeOptions]="[10, 20, 50]">
+            </mat-paginator>
+        </div>
+    </div>
+</div>

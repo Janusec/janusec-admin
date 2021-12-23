@@ -6,7 +6,7 @@
     display: flex;
     align-items: top;
     justify-content: center;
-    width: 144px;
+    width: 210px;
 }
 
 mat-icon {
@@ -28,3 +28,38 @@ mat-icon {
     border: 0px;
     height: 36px;
 }
+
+.mat-sidenav {
+    background-color: #f5f5f5;
+  }
+
+.nav-panel {
+    background-color: #f5f5f5;
+    padding: 0px;
+  }
+  
+  .sub_list {
+      margin: 0px;
+  }
+  
+  .mat-expansion-panel-header {
+    padding: 0px 16px;
+    font-size: 12px;
+  }
+  
+  .mat-accordion .mat-expansion-panel:last-of-type {
+      /*
+      border-bottom-right-radius: 0px;
+      border-bottom-left-radius: 0px;
+      */
+      border-radius: 0px;
+  }
+  
+  .mat-list-base .mat-list-item, .mat-list-base .mat-list-option {
+      height: 32px;
+  }
+  
+  
+  ::ng-deep .mat-expansion-panel-body {
+      padding: 0px 12px !important;
+  }
