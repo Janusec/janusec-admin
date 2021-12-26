@@ -52,7 +52,7 @@ const routes: Routes = [
     { path: 'log/:id', component: LogDetailComponent },
     { path: 'cclog/:id', component: CCLogDetailComponent },
     { path: 'login', component: LoginFormComponent },
-    { path: 'ssh', component: WebsshComponent },
+    { path: 'webssh', component: WebsshComponent },
     { path: 'health', component: HealthCheckComponent },
     { path: 'referring/:app_id/:host', component: RefererComponent },
     { path: 'authcode-register', component: AuthcodeRegisterComponent }

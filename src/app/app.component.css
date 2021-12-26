@@ -11,6 +11,7 @@
 
 mat-icon {
     font-size: 14px;
+    vertical-align: middle;
 }
 
 .mat-sidenav {
@@ -62,4 +63,8 @@ mat-icon {
   
   ::ng-deep .mat-expansion-panel-body {
       padding: 0px 12px !important;
+  }
+
+  mat-expansion-panel {
+      box-shadow: none !important;
   }

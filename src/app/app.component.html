@@ -42,6 +42,13 @@
                             </a>
                         </mat-list-item>
 
+                        <mat-list-item>
+                            <a routerLink="/usermgmt">
+                                <mat-icon>supervisor_account</mat-icon>
+                                <span i18n="@@user_mgmt">User Management</span>
+                            </a>
+                        </mat-list-item>
+
                     </mat-expansion-panel>
                 </mat-accordion>
 
@@ -88,7 +95,7 @@
                         </mat-expansion-panel-header>
 
                         <mat-list-item>
-                            <a routerLink="/ssh">
+                            <a routerLink="/webssh">
                                 <mat-icon>computer</mat-icon>
                                 <span>Web SSH</span>
                             </a>
@@ -137,12 +144,7 @@
                     </mat-expansion-panel>
                 </mat-accordion>
 
-                <mat-list-item>
-                    <a routerLink="/usermgmt">
-                        <mat-icon>supervisor_account</mat-icon>
-                        <span i18n="@@user_mgmt">User Management</span>
-                    </a>
-                </mat-list-item>
+                <mat-divider></mat-divider>
 
                 <mat-list-item *ngIf="applicationService.auth_user.is_super_admin==true">
                     <a routerLink="/settings">
@@ -150,6 +152,8 @@
                         <span i18n="@@global_settings">Global Settings</span>
                     </a>
                 </mat-list-item>
+
+                <mat-divider></mat-divider>
 
                 <mat-list-item>
                     <a (click)="toggleSidenav()">
