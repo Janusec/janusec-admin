@@ -296,9 +296,9 @@ let zhTranslations = {
     'email_notification': '邮件提醒',
     'smtp_enabled': '启用SMTP邮件提醒（证书30天内到期/后端服务器离线等）',
     'smtp_server': '服务器',
-    'smtp_port': '端口(25或587)',
+    'smtp_port': '端口(25, 587, 465)',
     'smtp_account': '发送账号(Email地址)',
-    'smtp_password': '口令',
+    'smtp_password': '口令(或专用访问Token)',
     'test_smtp': '测试SMTP'
 }
 

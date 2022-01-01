@@ -212,8 +212,6 @@
             </div>
         </mat-tab>
 
-
-
         <mat-tab i18n-label="@@security_audit" label="Security Audit">
             <div class="container">
                 <mat-form-field>
@@ -234,8 +232,6 @@
             </div>
         </mat-tab>
 
-
-
         <mat-tab i18n-label="@@email_notification" label="Email Notification">
             <div class="container">
                 <section>
@@ -249,7 +245,7 @@
                     <input matInput [(ngModel)]="settings.smtp.smtp_server" [readonly]="readOnlyValue" required />
                 </mat-form-field>
                 <mat-form-field>
-                    <mat-label i18n="@@smtp_port">Port (25 or 587)</mat-label>
+                    <mat-label i18n="@@smtp_port">Port (25, 587, 465)</mat-label>
                     <input matInput [(ngModel)]="settings.smtp.smtp_port" [readonly]="readOnlyValue" required />
                 </mat-form-field>
                 <mat-form-field>
@@ -257,7 +253,7 @@
                     <input matInput [(ngModel)]="settings.smtp.smtp_account" [readonly]="readOnlyValue" required />
                 </mat-form-field>
                 <mat-form-field>
-                    <mat-label i18n="@@smtp_password">Password</mat-label>
+                    <mat-label i18n="@@smtp_password">Password (Access Token)</mat-label>
                     <input matInput [(ngModel)]="settings.smtp.smtp_password" type="password" [readonly]="readOnlyValue"
                         required />
                 </mat-form-field>
