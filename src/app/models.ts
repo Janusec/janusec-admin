@@ -27,14 +27,14 @@ export class AppAdmin {
 export class Application {
     id: number;
     name: string;
-    internal_scheme: string;  
-    redirect_https: boolean;  
+    internal_scheme: string;
+    redirect_https: boolean;
     hsts_enabled: boolean;
     waf_enabled: boolean;
-    shield_enabled: boolean; 
-    destinations: Destination[];	
-    domains: Domain[]; 
-    ip_method: IPMethod;    
+    shield_enabled: boolean;
+    destinations: Destination[];
+    domains: Domain[];
+    ip_method: IPMethod;
     description: string;
     oauth_required: boolean;
     session_seconds: number;
@@ -63,10 +63,10 @@ export class VipTarget {
 }
 
 export enum IPMethod {
-    REMOTE_ADDR      = 1,
-    X_Forwarded_For  = 1 << 1,
-	X_REAL_IP        = 1 << 2,
-	REAL_IP          = 1 << 3
+    REMOTE_ADDR = 1,
+    X_Forwarded_For = 1 << 1,
+    X_REAL_IP = 1 << 2,
+    REAL_IP = 1 << 3
 }
 
 export class Certificate {
@@ -74,14 +74,14 @@ export class Certificate {
     common_name: string;
     cert_content: string;
     priv_key_content: string;
-    expire_time: number;    
+    expire_time: number;
     description: string;
     due_to_expire: boolean;
 }
 
 export enum RouteType {
-    Reverse_Proxy =1,
-    Local_FastCGI =1 << 1,
+    Reverse_Proxy = 1,
+    Local_FastCGI = 1 << 1,
     Static_Website = 1 << 2
 }
 
@@ -126,40 +126,40 @@ export class CCPolicy {
     stat_by_url: boolean;
     stat_by_ua: boolean;
     stat_by_cookie: boolean;
-	is_enabled: boolean;
+    is_enabled: boolean;
 }
 
 export enum ChkPoint {
-	Host                = 1,
-	IPAddress           = 1 << 1,
-	Method              = 1 << 2,
-	URLPath             = 1 << 3,
-	URLQuery            = 1 << 4,
-    FileExt             = 1 << 5,
-	// ValueLength         = 1 << 6,
-	GetPostKey          = 1 << 7,
-	GetPostValue        = 1 << 8,
-	UploadFileExt       = 1 << 9,
-    Referer             = 1 << 10,
-	CookieKey           = 1 << 11,
-	CookieValue         = 1 << 12,
-	UserAgent           = 1 << 13,
-	ContentType         = 1 << 14,
-	HeaderKey           = 1 << 15,
-	HeaderValue         = 1 << 16,
-	Proto               = 1 << 17,
-	ResponseStatusCode  = 1 << 25,
-	ResponseHeaderKey   = 1 << 26,
-	ResponseHeaderValue = 1 << 27,
-	//ResponseBodyLength  = 1 << 28,
-	ResponseBody        = 1 << 29
+    Host = 1,
+    IPAddress = 1 << 1,
+    Method = 1 << 2,
+    URLPath = 1 << 3,
+    URLQuery = 1 << 4,
+    FileExt = 1 << 5,
+    // ValueLength         = 1 << 6,
+    GetPostKey = 1 << 7,
+    GetPostValue = 1 << 8,
+    UploadFileExt = 1 << 9,
+    Referer = 1 << 10,
+    CookieKey = 1 << 11,
+    CookieValue = 1 << 12,
+    UserAgent = 1 << 13,
+    ContentType = 1 << 14,
+    HeaderKey = 1 << 15,
+    HeaderValue = 1 << 16,
+    Proto = 1 << 17,
+    ResponseStatusCode = 1 << 25,
+    ResponseHeaderKey = 1 << 26,
+    ResponseHeaderValue = 1 << 27,
+    //ResponseBodyLength  = 1 << 28,
+    ResponseBody = 1 << 29
 }
 
 export enum PolicyAction {
-    BLOCK   = 100,
-    BYPASS_AND_LOG  = 200,
+    BLOCK = 100,
+    BYPASS_AND_LOG = 200,
     CAPTCHA = 300,
-    OK_PASS    = 400
+    OK_PASS = 400
 }
 
 export class VulnType {
@@ -175,24 +175,25 @@ export class GroupPolicy {
     check_items: CheckItem[];
     hit_value: number;
     action: PolicyAction;
-	is_enabled: boolean;
-	
+    is_enabled: boolean;
+    // extends
+    unique_hash: string;
 }
 
 export enum Operation {
-    Regex_Match                     = 1,
-    Equals_String_Case_Insensitive  = 1 << 1,
-    Greater_Than_Integer            = 1 << 2,
-    Equals_Integer                  = 1 << 3,
-    Length_Greater_Than_Integer     = 1 << 4,
-    Regex_Not_Match                 = 1 << 5
+    Regex_Match = 1,
+    Equals_String_Case_Insensitive = 1 << 1,
+    Greater_Than_Integer = 1 << 2,
+    Equals_Integer = 1 << 3,
+    Length_Greater_Than_Integer = 1 << 4,
+    Regex_Not_Match = 1 << 5
 }
 
 export class CheckItem {
     id: number;
     check_point: ChkPoint;
     operation: Operation;
-	key_name: string;
+    key_name: string;
     regex_policy: string;
     group_policy_id: number;
 }
@@ -287,26 +288,26 @@ export class CCLogsCount {
 }
 
 export class LastRegexLogs {
-    app_id : number;  
+    app_id: number;
     start_date: Date;
     end_date: Date;
     page_index: number;
     length: number;
-    regex_logs: SimpleRegexHitLog[]=[];
+    regex_logs: SimpleRegexHitLog[] = [];
 }
 
 export class LastCCLogs {
-    app_id : number;  
+    app_id: number;
     start_date: Date;
     end_date: Date;
     page_index: number;
     length: number;
-    cc_logs: SimpleCCLog[]=[];
+    cc_logs: SimpleCCLog[] = [];
 }
 
 export class VulnStat {
-    vuln_id : number;
-    count : number;
+    vuln_id: number;
+    count: number;
 }
 
 export class Server {
@@ -315,12 +316,12 @@ export class Server {
     username: string;
     password: string;
 
-    constructor(ip:string, port:string, username:string, password:string) { 
+    constructor(ip: string, port: string, username: string, password: string) {
         this.ip = ip;
         this.port = port;
-        this.username =username;
+        this.username = username;
         this.password = password;
-    }  
+    }
 }
 
 export class OAuthInfo {
@@ -332,14 +333,14 @@ export class OAuthInfo {
 
 export class RefererHost {
     host: string;
-	PV:   number;
-	UV:   number;
+    PV: number;
+    UV: number;
 }
 
 export class RefererURL {
-    url:  string;
-    PV:   number;
-	UV:   number;
+    url: string;
+    PV: number;
+    UV: number;
 }
 
 export class PopContent {

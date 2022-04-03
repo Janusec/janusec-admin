@@ -4,10 +4,20 @@
             <span *ngIf="applicationService.auth_user.is_super_admin">
                 <button mat-stroked-button i18n="@@add_policy" (click)="newGroupPolicy()">Add Policy</button>
             </span>
+
+            <span *ngIf="applicationService.auth_user.is_super_admin">
+                <button mat-stroked-button i18n="@@export_policies" (click)="exportWAF()">Export Policies</button>
+            </span>
+
+            <span *ngIf="applicationService.auth_user.is_super_admin">
+                <button mat-stroked-button i18n="@@import_policies" (click)="importWAF()">Import Policies</button>
+                <input #fileInput type="file" (change)="readFile($event)" style="display: none;" />
+            </span>
             <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
             <mat-form-field appearance="none">
                 <input matInput (keyup)="applyFilter($event.target.value)" class="search_box" placeholder="Filter">
             </mat-form-field>
+
         </div>
         <div class="mat-elevation-z8">
             <mat-table #table [dataSource]="globalRegexDataSource">

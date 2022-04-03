@@ -42,3 +42,8 @@ button {
 .center_column {
     justify-content: center;
 }
+
+.float_right {
+    display: flex;
+    float: right;
+}

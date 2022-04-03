@@ -208,6 +208,8 @@ let zhTranslations = {
     'global_cc_policy': '全局CC防护规则',
     'enabled': '启用',
     'add_policy': '添加规则',
+    'export_policies': '导出规则',
+    'import_policies': '导入规则',
     'global_cc_title': '全局CC防护规则（优先级小于自定义规则）',
     'custom_cc_policy': '自定义CC防护规则',
     'custom_cc_title': '自定义CC防护规则（请先选中一个应用）',

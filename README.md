@@ -21,7 +21,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 > ng build --prod  
 
 If `crypto` not found, try to change this file:
-> node_modules@angular-devkit\build-angular\src\angular-cli-files\models\webpack-configs\browser.js  
+> node_modules\@angular-devkit\build-angular\src\angular-cli-files\models\webpack-configs\browser.js  
 and set node to new value:
 
 > node: { crypto: true, stream: true, fs: 'empty', net: 'empty' }  
