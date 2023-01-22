@@ -57,7 +57,11 @@ export class VipApp {
 export class VipTarget {
     id: number;
     vip_app_id: number;
+    route_type: RouteType;
     destination: string;
+    pods_api: string;
+    pod_port: string;
+    //pods: string;
     online: boolean;
     check_time: number;
 }
@@ -82,7 +86,8 @@ export class Certificate {
 export enum RouteType {
     Reverse_Proxy = 1,
     Local_FastCGI = 1 << 1,
-    Static_Website = 1 << 2
+    Static_Website = 1 << 2,
+    K8S_Ingress = 1 << 3
 }
 
 export class Destination {
@@ -91,6 +96,9 @@ export class Destination {
     request_route: string;
     backend_route: string;
     destination: string;
+    pods_api: string;
+    pod_port: string;
+    //pods: string;
     app_id: number;
     node_id: number;
     online: boolean;

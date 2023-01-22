@@ -1,61 +1,97 @@
 <div *ngIf="vip_app" class="container">
-    <div> 
-        <h2 i18n="@@port_forwarding">Port Forwarding</h2>
-        
-        <div i18n="@@port_forwarding_warning" class="notes">
-            Caution: Port forwarding may bring serious security risks and can only be used for non-web application publishing. Please follow the internal security management regulations when using it.
-        </div>             
-    </div>
-    
-    <div>
-      <mat-form-field>
-        <input matInput i18n-placeholder="@@app_name" #app_name [(ngModel)]="vip_app.name" placeholder="Application Name"  [readonly]="readOnlyValue" required/>    
-        <mat-hint align="end">{{app_name.value?.length || 0}}/128</mat-hint> 
-      </mat-form-field>
-      
-      <mat-form-field>
-        <input matInput type="number" i18n-placeholder="@@listen_port" #listen_port [(ngModel)]="vip_app.listen_port" placeholder="Listen Port (1025-65535)"  [readonly]="readOnlyValue" required/>    
-        <mat-hint align="end">{{listen_port.value?.length || 0}}/5</mat-hint> 
-      </mat-form-field>
+  <div>
+    <h2 i18n="@@port_forwarding">Port Forwarding</h2>
 
-      <mat-radio-group aria-label="Protocol" [(ngModel)]="vip_app.is_tcp" [disabled]="readOnlyValue">
-        <mat-radio-button [value]=true>TCP</mat-radio-button>
-        <mat-radio-button [value]=false>UDP</mat-radio-button>
-      </mat-radio-group>
-      
-      <div class="notes" i18n="@@forward_note">Note: Only support services which respond directly from the listening port. Multiple ports or reverse connections are not supported.</div>
-  
-      <mat-expansion-panel [expanded]="true"  class="detail_panel">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h3 i18n="@@target_configuration">Target Configuration</h3>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-        
+    <div i18n="@@port_forwarding_warning" class="notes">
+      Caution: Port forwarding may bring serious security risks and can only be used for non-web application publishing.
+      Please follow the internal security management regulations when using it.
+    </div>
+  </div>
+
+  <div>
+    <mat-form-field>
+      <input matInput i18n-placeholder="@@app_name" #app_name [(ngModel)]="vip_app.name" placeholder="Application Name"
+        [readonly]="readOnlyValue" required />
+      <mat-hint align="end">{{app_name.value?.length || 0}}/128</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="number" i18n-placeholder="@@listen_port" #listen_port [(ngModel)]="vip_app.listen_port"
+        placeholder="Listen Port (1025-65535)" [readonly]="readOnlyValue" required />
+      <mat-hint align="end">{{listen_port.value?.length || 0}}/5</mat-hint>
+    </mat-form-field>
+
+    <mat-radio-group aria-label="Protocol" [(ngModel)]="vip_app.is_tcp" [disabled]="readOnlyValue">
+      <mat-radio-button [value]=true>TCP</mat-radio-button>
+      <mat-radio-button [value]=false>UDP</mat-radio-button>
+    </mat-radio-group>
+
+    <div class="notes" i18n="@@forward_note">Note: Only support services which respond directly from the listening port.
+      Multiple ports or reverse connections are not supported.</div>
+
+    <mat-expansion-panel [expanded]="true" class="detail_panel">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <h3 i18n="@@target_configuration">Target Configuration</h3>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
       <div class="inline-form" *ngFor="let target of vip_app.targets;let i=index; trackBy:trackByFn">
-        
-        <mat-form-field>
-            <mat-label i18n="@@target">Target (IP:Port)</mat-label>
-            <input matInput [(ngModel)]="vip_app.targets[i].destination" [readonly]="readOnlyValue" required/>
-            <mat-icon matSuffix i18n-matTooltip="@@add_new_target" class="clickable_btn" matTooltip="Add New Target" matTooltipPosition="left" (click)="addTarget()">add_circle_outline</mat-icon>
-            <mat-icon *ngIf="vip_app.targets.length>1" matSuffix class="clickable_btn" (click)="delTarget(i)">remove_circle_outline</mat-icon> 
+        <mat-form-field class="inline-form-field-20">
+          <mat-label i18n="@@forward_mode">Forward Mode</mat-label>
+          <mat-select [(ngModel)]="vip_app.targets[i].route_type" [disabled]="readOnlyValue" required>
+            <mat-option [value]="reverseProxyMode"> Reverse Proxy </mat-option>
+            <mat-option [value]="k8sMode"> K8S Ingress </mat-option>
+          </mat-select>
         </mat-form-field>
-        
-      </div>    
-      </mat-expansion-panel>
-  
-      <mat-form-field>
-          <input matInput i18n-placeholder="@@vip_owner" [(ngModel)]="vip_app.owner" [readonly]="readOnlyValue" placeholder="Application Owner"/>
-      </mat-form-field> 
-          
-      <mat-form-field>
-          <input matInput i18n-placeholder="@@description" #description [(ngModel)]="vip_app.description" [readonly]="readOnlyValue" placeholder="Description"/>
-          <mat-hint align="end">{{description.value?.length || 0}}/256</mat-hint>
-        </mat-form-field> 
-      <div>
+
+        <!-- 仅用于反向代理模式 -->
+        <ng-container *ngIf="target.route_type == reverseProxyMode">
+          <mat-form-field class="inline-form-field-80">
+            <mat-label i18n="@@target">Target (IP:Port)</mat-label>
+            <input matInput [(ngModel)]="vip_app.targets[i].destination" [readonly]="readOnlyValue" required />
+            <mat-icon matSuffix i18n-matTooltip="@@add_new_target" class="clickable_btn" matTooltip="Add New Target"
+              matTooltipPosition="left" (click)="addTarget()">add_circle_outline</mat-icon>
+            <mat-icon *ngIf="vip_app.targets.length>1" matSuffix class="clickable_btn"
+              (click)="delTarget(i)">remove_circle_outline</mat-icon>
+          </mat-form-field>
+        </ng-container>
+
+        <!-- 仅用于K8S模式 -->
+        <ng-container *ngIf="target.route_type == k8sMode">
+          <mat-form-field class="inline-form-field-60">
+            <mat-label>K8S Pods API</mat-label>
+            <input matInput [(ngModel)]="vip_app.targets[i].pods_api" matTooltipPosition="below"
+              matTooltip="Example: http://127.0.0.1:8080/api/v1/namespaces/default/pods" [readonly]="readOnlyValue" />
+          </mat-form-field>
+
+          <mat-form-field class="inline-form-field-20">
+            <mat-label>K8S Pod Port</mat-label>
+            <input matInput [(ngModel)]="vip_app.targets[i].pod_port" matTooltipPosition="below"
+              matTooltip="Example: 80" [readonly]="readOnlyValue" />
+            <mat-icon matSuffix i18n-matTooltip="@@add_new_routing" class="clickable_btn" matTooltip="Add new routing"
+              matTooltipPosition="left" (click)="addTarget()">add_circle_outline</mat-icon>
+            <mat-icon *ngIf="vip_app.targets.length>1" matSuffix class="clickable_btn"
+              (click)="delTarget(i)">remove_circle_outline</mat-icon>
+          </mat-form-field>
+        </ng-container>
+
+      </div>
+    </mat-expansion-panel>
+
+    <mat-form-field>
+      <input matInput i18n-placeholder="@@vip_owner" [(ngModel)]="vip_app.owner" [readonly]="readOnlyValue"
+        placeholder="Application Owner" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput i18n-placeholder="@@description" #description [(ngModel)]="vip_app.description"
+        [readonly]="readOnlyValue" placeholder="Description" />
+      <mat-hint align="end">{{description.value?.length || 0}}/256</mat-hint>
+    </mat-form-field>
+    <div>
       <button i18n="@@save" mat-stroked-button [disabled]="readOnlyValue" (click)="updateVipApp()">Save</button>
       <button mat-stroked-button (click)="changeEditable()">{{readOnlyButtonText}}</button>
       <button i18n="@@delete" mat-stroked-button [disabled]="readOnlyValue" (click)="deleteVipApp()">Delete</button>
-    </div>  
     </div>
-  
+  </div>
