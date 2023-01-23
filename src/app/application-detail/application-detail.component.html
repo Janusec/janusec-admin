@@ -35,7 +35,7 @@
           <mat-label i18n="@@routing_type">Routing Type</mat-label>
           <mat-select [(ngModel)]="application.destinations[i].route_type" i18n-matTooltip="@@routing_type_tooltip"
             matTooltipPosition="below"
-            matTooltip="Default: Reverse_Proxy, other options: Local_FastCGI used for PHP, Python etc., Static_Website used for local static resources without backend servers."
+            matTooltip="Default: Reverse_Proxy, other options: Local_FastCGI used for PHP/Python etc., Static_Website used for local static resources without backend servers, K8S_Ingress used for K8S Pods."
             [disabled]="readOnlyValue" required>
             <mat-option *ngFor="let route_type of enum_route_types;" [value]="route_type.value">
               {{ route_type.name }}

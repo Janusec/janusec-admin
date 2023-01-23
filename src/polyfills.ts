@@ -147,7 +147,7 @@ let zhTranslations = {
     'reference_configuration': '配置参考',
     'csp_enabled': "启用CSP(内容安全策略，如default-src 'self'，默认不启用)",
     'request_location_tooltip': '默认 / ,选项包括： /abc/  .php  /  ；优先级从高到低，不支持多级路由如 /abc/def/ ',
-    'routing_type_tooltip': '默认 Reverse_Proxy （反向代理）, Local_FastCGI 用于PHP/Python等, Static_Website 用于本地静态网站(不需要后端服务器)',
+    'routing_type_tooltip': '默认Reverse_Proxy（反向代理）, Local_FastCGI 用于PHP/Python等, Static_Website 用于本地静态网站(无后端服务器)，K8S_Ingress用于K8S Pods反向代理',
     'destination_tooltip': '默认 IP:Port （如10.0.0.1:80）, 用于静态网站时填写默认文件名（如index.html）',
     'backend_routing_tooltip': '默认 / , 前后端路径不一致时可使用 /xyz/ 这种形式，本地静态网站或FastCGI网站请填写绝对路径 /path/to/www/ ',
     // Port forwarding

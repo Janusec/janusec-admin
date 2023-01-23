@@ -53,7 +53,7 @@ export class VipAppComponent implements OnInit {
     if (this.readOnlyValue) return;
     var new_target: VipTarget = new VipTarget();
     new_target.id = 0;
-    new_target.vip_app_id = 0;
+    new_target.vip_app_id = this.vip_app.id;
     new_target.route_type = RouteType.Reverse_Proxy;
     new_target.destination = "127.0.0.1:4001";
     new_target.pods_api = 'http://127.0.0.1:8080/api/v1/namespaces/default/pods';
