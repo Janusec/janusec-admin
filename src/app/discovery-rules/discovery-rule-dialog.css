@@ -1,0 +1,39 @@
+.container {
+    margin: 5px;
+}
+
+mat-form-field {
+    width: 100%;
+    /* margin-bottom:3px; */
+    background-color: #fefefe;
+    border: solid 3px #FFFFFF;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.width50 {
+    width: 50% !important;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+button {
+    margin-top: 20px;
+    margin-right: 5px;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.notice {
+    font-size: small;
+    background-color: #f5f5f5;
+    padding: 5px;
+}

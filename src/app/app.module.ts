@@ -71,6 +71,8 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { AuthcodeRegisterComponent } from './authcode-register/authcode-register.component';
 import { CcComponent } from './cc/cc.component';
 import { IpPolicyComponent } from './ip-policy/ip-policy.component';
+import { DiscoveryRuleDialog } from './discovery-rules/discovery-rule-dialog';
+import { DiscoveryRulesComponent } from './discovery-rules/discovery-rules.component';
 
 @NgModule({
     exports: [
@@ -143,7 +145,9 @@ export class MaterialModule { }
         VipAppsComponent,
         VipAppComponent,
         RefererComponent,
-        AuthcodeRegisterComponent
+        AuthcodeRegisterComponent,
+        DiscoveryRuleDialog,
+        DiscoveryRulesComponent
     ],
     imports: [
         MaterialModule,

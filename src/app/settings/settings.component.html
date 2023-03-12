@@ -232,6 +232,38 @@
             </div>
         </mat-tab>
 
+        <mat-tab i18n-label="@@data_discovery" label="Data Discovery">
+            <div class="container">
+                <section>
+                    <mat-checkbox i18n="@@enable_json_data_discovery" [(ngModel)]="settings.data_discovery_enabled"
+                        [disabled]="readOnlyValue">
+                        Enable JSON Data Discovery (Only for WAF-enabled applications)
+                    </mat-checkbox>
+                </section>
+                <mat-form-field>
+                    <mat-label>API</mat-label>
+                    <input matInput [(ngModel)]="settings.data_discovery_api" [readonly]="readOnlyValue" required />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label i18n="@@api_key">API Key</mat-label>
+                    <input matInput [(ngModel)]="settings.data_discovery_key" [readonly]="readOnlyValue" required />
+                </mat-form-field>
+
+                <section>
+                    <a mat-stroked-button routerLink="/discovery-rules" i18n="@@manage_discovery_rules">Manage Discovery
+                        Rules</a>
+                </section>
+
+                <br />
+                <mat-divider></mat-divider>
+                <div i18n="@@data_discovery_note" class="notes">
+                    Note: Data discovery function module is integrated with JANUCAT (Compliance, Accountability and
+                    Transparency).
+                </div>
+
+            </div>
+        </mat-tab>
+
         <mat-tab i18n-label="@@email_notification" label="Email Notification">
             <div class="container">
                 <section>

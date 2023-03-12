@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 /* @import "assets/bootstrap/bootstrap.min.css"; */
-@import "~@angular/material/prebuilt-themes/indigo-pink.css"; 
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 body {
     font-family: Helvetica, Arial, "PingFang SC", "Source Han Serif SC", "Microsoft YaHei";
@@ -22,8 +22,8 @@ body {
 }
 
 .middle {
-    display:flex;
-    align-items:center;
+    display: flex;
+    align-items: center;
 }
 
 .flex-row {
@@ -50,7 +50,7 @@ body {
 .flex-10 {
     flex: 10;
     justify-content: center;
-    align-items:center;
+    align-items: center;
 }
 
 .alert {
@@ -60,7 +60,7 @@ body {
 
 .notes {
     background-color: #F0F0F0;
-    padding: 5px;
+    padding: 10px;
     margin-top: 5px;
     margin-left: 3px;
     margin-right: 0px;

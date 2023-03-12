@@ -391,6 +391,7 @@ export class SMTPSetting {
 }
 
 export class PrimarySetting {
+    authenticator_enabled: boolean;
     auth_enabled: boolean;
     auth_provider: string;
     webssh_enabled: boolean;
@@ -400,6 +401,9 @@ export class PrimarySetting {
     skip_se_enabled: boolean;
     search_engines: string;
     smtp: SMTPSetting;
+    data_discovery_enabled: boolean;
+    data_discovery_api: string;
+    data_discovery_key: string;
 }
 
 export class IPPolicy {
@@ -457,4 +461,14 @@ export class CAS2Config {
     display_name: string;
     entrance: string;
     callback: string;
+}
+
+export class DiscoveryRule {
+    id: number;
+    field_name: string;
+    sample: string;
+    regex: string;
+    description: string;
+    editor: string;
+    update_time: number;
 }

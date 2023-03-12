@@ -26,7 +26,7 @@ import { RefererComponent } from '../referer/referer.component';
 import { AuthcodeRegisterComponent } from '../authcode-register/authcode-register.component';
 import { CcComponent } from '../cc/cc.component';
 import { IpPolicyComponent } from '../ip-policy/ip-policy.component';
-
+import { DiscoveryRulesComponent } from '../discovery-rules/discovery-rules.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/index.html', pathMatch: 'full' },
@@ -55,7 +55,8 @@ const routes: Routes = [
     { path: 'webssh', component: WebsshComponent },
     { path: 'health', component: HealthCheckComponent },
     { path: 'referring/:app_id/:host', component: RefererComponent },
-    { path: 'authcode-register', component: AuthcodeRegisterComponent }
+    { path: 'authcode-register', component: AuthcodeRegisterComponent },
+    { path: 'discovery-rules', component: DiscoveryRulesComponent }
 ];
 
 @NgModule({
