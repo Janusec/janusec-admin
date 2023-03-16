@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router }            from '@angular/router';
+import { Router } from '@angular/router';
 import { MessageService } from '../message.service';
 import { ApplicationService } from '../application.service';
 import { Node } from '../models';
@@ -11,23 +11,22 @@ import { Node } from '../models';
 })
 export class NodesComponent implements OnInit {
   selectedNode: Node;
-  hexNodesKey: string;
   constructor(private messageService: MessageService,
     public applicationService: ApplicationService,
     private router: Router) {
-      if (this.applicationService.auth_user.logged) {
-        this.applicationService.getNodesKey();
-        this.applicationService.getNodes();
-      }      
+    if (this.applicationService.auth_user.logged) {
+      this.applicationService.getNodesKey();
+      this.applicationService.getNodes();
     }
+  }
 
   ngOnInit() {
-    if (this.applicationService.auth_user.logged==false) {
+    if (this.applicationService.auth_user.logged == false) {
       this.router.navigate(['/']);
       return
-    } 
+    }
     if (this.applicationService.auth_user.need_modify_pwd) {
-      this.router.navigate(['/appuser/'+this.applicationService.auth_user.user_id]);
+      this.router.navigate(['/appuser/' + this.applicationService.auth_user.user_id]);
     }
     /*
     this.applicationService.getNodesKey();
@@ -40,10 +39,10 @@ export class NodesComponent implements OnInit {
     this.router.navigate(['/node/0']);
   }
   */
- 
+
   onSelect(node: Node) {
     this.selectedNode = node;
-    this.router.navigate(['/node/'+this.selectedNode.id]);
+    this.router.navigate(['/node/' + this.selectedNode.id]);
   }
 
 }

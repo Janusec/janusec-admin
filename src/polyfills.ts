@@ -315,7 +315,7 @@ let zhTranslations = {
     'add_discovery_rule': "添加数据发现规则",
     'regex': '正则表达式',
     'back_to_settings': '返回设置',
-    'data_discovery_note': '注：数据发现功能模块跟JANUCAT集成，CAT即Compliance, Accountability and Transparency'
+    'data_discovery_note': '注：数据发现功能模块与JANUCAT集成（CAT即Compliance, Accountability and Transparency）'
 }
 
 
