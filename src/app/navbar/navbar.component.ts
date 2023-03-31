@@ -11,14 +11,14 @@ import { ApplicationService } from '../application.service';
 export class NavbarComponent implements OnInit {
   logoPath: string;
   personIcon: string;
-  
+
   constructor(
     public applicationService: ApplicationService,
     private http: HttpClient,
-    private router: Router) {    
+    private router: Router) {
     this.logoPath = 'assets/images/logo.png';
     this.personIcon = 'assets/images/person_1x.png';
-   }
+  }
 
   navigate(path: string) {
     this.router.navigate([path]);
@@ -26,15 +26,15 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     var lang = localStorage.getItem('lang');
-    if(lang==null && navigator.language.indexOf('zh')>-1) {
-        localStorage.setItem('lang', 'zh-cn');
-        window.location.reload();
+    if (lang == null && navigator.language.indexOf('zh') > -1) {
+      localStorage.setItem('lang', 'zh-cn');
+      window.location.reload();
     }
   }
 
-  switchLanguage() {    
+  switchLanguage() {
     var lang = localStorage.getItem('lang');
-    if(lang==null ||lang=="" || lang=="en") {
+    if (lang == null || lang == "" || lang == "en") {
       localStorage.setItem('lang', 'zh-cn');
     } else {
       localStorage.setItem('lang', 'en');
@@ -43,22 +43,22 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
-    const body={action: 'logout'};  
-    let self=this;
-    this.applicationService.getResponse('logout',function(){
+    const body = { action: 'logout' };
+    let self = this;
+    this.applicationService.getResponse('logout', function () {
       //
-    },null,null);
-    self.applicationService.auth_user={
-      user_id:0, 
-      username:"",
-      passwd:"",
-      logged:false, 
-      is_super_admin:false, 
-      is_cert_admin:false, 
-      is_app_admin:false,
-      need_modify_pwd:false,
-      totp_key:"",
-      totp_verified:false
+    }, null, null);
+    self.applicationService.auth_user = {
+      user_id: '0',
+      username: "",
+      passwd: "",
+      logged: false,
+      is_super_admin: false,
+      is_cert_admin: false,
+      is_app_admin: false,
+      need_modify_pwd: false,
+      totp_key: "",
+      totp_verified: false
     };
     self.router.navigate(['/login']);
   }

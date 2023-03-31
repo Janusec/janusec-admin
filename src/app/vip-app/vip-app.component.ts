@@ -29,8 +29,8 @@ export class VipAppComponent implements OnInit {
   }
 
   getVipApp(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
-    if (id > 0) {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id != '0') {
       var self = this;
       this.applicationService.getResponse('get_vip_app', function (obj: VipApp) {
         if (obj != null) self.vip_app = obj;
@@ -38,7 +38,7 @@ export class VipAppComponent implements OnInit {
     } else {
       this.readOnlyValue = false;
       this.vip_app = new VipApp();
-      this.vip_app.id = 0;
+      this.vip_app.id = '0';
       this.vip_app.name = 'XXX',
         this.vip_app.listen_port = 8001,
         this.vip_app.is_tcp = true;
@@ -52,7 +52,7 @@ export class VipAppComponent implements OnInit {
   addTarget() {
     if (this.readOnlyValue) return;
     var new_target: VipTarget = new VipTarget();
-    new_target.id = 0;
+    new_target.id = '0';
     new_target.vip_app_id = this.vip_app.id;
     new_target.route_type = RouteType.Reverse_Proxy;
     new_target.destination = "127.0.0.1:4001";

@@ -64,7 +64,7 @@ export class IpPolicyComponent implements OnInit {
 
     addIPPolicy() {
         let ip_policy = new IPPolicy();
-        ip_policy.id = 0;
+        ip_policy.id = '0';
         ip_policy.ip_addr = "127.0.0.1";
         ip_policy.is_allow = true;
         ip_policy.apply_to_waf = true;
@@ -82,14 +82,14 @@ export class IpPolicyComponent implements OnInit {
             self.ip_policies[index] = obj;
             self.ip_policies[index].editable = false;
             self.ipPolicyDataSource.data = self.ip_policies;
-        }, 0, ip_policy);
+        }, '0', ip_policy);
 
     }
 
     deleteIP(index: number) {
         let self = this;
         let ip_policy = this.ip_policies[index];
-        if (ip_policy.id == 0) {
+        if (ip_policy.id == '0') {
             self.ip_policies.splice(index, 1);
             self.ipPolicyDataSource.data = self.ip_policies;
         } else {

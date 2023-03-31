@@ -83,32 +83,32 @@ export class SettingsComponent implements OnInit {
       case "wxwork":
         this.applicationService.getResponse('update_wxwork_config', function (obj: WxworkConfig) {
           self.wxworkConfig = obj;
-        }, 0, this.wxworkConfig);
+        }, '0', this.wxworkConfig);
         break;
       case "dingtalk":
         this.applicationService.getResponse('update_dingtalk_config', function (obj: DingtalkConfig) {
           self.dingtalkConfig = obj;
-        }, 0, this.dingtalkConfig);
+        }, '0', this.dingtalkConfig);
         break;
       case "feishu":
         this.applicationService.getResponse('update_feishu_config', function (obj: FeishuConfig) {
           self.feishuConfig = obj;
-        }, 0, this.feishuConfig);
+        }, '0', this.feishuConfig);
         break;
       case "lark":
         this.applicationService.getResponse('update_lark_config', function (obj: LarkConfig) {
           self.larkConfig = obj;
-        }, 0, this.larkConfig);
+        }, '0', this.larkConfig);
         break;
       case "ldap":
         this.applicationService.getResponse('update_ldap_config', function (obj: LDAPConfig) {
           self.ldapConfig = obj;
-        }, 0, this.ldapConfig);
+        }, '0', this.ldapConfig);
         break;
       case "cas2":
         this.applicationService.getResponse('update_cas2_config', function (obj: CAS2Config) {
           self.cas2Config = obj;
-        }, 0, this.cas2Config);
+        }, '0', this.cas2Config);
         break;
     }
   }
@@ -126,7 +126,7 @@ export class SettingsComponent implements OnInit {
     let self = this;
     this.applicationService.getResponse('test_smtp', function () {
       self.messageService.add('Email sent, please check your inbox. If not, check your information under user management.');
-    }, 0, this.settings.smtp);
+    }, '0', this.settings.smtp);
   }
 
 

@@ -17,7 +17,7 @@ import * as cryptojs from 'crypto-js';
 export class WAFComponent implements OnInit {
     global_cc_policy: CCPolicy;
     app_cc_policy: CCPolicy;
-    selected_app_id: number;
+    selected_app_id: string;
     application: Application;
     has_custom_cc_policy: boolean = false;
     is_new_policy: boolean = false;
@@ -68,15 +68,15 @@ export class WAFComponent implements OnInit {
         }
     }
 
-    getCCPolicy(id: number) {
+    getCCPolicy(id: string) {
         var self = this;
         this.applicationService.getResponse('get_cc_policy', function (obj: CCPolicy) {
             if (obj == null) return;
-            if (id == 0) {
+            if (id == '0') {
                 self.global_cc_policy = obj;
             } else {
                 self.app_cc_policy = obj;
-                if (self.app_cc_policy.app_id != 0) {
+                if (self.app_cc_policy.app_id != '0') {
                     self.has_custom_cc_policy = true;
                 } else {
                     if (self.is_new_policy) self.has_custom_cc_policy = true;
@@ -87,15 +87,15 @@ export class WAFComponent implements OnInit {
         }, id);
     }
 
-    newCCPolicy(app_id: number) {
+    newCCPolicy(app_id: string) {
         this.is_new_policy = true;
         this.has_custom_cc_policy = true;
         this.app_cc_policy.app_id = app_id;
     }
 
-    updateCCPolicy(app_id: number) {
+    updateCCPolicy(app_id: string) {
         var cc_policy: CCPolicy;
-        if (app_id == 0) {
+        if (app_id == '0') {
             cc_policy = this.global_cc_policy;
         } else {
             cc_policy = this.app_cc_policy;
@@ -109,8 +109,8 @@ export class WAFComponent implements OnInit {
         }, app_id, cc_policy);
     }
 
-    deleteCCPolicy(app_id: number) {
-        if (app_id == 0) return;
+    deleteCCPolicy(app_id: string) {
+        if (app_id == '0') return;
         this.has_custom_cc_policy = false;
         let self = this;
         this.applicationService.getResponse('del_cc_policy', function () {
@@ -192,7 +192,7 @@ export class WAFComponent implements OnInit {
                 continue;
             }
             // second save it if not exists.
-            groupPolicy.id = 0;
+            groupPolicy.id = '0';
             this.setGroupPolicy(groupPolicy);
         }
         setTimeout(() => {
@@ -224,7 +224,7 @@ export class WAFComponent implements OnInit {
             if (obj == null) return;
             group_policy = obj;
             for (let check_item of group_policy.check_items) {
-                check_item.id = 0;
+                check_item.id = '0';
                 check_item.group_policy_id = group_policy.id;
             }
         }, null, group_policy);

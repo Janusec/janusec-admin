@@ -31,7 +31,7 @@ export class DiscoveryRulesComponent implements OnInit {
 
   addDataDiscoveryRule() {
     let discovery_rule: DiscoveryRule = {
-      id: 0,
+      id: '0',
       field_name: "",
       sample: "",
       regex: "",

@@ -39,8 +39,8 @@ export class ApplicationDetailComponent implements OnInit {
   }
 
   getApplication(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
-    if (id > 0) {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id != '0') {
       var self = this;
       this.applicationService.getResponse('get_app', function (obj: Application) {
         if (obj != null) self.application = obj;
@@ -48,7 +48,7 @@ export class ApplicationDetailComponent implements OnInit {
     } else {
       this.readOnlyValue = false;
       this.application = new Application();
-      this.application.id = 0;
+      this.application.id = '0';
       this.application.name = "XXX";
       this.application.internal_scheme = "http";
       this.application.redirect_https = true;
@@ -103,7 +103,7 @@ export class ApplicationDetailComponent implements OnInit {
   addDestination(): void {
     if (this.readOnlyValue) return;
     var new_dest: Destination = new Destination();
-    new_dest.id = 0;
+    new_dest.id = '0';
     new_dest.route_type = RouteType.Reverse_Proxy;
     new_dest.request_route = '/';
     new_dest.backend_route = '/';
@@ -111,7 +111,7 @@ export class ApplicationDetailComponent implements OnInit {
     new_dest.pods_api = 'http://127.0.0.1:8080/api/v1/namespaces/default/pods';
     new_dest.pod_port = '80';
     new_dest.app_id = this.application.id;
-    new_dest.node_id = 0;
+    new_dest.node_id = '0';
     this.application.destinations.push(new_dest);
     //console.log(this.application.destinations);
   }
@@ -130,9 +130,9 @@ export class ApplicationDetailComponent implements OnInit {
     if (this.readOnlyValue) return;
     var new_domain: Domain = new Domain();
     new_domain.name = "";
-    new_domain.id = 0;
+    new_domain.id = '0';
     new_domain.app_id = this.application.id;
-    new_domain.cert_id = 0;
+    new_domain.cert_id = '0';
     new_domain.redirect = false;
     new_domain.location = "";
     this.application.domains.push(new_domain);
@@ -170,7 +170,7 @@ export class ApplicationDetailComponent implements OnInit {
     }
     this.getApplication();
     this.acme_certificate = new Certificate();
-    this.acme_certificate.id = 0;
+    this.acme_certificate.id = '0';
     this.acme_certificate.common_name = 'Automated Certificate';
     this.getCertificates();
 

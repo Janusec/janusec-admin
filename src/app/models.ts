@@ -1,7 +1,7 @@
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 export class AuthUser {
-    user_id: number;
+    user_id: string;
     username: string;
     passwd: string;
     logged: boolean;
@@ -14,7 +14,7 @@ export class AuthUser {
 }
 
 export class AppAdmin {
-    id: number;
+    id: string;
     username: string;
     password: string;
     email: string;
@@ -25,7 +25,7 @@ export class AppAdmin {
 }
 
 export class Application {
-    id: number;
+    id: string;
     name: string;
     internal_scheme: string;
     redirect_https: boolean;
@@ -45,7 +45,7 @@ export class Application {
 }
 
 export class VipApp {
-    id: number;
+    id: string;
     name: string;
     listen_port: number;
     is_tcp: boolean;
@@ -55,8 +55,8 @@ export class VipApp {
 }
 
 export class VipTarget {
-    id: number;
-    vip_app_id: number;
+    id: string;
+    vip_app_id: string;
     route_type: RouteType;
     destination: string;
     pods_api: string;
@@ -74,7 +74,7 @@ export enum IPMethod {
 }
 
 export class Certificate {
-    id: number;
+    id: string;
     common_name: string;
     cert_content: string;
     priv_key_content: string;
@@ -91,7 +91,7 @@ export enum RouteType {
 }
 
 export class Destination {
-    id: number;
+    id: string;
     route_type: RouteType;
     request_route: string;
     backend_route: string;
@@ -99,8 +99,8 @@ export class Destination {
     pods_api: string;
     pod_port: string;
     //pods: string;
-    app_id: number;
-    node_id: number;
+    app_id: string;
+    node_id: string;
     online: boolean;
     check_time: number;
 }
@@ -111,10 +111,10 @@ export class SelfSignCert {
 }
 
 export class Domain {
-    id: number;
+    id: string;
     name: string;
-    app_id: number;
-    cert_id: number;
+    app_id: string;
+    cert_id: string;
     redirect: boolean;
     location: string;
 }
@@ -126,7 +126,7 @@ export interface APIResponse {
 }
 
 export class CCPolicy {
-    app_id: number;
+    app_id: string;
     interval_milliseconds: number;
     max_count: number;
     block_seconds: number;
@@ -171,15 +171,15 @@ export enum PolicyAction {
 }
 
 export class VulnType {
-    id: number;
+    id: string;
     name: string;
 }
 
 export class GroupPolicy {
-    id: number;
+    id: string;
     description: string;
-    app_id: number;
-    vuln_id: number;
+    app_id: string;
+    vuln_id: string;
     check_items: CheckItem[];
     hit_value: number;
     action: PolicyAction;
@@ -198,12 +198,12 @@ export enum Operation {
 }
 
 export class CheckItem {
-    id: number;
+    id: string;
     check_point: ChkPoint;
     operation: Operation;
     key_name: string;
     regex_policy: string;
-    group_policy_id: number;
+    group_policy_id: string;
 }
 
 export class RegexMatch {
@@ -218,7 +218,7 @@ export class NodesKey {
 }
 
 export class Node {
-    id: number;
+    id: string;
     version: string;
     last_ip: string;
     last_req_time: number;
@@ -226,7 +226,7 @@ export class Node {
 }
 
 export class CCLog {
-    id: number;
+    id: string;
     request_time: number;
     client_ip: string;
     host: string;
@@ -238,11 +238,11 @@ export class CCLog {
     cookies: string;
     raw_request: string;
     action: PolicyAction;
-    app_id: number;
+    app_id: string;
 }
 
 export class RegexHitLog {
-    id: number;
+    id: string;
     request_time: number;
     client_ip: string;
     host: string;
@@ -254,49 +254,49 @@ export class RegexHitLog {
     cookies: string;
     raw_request: string;
     action: PolicyAction;
-    policy_id: number;
-    app_id: number;
+    policy_id: string;
+    app_id: string;
 }
 
 export class SimpleRegexHitLog {
-    id: number;
+    id: string;
     request_time: number;
     client_ip: string;
     host: string;
     method: string;
     url_path: string;
     action: PolicyAction;
-    policy_id: number;
-    app_id: number;
+    policy_id: string;
+    app_id: string;
 }
 
 export class SimpleCCLog {
-    id: number;
+    id: string;
     request_time: number;
     client_ip: string;
     host: string;
     method: string;
     url_path: string;
     action: PolicyAction;
-    app_id: number;
+    app_id: string;
 }
 
 export class RegexHitLogsCount {
-    app_id: number;
+    app_id: string;
     start_time: number;
     end_time: number;
     count: number;
 }
 
 export class CCLogsCount {
-    app_id: number;
+    app_id: string;
     start_time: number;
     end_time: number;
     count: number;
 }
 
 export class LastRegexLogs {
-    app_id: number;
+    app_id: string;
     start_date: Date;
     end_date: Date;
     page_index: number;
@@ -305,7 +305,7 @@ export class LastRegexLogs {
 }
 
 export class LastCCLogs {
-    app_id: number;
+    app_id: string;
     start_date: Date;
     end_date: Date;
     page_index: number;
@@ -314,7 +314,7 @@ export class LastCCLogs {
 }
 
 export class VulnStat {
-    vuln_id: number;
+    vuln_id: string;
     count: number;
 }
 
@@ -352,7 +352,7 @@ export class RefererURL {
 }
 
 export class PopContent {
-    app_id: number;
+    app_id: string;
     url_path: string;
     amount: number;
 }
@@ -407,7 +407,7 @@ export class PrimarySetting {
 }
 
 export class IPPolicy {
-    id: number;
+    id: string;
     ip_addr: string;
     is_allow: boolean;
     apply_to_waf: boolean;
@@ -464,7 +464,7 @@ export class CAS2Config {
 }
 
 export class DiscoveryRule {
-    id: number;
+    id: string;
     field_name: string;
     sample: string;
     regex: string;

@@ -23,27 +23,27 @@ export class NodeDetailComponent implements OnInit {
   }
 
   getNode() {
-    let id = +this.route.snapshot.paramMap.get('id');
-    if(id>0) {
+    let id = this.route.snapshot.paramMap.get('id');
+    if (id != '0') {
       var self = this;
-      this.applicationService.getResponse('get_node', function(obj: Node){
-        if(obj != null) self.node = obj;
-      },id);
+      this.applicationService.getResponse('get_node', function (obj: Node) {
+        if (obj != null) self.node = obj;
+      }, id);
     } else {
-      this.node=new Node();
-      this.node.id=0; 
+      this.node = new Node();
+      this.node.id = '0';
       this.readOnlyValue = false;
-      this.readOnlyButtonText="Cancel";
-    }    
+      this.readOnlyButtonText = "Cancel";
+    }
   }
 
- 
+
   changeEditable() {
     this.readOnlyValue = !this.readOnlyValue;
-    if(this.readOnlyValue) {
-      this.readOnlyButtonText="Edit";
+    if (this.readOnlyValue) {
+      this.readOnlyButtonText = "Edit";
     } else {
-      this.readOnlyButtonText="Cancel";
+      this.readOnlyButtonText = "Cancel";
     }
   }
 
@@ -51,8 +51,8 @@ export class NodeDetailComponent implements OnInit {
     return this.applicationService.getDateString(unix);
   }
 
-  deleteNode(id: number) {
-    this.applicationService.getResponse('del_node', function(){}, id, null);
+  deleteNode(id: string) {
+    this.applicationService.getResponse('del_node', function () { }, id, null);
     this.router.navigate(['/nodes']);
   }
 
