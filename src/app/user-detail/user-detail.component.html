@@ -1,63 +1,55 @@
 <div *ngIf="appadmin" class="container">
 
   <h2>
-      <span i18n="@@user_details">User Details</span>
-  </h2> 
+    <span i18n="@@user_details">User Details</span>
+  </h2>
   <div>
     <mat-form-field>
-        <input matInput i18n-placeholder="@@username" 
-        #username [(ngModel)]="appadmin.username" [readonly]="readOnlyValue"
-        placeholder="Username" maxlength="128" required/>   
-        <mat-hint align="end">{{username.value?.length || 0}}/128</mat-hint> 
-    </mat-form-field>    
-    
-    <mat-form-field>
-      <input matInput i18n-placeholder="@@password" 
-      type="password" [(ngModel)]="plainpwd" [readonly]="readOnlyValue"
-      placeholder="Password"/>
-    </mat-form-field>   
+      <input matInput i18n-placeholder="@@username" #username [(ngModel)]="appadmin.username" [readonly]="readOnlyValue"
+        placeholder="Username" maxlength="128" required />
+      <mat-hint align="end">{{username.value?.length || 0}}/128</mat-hint>
+    </mat-form-field>
 
     <mat-form-field>
-      <input matInput i18n-placeholder="@@confirm_password" 
-      type="password" [(ngModel)]="plainpwd2" [readonly]="readOnlyValue"
-      placeholder="Confirm Password"/>
-    </mat-form-field>   
-    
+      <input matInput i18n-placeholder="@@password" type="password" [(ngModel)]="plainpwd" [readonly]="readOnlyValue"
+        placeholder="Password" />
+    </mat-form-field>
+
     <mat-form-field>
-      <input matInput i18n-placeholder="@@email" 
-      #email [(ngModel)]="appadmin.email" [readonly]="readOnlyValue"
-      placeholder="Email (Used for alarms)" maxlength="128" required/>   
-      <mat-hint align="end">{{email.value?.length || 0}}/128</mat-hint> 
-    </mat-form-field>    
+      <input matInput i18n-placeholder="@@confirm_password" type="password" [(ngModel)]="plainpwd2"
+        [readonly]="readOnlyValue" placeholder="Confirm Password" />
+    </mat-form-field>
 
-    <section *ngIf="applicationService.auth_user.is_super_admin==true">
-      <mat-checkbox i18n="@@super_admin" 
-      [(ngModel)]="appadmin.is_super_admin" [disabled]="readOnlyValue">
-      Super Administrator (Authorization and WAF Management) 
-    </mat-checkbox>
-    </section> 
+    <mat-form-field>
+      <input matInput i18n-placeholder="@@email" #email [(ngModel)]="appadmin.email" [readonly]="readOnlyValue"
+        placeholder="Email (Used for alarms)" maxlength="128" required />
+      <mat-hint align="end">{{email.value?.length || 0}}/128</mat-hint>
+    </mat-form-field>
 
-    <section *ngIf="applicationService.auth_user.is_super_admin==true">
-      <mat-checkbox i18n="@@certificate_admin" 
-      [(ngModel)]="appadmin.is_cert_admin" [disabled]="readOnlyValue">
+    <section *ngIf="rpcService.auth_user.is_super_admin==true">
+      <mat-checkbox i18n="@@super_admin" [(ngModel)]="appadmin.is_super_admin" [disabled]="readOnlyValue">
+        Super Administrator (Authorization and WAF Management)
+      </mat-checkbox>
+    </section>
+
+    <section *ngIf="rpcService.auth_user.is_super_admin==true">
+      <mat-checkbox i18n="@@certificate_admin" [(ngModel)]="appadmin.is_cert_admin" [disabled]="readOnlyValue">
         Certificate Administrator
       </mat-checkbox>
-    </section> 
+    </section>
 
-    <section *ngIf="applicationService.auth_user.is_super_admin==true">
-      <mat-checkbox i18n="@@application_admin" 
-      [(ngModel)]="appadmin.is_app_admin" [disabled]="readOnlyValue">
-      Application Administrator
-    </mat-checkbox>
-    </section> 
-    
+    <section *ngIf="rpcService.auth_user.is_super_admin==true">
+      <mat-checkbox i18n="@@application_admin" [(ngModel)]="appadmin.is_app_admin" [disabled]="readOnlyValue">
+        Application Administrator
+      </mat-checkbox>
+    </section>
+
   </div>
   <div>
-    <button mat-stroked-button i18n="@@save" 
-    [disabled]="readOnlyValue" (click)="onSave()">Save</button>
-    <button mat-stroked-button (click)="changeEditable()" >{{readOnlyButtonText}}</button>
-    <button mat-stroked-button i18n="@@delete" 
-    [disabled]="(appadmin.username=='admin' || appadmin.id==0)?true:readOnlyValue" 
-    (click)="onDelete()">Delete</button>
+    <button mat-stroked-button i18n="@@save" [disabled]="readOnlyValue" (click)="onSave()">Save</button>
+    <button mat-stroked-button (click)="changeEditable()">{{readOnlyButtonText}}</button>
+    <button mat-stroked-button i18n="@@delete"
+      [disabled]="(appadmin.username=='admin' || appadmin.id==0)?true:readOnlyValue"
+      (click)="onDelete()">Delete</button>
   </div>
 </div>

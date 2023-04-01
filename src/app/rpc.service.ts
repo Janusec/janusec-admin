@@ -10,7 +10,7 @@ const httpOptions = {
 };
 
 @Injectable()
-export class ApplicationService {
+export class RPCService {
   private apiUrl = '/janusec-admin/ui-api';
   auth_user: AuthUser = {
     user_id: '0',

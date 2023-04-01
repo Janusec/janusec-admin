@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { ApplicationService } from '../application.service';
+import { RPCService } from '../rpc.service';
 
 @Component({
   selector: 'app-navbar',
@@ -13,7 +13,7 @@ export class NavbarComponent implements OnInit {
   personIcon: string;
 
   constructor(
-    public applicationService: ApplicationService,
+    public rpcService: RPCService,
     private http: HttpClient,
     private router: Router) {
     this.logoPath = 'assets/images/logo.png';
@@ -45,10 +45,10 @@ export class NavbarComponent implements OnInit {
   logout() {
     const body = { action: 'logout' };
     let self = this;
-    this.applicationService.getResponse('logout', function () {
+    this.rpcService.getResponse('logout', function () {
       //
     }, null, null);
-    self.applicationService.auth_user = {
+    self.rpcService.auth_user = {
       user_id: '0',
       username: "",
       passwd: "",

@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Application, Domain, Certificate, APIResponse, Destination, IPMethod, RouteType } from '../models';
-import { ApplicationService } from '../application.service';
+import { RPCService } from '../rpc.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MessageService } from '../message.service';
 import { OAuthInfo } from '../models'
@@ -26,7 +26,7 @@ export class ApplicationDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private applicationService: ApplicationService,
+    private rpcService: RPCService,
     private router: Router,
     private messageService: MessageService,
     private http: HttpClient
@@ -42,7 +42,7 @@ export class ApplicationDetailComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     if (id != '0') {
       var self = this;
-      this.applicationService.getResponse('get_app', function (obj: Application) {
+      this.rpcService.getResponse('get_app', function (obj: Application) {
         if (obj != null) self.application = obj;
       }, id);
     } else {
@@ -60,7 +60,7 @@ export class ApplicationDetailComponent implements OnInit {
       this.application.destinations = [];
       this.application.oauth_required = false;
       this.application.session_seconds = 7200;
-      this.application.owner = this.applicationService.auth_user.username;
+      this.application.owner = this.rpcService.auth_user.username;
       this.application.csp_enabled = false;
       this.application.csp = "";
       this.application.cache_enabled = true;
@@ -72,7 +72,7 @@ export class ApplicationDetailComponent implements OnInit {
 
   setApplication() {
     var self = this;
-    this.applicationService.getResponse('update_app', function (obj: Application) {
+    this.rpcService.getResponse('update_app', function (obj: Application) {
       if (obj == null) {
         self.messageService.add("Update failed.");
         return;
@@ -94,7 +94,7 @@ export class ApplicationDetailComponent implements OnInit {
   deleteApplication() {
     if (!confirm("Are you sure to delete application: " + this.application.name + "?")) return;
     var self = this;
-    this.applicationService.getResponse('del_app', function () {
+    this.rpcService.getResponse('del_app', function () {
       self.messageService.add(self.application.name + " deleted.");
       self.router.navigate(['/applications']);
     }, this.application.id, null);
@@ -136,7 +136,7 @@ export class ApplicationDetailComponent implements OnInit {
     new_domain.redirect = false;
     new_domain.location = "";
     this.application.domains.push(new_domain);
-    //console.log(this.application.domains);
+    console.log(this.application.domains);
   }
 
 
@@ -162,11 +162,11 @@ export class ApplicationDetailComponent implements OnInit {
       }
     }
 
-    if (this.applicationService.domains == null || this.applicationService.domains.length == 0) {
-      this.applicationService.getDomains();
+    if (this.rpcService.domains == null || this.rpcService.domains.length == 0) {
+      this.rpcService.getDomains();
     }
-    if (this.applicationService.certificates == null || this.applicationService.certificates.length == 0) {
-      this.applicationService.getCertificates();
+    if (this.rpcService.certificates == null || this.rpcService.certificates.length == 0) {
+      this.rpcService.getCertificates();
     }
     this.getApplication();
     this.acme_certificate = new Certificate();
@@ -176,7 +176,7 @@ export class ApplicationDetailComponent implements OnInit {
 
     // get oauth config
     let self = this;
-    this.applicationService.getResponseByURL('/janusec-admin/oauth/info',
+    this.rpcService.getResponseByURL('/janusec-admin/oauth/info',
       function (obj: OAuthInfo) {
         if (obj != null) self.oauth = obj;
       });
@@ -185,7 +185,7 @@ export class ApplicationDetailComponent implements OnInit {
 
   getCertificates() {
     var self = this;
-    this.applicationService.getResponse('get_certs', function (obj: Certificate[]) {
+    this.rpcService.getResponse('get_certs', function (obj: Certificate[]) {
       if (obj != null) self.optionCertificates = obj; //.concat(self.acme_certificate);
     });
   }

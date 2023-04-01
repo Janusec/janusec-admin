@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApplicationService } from '../application.service';
+import { RPCService } from '../rpc.service';
 import { MessageService } from '../message.service';
 import { RouteType, VipApp, VipTarget } from '../models';
 import { Target } from '@angular/compiler';
@@ -20,7 +20,7 @@ export class VipAppComponent implements OnInit {
   readOnlyButtonText: string = "Edit"
 
   constructor(private route: ActivatedRoute,
-    private applicationService: ApplicationService,
+    private rpcService: RPCService,
     private router: Router,
     private messageService: MessageService) { }
 
@@ -32,7 +32,7 @@ export class VipAppComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     if (id != '0') {
       var self = this;
-      this.applicationService.getResponse('get_vip_app', function (obj: VipApp) {
+      this.rpcService.getResponse('get_vip_app', function (obj: VipApp) {
         if (obj != null) self.vip_app = obj;
       }, id);
     } else {
@@ -43,7 +43,7 @@ export class VipAppComponent implements OnInit {
         this.vip_app.listen_port = 8001,
         this.vip_app.is_tcp = true;
       this.vip_app.targets = [];
-      this.vip_app.owner = this.applicationService.auth_user.username;
+      this.vip_app.owner = this.rpcService.auth_user.username;
       this.vip_app.description = 'Used for YYY';
       this.addTarget();
     }
@@ -72,7 +72,7 @@ export class VipAppComponent implements OnInit {
 
   updateVipApp() {
     var self = this;
-    this.applicationService.getResponse('update_vip_app', function (obj: VipApp) {
+    this.rpcService.getResponse('update_vip_app', function (obj: VipApp) {
       if (obj == null) {
         self.messageService.add("Update failed.");
         return;
@@ -94,7 +94,7 @@ export class VipAppComponent implements OnInit {
   deleteVipApp() {
     if (!confirm("Are you sure to delete application: " + this.vip_app.name + "?")) return;
     var self = this;
-    this.applicationService.getResponse('del_vip_app', function () {
+    this.rpcService.getResponse('del_vip_app', function () {
       self.messageService.add(self.vip_app.name + " deleted.");
       self.router.navigate(['/forwarding']);
     }, this.vip_app.id, null);

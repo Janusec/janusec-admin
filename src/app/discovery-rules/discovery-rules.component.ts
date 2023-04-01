@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { DiscoveryRule } from '../models';
-import { ApplicationService } from '../application.service';
+import { RPCService } from '../rpc.service';
 
 @Component({
   selector: 'app-discovery-rules',
@@ -18,7 +18,7 @@ export class DiscoveryRulesComponent implements OnInit {
   displayedColumns = ['field_name', 'sample', 'regex', 'description', 'action'];
 
   @ViewChild('rulesPaginator') rulesPaginator: MatPaginator;
-  constructor(private applicationService: ApplicationService,
+  constructor(private rpcService: RPCService,
     public dialog: MatDialog) {
 
     this.getDiscoveryRules();
@@ -36,7 +36,7 @@ export class DiscoveryRulesComponent implements OnInit {
       sample: "",
       regex: "",
       description: "",
-      editor: this.applicationService.auth_user.username,
+      editor: this.rpcService.auth_user.username,
       update_time: 0
     };
     this.editDataDiscoveryRule(discovery_rule);
@@ -54,7 +54,7 @@ export class DiscoveryRulesComponent implements OnInit {
 
   getDiscoveryRules() {
     let self = this;
-    this.applicationService.getResponse("get_discovery_rules", function (objs: DiscoveryRule[]) {
+    this.rpcService.getResponse("get_discovery_rules", function (objs: DiscoveryRule[]) {
       if (objs == null) objs = [];
       self.discovery_rules = objs;
       self.discoveryRulesDataSource = new MatTableDataSource<DiscoveryRule>(self.discovery_rules);
@@ -65,7 +65,7 @@ export class DiscoveryRulesComponent implements OnInit {
   deleteDataDiscoveryRule(discovery_rule: DiscoveryRule) {
     if (!confirm("Are you sure to delete discovery rule for: " + discovery_rule.field_name + "?")) return;
     let self = this;
-    this.applicationService.getResponse("del_discovery_rule", function (objs: DiscoveryRule[]) {
+    this.rpcService.getResponse("del_discovery_rule", function (objs: DiscoveryRule[]) {
       // refresh
       self.getDiscoveryRules();
     }, discovery_rule.id);

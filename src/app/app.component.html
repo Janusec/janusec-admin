@@ -2,8 +2,8 @@
     <app-navbar></app-navbar>
     <app-messages></app-messages>
     <mat-sidenav-container class="sidenav-container">
-        <mat-sidenav *ngIf="applicationService.auth_user.logged" #sidenav mode="side" [(opened)]="showSidenav"
-            class="sidenav" role="navigation">
+        <mat-sidenav *ngIf="rpcService.auth_user.logged" #sidenav mode="side" [(opened)]="showSidenav" class="sidenav"
+            role="navigation">
             <mat-nav-list>
                 <mat-list-item>
                     <a routerLink="/dashboard">
@@ -35,7 +35,7 @@
                             </a>
                         </mat-list-item>
 
-                        <mat-list-item *ngIf="applicationService.auth_user.is_super_admin==true">
+                        <mat-list-item *ngIf="rpcService.auth_user.is_super_admin==true">
                             <a routerLink="/forwarding">
                                 <mat-icon>forward</mat-icon>
                                 <span i18n="@@vip_app">Forwarding</span>
@@ -61,21 +61,21 @@
                             </mat-panel-title>
                         </mat-expansion-panel-header>
 
-                        <mat-list-item *ngIf="applicationService.auth_user.is_super_admin==true">
+                        <mat-list-item *ngIf="rpcService.auth_user.is_super_admin==true">
                             <a routerLink="/waf">
                                 <mat-icon>blur_on</mat-icon>
                                 <span i18n="@@waf_mgmt">WAF</span>
                             </a>
                         </mat-list-item>
 
-                        <mat-list-item *ngIf="applicationService.auth_user.is_super_admin==true">
+                        <mat-list-item *ngIf="rpcService.auth_user.is_super_admin==true">
                             <a routerLink="/cc">
                                 <mat-icon>blur_on</mat-icon>
                                 <span i18n="@@cc_defense">CC Defense</span>
                             </a>
                         </mat-list-item>
 
-                        <mat-list-item *ngIf="applicationService.auth_user.is_super_admin==true">
+                        <mat-list-item *ngIf="rpcService.auth_user.is_super_admin==true">
                             <a routerLink="/ip-policy">
                                 <mat-icon>blur_on</mat-icon>
                                 <span i18n="@@ip_policy">IP Policy</span>
@@ -101,7 +101,7 @@
                             </a>
                         </mat-list-item>
 
-                        <mat-list-item *ngIf="applicationService.auth_user.is_super_admin==true">
+                        <mat-list-item *ngIf="rpcService.auth_user.is_super_admin==true">
                             <a routerLink="/nodes">
                                 <mat-icon>games</mat-icon>
                                 <span i18n="@@node_mgmt">Node</span>
@@ -146,7 +146,7 @@
 
                 <mat-divider></mat-divider>
 
-                <mat-list-item *ngIf="applicationService.auth_user.is_super_admin==true">
+                <mat-list-item *ngIf="rpcService.auth_user.is_super_admin==true">
                     <a routerLink="/settings">
                         <mat-icon>settings</mat-icon>
                         <span i18n="@@global_settings">Global Settings</span>

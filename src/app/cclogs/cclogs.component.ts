@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Application, SimpleCCLog, CCLogsCount, PolicyAction } from '../models';
 import { Router } from '@angular/router';
-import { ApplicationService } from '../application.service';
+import { RPCService } from '../rpc.service';
 import { MessageService } from '../message.service';
 import { MatPaginator } from '@angular/material/paginator';
 
@@ -23,43 +23,43 @@ export class CCLogsComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(public applicationService: ApplicationService,
+  constructor(public rpcService: RPCService,
     private router: Router,
     private messageService: MessageService) { }
 
   ngOnInit() {
-    if (this.applicationService.auth_user.logged == false) {
+    if (this.rpcService.auth_user.logged == false) {
       this.router.navigate(['/']);
       return
     }
-    if (this.applicationService.auth_user.need_modify_pwd) {
-      this.router.navigate(['/appuser/' + this.applicationService.auth_user.user_id]);
+    if (this.rpcService.auth_user.need_modify_pwd) {
+      this.router.navigate(['/appuser/' + this.rpcService.auth_user.user_id]);
       return
     }
-    if (this.applicationService.applications.length == 0) {
+    if (this.rpcService.applications.length == 0) {
       var self = this;
-      this.applicationService.getResponse('get_apps', function (objs: Application[]) {
+      this.rpcService.getResponse('get_apps', function (objs: Application[]) {
         if (objs != null) {
-          self.applicationService.applications = objs;
-          if (objs.length > 0) self.app_id = self.applicationService.applications[0].id;
+          self.rpcService.applications = objs;
+          if (objs.length > 0) self.app_id = self.rpcService.applications[0].id;
         }
       });
     } else {
-      this.app_id = this.applicationService.applications[0].id;
+      this.app_id = this.rpcService.applications[0].id;
     }
     this.start_date = new Date();
     this.start_date.setHours(0, 0, 0, 0);
     this.end_date = new Date();
     this.end_date.setHours(23, 59, 59, 0);
-    this.ccLogDataSource = new LogsDataSource(this.applicationService);
+    this.ccLogDataSource = new LogsDataSource(this.rpcService);
     // Load last logs
-    if (this.applicationService.lastCCLogs.length > 0) {
+    if (this.rpcService.lastCCLogs.length > 0) {
       this.ccLogDataSource.loadLast();
-      this.app_id = this.applicationService.lastCCLogs.app_id;
-      this.start_date = this.applicationService.lastCCLogs.start_date;
-      this.end_date = this.applicationService.lastCCLogs.end_date;
-      this.paginator.length = this.applicationService.lastCCLogs.length;
-      this.paginator.pageIndex = this.applicationService.lastCCLogs.page_index;
+      this.app_id = this.rpcService.lastCCLogs.app_id;
+      this.start_date = this.rpcService.lastCCLogs.start_date;
+      this.end_date = this.rpcService.lastCCLogs.end_date;
+      this.paginator.length = this.rpcService.lastCCLogs.length;
+      this.paginator.pageIndex = this.rpcService.lastCCLogs.page_index;
     }
 
   }
@@ -68,11 +68,11 @@ export class CCLogsComponent implements OnInit {
     let body = { action: "get_cc_logs_count", app_id: app_id, start_time: start_time, end_time: end_time }
     var self = this;
     this.paginator.pageIndex = 0;
-    this.applicationService.getResponseByCustomBody(body, function (obj: CCLogsCount) {
+    this.rpcService.getResponseByCustomBody(body, function (obj: CCLogsCount) {
       if (obj != null) {
         self.paginator.length = obj.count;
         self.ccLogDataSource.loadLogs(self.app_id, start_time, end_time, 0, self.request_count);
-        self.applicationService.lastCCLogs.length = obj.count;
+        self.rpcService.lastCCLogs.length = obj.count;
       }
     });
   }
@@ -90,7 +90,7 @@ export class CCLogsComponent implements OnInit {
   }
 
   getDate(unix: number): string {
-    return this.applicationService.getDateString(unix);
+    return this.rpcService.getDateString(unix);
   }
 
   getPolicyActionEnumString(value: number) {
@@ -110,7 +110,7 @@ export class LogsDataSource implements DataSource<SimpleCCLog> {
 
   public loading$ = this.loadingSubject.asObservable();
 
-  constructor(private applicationService: ApplicationService) { }
+  constructor(private rpcService: RPCService) { }
 
   connect(collectionViewer: CollectionViewer): Observable<SimpleCCLog[]> {
     return this.logsSubject.asObservable();
@@ -125,20 +125,20 @@ export class LogsDataSource implements DataSource<SimpleCCLog> {
     this.loadingSubject.next(true);
     let body = { action: "get_cc_logs", app_id: app_id, start_time: start_time, end_time: end_time, request_count: pageSize, offset: pageIndex * pageSize }
     var self = this;
-    this.applicationService.getResponseByCustomBody(body, function (logs: SimpleCCLog[]) {
+    this.rpcService.getResponseByCustomBody(body, function (logs: SimpleCCLog[]) {
       if (logs != null) {
         self.logsSubject.next(logs)
-        self.applicationService.lastCCLogs.app_id = app_id;
-        self.applicationService.lastCCLogs.start_date = new Date(start_time * 1000);
-        self.applicationService.lastCCLogs.end_date = new Date((end_time - 1) * 1000);
-        self.applicationService.lastCCLogs.page_index = pageIndex;
-        self.applicationService.lastCCLogs.cc_logs = logs;
+        self.rpcService.lastCCLogs.app_id = app_id;
+        self.rpcService.lastCCLogs.start_date = new Date(start_time * 1000);
+        self.rpcService.lastCCLogs.end_date = new Date((end_time - 1) * 1000);
+        self.rpcService.lastCCLogs.page_index = pageIndex;
+        self.rpcService.lastCCLogs.cc_logs = logs;
       }
     });
   }
 
   loadLast() {
-    this.logsSubject.next(this.applicationService.lastCCLogs.cc_logs);
+    this.logsSubject.next(this.rpcService.lastCCLogs.cc_logs);
   }
 
 }

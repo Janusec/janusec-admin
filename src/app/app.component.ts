@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApplicationService } from './application.service';
+import { RPCService } from './rpc.service';
 import { AuthUser } from './models';
 
 @Component({
@@ -14,14 +14,14 @@ export class AppComponent {
   showSidenav = true;
   constructor(
     private router: Router,
-    public applicationService: ApplicationService) {  
-   }
+    public rpcService: RPCService) {
+  }
 
   ngOnInit() {
-  }  
+  }
 
   toggleSidenav() {
-      this.showSidenav = !this.showSidenav;
+    this.showSidenav = !this.showSidenav;
   }
 
 }

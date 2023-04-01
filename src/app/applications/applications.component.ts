@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router }            from '@angular/router';
+import { Router } from '@angular/router';
 import { Application } from '../models';
-import { ApplicationService } from '../application.service';
+import { RPCService } from '../rpc.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 //import 'rxjs/add/operator/switchMap';
@@ -12,7 +12,7 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./applications.component.css']
 })
 export class ApplicationsComponent implements OnInit {
-  
+
   //selectedApplication: Application;
   appDataSource: MatTableDataSource<Application>;
   displayedColumns = ['id', 'name', 'description', 'waf_enabled'];
@@ -22,26 +22,25 @@ export class ApplicationsComponent implements OnInit {
   @ViewChild('appPaginator') appPaginator: MatPaginator;
 
   constructor(
-    public applicationService: ApplicationService,
+    public rpcService: RPCService,
     private router: Router) { }
 
   ngOnInit(): void {
-    if (this.applicationService.auth_user.logged==false) {
+    if (this.rpcService.auth_user.logged == false) {
       this.router.navigate(['/']);
       return
-    } 
-    if (this.applicationService.auth_user.need_modify_pwd) {
-      this.router.navigate(['/appuser/'+this.applicationService.auth_user.user_id]);
     }
-    this.applicationService.getApplications();
-    setTimeout(() => 
-    {
-      if (this.applicationService.auth_user.logged==false) {
+    if (this.rpcService.auth_user.need_modify_pwd) {
+      this.router.navigate(['/appuser/' + this.rpcService.auth_user.user_id]);
+    }
+    this.rpcService.getApplications();
+    setTimeout(() => {
+      if (this.rpcService.auth_user.logged == false) {
         this.router.navigate(['/login']);
-      } 
-      this.appDataSource = new MatTableDataSource<Application>(this.applicationService.applications);
-      this.appLength = this.applicationService.applications.length;
-    },500); 
+      }
+      this.appDataSource = new MatTableDataSource<Application>(this.rpcService.applications);
+      this.appLength = this.rpcService.applications.length;
+    }, 500);
   }
 
   /*
@@ -55,7 +54,7 @@ export class ApplicationsComponent implements OnInit {
   }
   */
 
-  addApplication():void {
+  addApplication(): void {
     this.router.navigate(['/application/0']);
   }
 

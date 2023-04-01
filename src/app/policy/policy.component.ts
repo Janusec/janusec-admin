@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApplicationService } from '../application.service';
+import { RPCService } from '../rpc.service';
 import { MessageService } from '../message.service';
 import { GroupPolicy, APIResponse, ChkPoint, PolicyAction, RegexMatch, CheckItem, Operation } from '../models';
 
@@ -20,7 +20,7 @@ export class PolicyComponent implements OnInit {
   chkpointHeadValue: number = ChkPoint.HeaderValue;
 
   constructor(private route: ActivatedRoute,
-    private applicationService: ApplicationService,
+    private rpcService: RPCService,
     private router: Router,
     private messageService: MessageService) { }
 
@@ -41,7 +41,7 @@ export class PolicyComponent implements OnInit {
       this.readOnlyButtonText = "Cancel";
     } else {
       var self = this;
-      this.applicationService.getResponse('get_group_policy', function (obj: GroupPolicy) {
+      this.rpcService.getResponse('get_group_policy', function (obj: GroupPolicy) {
         if (obj != null) {
           self.group_policy = obj;
           self.regex_match.pattern = self.group_policy.check_items[0].regex_policy;
@@ -53,7 +53,7 @@ export class PolicyComponent implements OnInit {
 
   setGroupPolicy() {
     var self = this;
-    this.applicationService.getResponse('update_group_policy', function (obj: GroupPolicy) {
+    this.rpcService.getResponse('update_group_policy', function (obj: GroupPolicy) {
       if (obj == null) return;
       let new_id = obj.id;
       if (self.group_policy.id == new_id) {
@@ -73,11 +73,11 @@ export class PolicyComponent implements OnInit {
 
   ngOnInit() {
     this.getGroupPolicy();
-    if (this.applicationService.applications.length == 0) {
-      this.applicationService.getApplications();
+    if (this.rpcService.applications.length == 0) {
+      this.rpcService.getApplications();
     }
-    if (this.applicationService.vulntypes.length == 0) {
-      this.applicationService.getVulnTypes(function () { });
+    if (this.rpcService.vulntypes.length == 0) {
+      this.rpcService.getVulnTypes(function () { });
     }
     //init Check Points enum
     /*
@@ -124,13 +124,13 @@ export class PolicyComponent implements OnInit {
   }
 
   getDate(unix: number): string {
-    return this.applicationService.getDateString(unix);
+    return this.rpcService.getDateString(unix);
   }
 
   testRegex() {
     this.regex_match.matched = null;
     var self = this;
-    this.applicationService.getResponse('test_regex', function (obj: RegexMatch) {
+    this.rpcService.getResponse('test_regex', function (obj: RegexMatch) {
       if (obj != null) self.regex_match = obj;
     }, null, self.regex_match);
   }
@@ -158,7 +158,7 @@ export class PolicyComponent implements OnInit {
   delGroupPolicy() {
     if (this.readOnlyValue) return;
     var self = this;
-    this.applicationService.getResponse('del_group_policy', function () {
+    this.rpcService.getResponse('del_group_policy', function () {
       self.router.navigate(['/waf']);
       self.messageService.add("Policy Deleted.");
     }, this.group_policy.id, null);

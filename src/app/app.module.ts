@@ -9,7 +9,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { MessagesComponent } from './messages/messages.component';
 import { MessageService } from './message.service';
-import { ApplicationService } from './application.service';
+import { RPCService } from './rpc.service';
 import { ApplicationsComponent } from './applications/applications.component';
 import { ApplicationDetailComponent } from './application-detail/application-detail.component';
 import { CertificatesComponent } from './certificates/certificates.component';
@@ -160,7 +160,7 @@ export class MaterialModule { }
         QRCodeModule
     ],
     providers: [MessageService,
-        ApplicationService,
+        RPCService,
         { provide: LocationStrategy, useClass: HashLocationStrategy },
     ],
     bootstrap: [AppComponent]

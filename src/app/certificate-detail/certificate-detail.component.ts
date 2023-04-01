@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Certificate, APIResponse, SelfSignCert } from '../models';
-import { ApplicationService } from '../application.service';
+import { RPCService } from '../rpc.service';
 import { MessageService } from '../message.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class CertificateDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private applicationService: ApplicationService,
+    private rpcService: RPCService,
     private router: Router,
     private messageService: MessageService,
     private http: HttpClient
@@ -34,7 +34,7 @@ export class CertificateDetailComponent implements OnInit {
     let id = this.route.snapshot.paramMap.get('id');
     if (id != '0') {
       var self = this;
-      this.applicationService.getResponse('get_cert', function (obj: Certificate) {
+      this.rpcService.getResponse('get_cert', function (obj: Certificate) {
         if (obj != null) self.certificate = obj;
       }, id);
     } else {
@@ -49,7 +49,7 @@ export class CertificateDetailComponent implements OnInit {
 
   setCertificate() {
     var self = this;
-    this.applicationService.getResponse('update_cert', function (obj: Certificate) {
+    this.rpcService.getResponse('update_cert', function (obj: Certificate) {
       if (obj != null) {
         let new_id = obj.id;
         if (self.certificate.id == new_id) {
@@ -68,7 +68,7 @@ export class CertificateDetailComponent implements OnInit {
   deleteCertificate() {
     if (!confirm("Are you sure to delete certificate: " + this.certificate.common_name + "?")) return;
     var self = this;
-    this.applicationService.getResponse('del_cert', function () {
+    this.rpcService.getResponse('del_cert', function () {
       self.messageService.add(self.certificate.common_name + " deleted.");
       self.router.navigate(['/certificates']);
     }, this.certificate.id, null);
@@ -77,7 +77,7 @@ export class CertificateDetailComponent implements OnInit {
   selfSignCertificate() {
     var self = this;
     var object = { common_name: this.certificate.common_name };
-    this.applicationService.getResponse('self_sign_cert', function (obj: SelfSignCert) {
+    this.rpcService.getResponse('self_sign_cert', function (obj: SelfSignCert) {
       if (obj != null) {
         self.certificate.cert_content = obj.cert_content;
         self.certificate.priv_key_content = obj.priv_key_content;
@@ -92,7 +92,7 @@ export class CertificateDetailComponent implements OnInit {
 
 
   changeEditable() {
-    if (this.applicationService.auth_user.is_super_admin == false) return;
+    if (this.rpcService.auth_user.is_super_admin == false) return;
     this.readOnlyValue = !this.readOnlyValue;
     if (this.readOnlyValue) {
       this.readOnlyButtonText = "Edit";
@@ -102,7 +102,7 @@ export class CertificateDetailComponent implements OnInit {
   }
 
   getDate(unix: number): string {
-    return this.applicationService.getDateString(unix);
+    return this.rpcService.getDateString(unix);
   }
 
   readCertificateFile(event) {

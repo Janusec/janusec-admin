@@ -1,94 +1,95 @@
 <div class="container">
-<div fxLayout="row wrap" *ngIf="applicationService.auth_user.logged">
-<div fxFlex="50%">
-    <mat-form-field>
-     <mat-select i18n-placeholder="@@application" [(ngModel)]="selected_app_id" placeholder="Application">
-     <mat-option i18n="@@all" [value]=0>All applications</mat-option>
-     <mat-option *ngFor="let application of applicationService.applications;" [value]="application.id">
-         {{application.name}}
-     </mat-option>  
-     </mat-select> 
-   </mat-form-field>
-   <button mat-stroked-button i18n="@@view" (click)="statByAppID()">View</button>
-    <div class="myChart">
-    <canvas id="today_canvas">{{ todayVulnChart }}</canvas>
-    </div>
-</div>
+    <div fxLayout="row wrap" *ngIf="rpcService.auth_user.logged">
+        <div fxFlex="50%">
+            <mat-form-field>
+                <mat-select i18n-placeholder="@@application" [(ngModel)]="selected_app_id" placeholder="Application">
+                    <mat-option i18n="@@all" value="0">All applications</mat-option>
+                    <mat-option *ngFor="let application of rpcService.applications;" [value]="application.id">
+                        {{application.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <button mat-stroked-button i18n="@@view" (click)="statByAppID()">View</button>
+            <div class="myChart">
+                <canvas id="today_canvas">{{ todayVulnChart }}</canvas>
+            </div>
+        </div>
 
-<div fxFlex="50%">
-  <mat-form-field>
-    <mat-select i18n-placeholder="@@vulnerability" [(ngModel)]="selected_vuln_id" placeholder="Vulnerability">
-        <mat-option i18n="@@all" [value]=0>All</mat-option>
-    <mat-option *ngFor="let vulntype of applicationService.vulntypes;" [value]="vulntype.id">
-        {{vulntype.name}}
-    </mat-option>  
-    </mat-select> 
-  </mat-form-field>
-  <button mat-stroked-button i18n="@@view" (click)="statByAppAndVuln()">View</button>
-  <div class="myChart">
-      <canvas id="week_canvas">{{ weekCountChart }}</canvas>
-  </div>
-</div>
+        <div fxFlex="50%">
+            <mat-form-field>
+                <mat-select i18n-placeholder="@@vulnerability" [(ngModel)]="selected_vuln_id"
+                    placeholder="Vulnerability">
+                    <mat-option i18n="@@all" value="0">All</mat-option>
+                    <mat-option *ngFor="let vulntype of rpcService.vulntypes;" [value]="vulntype.id">
+                        {{vulntype.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <button mat-stroked-button i18n="@@view" (click)="statByAppAndVuln()">View</button>
+            <div class="myChart">
+                <canvas id="week_canvas">{{ weekCountChart }}</canvas>
+            </div>
+        </div>
 
-</div>
+    </div>
 
-<div fxLayout="row wrap" *ngIf="applicationService.auth_user.logged">
-    <div fxFlex="100%">      
-       <div class="statChart">
-       <canvas id="stat_canvas">{{ accessStatChart }}</canvas>
-       </div>
+    <div fxLayout="row wrap" *ngIf="rpcService.auth_user.logged">
+        <div fxFlex="100%">
+            <div class="statChart">
+                <canvas id="stat_canvas">{{ accessStatChart }}</canvas>
+            </div>
+        </div>
     </div>
-</div>
 
-<div fxLayout="row wrap" *ngIf="applicationService.auth_user.logged">
-    <div fxFlex="100%" class="access_div">      
-        <table class="top_access_table">
-            <caption i18n="@@popular_content_today">Popular Content Today</caption>
-            <tr>
-                <th width="30%">Application</th>
-                <th width="60%">URL</th>
-                <th width="10%">Count</th>
-            </tr>
-            <tr *ngFor="let popContent of pop_contents">
-                <td>
-                    {{ getAppNameByID(popContent.app_id) }}
-                </td>
-                <td>
-                    {{ popContent.url_path }}
-                </td>
-                <td class="td-align-center">
-                    {{ popContent.amount }}
-                </td>
-            </tr>            
-        </table>
-        
+    <div fxLayout="row wrap" *ngIf="rpcService.auth_user.logged">
+        <div fxFlex="100%" class="access_div">
+            <table class="top_access_table">
+                <caption i18n="@@popular_content_today">Popular Content Today</caption>
+                <tr>
+                    <th width="30%">Application</th>
+                    <th width="60%">URL</th>
+                    <th width="10%">Count</th>
+                </tr>
+                <tr *ngFor="let popContent of pop_contents">
+                    <td>
+                        {{ getAppNameByID(popContent.app_id) }}
+                    </td>
+                    <td>
+                        {{ popContent.url_path }}
+                    </td>
+                    <td class="td-align-center">
+                        {{ popContent.amount }}
+                    </td>
+                </tr>
+            </table>
+
+        </div>
     </div>
-</div>
-<br/>
-<div fxLayout="row wrap" *ngIf="applicationService.auth_user.logged">
-    <div fxFlex="100%" class="access_div">      
-        <table class="top_access_table">
-            <caption i18n="@@referring_sites">Referring Sites (14 days)</caption>
-            <tr>
-                <th width="30%">Site</th>
-                <th width="35%">PV</th>
-                <th width="35%">UV</th>
-            </tr>
-            <tr *ngFor="let referer of referer_hosts">
-                <td>
-                    <a routerLink="/referring/{{ selected_app_id }}/{{ referer.host }}">
-                        {{ referer.host }}
-                    </a>                   
-                </td>
-                <td class="td-align-center">
-                    {{ referer.PV }}
-                </td>
-                <td class="td-align-center">
-                    {{ referer.UV }}
-                </td>
-            </tr>            
-        </table>        
+    <br />
+    <div fxLayout="row wrap" *ngIf="rpcService.auth_user.logged">
+        <div fxFlex="100%" class="access_div">
+            <table class="top_access_table">
+                <caption i18n="@@referring_sites">Referring Sites (14 days)</caption>
+                <tr>
+                    <th width="30%">Site</th>
+                    <th width="35%">PV</th>
+                    <th width="35%">UV</th>
+                </tr>
+                <tr *ngFor="let referer of referer_hosts">
+                    <td>
+                        <a routerLink="/referring/{{ selected_app_id }}/{{ referer.host }}">
+                            {{ referer.host }}
+                        </a>
+                    </td>
+                    <td class="td-align-center">
+                        {{ referer.PV }}
+                    </td>
+                    <td class="td-align-center">
+                        {{ referer.UV }}
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
-</div>
 
 </div>

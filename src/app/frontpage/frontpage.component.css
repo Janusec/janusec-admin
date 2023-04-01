@@ -5,12 +5,12 @@ mat-card {
 }
 
 .card-content {
-    padding-top: 1px 1px;
+    padding-top: 15px;
 }
 
 .card-image {
-   width: 70%;
-   margin-left: 15%;
+    width: 70%;
+    margin-left: 15%;
 }
 
 .mat-list-item {

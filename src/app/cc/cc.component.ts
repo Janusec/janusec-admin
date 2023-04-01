@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { CCPolicy, APIResponse } from '../models';
 import { MessageService } from '../message.service';
 import { Application, GroupPolicy, PolicyAction, IPPolicy } from '../models';
-import { ApplicationService } from '../application.service';
+import { RPCService } from '../rpc.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -23,28 +23,28 @@ export class CcComponent implements OnInit {
     enum_action_values: { value: number; name: string }[] = [];//number[]=[];
 
     constructor(public messageService: MessageService,
-        public applicationService: ApplicationService,
+        public rpcService: RPCService,
         private router: Router) {
         this.global_cc_policy = new (CCPolicy);
         this.app_cc_policy = new (CCPolicy);
-        if (this.applicationService.auth_user.logged) {
-            if (this.applicationService.applications.length == 0) {
-                this.applicationService.getApplications();
+        if (this.rpcService.auth_user.logged) {
+            if (this.rpcService.applications.length == 0) {
+                this.rpcService.getApplications();
             }
-            if (this.applicationService.vulntypes.length == 0) {
-                this.applicationService.getVulnTypes(function () { });
+            if (this.rpcService.vulntypes.length == 0) {
+                this.rpcService.getVulnTypes(function () { });
             }
             this.getCCPolicy('0');
         }
     }
 
     ngOnInit() {
-        if (this.applicationService.auth_user.logged == false) {
+        if (this.rpcService.auth_user.logged == false) {
             this.router.navigate(['/']);
             return
         }
-        if (this.applicationService.auth_user.need_modify_pwd) {
-            this.router.navigate(['/appuser/' + this.applicationService.auth_user.user_id]);
+        if (this.rpcService.auth_user.need_modify_pwd) {
+            this.router.navigate(['/appuser/' + this.rpcService.auth_user.user_id]);
         }
         for (var n in PolicyAction) {
             if (typeof PolicyAction[n] == 'number') {
@@ -55,7 +55,7 @@ export class CcComponent implements OnInit {
 
     getCCPolicy(id: string) {
         var self = this;
-        this.applicationService.getResponse('get_cc_policy', function (obj: CCPolicy) {
+        this.rpcService.getResponse('get_cc_policy', function (obj: CCPolicy) {
             if (obj == null) return;
             if (id == '0') {
                 self.global_cc_policy = obj;
@@ -89,7 +89,7 @@ export class CcComponent implements OnInit {
             }
         }
         let self = this;
-        this.applicationService.getResponse('update_cc_policy', function () {
+        this.rpcService.getResponse('update_cc_policy', function () {
             self.messageService.add("CC policy updated!");
         }, app_id, cc_policy);
     }
@@ -98,14 +98,14 @@ export class CcComponent implements OnInit {
         if (app_id == '0') return;
         this.has_custom_cc_policy = false;
         let self = this;
-        this.applicationService.getResponse('del_cc_policy', function () {
+        this.rpcService.getResponse('del_cc_policy', function () {
             self.messageService.add("CC policy deleted!");
         }, app_id, null);
     }
 
     onSelectApp() {
         var self = this;
-        this.applicationService.getResponse('get_app', function (obj: Application) {
+        this.rpcService.getResponse('get_app', function (obj: Application) {
             if (obj != null) self.application = obj;
         }, this.selected_app_id);
         this.getCCPolicy(this.selected_app_id);
@@ -113,7 +113,7 @@ export class CcComponent implements OnInit {
     }
 
     getVulnNameByID(vuln_id: number) {
-        return this.applicationService.vulntypemap[vuln_id];
+        return this.rpcService.vulntypemap[vuln_id];
     }
 
 }

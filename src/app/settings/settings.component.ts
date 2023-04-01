@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ApplicationService } from '../application.service';
+import { RPCService } from '../rpc.service';
 import { PrimarySetting, WxworkConfig, DingtalkConfig, FeishuConfig, LDAPConfig, CAS2Config, LarkConfig, DiscoveryRule } from '../models';
 import { MessageService } from '../message.service';
 
@@ -21,10 +21,10 @@ export class SettingsComponent implements OnInit {
   cas2Config: CAS2Config;
 
 
-  constructor(private applicationService: ApplicationService,
+  constructor(private rpcService: RPCService,
     private messageService: MessageService) {
     let self = this;
-    this.applicationService.getResponse('get_primary_setting', function (obj: PrimarySetting) {
+    this.rpcService.getResponse('get_primary_setting', function (obj: PrimarySetting) {
       self.settings = obj;
       self.loadAuthProvider(self.settings.auth_provider);
     });
@@ -38,32 +38,32 @@ export class SettingsComponent implements OnInit {
     let self = this;
     switch (this.settings.auth_provider) {
       case "wxwork":
-        this.applicationService.getResponse('get_wxwork_config', function (obj: WxworkConfig) {
+        this.rpcService.getResponse('get_wxwork_config', function (obj: WxworkConfig) {
           self.wxworkConfig = obj;
         });
         break;
       case "dingtalk":
-        this.applicationService.getResponse('get_dingtalk_config', function (obj: DingtalkConfig) {
+        this.rpcService.getResponse('get_dingtalk_config', function (obj: DingtalkConfig) {
           self.dingtalkConfig = obj;
         });
         break;
       case "feishu":
-        this.applicationService.getResponse('get_feishu_config', function (obj: FeishuConfig) {
+        this.rpcService.getResponse('get_feishu_config', function (obj: FeishuConfig) {
           self.feishuConfig = obj;
         });
         break;
       case "lark":
-        this.applicationService.getResponse('get_lark_config', function (obj: LarkConfig) {
+        this.rpcService.getResponse('get_lark_config', function (obj: LarkConfig) {
           self.larkConfig = obj;
         });
         break;
       case "ldap":
-        this.applicationService.getResponse('get_ldap_config', function (obj: LDAPConfig) {
+        this.rpcService.getResponse('get_ldap_config', function (obj: LDAPConfig) {
           self.ldapConfig = obj;
         });
         break;
       case "cas2":
-        this.applicationService.getResponse('get_cas2_config', function (obj: CAS2Config) {
+        this.rpcService.getResponse('get_cas2_config', function (obj: CAS2Config) {
           self.cas2Config = obj;
         });
         break;
@@ -72,7 +72,7 @@ export class SettingsComponent implements OnInit {
 
   saveSettings() {
     let self = this;
-    this.applicationService.getResponse('update_primary_setting', function (obj: PrimarySetting) {
+    this.rpcService.getResponse('update_primary_setting', function (obj: PrimarySetting) {
       self.settings = obj;
       self.readOnlyValue = true;
       self.readOnlyButtonText = "Edit";
@@ -81,32 +81,32 @@ export class SettingsComponent implements OnInit {
     // update auth_provider
     switch (this.settings.auth_provider) {
       case "wxwork":
-        this.applicationService.getResponse('update_wxwork_config', function (obj: WxworkConfig) {
+        this.rpcService.getResponse('update_wxwork_config', function (obj: WxworkConfig) {
           self.wxworkConfig = obj;
         }, '0', this.wxworkConfig);
         break;
       case "dingtalk":
-        this.applicationService.getResponse('update_dingtalk_config', function (obj: DingtalkConfig) {
+        this.rpcService.getResponse('update_dingtalk_config', function (obj: DingtalkConfig) {
           self.dingtalkConfig = obj;
         }, '0', this.dingtalkConfig);
         break;
       case "feishu":
-        this.applicationService.getResponse('update_feishu_config', function (obj: FeishuConfig) {
+        this.rpcService.getResponse('update_feishu_config', function (obj: FeishuConfig) {
           self.feishuConfig = obj;
         }, '0', this.feishuConfig);
         break;
       case "lark":
-        this.applicationService.getResponse('update_lark_config', function (obj: LarkConfig) {
+        this.rpcService.getResponse('update_lark_config', function (obj: LarkConfig) {
           self.larkConfig = obj;
         }, '0', this.larkConfig);
         break;
       case "ldap":
-        this.applicationService.getResponse('update_ldap_config', function (obj: LDAPConfig) {
+        this.rpcService.getResponse('update_ldap_config', function (obj: LDAPConfig) {
           self.ldapConfig = obj;
         }, '0', this.ldapConfig);
         break;
       case "cas2":
-        this.applicationService.getResponse('update_cas2_config', function (obj: CAS2Config) {
+        this.rpcService.getResponse('update_cas2_config', function (obj: CAS2Config) {
           self.cas2Config = obj;
         }, '0', this.cas2Config);
         break;
@@ -124,7 +124,7 @@ export class SettingsComponent implements OnInit {
 
   testSMTP() {
     let self = this;
-    this.applicationService.getResponse('test_smtp', function () {
+    this.rpcService.getResponse('test_smtp', function () {
       self.messageService.add('Email sent, please check your inbox. If not, check your information under user management.');
     }, '0', this.settings.smtp);
   }

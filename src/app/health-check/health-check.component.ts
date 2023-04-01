@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Application, Destination, RouteType, GateHealth, VipTarget, VipApp } from '../models';
-import { ApplicationService } from '../application.service';
+import { RPCService } from '../rpc.service';
 
 @Component({
   selector: 'app-health-check',
@@ -17,11 +17,11 @@ export class HealthCheckComponent implements OnInit {
   selected_app: Application;
   gate_health: GateHealth;
 
-  constructor(public applicationService: ApplicationService,
+  constructor(public rpcService: RPCService,
     private router: Router) { }
 
   ngOnInit(): void {
-    if (this.applicationService.auth_user.logged == false) {
+    if (this.rpcService.auth_user.logged == false) {
       this.router.navigate(['/']);
       return
     }
@@ -37,12 +37,12 @@ export class HealthCheckComponent implements OnInit {
     this.unvisitedVipTargets = [];
     let self = this;
     var now_ms = (new Date()).getTime();
-    this.applicationService.getResponse('get_apps', function (obj: Application[]) {
-      self.applicationService.applications = obj;
-      for (let app of self.applicationService.applications) {
-        self.applicationService.appmap[app.id] = app.name;
+    this.rpcService.getResponse('get_apps', function (obj: Application[]) {
+      self.rpcService.applications = obj;
+      for (let app of self.rpcService.applications) {
+        self.rpcService.appmap[app.id] = app.name;
       }
-      for (let app of self.applicationService.applications) {
+      for (let app of self.rpcService.applications) {
         for (let dest of app.destinations) {
           if (dest.route_type != RouteType.Reverse_Proxy) continue;
           if (dest.online == false) {
@@ -53,10 +53,10 @@ export class HealthCheckComponent implements OnInit {
         }
       }
     });
-    this.applicationService.getResponse('get_vip_apps', function (obj: VipApp[]) {
-      self.applicationService.vip_apps = obj;
-      for (let vip_app of self.applicationService.vip_apps) {
-        self.applicationService.vip_app_map[vip_app.id] = vip_app.name;
+    this.rpcService.getResponse('get_vip_apps', function (obj: VipApp[]) {
+      self.rpcService.vip_apps = obj;
+      for (let vip_app of self.rpcService.vip_apps) {
+        self.rpcService.vip_app_map[vip_app.id] = vip_app.name;
         for (let target of vip_app.targets) {
           if (target.online == false) {
             self.offlineVipTargets.push(target);
@@ -70,15 +70,15 @@ export class HealthCheckComponent implements OnInit {
   }
 
   getAppNameByID(app_id: string) {
-    return this.applicationService.appmap[app_id];
+    return this.rpcService.appmap[app_id];
   }
 
   getVipAppNameByID(vip_app_id: string) {
-    return this.applicationService.vip_app_map[vip_app_id];
+    return this.rpcService.vip_app_map[vip_app_id];
   }
 
   health_check_by_app_id() {
-    for (let app of this.applicationService.applications) {
+    for (let app of this.rpcService.applications) {
       if (app.id == this.selected_app_id) {
         this.selected_app = app;
         return
@@ -87,12 +87,12 @@ export class HealthCheckComponent implements OnInit {
   }
 
   getDate(unix: number): string {
-    return this.applicationService.getDateString(unix);
+    return this.rpcService.getDateString(unix);
   }
 
   getGatewayHealth() {
     let self = this;
-    this.applicationService.getResponse('get_gateway_health', function (obj: GateHealth) {
+    this.rpcService.getResponse('get_gateway_health', function (obj: GateHealth) {
       self.gate_health = obj;
     });
   }

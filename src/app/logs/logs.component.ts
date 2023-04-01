@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Application, SimpleRegexHitLog, RegexHitLogsCount, PolicyAction } from '../models';
 import { Router } from '@angular/router';
-import { ApplicationService } from '../application.service';
+import { RPCService } from '../rpc.service';
 import { MessageService } from '../message.service';
 import { MatPaginator } from '@angular/material/paginator';
 
@@ -24,43 +24,43 @@ export class LogsComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(public applicationService: ApplicationService,
+  constructor(public rpcService: RPCService,
     private router: Router,
     private messageService: MessageService) { }
 
   ngOnInit() {
-    if (this.applicationService.auth_user.logged == false) {
+    if (this.rpcService.auth_user.logged == false) {
       this.router.navigate(['/']);
       return
     }
-    if (this.applicationService.auth_user.need_modify_pwd) {
-      this.router.navigate(['/appuser/' + this.applicationService.auth_user.user_id]);
+    if (this.rpcService.auth_user.need_modify_pwd) {
+      this.router.navigate(['/appuser/' + this.rpcService.auth_user.user_id]);
       return
     }
-    if (this.applicationService.applications.length == 0) {
+    if (this.rpcService.applications.length == 0) {
       var self = this;
-      this.applicationService.getResponse('get_apps', function (objs: Application[]) {
+      this.rpcService.getResponse('get_apps', function (objs: Application[]) {
         if (objs != null) {
-          self.applicationService.applications = objs;
-          if (objs.length > 0) self.app_id = self.applicationService.applications[0].id;
+          self.rpcService.applications = objs;
+          if (objs.length > 0) self.app_id = self.rpcService.applications[0].id;
         }
       });
     } else {
-      this.app_id = this.applicationService.applications[0].id;
+      this.app_id = this.rpcService.applications[0].id;
     }
     this.start_date = new Date();
     this.start_date.setHours(0, 0, 0, 0);
     this.end_date = new Date();
     this.end_date.setHours(23, 59, 59, 0);
-    this.regexLogDataSource = new LogsDataSource(this.applicationService);
+    this.regexLogDataSource = new LogsDataSource(this.rpcService);
     // Load last logs
-    if (this.applicationService.lastRegexLogs.length > 0) {
+    if (this.rpcService.lastRegexLogs.length > 0) {
       this.regexLogDataSource.loadLast();
-      this.app_id = this.applicationService.lastRegexLogs.app_id;
-      this.start_date = this.applicationService.lastRegexLogs.start_date;
-      this.end_date = this.applicationService.lastRegexLogs.end_date;
-      this.pageLength = this.applicationService.lastRegexLogs.length;
-      this.pageIndex = this.applicationService.lastRegexLogs.page_index;
+      this.app_id = this.rpcService.lastRegexLogs.app_id;
+      this.start_date = this.rpcService.lastRegexLogs.start_date;
+      this.end_date = this.rpcService.lastRegexLogs.end_date;
+      this.pageLength = this.rpcService.lastRegexLogs.length;
+      this.pageIndex = this.rpcService.lastRegexLogs.page_index;
     }
 
   }
@@ -69,11 +69,11 @@ export class LogsComponent implements OnInit {
     let body = { action: "get_regex_logs_count", app_id: app_id, start_time: start_time, end_time: end_time }
     var self = this;
     this.paginator.pageIndex = 0;
-    this.applicationService.getResponseByCustomBody(body, function (obj: RegexHitLogsCount) {
+    this.rpcService.getResponseByCustomBody(body, function (obj: RegexHitLogsCount) {
       if (obj != null) {
         self.paginator.length = obj.count;
         self.regexLogDataSource.loadLogs(self.app_id, start_time, end_time, 0, self.request_count);
-        self.applicationService.lastRegexLogs.length = obj.count;
+        self.rpcService.lastRegexLogs.length = obj.count;
       }
     });
   }
@@ -91,7 +91,7 @@ export class LogsComponent implements OnInit {
   }
 
   getDate(unix: number): string {
-    return this.applicationService.getDateString(unix);
+    return this.rpcService.getDateString(unix);
   }
 
   getPolicyActionEnumString(value: number) {
@@ -110,7 +110,7 @@ export class LogsDataSource implements DataSource<SimpleRegexHitLog> {
 
   public loading$ = this.loadingSubject.asObservable();
 
-  constructor(private applicationService: ApplicationService) { }
+  constructor(private rpcService: RPCService) { }
 
   connect(collectionViewer: CollectionViewer): Observable<SimpleRegexHitLog[]> {
     return this.logsSubject.asObservable();
@@ -125,20 +125,20 @@ export class LogsDataSource implements DataSource<SimpleRegexHitLog> {
     this.loadingSubject.next(true);
     let body = { action: "get_regex_logs", app_id: app_id, start_time: start_time, end_time: end_time, request_count: pageSize, offset: pageIndex * pageSize }
     var self = this;
-    this.applicationService.getResponseByCustomBody(body, function (logs: SimpleRegexHitLog[]) {
+    this.rpcService.getResponseByCustomBody(body, function (logs: SimpleRegexHitLog[]) {
       if (logs != null) {
         self.logsSubject.next(logs)
-        self.applicationService.lastRegexLogs.app_id = app_id;
-        self.applicationService.lastRegexLogs.start_date = new Date(start_time * 1000);
-        self.applicationService.lastRegexLogs.end_date = new Date((end_time - 1) * 1000);
-        self.applicationService.lastRegexLogs.page_index = pageIndex;
-        self.applicationService.lastRegexLogs.regex_logs = logs;
+        self.rpcService.lastRegexLogs.app_id = app_id;
+        self.rpcService.lastRegexLogs.start_date = new Date(start_time * 1000);
+        self.rpcService.lastRegexLogs.end_date = new Date((end_time - 1) * 1000);
+        self.rpcService.lastRegexLogs.page_index = pageIndex;
+        self.rpcService.lastRegexLogs.regex_logs = logs;
       }
     });
   }
 
   loadLast() {
-    this.logsSubject.next(this.applicationService.lastRegexLogs.regex_logs);
+    this.logsSubject.next(this.rpcService.lastRegexLogs.regex_logs);
   }
 
 }

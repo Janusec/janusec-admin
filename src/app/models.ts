@@ -171,7 +171,7 @@ export enum PolicyAction {
 }
 
 export class VulnType {
-    id: string;
+    id: number;
     name: string;
 }
 
@@ -314,7 +314,7 @@ export class LastCCLogs {
 }
 
 export class VulnStat {
-    vuln_id: string;
+    vuln_id: number;
     count: number;
 }
 

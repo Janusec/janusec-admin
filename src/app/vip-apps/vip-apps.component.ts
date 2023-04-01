@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router }            from '@angular/router';
-import { ApplicationService } from '../application.service';
+import { Router } from '@angular/router';
+import { RPCService } from '../rpc.service';
 import { VipApp } from '../models';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -20,26 +20,25 @@ export class VipAppsComponent implements OnInit {
 
   @ViewChild('appPaginator') appPaginator: MatPaginator;
 
-  constructor(public applicationService: ApplicationService,
+  constructor(public rpcService: RPCService,
     private router: Router) { }
 
   ngOnInit(): void {
-    if (this.applicationService.auth_user.logged==false) {
-        this.router.navigate(['/']);
-        return
-    } 
-    this.applicationService.getVipApps();
-    setTimeout(() => 
-    {
-      this.appDataSource = new MatTableDataSource<VipApp>(this.applicationService.vip_apps);
-      this.appLength = this.applicationService.vip_apps.length;
-    },500); 
+    if (this.rpcService.auth_user.logged == false) {
+      this.router.navigate(['/']);
+      return
+    }
+    this.rpcService.getVipApps();
+    setTimeout(() => {
+      this.appDataSource = new MatTableDataSource<VipApp>(this.rpcService.vip_apps);
+      this.appLength = this.rpcService.vip_apps.length;
+    }, 500);
   }
 
   addVipApp() {
     this.router.navigate(['/vip/0']);
   }
-  
+
   /*
   onSelect(vip_app: VipApp):void {
     this.selectedVipApp = vip_app;

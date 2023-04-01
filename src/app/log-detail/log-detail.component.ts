@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { ApplicationService } from '../application.service';
+import { RPCService } from '../rpc.service';
 import { MessageService } from '../message.service';
 import { RegexHitLog, PolicyAction } from '../models';
 
@@ -14,7 +14,7 @@ export class LogDetailComponent implements OnInit {
   @Input() log: RegexHitLog;
 
   constructor(private route: ActivatedRoute,
-    private applicationService: ApplicationService,
+    private rpcService: RPCService,
     private router: Router,
     private messageService: MessageService,
     private location: Location) { }
@@ -22,13 +22,13 @@ export class LogDetailComponent implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     var self = this;
-    this.applicationService.getResponse('get_regex_log', function (obj: RegexHitLog) {
+    this.rpcService.getResponse('get_regex_log', function (obj: RegexHitLog) {
       if (obj != null) self.log = obj;
     }, id);
   }
 
   getDate(unix: number): string {
-    return this.applicationService.getDateString(unix);
+    return this.rpcService.getDateString(unix);
   }
 
   goBack() {

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { ApplicationService } from '../application.service';
+import { RPCService } from '../rpc.service';
 import { MessageService } from '../message.service';
 import { CCLog, PolicyAction } from '../models';
 
@@ -16,7 +16,7 @@ export class CCLogDetailComponent implements OnInit {
 
 
   constructor(private route: ActivatedRoute,
-    private applicationService: ApplicationService,
+    private rpcService: RPCService,
     private router: Router,
     private messageService: MessageService,
     private location: Location) { }
@@ -24,13 +24,13 @@ export class CCLogDetailComponent implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     var self = this;
-    this.applicationService.getResponse('get_cc_log', function (obj: CCLog) {
+    this.rpcService.getResponse('get_cc_log', function (obj: CCLog) {
       if (obj != null) self.log = obj;
     }, id);
   }
 
   getDate(unix: number): string {
-    return this.applicationService.getDateString(unix);
+    return this.rpcService.getDateString(unix);
   }
 
   goBack() {

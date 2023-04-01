@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { CCPolicy, APIResponse } from '../models';
 import { MessageService } from '../message.service';
 import { Application, GroupPolicy, PolicyAction, IPPolicy } from '../models';
-import { ApplicationService } from '../application.service';
+import { RPCService } from '../rpc.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -23,26 +23,26 @@ export class IpPolicyComponent implements OnInit {
     @ViewChild('ipPaginator') ipPaginator: MatPaginator;
 
     constructor(public messageService: MessageService,
-        public applicationService: ApplicationService,
+        public rpcService: RPCService,
         private router: Router) {
-        if (this.applicationService.auth_user.logged) {
-            if (this.applicationService.applications.length == 0) {
-                this.applicationService.getApplications();
+        if (this.rpcService.auth_user.logged) {
+            if (this.rpcService.applications.length == 0) {
+                this.rpcService.getApplications();
             }
-            if (this.applicationService.vulntypes.length == 0) {
-                this.applicationService.getVulnTypes(function () { });
+            if (this.rpcService.vulntypes.length == 0) {
+                this.rpcService.getVulnTypes(function () { });
             }
             this.getIPPolicies();
         }
     }
 
     ngOnInit() {
-        if (this.applicationService.auth_user.logged == false) {
+        if (this.rpcService.auth_user.logged == false) {
             this.router.navigate(['/']);
             return
         }
-        if (this.applicationService.auth_user.need_modify_pwd) {
-            this.router.navigate(['/appuser/' + this.applicationService.auth_user.user_id]);
+        if (this.rpcService.auth_user.need_modify_pwd) {
+            this.router.navigate(['/appuser/' + this.rpcService.auth_user.user_id]);
         }
         for (var n in PolicyAction) {
             if (typeof PolicyAction[n] == 'number') {
@@ -53,7 +53,7 @@ export class IpPolicyComponent implements OnInit {
 
     getIPPolicies() {
         var self = this;
-        this.applicationService.getResponse('get_ip_policies', function (obj: IPPolicy[]) {
+        this.rpcService.getResponse('get_ip_policies', function (obj: IPPolicy[]) {
             self.ip_policies = obj;
             self.ipPolicyDataSource = new MatTableDataSource<IPPolicy>(self.ip_policies);
             self.ipPolicyDataSource.paginator = self.ipPaginator;
@@ -78,7 +78,7 @@ export class IpPolicyComponent implements OnInit {
     saveIP(index: number) {
         let self = this;
         let ip_policy = this.ip_policies[index];
-        this.applicationService.getResponse('update_ip_policy', function (obj: IPPolicy) {
+        this.rpcService.getResponse('update_ip_policy', function (obj: IPPolicy) {
             self.ip_policies[index] = obj;
             self.ip_policies[index].editable = false;
             self.ipPolicyDataSource.data = self.ip_policies;
@@ -93,7 +93,7 @@ export class IpPolicyComponent implements OnInit {
             self.ip_policies.splice(index, 1);
             self.ipPolicyDataSource.data = self.ip_policies;
         } else {
-            this.applicationService.getResponse('del_ip_policy', function () {
+            this.rpcService.getResponse('del_ip_policy', function () {
                 self.ip_policies.splice(index, 1);
                 self.ipPolicyDataSource.data = self.ip_policies;
             }, ip_policy.id, null);

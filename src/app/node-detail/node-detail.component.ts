@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ApplicationService } from '../application.service';
+import { RPCService } from '../rpc.service';
 import { MessageService } from '../message.service';
 import { Node } from '../models';
 
@@ -14,7 +14,7 @@ export class NodeDetailComponent implements OnInit {
   readOnlyValue: boolean = true;
   readOnlyButtonText: string = "Edit";
   constructor(private route: ActivatedRoute,
-    private applicationService: ApplicationService,
+    private rpcService: RPCService,
     private router: Router,
     private messageService: MessageService) { }
 
@@ -26,7 +26,7 @@ export class NodeDetailComponent implements OnInit {
     let id = this.route.snapshot.paramMap.get('id');
     if (id != '0') {
       var self = this;
-      this.applicationService.getResponse('get_node', function (obj: Node) {
+      this.rpcService.getResponse('get_node', function (obj: Node) {
         if (obj != null) self.node = obj;
       }, id);
     } else {
@@ -48,11 +48,11 @@ export class NodeDetailComponent implements OnInit {
   }
 
   getDate(unix: number): string {
-    return this.applicationService.getDateString(unix);
+    return this.rpcService.getDateString(unix);
   }
 
   deleteNode(id: string) {
-    this.applicationService.getResponse('del_node', function () { }, id, null);
+    this.rpcService.getResponse('del_node', function () { }, id, null);
     this.router.navigate(['/nodes']);
   }
 

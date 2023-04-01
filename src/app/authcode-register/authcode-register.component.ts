@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from '../message.service';
-import { ApplicationService } from '../application.service';
+import { RPCService } from '../rpc.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,21 +13,21 @@ export class AuthcodeRegisterComponent implements OnInit {
   code: string;
 
   constructor(
-      public applicationService: ApplicationService,
-      private messageService: MessageService,
-      private router: Router) { }
+    public rpcService: RPCService,
+    private messageService: MessageService,
+    private router: Router) { }
 
   ngOnInit(): void {
-      this.qrData = "otpauth://totp/" + this.applicationService.auth_user.username + "?secret=" + this.applicationService.auth_user.totp_key + "&issuer=JANUSEC";
+    this.qrData = "otpauth://totp/" + this.rpcService.auth_user.username + "?secret=" + this.rpcService.auth_user.totp_key + "&issuer=JANUSEC";
   }
 
   verify() {
-    let body={action:"verify_totp", uid: this.applicationService.auth_user.username, code: this.code}
+    let body = { action: "verify_totp", uid: this.rpcService.auth_user.username, code: this.code }
     var self = this;
-      this.applicationService.getResponseByCustomBody(body, function() {
-        self.messageService.add('verify ok, please login');
-        self.router.navigate(['/login']);        
-      })
+    this.rpcService.getResponseByCustomBody(body, function () {
+      self.messageService.add('verify ok, please login');
+      self.router.navigate(['/login']);
+    })
   }
 
 }

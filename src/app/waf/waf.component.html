@@ -1,15 +1,15 @@
 <div class="container">
     <div>
         <div>
-            <span *ngIf="applicationService.auth_user.is_super_admin">
+            <span *ngIf="rpcService.auth_user.is_super_admin">
                 <button mat-stroked-button i18n="@@add_policy" (click)="newGroupPolicy()">Add Policy</button>
             </span>
 
-            <span *ngIf="applicationService.auth_user.is_super_admin">
+            <span *ngIf="rpcService.auth_user.is_super_admin">
                 <button mat-stroked-button i18n="@@export_policies" (click)="exportWAF()">Export Policies</button>
             </span>
 
-            <span *ngIf="applicationService.auth_user.is_super_admin">
+            <span *ngIf="rpcService.auth_user.is_super_admin">
                 <button mat-stroked-button i18n="@@import_policies" (click)="importWAF()">Import Policies</button>
                 <input #fileInput type="file" (change)="readFile($event)" style="display: none;" />
             </span>

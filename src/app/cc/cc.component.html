@@ -64,8 +64,7 @@
                 <mat-form-field class="fullrow">
                     <mat-select [(ngModel)]="selected_app_id" i18n-placeholder="@@select_application"
                         placeholder="Select the Application" (selectionChange)="onSelectApp()">
-                        <mat-option *ngFor="let application of applicationService.applications;"
-                            [value]="application.id">
+                        <mat-option *ngFor="let application of rpcService.applications;" [value]="application.id">
                             {{application.name}}
                         </mat-option>
                     </mat-select>

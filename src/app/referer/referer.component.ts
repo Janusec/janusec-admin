@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApplicationService } from '../application.service';
+import { RPCService } from '../rpc.service';
 import { MessageService } from '../message.service';
 import { RefererURL } from '../models';
 
@@ -15,7 +15,7 @@ export class RefererComponent implements OnInit {
   referer_urls: RefererURL[];
 
   constructor(private route: ActivatedRoute,
-    public applicationService: ApplicationService,
+    public rpcService: RPCService,
     private router: Router,
     private messageService: MessageService) {
   }
@@ -30,14 +30,14 @@ export class RefererComponent implements OnInit {
   getRefererURLs(app_id: string, host: string) {
     let body = { action: "get_referer_urls", app_id: app_id, host: host }
     let self = this;
-    this.applicationService.getResponseByCustomBody(body, function (referer_urls: RefererURL[]) {
+    this.rpcService.getResponseByCustomBody(body, function (referer_urls: RefererURL[]) {
       self.referer_urls = referer_urls;
     });
   }
 
   getAppNameByID(app_id: string) {
     if (app_id == '0') return 'All';
-    return this.applicationService.appmap[app_id];
+    return this.rpcService.appmap[app_id];
   }
 
 }

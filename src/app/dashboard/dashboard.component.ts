@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApplicationService } from '../application.service';
+import { RPCService } from '../rpc.service';
 import { Chart } from 'chart.js';
 import { VulnStat, PopContent, RefererHost } from '../models';
 
@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
 
 
   constructor(private elementRef: ElementRef,
-    public applicationService: ApplicationService,
+    public rpcService: RPCService,
     private router: Router) {
   }
 
@@ -155,16 +155,16 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.applicationService.auth_user.logged == false) {
+    if (this.rpcService.auth_user.logged == false) {
       this.router.navigate(['/']);
       return
     }
-    if (this.applicationService.auth_user.need_modify_pwd) {
-      this.router.navigate(['/appuser/' + this.applicationService.auth_user.user_id]);
+    if (this.rpcService.auth_user.need_modify_pwd) {
+      this.router.navigate(['/appuser/' + this.rpcService.auth_user.user_id]);
     }
-    if (this.applicationService.vulntypes.length == 0) {
+    if (this.rpcService.vulntypes.length == 0) {
       let self = this;
-      this.applicationService.getVulnTypes(function () {
+      this.rpcService.getVulnTypes(function () {
         self.getTodayVulnStat('0');
         self.getWeekStat('0', '0');
         self.getAccessStat('0');
@@ -178,19 +178,19 @@ export class DashboardComponent implements OnInit {
       this.getPopContents('0');
       this.getRefererHosts('0');
     }
-    if (this.applicationService.applications.length == 0) {
-      this.applicationService.getApplications();
+    if (this.rpcService.applications.length == 0) {
+      this.rpcService.getApplications();
     }
     this.initWeekChart();
     this.initAccessStatChart();
   }
 
-  getVulnNameByID(vuln_id: string) {
-    return this.applicationService.vulntypemap[vuln_id];
+  getVulnNameByID(vuln_id: number) {
+    return this.rpcService.vulntypemap[vuln_id];
   }
 
   getAppNameByID(app_id: string) {
-    return this.applicationService.appmap[app_id];
+    return this.rpcService.appmap[app_id];
   }
 
   getTodayVulnStat(app_id: string) {
@@ -206,7 +206,7 @@ export class DashboardComponent implements OnInit {
     this.today_stat_bgcolor = [];
     let body = { action: "get_vuln_stat", app_id: app_id, start_time: start_time, end_time: end_time }
     let self = this;
-    this.applicationService.getResponseByCustomBody(body, function (vuln_stats: VulnStat[]) {
+    this.rpcService.getResponseByCustomBody(body, function (vuln_stats: VulnStat[]) {
       if (vuln_stats == null) {
         vuln_stats = [];
       }
@@ -236,7 +236,7 @@ export class DashboardComponent implements OnInit {
     }
     let body = { action: "get_week_stat", app_id: app_id, vuln_id: vuln_id, start_time: start_time / 1000 }
     let self = this;
-    this.applicationService.getResponseByCustomBody(body, function (week_stats: number[]) {
+    this.rpcService.getResponseByCustomBody(body, function (week_stats: number[]) {
       if (week_stats == null) {
         week_stats = [0, 0, 0, 0, 0, 0, 0];
       }
@@ -256,7 +256,7 @@ export class DashboardComponent implements OnInit {
     }
     let body = { action: "get_access_stat", app_id: app_id }
     let self = this;
-    this.applicationService.getResponseByCustomBody(body, function (access_stats: number[]) {
+    this.rpcService.getResponseByCustomBody(body, function (access_stats: number[]) {
       if (access_stats == null) {
         access_stats = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
       }
@@ -268,7 +268,7 @@ export class DashboardComponent implements OnInit {
   getPopContents(app_id: string) {
     let body = { action: "get_pop_contents", app_id: app_id }
     let self = this;
-    this.applicationService.getResponseByCustomBody(body, function (pop_contents: PopContent[]) {
+    this.rpcService.getResponseByCustomBody(body, function (pop_contents: PopContent[]) {
       self.pop_contents = pop_contents;
     });
   }
@@ -276,18 +276,16 @@ export class DashboardComponent implements OnInit {
   getRefererHosts(app_id: string) {
     let body = { action: "get_referer_hosts", app_id: app_id }
     let self = this;
-    this.applicationService.getResponseByCustomBody(body, function (referer_hosts: RefererHost[]) {
+    this.rpcService.getResponseByCustomBody(body, function (referer_hosts: RefererHost[]) {
       self.referer_hosts = referer_hosts;
     });
   }
 
-  getColorString(vuln_id: string): string {
-    let value = +vuln_id % 10;
+  getColorString(value: number): string {
     let value_r = value * 60;// + Math.floor(Math.random()*20);
     let value_g = value * 50;// + Math.floor(Math.random()*20);
     let value_b = value * 50;// + Math.floor(Math.random()*20);
-    let color = 'rgba(' + value_r % 256 + ',' + value_g % 256 + ',' + value_b % 256 + ',0.9)'
-    //console.log(color);
+    let color = 'rgba(' + value_r % 256 + ',' + value_g % 256 + ',' + value_b % 256 + ',0.9)';
     return color
   }
 

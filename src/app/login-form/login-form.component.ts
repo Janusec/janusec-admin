@@ -5,7 +5,7 @@ import * as bcrypt from 'bcryptjs';
 import * as cryptojs from 'crypto-js';
 import { AuthUser, OAuthInfo } from '../models';
 import { MessageService } from '../message.service';
-import { ApplicationService } from '../application.service';
+import { RPCService } from '../rpc.service';
 declare var require: any;
 
 @Component({
@@ -42,11 +42,11 @@ export class LoginFormComponent implements OnInit {
     let hashpwd = bcrypt.hashSync(this.password, salt);
     this.login_user.passwd = hashpwd;
     var self = this;
-    this.applicationService.getResponse('login', function (obj: AuthUser) {
+    this.rpcService.getResponse('login', function (obj: AuthUser) {
       if (obj != null) {
-        self.applicationService.auth_user = obj;
+        self.rpcService.auth_user = obj;
         self.submitted = true;
-        if (self.oauth.authenticator_enabled && !self.applicationService.auth_user.logged) {
+        if (self.oauth.authenticator_enabled && !self.rpcService.auth_user.logged) {
           self.router.navigate(['/authcode-register']);
         } else {
           self.router.navigate(['/']);
@@ -56,7 +56,7 @@ export class LoginFormComponent implements OnInit {
   }
 
   constructor(
-    public applicationService: ApplicationService,
+    public rpcService: RPCService,
     private messageService: MessageService,
     private http: HttpClient,
     private router: Router) { }
@@ -64,7 +64,7 @@ export class LoginFormComponent implements OnInit {
   ngOnInit() {
     let self = this;
     this.messageService.clear();
-    this.applicationService.getResponseByURL('/janusec-admin/oauth/info',
+    this.rpcService.getResponseByURL('/janusec-admin/oauth/info',
       function (obj: OAuthInfo) {
         if (obj != null) self.oauth = obj;
       });

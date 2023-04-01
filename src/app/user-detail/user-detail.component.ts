@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { AppAdmin, APIResponse } from '../models';
-import { ApplicationService } from '../application.service';
+import { RPCService } from '../rpc.service';
 import { MessageService } from '../message.service';
 import * as bcrypt from 'bcryptjs';
 import * as cryptojs from 'crypto-js';
@@ -21,7 +21,7 @@ export class UserDetailComponent implements OnInit {
   resp: APIResponse;
 
   constructor(private route: ActivatedRoute,
-    private applicationService: ApplicationService,
+    private rpcService: RPCService,
     private router: Router,
     private messageService: MessageService,
     private http: HttpClient) { }
@@ -35,7 +35,7 @@ export class UserDetailComponent implements OnInit {
     let id = this.route.snapshot.paramMap.get('id');
     if (id != '0') {
       let self = this;
-      this.applicationService.getResponse('get_app_user', function (obj: AppAdmin) {
+      this.rpcService.getResponse('get_app_user', function (obj: AppAdmin) {
         if (obj != null) self.appadmin = obj;
         if (self.appadmin.need_modify_pwd) self.readOnlyValue = false;
       }, id, null);
@@ -63,7 +63,7 @@ export class UserDetailComponent implements OnInit {
   onDelete() {
     if (!confirm("Are you sure to delete user: " + this.appadmin.username + "?")) return;
     let self = this;
-    this.applicationService.getResponse('del_app_user', function () {
+    this.rpcService.getResponse('del_app_user', function () {
       self.messageService.add(self.appadmin.username + " deleted.");
       self.router.navigate(['/usermgmt']);
     }, this.appadmin.id, null);
@@ -82,7 +82,7 @@ export class UserDetailComponent implements OnInit {
       this.appadmin.password = "";
     }
     let self = this;
-    this.applicationService.getResponse('update_app_user', function (obj: AppAdmin) {
+    this.rpcService.getResponse('update_app_user', function (obj: AppAdmin) {
       if (obj == null) return;
       let new_id = obj.id;
       if (self.appadmin.id == new_id) {
@@ -94,7 +94,7 @@ export class UserDetailComponent implements OnInit {
       self.readOnlyValue = true;
       self.readOnlyButtonText = "Edit";
       self.messageService.add(self.appadmin.username + " Saved.");
-      self.applicationService.getAuthUser(function () { });
+      self.rpcService.getAuthUser(function () { });
     }, null, this.appadmin);
   }
 }

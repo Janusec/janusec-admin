@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { DiscoveryRule, RegexMatch } from '../models';
-import { ApplicationService } from '../application.service';
+import { RPCService } from '../rpc.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable, of } from 'rxjs';
 import { FormControl } from '@angular/forms';
@@ -19,7 +19,7 @@ export class DiscoveryRuleDialog {
     regex_match: RegexMatch = new RegexMatch();
 
     constructor(
-        public applicationService: ApplicationService,
+        public rpcService: RPCService,
         public dialogRef: MatDialogRef<DiscoveryRuleDialog>,
         @Inject(MAT_DIALOG_DATA) public data: IDiscoveryRule) {
         this.discovery_rule = data.discovery_rule;
@@ -32,14 +32,14 @@ export class DiscoveryRuleDialog {
         this.regex_match.pattern = this.discovery_rule.regex;
         var self = this;
         if (this.regex_match.payload.length == 0 || this.regex_match.pattern.length == 0) return;
-        this.applicationService.getResponse('test_regex', function (obj: RegexMatch) {
+        this.rpcService.getResponse('test_regex', function (obj: RegexMatch) {
             if (obj != null) self.regex_match = obj;
         }, null, self.regex_match);
     }
 
     saveDiscoveryRule() {
         var self = this;
-        this.applicationService.getResponse('update_discovery_rule', function (obj: DiscoveryRule) {
+        this.rpcService.getResponse('update_discovery_rule', function (obj: DiscoveryRule) {
             self.discovery_rule = obj;
         }, this.discovery_rule.id, this.discovery_rule);
         this.dialogRef.close();

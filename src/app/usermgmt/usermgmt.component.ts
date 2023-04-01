@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router }            from '@angular/router';
-import { ApplicationService } from '../application.service';
+import { Router } from '@angular/router';
+import { RPCService } from '../rpc.service';
 import { AppAdmin } from '../models';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -19,23 +19,22 @@ export class UsermgmtComponent implements OnInit {
 
   @ViewChild('userPaginator') userPaginator: MatPaginator;
 
-  constructor(public applicationService: ApplicationService,
+  constructor(public rpcService: RPCService,
     private router: Router) { }
 
   ngOnInit() {
-    if (this.applicationService.auth_user.logged==false) {
+    if (this.rpcService.auth_user.logged == false) {
       this.router.navigate(['/']);
       return
-    } 
-    if (this.applicationService.auth_user.need_modify_pwd) {
-      this.router.navigate(['/appuser/'+this.applicationService.auth_user.user_id]);
     }
-    this.applicationService.getAdmins();
-    setTimeout(() => 
-    {
-      this.userDataSource = new MatTableDataSource<AppAdmin>(this.applicationService.admins);
-      this.userLength = this.applicationService.admins.length;
-    },500); 
+    if (this.rpcService.auth_user.need_modify_pwd) {
+      this.router.navigate(['/appuser/' + this.rpcService.auth_user.user_id]);
+    }
+    this.rpcService.getAdmins();
+    setTimeout(() => {
+      this.userDataSource = new MatTableDataSource<AppAdmin>(this.rpcService.admins);
+      this.userLength = this.rpcService.admins.length;
+    }, 500);
   }
 
   /*

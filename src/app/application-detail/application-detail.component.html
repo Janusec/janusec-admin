@@ -103,7 +103,7 @@
             matTooltip="Required, format: www.your-domain.com" [(ngModel)]="application.domains[i].name"
             [disabled]="readOnlyValue" list="domains" required>
           <datalist id="domains">
-            <option *ngFor="let domain of applicationService.domains;">{{domain.name}}</option>
+            <option *ngFor="let domain of rpcService.domains;">{{domain.name}}</option>
           </datalist>
         </mat-form-field>
 
@@ -113,7 +113,7 @@
             matTooltipPosition="below"
             matTooltip="If ACME automated certificate used, default port 80/443, open to Internet, and single node are required."
             [(ngModel)]="application.domains[i].cert_id" [disabled]="readOnlyValue" required>
-            <mat-option [value]=0 i18n="@@automated_certificate">ACME Automated Certificate</mat-option>
+            <mat-option value="0" i18n="@@automated_certificate">ACME Automated Certificate</mat-option>
             <mat-option *ngFor="let certificate of optionCertificates;" [value]="certificate.id">
               {{certificate.common_name}}
             </mat-option>

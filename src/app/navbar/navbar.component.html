@@ -1,25 +1,25 @@
 <mat-toolbar color="secondary">
-    <a routerLink="/" class="text-logo">JANUSEC</a>    
-    <span class="spacer"></span>    
-    <button mat-button [matMenuTriggerFor]="menu" *ngIf="applicationService.auth_user.logged">
-        <mat-icon color="secondary">account_circle</mat-icon>
-        {{applicationService.auth_user.username}}
+  <a routerLink="/" class="text-logo">JANUSEC</a>
+  <span class="spacer"></span>
+  <button mat-button [matMenuTriggerFor]="menu" *ngIf="rpcService.auth_user.logged">
+    <mat-icon color="secondary">account_circle</mat-icon>
+    {{rpcService.auth_user.username}}
+  </button>
+  <mat-menu #menu="matMenu" [overlapTrigger]="false">
+    <button mat-menu-item (click)="switchLanguage()">
+      <mat-icon>language</mat-icon>
+      <span i18n="@@lang">中文</span>
     </button>
-    <mat-menu #menu="matMenu" [overlapTrigger]="false">
-        <button mat-menu-item (click)="switchLanguage()">
-          <mat-icon>language</mat-icon>
-          <span i18n="@@lang">中文</span>          
-        </button>
-        <mat-divider></mat-divider>
-        <button mat-menu-item (click)="logout()">
-          <mat-icon>exit_to_app</mat-icon>
-          Exit
-        </button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>exit_to_app</mat-icon>
+      Exit
+    </button>
 
-    </mat-menu>
-    
-    <button mat-button i18n="@@login" *ngIf="applicationService.auth_user.logged==false" (click)="navigate('/login')">
-        Login
-    </button>
-    
+  </mat-menu>
+
+  <button mat-button i18n="@@login" *ngIf="rpcService.auth_user.logged==false" (click)="navigate('/login')">
+    Login
+  </button>
+
 </mat-toolbar>
