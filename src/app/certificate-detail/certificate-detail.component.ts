@@ -60,7 +60,7 @@ export class CertificateDetailComponent implements OnInit {
         }
         self.readOnlyValue = true;
         self.readOnlyButtonText = "Edit";
-        self.messageService.add("Certificate " + obj.common_name + " Saved.");
+        self.messageService.add("Certificate " + obj.common_name + " saved.");
       }
     }, null, self.certificate);
   }

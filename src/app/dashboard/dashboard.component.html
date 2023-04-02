@@ -19,7 +19,7 @@
             <mat-form-field>
                 <mat-select i18n-placeholder="@@vulnerability" [(ngModel)]="selected_vuln_id"
                     placeholder="Vulnerability">
-                    <mat-option i18n="@@all" value="0">All</mat-option>
+                    <mat-option i18n="@@all" [value]=0>All</mat-option>
                     <mat-option *ngFor="let vulntype of rpcService.vulntypes;" [value]="vulntype.id">
                         {{vulntype.name}}
                     </mat-option>

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { RPCService } from '../rpc.service';
-import { AppAdmin } from '../models';
+import { AppUser } from '../models';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -12,7 +12,7 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class UsermgmtComponent implements OnInit {
   //selectedAdmin: AppAdmin;
-  userDataSource: MatTableDataSource<AppAdmin>;
+  userDataSource: MatTableDataSource<AppUser>;
   displayedColumns = ['id', 'username', 'is_super_admin', 'is_cert_admin', 'is_app_admin'];
   userLength: number;
   keyword: string;
@@ -30,9 +30,9 @@ export class UsermgmtComponent implements OnInit {
     if (this.rpcService.auth_user.need_modify_pwd) {
       this.router.navigate(['/appuser/' + this.rpcService.auth_user.user_id]);
     }
-    this.rpcService.getAdmins();
+    this.rpcService.getAppUsers();
     setTimeout(() => {
-      this.userDataSource = new MatTableDataSource<AppAdmin>(this.rpcService.admins);
+      this.userDataSource = new MatTableDataSource<AppUser>(this.rpcService.admins);
       this.userLength = this.rpcService.admins.length;
     }, 500);
   }

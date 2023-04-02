@@ -87,7 +87,7 @@ export class VipAppComponent implements OnInit {
       }
       self.readOnlyValue = true;
       self.readOnlyButtonText = "Edit";
-      self.messageService.add("Port forwarding " + obj.name + " Saved.");
+      self.messageService.add("Port forwarding " + obj.name + " saved.");
     }, null, self.vip_app);
   }
 

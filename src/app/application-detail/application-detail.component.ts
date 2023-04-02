@@ -87,7 +87,7 @@ export class ApplicationDetailComponent implements OnInit {
       }
       self.readOnlyValue = true;
       self.readOnlyButtonText = "Edit";
-      self.messageService.add("Application " + obj.name + " Saved.");
+      self.messageService.add("Application " + obj.name + " saved.");
     }, null, self.application);
   }
 

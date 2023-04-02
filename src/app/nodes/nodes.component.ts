@@ -15,6 +15,7 @@ export class NodesComponent implements OnInit {
     public rpcService: RPCService,
     private router: Router) {
     if (this.rpcService.auth_user.logged) {
+      this.rpcService.getAPIKey();
       this.rpcService.getNodesKey();
       this.rpcService.getNodes();
     }
@@ -28,17 +29,7 @@ export class NodesComponent implements OnInit {
     if (this.rpcService.auth_user.need_modify_pwd) {
       this.router.navigate(['/appuser/' + this.rpcService.auth_user.user_id]);
     }
-    /*
-    this.rpcService.getNodesKey();
-    this.rpcService.getNodes();
-    */
   }
-
-  /*
-  addNode() {
-    this.router.navigate(['/node/0']);
-  }
-  */
 
   onSelect(node: Node) {
     this.selectedNode = node;

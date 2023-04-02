@@ -13,7 +13,7 @@ export class AuthUser {
     totp_verified: boolean;
 }
 
-export class AppAdmin {
+export class AppUser {
     id: string;
     username: string;
     password: string;
@@ -179,7 +179,7 @@ export class GroupPolicy {
     id: string;
     description: string;
     app_id: string;
-    vuln_id: string;
+    vuln_id: number;
     check_items: CheckItem[];
     hit_value: number;
     action: PolicyAction;
@@ -211,6 +211,10 @@ export class RegexMatch {
     payload: string;
     matched: boolean;
     preprocess: boolean;
+}
+
+export class APIKey {
+    api_key: string;
 }
 
 export class NodesKey {
@@ -400,6 +404,7 @@ export class PrimarySetting {
     access_log_days: number;
     skip_se_enabled: boolean;
     search_engines: string;
+    block_html: string;
     smtp: SMTPSetting;
     data_discovery_enabled: boolean;
     data_discovery_api: string;

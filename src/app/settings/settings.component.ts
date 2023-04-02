@@ -76,7 +76,7 @@ export class SettingsComponent implements OnInit {
       self.settings = obj;
       self.readOnlyValue = true;
       self.readOnlyButtonText = "Edit";
-      self.messageService.add("Settings Saved.");
+      self.messageService.add("Settings saved.");
     }, null, this.settings);
     // update auth_provider
     switch (this.settings.auth_provider) {

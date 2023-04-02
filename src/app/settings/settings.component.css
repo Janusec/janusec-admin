@@ -17,3 +17,7 @@ mat-radio-button {
 button {
     margin-right: 5px;
 }
+
+.notes {
+    margin-left: 0;
+}

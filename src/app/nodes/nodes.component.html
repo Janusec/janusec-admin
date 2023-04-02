@@ -1,24 +1,58 @@
 <div class="container">
-    <div>
-        <mat-card>
-            <h2 i18n="@@node_mgmt">Node Management</h2>
-        </mat-card>
-    </div>
-    <div>
-        <h3 matLine i18n="@@node_notice">Please copy the following node_key into config.json of all replica nodes.</h3>
+    <mat-tab-group>
+        <mat-tab i18n-label="@@node_mgmt" label="Node Management">
 
-        <span class="wrapkey">{{ rpcService.hexNodesKey }}</span>
-    </div>
-    <mat-list class="mat-list-item-list-stacked">
-        <mat-list-item *ngFor="let node of rpcService.nodes" (click)="onSelect(node)"
-            [class.selected]="node === selectedNode">
-            <mat-icon matListIcon matTooltip="This node may be offline!" matTooltipPosition="right" color="warn"
-                *ngIf="!node.online;else elseBlock">games</mat-icon>
-            <ng-template #elseBlock>
-                <mat-icon matListIcon color="primary">games</mat-icon>
-            </ng-template>
-            <h3 matLine> {{node.last_ip}} &nbsp;&nbsp;&nbsp;&nbsp;( version: {{ node.version }} ) </h3>
+            <div>
+                <h3 matLine i18n="@@node_notice">Please copy the following node_key into config.json of all replica
+                    nodes.</h3>
 
-        </mat-list-item>
-    </mat-list>
+                <span class="wrapkey">{{ rpcService.hexNodesKey }}</span>
+            </div>
+            <mat-list class="mat-list-item-list-stacked">
+                <mat-list-item *ngFor="let node of rpcService.nodes" (click)="onSelect(node)"
+                    [class.selected]="node === selectedNode">
+                    <mat-icon matListIcon matTooltip="This node may be offline!" matTooltipPosition="right" color="warn"
+                        *ngIf="!node.online;else elseBlock">games</mat-icon>
+                    <ng-template #elseBlock>
+                        <mat-icon matListIcon color="primary">games</mat-icon>
+                    </ng-template>
+                    <h3 matLine> {{node.last_ip}} &nbsp;&nbsp;&nbsp;&nbsp;( version: {{ node.version }} ) </h3>
+
+                </mat-list-item>
+            </mat-list>
+        </mat-tab>
+        <mat-tab i18n-label="@@api_interface" label="API Interface">
+            <div>
+                <h3 matLine i18n="@@api_notice">Please copy the following api_key if you want to manage this gateway by
+                    external control panel.</h3>
+                <span class="wrapkey">{{ rpcService.hexAPIKey }}</span>
+                <ng-container>
+                    <div>
+                        <h4>Interface Address</h4>
+                        <code>
+                            POST http://IP:9080/janusec-admin/ui-api                              
+                        </code>
+
+                        <h4>Content-Type</h4>
+                        <code>
+                            Content-Type: application/json
+                        </code>
+
+                        <h4>Body for get object(s)</h4>
+                        <code>
+                            {{ '{' }} "action":"...", "auth_key":"..." {{ '}' }}
+                        </code>
+                        <p>action: get_auth_user</p>
+
+                        <h4>Body for create or update an object</h4>
+                        <code>
+                            "action":"...", "auth_key":"...", "object":...
+                        </code>
+                        <p>action: </p>
+
+                    </div>
+                </ng-container>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
 </div>

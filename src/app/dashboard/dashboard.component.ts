@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
   week_stat_date: string[];
   week_stat_count: number[];
   selected_app_id: string = '0';
-  selected_vuln_id: string = '0';
+  selected_vuln_id: number = 0;
   // access stat chart
   access_stat_date: string[];
   access_stat_count: number[];
@@ -166,14 +166,14 @@ export class DashboardComponent implements OnInit {
       let self = this;
       this.rpcService.getVulnTypes(function () {
         self.getTodayVulnStat('0');
-        self.getWeekStat('0', '0');
+        self.getWeekStat('0', 0);
         self.getAccessStat('0');
         self.getPopContents('0');
         self.getRefererHosts('0');
       });
     } else {
       this.getTodayVulnStat('0');
-      this.getWeekStat('0', '0');
+      this.getWeekStat('0', 0);
       this.getAccessStat('0');
       this.getPopContents('0');
       this.getRefererHosts('0');
@@ -225,7 +225,7 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  getWeekStat(app_id: string, vuln_id: string) {
+  getWeekStat(app_id: string, vuln_id: number) {
     let begin_date = new Date();
     begin_date.setHours(0, 0, 0, 0);
     let start_time = begin_date.getTime() - 86400 * 1000 * 6;

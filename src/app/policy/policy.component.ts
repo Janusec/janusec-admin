@@ -65,7 +65,7 @@ export class PolicyComponent implements OnInit {
       }
       self.readOnlyValue = true;
       self.readOnlyButtonText = "Edit";
-      self.messageService.add("Policy Saved.");
+      self.messageService.add("Policy saved.");
     }, null, self.group_policy);
   }
 
