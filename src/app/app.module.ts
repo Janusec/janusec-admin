@@ -73,6 +73,7 @@ import { CcComponent } from './cc/cc.component';
 import { IpPolicyComponent } from './ip-policy/ip-policy.component';
 import { DiscoveryRuleDialog } from './discovery-rules/discovery-rule-dialog';
 import { DiscoveryRulesComponent } from './discovery-rules/discovery-rules.component';
+import { ApiInterfaceComponent } from './api-interface/api-interface.component';
 
 @NgModule({
     exports: [
@@ -147,7 +148,8 @@ export class MaterialModule { }
         RefererComponent,
         AuthcodeRegisterComponent,
         DiscoveryRuleDialog,
-        DiscoveryRulesComponent
+        DiscoveryRulesComponent,
+        ApiInterfaceComponent
     ],
     imports: [
         MaterialModule,

@@ -27,6 +27,7 @@ import { AuthcodeRegisterComponent } from '../authcode-register/authcode-registe
 import { CcComponent } from '../cc/cc.component';
 import { IpPolicyComponent } from '../ip-policy/ip-policy.component';
 import { DiscoveryRulesComponent } from '../discovery-rules/discovery-rules.component';
+import { ApiInterfaceComponent } from '../api-interface/api-interface.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/index.html', pathMatch: 'full' },
@@ -56,7 +57,8 @@ const routes: Routes = [
     { path: 'health', component: HealthCheckComponent },
     { path: 'referring/:app_id/:host', component: RefererComponent },
     { path: 'authcode-register', component: AuthcodeRegisterComponent },
-    { path: 'discovery-rules', component: DiscoveryRulesComponent }
+    { path: 'discovery-rules', component: DiscoveryRulesComponent },
+    { path: 'api-interface', component: ApiInterfaceComponent }
 ];
 
 @NgModule({

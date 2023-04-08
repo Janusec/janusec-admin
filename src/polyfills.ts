@@ -187,8 +187,12 @@ let zhTranslations = {
     // nodes
     'node_notice': '请复制如下node_key到所有从节点config.json文件中：',
     'node_detail': '节点详情',
+    // API
     'api_interface': 'API接口',
-    'api_notice': '如果您希望通过外部控制面板管理此网关，请复制以下API Key',
+    'api_notice': '如通过外部控制面板管理此网关，请复制以下API Key字符串',
+    '1_introduction_to_api': '1 API接口简介',
+    '2_parameters': '2 参数',
+    '3_example': '3 举例',
     // User Management
     'add_user': '添加用户',
     'is_super_admin': '超级管理员',

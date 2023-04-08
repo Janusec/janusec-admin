@@ -108,6 +108,13 @@
                             </a>
                         </mat-list-item>
 
+                        <mat-list-item *ngIf="rpcService.auth_user.is_super_admin==true">
+                            <a routerLink="/api-interface">
+                                <mat-icon>blur_circular</mat-icon>
+                                <span i18n="@@api_interface">API Interface</span>
+                            </a>
+                        </mat-list-item>
+
                         <mat-list-item>
                             <a routerLink="/health">
                                 <mat-icon>check_circle_outline</mat-icon>

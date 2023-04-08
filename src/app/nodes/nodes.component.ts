@@ -15,7 +15,6 @@ export class NodesComponent implements OnInit {
     public rpcService: RPCService,
     private router: Router) {
     if (this.rpcService.auth_user.logged) {
-      this.rpcService.getAPIKey();
       this.rpcService.getNodesKey();
       this.rpcService.getNodes();
     }
