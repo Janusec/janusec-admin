@@ -408,6 +408,7 @@ export class PrimarySetting {
     smtp: SMTPSetting;
     data_discovery_enabled: boolean;
     data_discovery_api: string;
+    data_discovery_tenant_id: string;
     data_discovery_key: string;
 }
 

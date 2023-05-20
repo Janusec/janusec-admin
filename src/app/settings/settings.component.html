@@ -258,10 +258,18 @@
                         Enable JSON Data Discovery (Only for WAF-enabled applications)
                     </mat-checkbox>
                 </section>
+
                 <mat-form-field>
                     <mat-label>API</mat-label>
                     <input matInput [(ngModel)]="settings.data_discovery_api" [readonly]="readOnlyValue" required />
                 </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Tenant ID</mat-label>
+                    <input matInput [(ngModel)]="settings.data_discovery_tenant_id" [readonly]="readOnlyValue"
+                        required />
+                </mat-form-field>
+
                 <mat-form-field>
                     <mat-label i18n="@@api_key">API Key</mat-label>
                     <input matInput [(ngModel)]="settings.data_discovery_key" [readonly]="readOnlyValue" required />
