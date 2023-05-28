@@ -42,6 +42,17 @@ export class Application {
     csp_enabled: boolean;
     csp: string;
     cache_enabled: boolean;
+    // cookie mgmt
+    cookie_mgmt_enabled: boolean;
+    concise_notice: string;
+    long_notice_link: string;
+    necessary_notice: string;
+    analytics_notice: string;
+    enable_analytics: boolean; // without consent
+    marketing_notice: string;
+    enable_marketing: boolean; // without consent
+    unclassified_notice: string;
+    enable_unclassified: boolean; // without consent
 }
 
 export class VipApp {

@@ -135,8 +135,6 @@
       </div>
     </mat-expansion-panel>
 
-
-
     <mat-form-field>
       <mat-select [(ngModel)]="application.ip_method" i18n-placeholder="@@ip_for_waf" placeholder="Client IP for WAF"
         [disabled]="readOnlyValue">
@@ -200,6 +198,78 @@
         placeholder="" />
       <mat-hint align="end">{{csp.value?.length || 0}}/1024</mat-hint>
     </mat-form-field>
+
+    <section>
+      <mat-checkbox i18n="@@cookie_mgmt_enabled" [(ngModel)]="application.cookie_mgmt_enabled"
+        [disabled]="readOnlyValue">
+        Enable Cookie Banner (for ePrivacy or GDPR Compliance)
+      </mat-checkbox>
+    </section>
+
+    <ng-container *ngIf="application.cookie_mgmt_enabled">
+
+      <mat-form-field>
+        <mat-label>Concise Cookie Notice</mat-label>
+        <textarea matInput [(ngModel)]="application.concise_notice" #conciseNotice rows="3"
+          [readonly]="readOnlyValue"></textarea>
+        <mat-hint align="end">{{conciseNotice.value?.length || 0}}/512</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Link of Long Cookie Notice</mat-label>
+        <input matInput [(ngModel)]="application.long_notice_link" #longNotice [readonly]="readOnlyValue" />
+        <mat-hint align="end">{{longNotice.value?.length || 0}}/512</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Notice for Necessary Cookies</mat-label>
+        <textarea matInput [(ngModel)]="application.necessary_notice" #necessaryNotice rows="3"
+          [readonly]="readOnlyValue"></textarea>
+        <mat-hint align="end">{{necessaryNotice.value?.length || 0}}/512</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Notice for Analytics Cookies</mat-label>
+        <textarea matInput [(ngModel)]="application.analytics_notice" #analyticsNotice rows="3"
+          [readonly]="readOnlyValue"></textarea>
+        <mat-hint align="end">{{analyticsNotice.value?.length || 0}}/512</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Notice for Marketing Cookies</mat-label>
+        <textarea matInput [(ngModel)]="application.marketing_notice" #marketingNotice rows="3"
+          [readonly]="readOnlyValue"></textarea>
+        <mat-hint align="end">{{marketingNotice.value?.length || 0}}/512</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Notice for Unclassified Cookies</mat-label>
+        <textarea matInput [(ngModel)]="application.unclassified_notice" #unclassifiedNotice rows="3"
+          [readonly]="readOnlyValue"></textarea>
+        <mat-hint align="end">{{unclassifiedNotice.value?.length || 0}}/512</mat-hint>
+      </mat-form-field>
+
+      <section>
+        <mat-checkbox [(ngModel)]="application.enable_analytics" [disabled]="readOnlyValue">
+          Enable Analytics Cookies without Consent (disabled by default)
+        </mat-checkbox>
+      </section>
+
+      <section>
+        <mat-checkbox [(ngModel)]="application.enable_marketing" [disabled]="readOnlyValue">
+          Enable Marketing Cookies without Consent (disabled by default)
+        </mat-checkbox>
+      </section>
+
+      <section>
+        <mat-checkbox [(ngModel)]="application.enable_unclassified" [disabled]="readOnlyValue">
+          Enable Unclassified Cookies without Consent (disabled by default)
+        </mat-checkbox>
+      </section>
+
+      <br>
+
+    </ng-container>
 
     <mat-form-field>
       <input matInput i18n-placeholder="@@owner" [(ngModel)]="application.owner" [readonly]="readOnlyValue"

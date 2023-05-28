@@ -43,7 +43,10 @@ export class ApplicationDetailComponent implements OnInit {
     if (id != '0') {
       var self = this;
       this.rpcService.getResponse('get_app', function (obj: Application) {
-        if (obj != null) self.application = obj;
+        if (obj != null) {
+          self.application = obj;
+          self.initCookieMgmt();
+        }
       }, id);
     } else {
       this.readOnlyValue = false;
@@ -67,6 +70,30 @@ export class ApplicationDetailComponent implements OnInit {
       this.application.description = "Used for ...";
       this.addDomain();
       this.addDestination();
+      this.initCookieMgmt();
+    }
+
+  }
+
+  initCookieMgmt() {
+    // set default value for cookie mgmt
+    if (this.application.concise_notice == null || this.application.concise_notice == '') {
+      this.application.concise_notice = "We use necessary cookies to make our site work. We'd also like to set analytics cookies that help us make improvements by measuring how you use the site. These will be set only if you accept.";
+    }
+    if (this.application.long_notice_link == null || this.application.long_notice_link == '') {
+      this.application.long_notice_link = '/privacy';
+    }
+    if (this.application.necessary_notice == null || this.application.necessary_notice == '') {
+      this.application.necessary_notice = "Necessary cookies enable core functionality such as security, network management, and accessibility. You may disable these by changing your browser settings, but this may affect how the website functions.";
+    }
+    if (this.application.analytics_notice == null || this.application.analytics_notice == '') {
+      this.application.analytics_notice = "These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our site. They help us to know which pages are the most and least popular and see how visitors move around the site. All information these cookies collect is aggregated and therefore anonymous. However, the third parties providing these services, they will process your personal data in order to provide the aggregated data.";
+    }
+    if (this.application.marketing_notice == null || this.application.marketing_notice == '') {
+      this.application.marketing_notice = "These cookies are set by our advertising partners. They are used to build a profile of your interests and show relevant ads on other websites. They do not store directly personal information, but are based on uniquely identifying your browser and internet device. Additionally, the third parties setting these cookies may link your personal data with your browsing behaviour if you are logged into their services at the time.";
+    }
+    if (this.application.unclassified_notice == null || this.application.unclassified_notice == '') {
+      this.application.unclassified_notice = "Unclassified cookies are cookies in the process of classifying, and will be ready soon.";
     }
   }
 
