@@ -229,6 +229,13 @@
       </mat-form-field>
 
       <mat-form-field>
+        <mat-label>Notice for Functional Cookies</mat-label>
+        <textarea matInput [(ngModel)]="application.functional_notice" #functionalNotice rows="3"
+          [readonly]="readOnlyValue"></textarea>
+        <mat-hint align="end">{{functionalNotice.value?.length || 0}}/512</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field>
         <mat-label>Notice for Analytics Cookies</mat-label>
         <textarea matInput [(ngModel)]="application.analytics_notice" #analyticsNotice rows="3"
           [readonly]="readOnlyValue"></textarea>
@@ -248,6 +255,12 @@
           [readonly]="readOnlyValue"></textarea>
         <mat-hint align="end">{{unclassifiedNotice.value?.length || 0}}/512</mat-hint>
       </mat-form-field>
+
+      <section>
+        <mat-checkbox [(ngModel)]="application.enable_functional" [disabled]="readOnlyValue">
+          Enable Functional Cookies without Consent (disabled by default)
+        </mat-checkbox>
+      </section>
 
       <section>
         <mat-checkbox [(ngModel)]="application.enable_analytics" [disabled]="readOnlyValue">

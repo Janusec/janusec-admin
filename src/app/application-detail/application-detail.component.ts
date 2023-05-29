@@ -86,6 +86,9 @@ export class ApplicationDetailComponent implements OnInit {
     if (this.application.necessary_notice == null || this.application.necessary_notice == '') {
       this.application.necessary_notice = "Necessary cookies enable core functionality such as security, network management, and accessibility. You may disable these by changing your browser settings, but this may affect how the website functions.";
     }
+    if (this.application.functional_notice == null || this.application.functional_notice == '') {
+      this.application.functional_notice = "Functional cookies help perform certain functionalities such as recording language preferences, sharing the content of the website on social media platforms, collecting feedback, and other features.";
+    }
     if (this.application.analytics_notice == null || this.application.analytics_notice == '') {
       this.application.analytics_notice = "These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our site. They help us to know which pages are the most and least popular and see how visitors move around the site. All information these cookies collect is aggregated and therefore anonymous. However, the third parties providing these services, they will process your personal data in order to provide the aggregated data.";
     }

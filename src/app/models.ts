@@ -47,6 +47,8 @@ export class Application {
     concise_notice: string;
     long_notice_link: string;
     necessary_notice: string;
+    functional_notice: string;
+    enable_functional: boolean; // without consent
     analytics_notice: string;
     enable_analytics: boolean; // without consent
     marketing_notice: string;
