@@ -74,6 +74,7 @@ import { IpPolicyComponent } from './ip-policy/ip-policy.component';
 import { DiscoveryRuleDialog } from './discovery-rules/discovery-rule-dialog';
 import { DiscoveryRulesComponent } from './discovery-rules/discovery-rules.component';
 import { ApiInterfaceComponent } from './api-interface/api-interface.component';
+import { CookieDialogComponent } from './cookie-dialog/cookie-dialog.component';
 
 @NgModule({
     exports: [
@@ -149,7 +150,8 @@ export class MaterialModule { }
         AuthcodeRegisterComponent,
         DiscoveryRuleDialog,
         DiscoveryRulesComponent,
-        ApiInterfaceComponent
+        ApiInterfaceComponent,
+        CookieDialogComponent
     ],
     imports: [
         MaterialModule,

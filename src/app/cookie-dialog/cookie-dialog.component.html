@@ -1,0 +1,34 @@
+<div *ngIf="cookie" class="container">
+    <div>
+        <mat-card>
+            <h2 i18n="@@cookie_detail">Cookie Details</h2>
+        </mat-card>
+    </div>
+    <div>
+        <mat-form-field>
+            <mat-label i18n="@@cookie_name">Cookie Name</mat-label>
+            <input matInput #name [(ngModel)]="cookie.name" maxlength="128" required />
+            <mat-hint align="end">{{name.value?.length || 0}}/128</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label i18n="@@cookie_type">Cookie Type</mat-label>
+            <mat-select matNativeControl [(ngModel)]="cookie.type">
+                <mat-option *ngFor="let value of enum_cookie_type_values" [value]="value">
+                    {{ cookie_type[value] }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label i18n="@@description">Description</mat-label>
+            <textarea matInput #description [(ngModel)]="cookie.description" rows="3"></textarea>
+        </mat-form-field>
+
+    </div>
+
+    <div>
+        <button i18n="@@save" mat-stroked-button (click)="setCookie()">Save</button>
+        <button mat-stroked-button mat-dialog-close i18n="@@cancel">Cancel</button>
+    </div>
+</div>

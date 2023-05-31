@@ -153,7 +153,11 @@ let zhTranslations = {
     'backend_routing_tooltip': '默认 / , 前后端路径不一致时可使用 /xyz/ 这种形式，本地静态网站或FastCGI网站请填写绝对路径 /path/to/www/ ',
     'cookie_mgmt_enabled': '启用Cookie合规管理',
     'basic_information': '应用基本信息',
+    'cookie_setting': '应用Cookie设置',
     'cookie_management': '应用Cookie管理',
+    'cookie_name': 'Cookie名称',
+    'add_cookie': '添加Cookie',
+    'cookie_type': 'Cookie类型',
     // Port forwarding
     'port_forwarding': '端口转发',
     'vip_note': '注：本模块为四层TCP/UDP端口转发（无WAF/CC防护功能）。',

@@ -222,8 +222,8 @@
       </div>
     </mat-tab>
 
-    <mat-tab *ngIf="application.cookie_mgmt_enabled" i18n-label="@@cookie_management"
-      label="Cookie Management of Application">
+    <mat-tab *ngIf="application.cookie_mgmt_enabled" i18n-label="@@cookie_setting"
+      label="Cookie Setting of Application">
       <div class="container">
         <mat-form-field>
           <mat-label>Concise Cookie Notice</mat-label>
@@ -299,6 +299,60 @@
       </div>
     </mat-tab>
 
+    <mat-tab *ngIf="application.cookie_mgmt_enabled" i18n-label="@@cookie_management"
+      label="Cookie Management of Application">
+      <div class="container">
+
+        <div>
+          <span>
+            <button mat-stroked-button i18n="@@add_cookie" (click)="addCookie()">Add Cookie</button>
+          </span>
+          <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <mat-form-field appearance="none">
+            <input matInput (keyup)="applyFilter($event.target.value)" class="search_box" placeholder="Filter">
+          </mat-form-field>
+        </div>
+
+        <div class="mat-elevation-z8">
+          <mat-table #table [dataSource]="cookieDataSource">
+
+            <ng-container matColumnDef="name">
+              <mat-header-cell i18n="@@cookie_name" *matHeaderCellDef> Cookie Name </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <span (click)="editCookie(element)" class="pointer">{{element.name}}</span>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="type">
+              <mat-header-cell i18n="@@cookie_type" *matHeaderCellDef> Cookie Type </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{ getCookieTypeName(element.type) }} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="description">
+              <mat-header-cell i18n="@@description" *matHeaderCellDef> Description </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+              <mat-header-cell *matHeaderCellDef i18n="@@action"> Action </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <mat-icon inline="true" (click)="editCookie(element)" class="pointer">edit
+                </mat-icon>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <mat-icon inline="true" (click)="deleteCookie(element)" class="pointer">delete
+                </mat-icon>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+          <mat-paginator #cookiePaginator [length]="cookieLength" [pageSize]="20" [pageSizeOptions]="[10, 20, 50]">
+          </mat-paginator>
+        </div>
+
+      </div>
+    </mat-tab>
   </mat-tab-group>
 
   <div>

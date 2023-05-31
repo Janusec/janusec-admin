@@ -55,6 +55,7 @@ export class Application {
     enable_marketing: boolean; // without consent
     unclassified_notice: string;
     enable_unclassified: boolean; // without consent
+    cookies: Cookie[];
 }
 
 export class VipApp {
@@ -490,4 +491,24 @@ export class DiscoveryRule {
     description: string;
     editor: string;
     update_time: number;
+}
+
+export enum CookieType {
+    Necessary = 1,
+    Functional = 1 << 1,
+    Analytics = 1 << 2,
+    Marketing = 1 << 3,
+    Unclassified = 1 << 9
+}
+
+export class Cookie {
+    id: string;
+    app_id: string;
+    name: string;
+    path: string;
+    vendor: string;
+    type: CookieType;
+    description: string;
+    access_time: number;
+    source: string;
 }

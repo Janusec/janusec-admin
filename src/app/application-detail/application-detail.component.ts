@@ -1,11 +1,15 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 import { HttpClient } from '@angular/common/http';
-import { Application, Domain, Certificate, APIResponse, Destination, IPMethod, RouteType } from '../models';
+import { MatDialog } from '@angular/material/dialog';
+import { Application, Domain, Certificate, APIResponse, Destination, IPMethod, RouteType, CookieType, Cookie } from '../models';
 import { RPCService } from '../rpc.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MessageService } from '../message.service';
-import { OAuthInfo } from '../models'
+import { OAuthInfo } from '../models';
+import { CookieDialogComponent } from '../cookie-dialog/cookie-dialog.component';
 
 @Component({
   selector: 'app-application-detail',
@@ -24,12 +28,22 @@ export class ApplicationDetailComponent implements OnInit {
 
   k8sRoute = RouteType.K8S_Ingress;
 
+  cookieDataSource: MatTableDataSource<Cookie>;
+  displayedColumns = ['name', 'type', 'description', 'action'];
+  cookieLength: number;
+  keyword: string;
+
+  cookie_type = CookieType;
+
+  @ViewChild('cookiePaginator') cookiePaginator: MatPaginator;
+
   constructor(
     private route: ActivatedRoute,
     private rpcService: RPCService,
     private router: Router,
     private messageService: MessageService,
-    private http: HttpClient
+    private http: HttpClient,
+    public dialog: MatDialog
   ) {
     /*
     route.params.forEach(params => {
@@ -46,6 +60,9 @@ export class ApplicationDetailComponent implements OnInit {
         if (obj != null) {
           self.application = obj;
           self.initCookieMgmt();
+          if (self.application.cookie_mgmt_enabled) {
+            self.getCookiesByAppID(self.application.id);
+          }
         }
       }, id);
     } else {
@@ -72,7 +89,6 @@ export class ApplicationDetailComponent implements OnInit {
       this.addDestination();
       this.initCookieMgmt();
     }
-
   }
 
   initCookieMgmt() {
@@ -98,6 +114,19 @@ export class ApplicationDetailComponent implements OnInit {
     if (this.application.unclassified_notice == null || this.application.unclassified_notice == '') {
       this.application.unclassified_notice = "Unclassified cookies are cookies in the process of classifying, and will be ready soon.";
     }
+  }
+
+  getCookiesByAppID(appID: string) {
+    let self = this;
+    this.rpcService.getResponse('get_app_cookies', function (objs: Cookie[]) {
+      self.application.cookies = objs;
+      self.cookieDataSource = new MatTableDataSource<Cookie>(self.application.cookies);
+      self.cookieLength = self.application.cookies.length;
+    }, appID, null);
+  }
+
+  applyFilter(filterValue: string) {
+    this.cookieDataSource.filter = filterValue.trim().toLowerCase();
   }
 
   setApplication() {
@@ -232,6 +261,47 @@ export class ApplicationDetailComponent implements OnInit {
     } else {
       this.readOnlyButtonText = "Cancel";
     }
+  }
+
+  addCookie() {
+    let cookie: Cookie = {
+      id: '0',
+      app_id: this.application.id,
+      name: "",
+      path: "/",
+      vendor: "",
+      type: CookieType.Unclassified,
+      description: "",
+      access_time: 0,
+      source: ""
+    }
+    this.dialog.open(CookieDialogComponent, {
+      width: '500px',
+      data: { "cookie": cookie }
+    }).afterClosed().subscribe(result => {
+      this.getCookiesByAppID(this.application.id);
+    });
+  }
+
+  editCookie(cookie: Cookie) {
+    this.dialog.open(CookieDialogComponent, {
+      width: '500px',
+      data: { "cookie": cookie }
+    }).afterClosed().subscribe(result => {
+      this.getCookiesByAppID(this.application.id);
+    });
+  }
+
+  getCookieTypeName(type: number) {
+    return this.cookie_type[type];
+  }
+
+  deleteCookie(cookie: Cookie) {
+    if (!confirm("Are you sure to delete cookie: " + cookie.name + "?")) return;
+    var self = this;
+    this.rpcService.getResponse('del_cookie', function () {
+      self.getCookiesByAppID(this.application.id);
+    }, cookie.id, cookie);
   }
 
 }

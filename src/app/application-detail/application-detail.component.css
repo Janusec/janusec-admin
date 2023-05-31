@@ -13,11 +13,6 @@ mat-form-field {
     font-family: Helvetica, Arial, "PingFang SC", "Source Han Serif SC", "Microsoft YaHei";
 }
 
-.inner-container {
-    border: 1px dashed;
-    padding: 3px;
-}
-
 .inline-form {
     display: flex;
     margin-top: 10px;
@@ -60,4 +55,16 @@ mat-form-field {
 
 button {
     margin-right: 5px;
+}
+
+.search_box {
+    background-color: #FFFFFF;
+    border: solid 1px #D0D0D0;
+    border-radius: 15px;
+    padding: 6px;
+    vertical-align: middle;
+}
+
+.pointer {
+    cursor: pointer;
 }
