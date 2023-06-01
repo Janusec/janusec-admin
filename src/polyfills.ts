@@ -155,9 +155,14 @@ let zhTranslations = {
     'basic_information': '应用基本信息',
     'cookie_setting': '应用Cookie设置',
     'cookie_management': '应用Cookie管理',
-    'cookie_name': 'Cookie名称',
     'add_cookie': '添加Cookie',
-    'cookie_type': 'Cookie类型',
+    // Cookie
+    'name': '名称',
+    'domain': '域',
+    'path': '路径',
+    'retention': '留存',
+    'type': '类型',
+    'vendor': '供应商',
     // Port forwarding
     'port_forwarding': '端口转发',
     'vip_note': '注：本模块为四层TCP/UDP端口转发（无WAF/CC防护功能）。',

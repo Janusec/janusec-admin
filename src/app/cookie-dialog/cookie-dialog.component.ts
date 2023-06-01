@@ -33,11 +33,9 @@ export class CookieDialogComponent {
 
   setCookie() {
     let self = this;
-    if (this.cookie.id == '0') {
-      this.rpcService.getResponse('update_cookie', function (obj: Cookie) {
-        self.cookie = obj;
-      }, this.cookie.id, this.cookie);
-    }
+    this.rpcService.getResponse('update_cookie', function (obj: Cookie) {
+      self.cookie = obj;
+    }, this.cookie.id, this.cookie);
     this.dialogRef.close();
   }
 

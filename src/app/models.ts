@@ -505,7 +505,9 @@ export class Cookie {
     id: string;
     app_id: string;
     name: string;
+    domain: string;
     path: string;
+    retention: string;
     vendor: string;
     type: CookieType;
     description: string;

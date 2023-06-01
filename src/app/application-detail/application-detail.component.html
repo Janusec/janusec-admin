@@ -317,15 +317,36 @@
           <mat-table #table [dataSource]="cookieDataSource">
 
             <ng-container matColumnDef="name">
-              <mat-header-cell i18n="@@cookie_name" *matHeaderCellDef> Cookie Name </mat-header-cell>
+              <mat-header-cell i18n="@@name" *matHeaderCellDef> Name </mat-header-cell>
               <mat-cell *matCellDef="let element">
                 <span (click)="editCookie(element)" class="pointer">{{element.name}}</span>
               </mat-cell>
             </ng-container>
 
+            <ng-container matColumnDef="domain">
+              <mat-header-cell i18n="@@domain" *matHeaderCellDef> Domain </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <span class="pointer">{{element.domain}}</span>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="path">
+              <mat-header-cell i18n="@@path" *matHeaderCellDef> Path </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <span class="pointer">{{element.path}}</span>
+              </mat-cell>
+            </ng-container>
+
             <ng-container matColumnDef="type">
-              <mat-header-cell i18n="@@cookie_type" *matHeaderCellDef> Cookie Type </mat-header-cell>
+              <mat-header-cell i18n="@@type" *matHeaderCellDef> Type </mat-header-cell>
               <mat-cell *matCellDef="let element"> {{ getCookieTypeName(element.type) }} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="retention">
+              <mat-header-cell i18n="@@retention" *matHeaderCellDef> Retention </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <span class="pointer">{{element.retention}}</span>
+              </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="description">
