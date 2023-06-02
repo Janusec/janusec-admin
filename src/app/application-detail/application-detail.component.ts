@@ -29,7 +29,7 @@ export class ApplicationDetailComponent implements OnInit {
   k8sRoute = RouteType.K8S_Ingress;
 
   cookieDataSource: MatTableDataSource<Cookie>;
-  displayedColumns = ['name', 'domain', 'path', 'type', 'retention', 'description', 'action'];
+  displayedColumns = ['name', 'domain', 'path', 'type', 'duration', 'description', 'action'];
   cookieLength: number;
   keyword: string;
 
@@ -100,7 +100,7 @@ export class ApplicationDetailComponent implements OnInit {
       this.application.long_notice_link = '/privacy';
     }
     if (this.application.necessary_notice == null || this.application.necessary_notice == '') {
-      this.application.necessary_notice = "Necessary cookies enable core functionality such as security, network management, load balance, language, UI and accessibility. You may disable these by changing your browser settings, but this may affect how the website functions.";
+      this.application.necessary_notice = "Necessary cookies enable core functionality such as identity authentication, session management, network management, load balance, language and UI etc. ";
     }
     if (this.application.functional_notice == null || this.application.functional_notice == '') {
       this.application.functional_notice = "Functional cookies help perform certain functionalities such as sharing the content of the website on social media platforms, collecting feedback, and other features.";
@@ -270,7 +270,7 @@ export class ApplicationDetailComponent implements OnInit {
       name: "",
       domain: "",
       path: "/",
-      retention: "365 days",
+      duration: "365 days",
       vendor: "",
       type: CookieType.Unclassified,
       description: "",
@@ -302,8 +302,8 @@ export class ApplicationDetailComponent implements OnInit {
     if (!confirm("Are you sure to delete cookie: " + cookie.name + "?")) return;
     var self = this;
     this.rpcService.getResponse('del_cookie', function () {
-      self.getCookiesByAppID(this.application.id);
-    }, cookie.id, cookie);
+      self.getCookiesByAppID(self.application.id);
+    }, cookie.id, null);
   }
 
 }

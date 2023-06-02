@@ -156,11 +156,12 @@ let zhTranslations = {
     'cookie_setting': '应用Cookie设置',
     'cookie_management': '应用Cookie管理',
     'add_cookie': '添加Cookie',
+    'back_to_applications': '返回应用管理',
     // Cookie
     'name': '名称',
     'domain': '域',
     'path': '路径',
-    'retention': '留存',
+    'duration': '留存',
     'type': '类型',
     'vendor': '供应商',
     // Port forwarding

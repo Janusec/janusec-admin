@@ -342,10 +342,10 @@
               <mat-cell *matCellDef="let element"> {{ getCookieTypeName(element.type) }} </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="retention">
-              <mat-header-cell i18n="@@retention" *matHeaderCellDef> Retention </mat-header-cell>
+            <ng-container matColumnDef="duration">
+              <mat-header-cell i18n="@@duration" *matHeaderCellDef> Retention </mat-header-cell>
               <mat-cell *matCellDef="let element">
-                <span class="pointer">{{element.retention}}</span>
+                <span class="pointer">{{element.duration}}</span>
               </mat-cell>
             </ng-container>
 
@@ -377,8 +377,13 @@
   </mat-tab-group>
 
   <div>
-    <button i18n="@@save" mat-stroked-button [disabled]="readOnlyValue" (click)="setApplication()">Save</button>
-    <button mat-stroked-button (click)="changeEditable()">{{readOnlyButtonText}}</button>
-    <button i18n="@@delete" mat-stroked-button [disabled]="readOnlyValue" (click)="deleteApplication()">Delete</button>
+    <mat-toolbar>
+      <button i18n="@@save" mat-stroked-button [disabled]="readOnlyValue" (click)="setApplication()">Save</button>
+      <button mat-stroked-button (click)="changeEditable()">{{readOnlyButtonText}}</button>
+      <button i18n="@@delete" mat-stroked-button [disabled]="readOnlyValue"
+        (click)="deleteApplication()">Delete</button>
+      <span class="spacer"></span>
+      <a mat-stroked-button routerLink="/applications" i18n="@@back_to_applications">Back to Applications</a>
+    </mat-toolbar>
   </div>
 </div>

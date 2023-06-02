@@ -24,9 +24,9 @@
         </mat-form-field>
 
         <mat-form-field>
-            <mat-label i18n="@@retention">Retention</mat-label>
-            <input matInput #retention [(ngModel)]="cookie.retention" maxlength="128" required />
-            <mat-hint align="end">{{retention.value?.length || 0}}/128</mat-hint>
+            <mat-label i18n="@@duration">Retention</mat-label>
+            <input matInput #duration [(ngModel)]="cookie.duration" maxlength="128" required />
+            <mat-hint align="end">{{duration.value?.length || 0}}/128</mat-hint>
         </mat-form-field>
 
         <mat-form-field>
@@ -46,7 +46,7 @@
 
         <mat-form-field>
             <mat-label i18n="@@description">Description</mat-label>
-            <textarea matInput #description [(ngModel)]="cookie.description" rows="3"></textarea>
+            <input matInput #description [(ngModel)]="cookie.description" />
         </mat-form-field>
 
     </div>
