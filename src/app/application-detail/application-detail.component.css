@@ -72,3 +72,8 @@ button {
 .spacer {
     flex: 1 1 auto;
 }
+
+.notes p,
+li {
+    font-size: 10px;
+}

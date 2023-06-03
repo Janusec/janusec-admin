@@ -319,6 +319,13 @@
               Manage Cookie References
             </a>
           </span>
+          <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <span>
+            <button mat-stroked-button (click)="refreshCookies()">
+              <mat-icon>refresh</mat-icon>
+              <span i18n="@@refresh">Refresh</span>
+            </button>
+          </span>
         </div>
 
         <div class="mat-elevation-z8">
@@ -387,11 +394,24 @@
           </mat-paginator>
         </div>
 
-        <div i18n="@@cookies_note" class="notes">
-          Note: Cookies through Set-Cookie in the server response will be automatically added, while cookies set by
-          JavaScript in the browser need to be manually added..
+        <div class="notes">
+          <p i18n="@@steps_to_scan_cookies">Steps to Scan Cookies:</p>
+          <ul>
+            <li i18n="@@enable_unclassified_under_settings">Enable Unclassified Cookies before User Confirmation, under
+              the menu "Cookie Setting".</li>
+            <li i18n="@@open_website_and_navigate">Open the target website using a browser and navigate pages which may
+              set cookies.</li>
+            <li i18n="@@refresh_cookies">Click the above Refresh button, then you will see all Cookies during
+              navigating.</li>
+            <li i18n="@@modify_cookie_type">Modify Cookie Type of each Cookie.</li>
+            <li i18n="@@disable_unclassified">Disable Unclassified Cookies before User Confirmation, under the menu
+              "Cookie Setting".</li>
+            <li i18n="@@navigate_website">Navigate the target website and check if the cookie settings are in effect.
+            </li>
+          </ul>
+          <p i18n="@@cookies_note">Note: Only Cookies through Set-Cookie in Response Header will be automatically added.
+          </p>
         </div>
-
       </div>
     </mat-tab>
   </mat-tab-group>

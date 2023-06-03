@@ -116,6 +116,10 @@ export class ApplicationDetailComponent implements OnInit {
     }
   }
 
+  refreshCookies() {
+    this.getCookiesByAppID(this.application.id);
+  }
+
   getCookiesByAppID(appID: string) {
     let self = this;
     this.rpcService.getResponse('get_app_cookies', function (objs: Cookie[]) {
