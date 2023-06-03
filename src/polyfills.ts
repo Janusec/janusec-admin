@@ -183,7 +183,6 @@ let zhTranslations = {
     'modify_cookie_type': '修改Cookie类型',
     'disable_unclassified': '禁用未分类Cookie（在应用Cookie设置菜单下）',
     'navigate_website': '浏览目标网站，检查Cookie设置是否生效',
-    'cookies_note': '备注：只有通过服务器响应头Set-Cookie设置的Cookie才会自动添加。',
     // CookieRef
     'cookie_ref_mgmt': 'Cookie引用管理',
     'add_cookie_ref': '添加Cookie引用',
