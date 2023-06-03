@@ -514,3 +514,18 @@ export class Cookie {
     access_time: number;
     source: string;
 }
+
+export class CookieRef {
+    id: string;
+    name: string;
+    vendor: string;
+    type: CookieType;
+    description: string;
+    operation: CookieOperation;
+}
+
+export enum CookieOperation {
+    EqualsString = 1,
+    BeginWithString = 1 << 1,
+    RegexMatch = 1 << 2
+}

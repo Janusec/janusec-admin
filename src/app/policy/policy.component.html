@@ -40,7 +40,7 @@
             </mat-form-field>
 
             <mat-form-field>
-                <mat-select i18n-placeholder="@@operation" placeholder="Operation"
+                <mat-select i18n-placeholder="@@group_policy_operation" placeholder="Operation"
                     [(ngModel)]="group_policy.check_items[i].operation" [disabled]="readOnlyValue" required>
                     <mat-option *ngFor="let operation_value of enum_operation_values;" [value]="operation_value.value">
                         {{ operation_value.name }}

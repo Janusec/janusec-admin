@@ -29,7 +29,7 @@ export class ApplicationDetailComponent implements OnInit {
   k8sRoute = RouteType.K8S_Ingress;
 
   cookieDataSource: MatTableDataSource<Cookie>;
-  displayedColumns = ['name', 'domain', 'path', 'type', 'duration', 'description', 'action'];
+  displayedColumns = ['name', 'domain', 'path', 'type', 'vendor', 'duration', 'description', 'action'];
   cookieLength: number;
   keyword: string;
 

@@ -75,6 +75,8 @@ import { DiscoveryRuleDialog } from './discovery-rules/discovery-rule-dialog';
 import { DiscoveryRulesComponent } from './discovery-rules/discovery-rules.component';
 import { ApiInterfaceComponent } from './api-interface/api-interface.component';
 import { CookieDialogComponent } from './cookie-dialog/cookie-dialog.component';
+import { CookieRefsComponent } from './cookie-refs/cookie-refs.component';
+import { CookieRefDialogComponent } from './cookie-ref-dialog/cookie-ref-dialog.component';
 
 @NgModule({
     exports: [
@@ -151,7 +153,9 @@ export class MaterialModule { }
         DiscoveryRuleDialog,
         DiscoveryRulesComponent,
         ApiInterfaceComponent,
-        CookieDialogComponent
+        CookieDialogComponent,
+        CookieRefsComponent,
+        CookieRefDialogComponent
     ],
     imports: [
         MaterialModule,

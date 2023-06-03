@@ -1,0 +1,72 @@
+<div class="container">
+    <div>
+        <mat-card>
+            <h2 i18n="@@cookie_ref_mgmt">CookieRef Management</h2>
+        </mat-card>
+    </div>
+    <div>
+        <span>
+            <button mat-stroked-button i18n="@@add_cookie_ref" (click)="addCookieRef()">Add CookieRef</button>
+        </span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <mat-form-field appearance="none">
+            <input matInput (keyup)="applyFilter($event.target.value)" class="search_box" placeholder="Filter">
+        </mat-form-field>
+    </div>
+
+    <div class="mat-elevation-z8">
+        <mat-table #table [dataSource]="cookieRefsDataSource">
+
+            <ng-container matColumnDef="name">
+                <mat-header-cell i18n="@@name" *matHeaderCellDef> Name </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <span (click)="editCookieRef(element)" class="pointer">{{element.name}}</span>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="operation">
+                <mat-header-cell i18n="@@operation" *matHeaderCellDef> Operation </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{ getCookieOperationName(element.operation) }} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="type">
+                <mat-header-cell i18n="@@type" *matHeaderCellDef> Type </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{ getCookieTypeName(element.type) }} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="vendor">
+                <mat-header-cell i18n="@@vendor" *matHeaderCellDef> Vendor </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <span class="pointer">{{element.vendor}}</span>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="description">
+                <mat-header-cell i18n="@@description" *matHeaderCellDef> Description </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef i18n="@@action"> Action </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-icon inline="true" (click)="editCookieRef(element)" class="pointer">edit
+                    </mat-icon>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <mat-icon inline="true" (click)="deleteCookieRef(element)" class="pointer">delete
+                    </mat-icon>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator #cookiePaginator [length]="cookieLength" [pageSize]="20" [pageSizeOptions]="[10, 20, 50]">
+        </mat-paginator>
+    </div>
+
+    <div i18n="@@cookie_ref_note" class="notes">
+        Note: CookieRef are used to automatically classify discovered cookies. If there is no corresponding cookie
+        reference, the cookie type will be set to Unclassified.
+    </div>
+
+</div>
