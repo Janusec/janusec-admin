@@ -1,0 +1,67 @@
+<div class="container">
+    <div>
+        <mat-card>
+            <h2>
+                <span i18n="@@dns_record_mgmt">DNS Record Management</span>
+                <span *ngIf="dnsDomain"> - {{ dnsDomain.name }}</span>
+            </h2>
+        </mat-card>
+    </div>
+    <div>
+        <span>
+            <button mat-stroked-button i18n="@@add_dns_record" (click)="addDNSRecord()">Add DNS Record</button>
+        </span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <mat-form-field appearance="none">
+            <input matInput (keyup)="applyFilter($event.target.value)" class="search_box" placeholder="Filter">
+        </mat-form-field>
+    </div>
+
+    <div class="mat-elevation-z8">
+        <mat-table #table [dataSource]="dnsRecordsDataSource">
+
+            <ng-container matColumnDef="rrtype">
+                <mat-header-cell i18n="@@rrtype" *matHeaderCellDef> Resource Type </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{ getRRTypeName(element.rrtype) }} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <mat-header-cell i18n="@@name" *matHeaderCellDef> Name </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <span (click)="editDNSRecord(element)" class="pointer">{{element.name}}</span>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="value">
+                <mat-header-cell i18n="@@value" *matHeaderCellDef> Value </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <span>{{element.value}}</span>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="ttl">
+                <mat-header-cell *matHeaderCellDef> TTL </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <span>{{element.ttl}}</span>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef i18n="@@action"> Action </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-icon inline="true" (click)="editDNSRecord(element)" class="pointer">edit
+                    </mat-icon>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <mat-icon inline="true" (click)="deleteDNSRecord(element)" class="pointer">delete
+                    </mat-icon>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator #dnsPaginator [length]="dnsLength" [pageSize]="20" [pageSizeOptions]="[10, 20, 50]">
+        </mat-paginator>
+    </div>
+
+</div>

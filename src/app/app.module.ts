@@ -77,6 +77,10 @@ import { ApiInterfaceComponent } from './api-interface/api-interface.component';
 import { CookieDialogComponent } from './cookie-dialog/cookie-dialog.component';
 import { CookieRefsComponent } from './cookie-refs/cookie-refs.component';
 import { CookieRefDialogComponent } from './cookie-ref-dialog/cookie-ref-dialog.component';
+import { DnsManagerComponent } from './dns-manager/dns-manager.component';
+import { DnsDialogComponent } from './dns-dialog/dns-dialog.component';
+import { DnsDomainsComponent } from './dns-domains/dns-domains.component';
+import { DnsDomainComponent } from './dns-domain/dns-domain.component';
 
 @NgModule({
     exports: [
@@ -155,7 +159,11 @@ export class MaterialModule { }
         ApiInterfaceComponent,
         CookieDialogComponent,
         CookieRefsComponent,
-        CookieRefDialogComponent
+        CookieRefDialogComponent,
+        DnsDomainsComponent,
+        DnsDomainComponent,
+        DnsManagerComponent,
+        DnsDialogComponent
     ],
     imports: [
         MaterialModule,

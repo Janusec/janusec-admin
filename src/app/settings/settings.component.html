@@ -290,16 +290,6 @@
             </div>
         </mat-tab>
 
-        <mat-tab i18n-label="@@cookie_ref_mgmt" label="CookieRef Management">
-            <div class="container">
-                <span>
-                    <a mat-stroked-button i18n="@@manage_cookie_refs" routerLink="/cookie-refs">
-                        Manage Cookie References
-                    </a>
-                </span>
-            </div>
-        </mat-tab>
-
         <mat-tab i18n-label="@@email_notification" label="Email Notification">
             <div class="container">
                 <section>
@@ -331,6 +321,38 @@
             </div>
         </mat-tab>
 
+        <mat-tab i18n-label="@@advanced" label="Advanced">
+            <div class="container">
+                <h2 i18n="@@cookie_ref_mgmt">Cookie Reference Management</h2>
+                <mat-card>
+                    <mat-card-content>
+                        <p>用于对发现的Cookie自动分类</p>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <a mat-stroked-button i18n="@@manage_cookie_refs" routerLink="/cookie-refs">
+                            Manage Cookie References
+                        </a>
+                    </mat-card-actions>
+                </mat-card>
+                <br>
+
+                <h2 i18n="@@dns_server">DNS Server</h2>
+                <mat-card>
+                    <section>
+                        <mat-checkbox i18n="@@enable_dns_server" [(ngModel)]="settings.dns_enabled"
+                            [disabled]="readOnlyValue">
+                            Enable DNS Server (service restart is required)
+                        </mat-checkbox>
+                    </section>
+                    <br>
+                    <mat-card-actions>
+                        <a mat-stroked-button i18n="@@manage_domains_and_dns_records" routerLink="/dns-domains">
+                            Manage Domain Names and DNS Records
+                        </a>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </mat-tab>
 
     </mat-tab-group>
     <div class="container">

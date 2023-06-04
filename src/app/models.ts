@@ -424,6 +424,7 @@ export class PrimarySetting {
     data_discovery_api: string;
     data_discovery_tenant_id: string;
     data_discovery_key: string;
+    dns_enabled: boolean;
 }
 
 export class IPPolicy {
@@ -528,4 +529,33 @@ export enum CookieOperation {
     EqualsString = 1,
     BeginWithString = 1 << 1,
     RegexMatch = 1 << 2
+}
+
+export class DNSDomain {
+    id: string;
+    name: string;
+}
+
+export class DNSRecord {
+    id: string;
+    dns_domain_id: string;
+    rrtype: RRType;
+    name: string;
+    value: string;
+    ttl: number;
+    auto: boolean;
+    internal: boolean;
+}
+
+// A, AAAA, CNAME, MX, TXT, SRV, NS, HTTPS, CAA
+export enum RRType {
+    A = 1,
+    NS = 2,
+    CNAME = 5,
+    MX = 15,
+    TXT = 16,
+    AAAA = 28,
+    SRV = 33,
+    HTTPS = 65,
+    CAA = 257
 }

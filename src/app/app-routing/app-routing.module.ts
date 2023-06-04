@@ -29,6 +29,8 @@ import { IpPolicyComponent } from '../ip-policy/ip-policy.component';
 import { DiscoveryRulesComponent } from '../discovery-rules/discovery-rules.component';
 import { ApiInterfaceComponent } from '../api-interface/api-interface.component';
 import { CookieRefsComponent } from '../cookie-refs/cookie-refs.component';
+import { DnsManagerComponent } from '../dns-manager/dns-manager.component';
+import { DnsDomainsComponent } from '../dns-domains/dns-domains.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/index.html', pathMatch: 'full' },
@@ -60,7 +62,9 @@ const routes: Routes = [
     { path: 'authcode-register', component: AuthcodeRegisterComponent },
     { path: 'discovery-rules', component: DiscoveryRulesComponent },
     { path: 'api-interface', component: ApiInterfaceComponent },
-    { path: 'cookie-refs', component: CookieRefsComponent }
+    { path: 'cookie-refs', component: CookieRefsComponent },
+    { path: 'dns-domains', component: DnsDomainsComponent },
+    { path: 'dns-manager/:id', component: DnsManagerComponent }
 ];
 
 @NgModule({

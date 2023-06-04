@@ -1,0 +1,55 @@
+<div *ngIf="dnsRecord" class="container">
+    <div>
+        <mat-card>
+            <h2 i18n="@@dns_record">DNS Record</h2>
+        </mat-card>
+    </div>
+    <div>
+
+        <mat-form-field>
+            <mat-label i18n="@@rrtype">Record Type</mat-label>
+            <mat-select matNativeControl [(ngModel)]="dnsRecord.rrtype">
+                <mat-option *ngFor="let value of enum_rrtype_values" [value]="value">
+                    {{ rrtype[value] }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label i18n="@@name">Name</mat-label>
+            <input matInput #name [(ngModel)]="dnsRecord.name" maxlength="128" required />
+            <mat-hint align="end">{{name.value?.length || 0}}/128</mat-hint>
+        </mat-form-field>
+
+        <section>
+            <mat-checkbox i18n="@@auto_resolve" [(ngModel)]="dnsRecord.auto" [disabled]="readOnlyValue">
+                Automatically resolve to available gateway nodes
+            </mat-checkbox>
+        </section>
+
+        <section *ngIf="!dnsRecord.auto">
+            <section>
+                <mat-checkbox i18n="@@resolve_on_internal" [(ngModel)]="dnsRecord.internal" [disabled]="readOnlyValue">
+                    Only resolve on the internal network
+                </mat-checkbox>
+            </section>
+
+            <mat-form-field>
+                <mat-label i18n="@@value">Value</mat-label>
+                <input matInput #value [(ngModel)]="dnsRecord.value" maxlength="128" required />
+                <mat-hint align="end">{{value.value?.length || 0}}/128</mat-hint>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label i18n="@@ttl_seconds">TTL (seconds)</mat-label>
+                <input matInput type="number" #ttl [(ngModel)]="dnsRecord.ttl" />
+            </mat-form-field>
+        </section>
+
+    </div>
+
+    <div mat-dialog-actions>
+        <button i18n="@@save" mat-stroked-button (click)="setDNSRecord()">Save</button>
+        <button mat-stroked-button mat-dialog-close i18n="@@cancel">Cancel</button>
+    </div>
+</div>
