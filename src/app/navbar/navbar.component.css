@@ -1,7 +1,7 @@
 .icon {
     padding: 0 14px;
-  }
-  
+}
+
 .spacer {
     flex: 1 1 auto;
 }
@@ -16,13 +16,20 @@
     height: 38px;
 }
 
+.logo {
+    width: 24px;
+    height: 24px;
+    margin: 5px 0 0 5px;
+}
+
 .text-logo {
+    display: block;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 24px;   
+    font-size: 24px;
     color: #f5f5f5;
-    width: 203px;
+    width: 174px;
     text-decoration: none;
     text-shadow: 2px 2px 4px #000000;
     box-shadow: 1px 1px 1px #d5d5d5;
-    padding-left: 5px; 
+    padding-left: 5px;
 }
