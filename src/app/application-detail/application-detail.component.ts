@@ -112,7 +112,7 @@ export class ApplicationDetailComponent implements OnInit {
       this.application.marketing_notice = "These cookies are set by our advertising partners. They are used to build a profile of your interests and show relevant ads on other websites. They do not store directly personal information, but are based on uniquely identifying your browser and internet device. Additionally, the third parties setting these cookies may link your personal data with your browsing behaviour if you are logged into their services at the time.";
     }
     if (this.application.unclassified_notice == null || this.application.unclassified_notice == '') {
-      this.application.unclassified_notice = "Unclassified cookies are cookies in the process of classifying, and will be ready soon.";
+      this.application.unclassified_notice = "Unclassified cookies are only used for detection purposes and may come from real business scenarios or detection scans. Only cookies that come from real business scenarios with your consent will take effect.";
     }
   }
 

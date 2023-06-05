@@ -27,10 +27,13 @@
             <ng-container matColumnDef="action">
                 <mat-header-cell *matHeaderCellDef i18n="@@action"> Action </mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <a mat-stroked-button routerLink="/dns-manager/{{ element.id }}">DNS</a>
+                    <a mat-stroked-button routerLink="/dns-manager/{{ element.id }}" i18n="@@dns_record">DNS Record</a>
                     <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                    <mat-icon inline="true" (click)="deleteDNSDomain(element)" class="pointer">delete
-                    </mat-icon>
+                    <span>
+                        <button mat-stroked-button (click)="deleteDNSDomain(element)" i18n="@@delete">
+                            Delete
+                        </button>
+                    </span>
                 </mat-cell>
             </ng-container>
 
