@@ -241,6 +241,7 @@ export class Node {
     last_ip: string;
     last_req_time: number;
     online: boolean;
+    public_ip: string;
 }
 
 export class CCLog {

@@ -35,7 +35,8 @@
             <ng-container matColumnDef="value">
                 <mat-header-cell i18n="@@value" *matHeaderCellDef> Value </mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <span>{{element.value}}</span>
+                    <span *ngIf="element.auto">Auto</span>
+                    <span *ngIf="!element.auto">{{element.value}}</span>
                 </mat-cell>
             </ng-container>
 

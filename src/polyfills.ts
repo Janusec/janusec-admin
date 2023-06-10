@@ -349,8 +349,8 @@ let zhTranslations = {
     'rrtype': '记录类型',
     'value': '值',
     'ttl_seconds': 'TTL（秒）',
-    'auto_resolve': '自动解析到可用的网关节点',
-    'resolve_on_internal': '仅在内网解析',
+    'auto_resolve': '自动解析到可用的网关节点（用于负载均衡）',
+    'intranet_domain_name': '这是一个内网域名（解析为内网IP）',
     // LDAP
     'bind_required': '启用BindDN（适用于Active Directory）',
     'using_tls': '使用TLS加密通道',

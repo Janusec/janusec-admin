@@ -6,7 +6,7 @@ import { MessageService } from '../message.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 
-export interface ICookie {
+export interface IDnsDomain {
   dnsDomain: DNSDomain
 }
 
@@ -24,9 +24,8 @@ export class DnsDomainComponent {
     private router: Router,
     private msgService: MessageService,
     public dialogRef: MatDialogRef<DnsDomainComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ICookie) {
+    @Inject(MAT_DIALOG_DATA) public data: IDnsDomain) {
     this.dnsDomain = data.dnsDomain;
-    console.log("0000", this.dnsDomain);
   }
 
   setDNSDomain() {

@@ -54,7 +54,7 @@ export class DnsManagerComponent implements OnInit {
     }
     this.dialog.open(DnsDialogComponent, {
       width: '500px',
-      data: { "dnsRecord": dnsRecord }
+      data: { "dnsRecord": dnsRecord, "dnsDomain": this.dnsDomain }
     }).afterClosed().subscribe(result => {
       this.getDNSRecordsByDomainID(this.dnsDomainID);
     });
@@ -63,7 +63,7 @@ export class DnsManagerComponent implements OnInit {
   editDNSRecord(dnsRecord: DNSRecord) {
     this.dialog.open(DnsDialogComponent, {
       width: '500px',
-      data: { "dnsRecord": dnsRecord }
+      data: { "dnsRecord": dnsRecord, "dnsDomain": this.dnsDomain }
     }).afterClosed().subscribe(result => {
       this.getDNSRecordsByDomainID(this.dnsDomainID);
     });
