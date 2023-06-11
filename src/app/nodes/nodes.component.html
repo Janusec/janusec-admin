@@ -1,26 +1,71 @@
 <div class="container">
     <div>
         <mat-card>
-            <h2 i18n="@@node_mgmt">Node Management</h2>
+            <h2>
+                <span i18n="@@node_mgmt">Node Management</span>
+                <span> &nbsp;&nbsp;&nbsp;&nbsp; </span>
+                <span>
+                    <button mat-stroked-button (click)="getNodes()">
+                        <mat-icon matListIcon>refresh</mat-icon>
+                        <span i18n="@@refresh">Refresh</span>
+                    </button>
+                </span>
+            </h2>
         </mat-card>
     </div>
 
-    <div>
-        <h3 matLine i18n="@@node_notice">Please copy the following node_key into config.json of all replica
-            nodes.</h3>
+    <div class="mat-elevation-z8">
+        <mat-table #table [dataSource]="nodesDataSource">
 
-        <span class="wrapkey">{{ rpcService.hexNodesKey }}</span>
+            <ng-container matColumnDef="last_ip">
+                <mat-header-cell i18n="@@last_ip" *matHeaderCellDef> IP </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    {{element.last_ip}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="online">
+                <mat-header-cell i18n="@@online" *matHeaderCellDef> Online </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-icon *ngIf="element.online" color="primary">check_circle_outline</mat-icon>
+                    <mat-icon *ngIf="!element.online" color="warn">highlight_off</mat-icon>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="version">
+                <mat-header-cell i18n="@@version" *matHeaderCellDef> Version </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.version}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="last_req_time">
+                <mat-header-cell i18n="@@sync_time" *matHeaderCellDef class="center_column"> Synchronization Time
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element" class="center_column">
+                    {{ getDate(element.last_req_time) }}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <mat-header-cell i18n="@@action" *matHeaderCellDef> Action </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <button mat-stroked-button (click)="deleteNode(element.id)" i18n="@@delete">Delete</button>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator #nodesPaginator [length]="nodesLength" [pageSize]="20" [pageSizeOptions]="[10, 20, 50]">
+        </mat-paginator>
     </div>
-    <mat-list class="mat-list-item-list-stacked">
-        <mat-list-item *ngFor="let node of rpcService.nodes" (click)="onSelect(node)"
-            [class.selected]="node === selectedNode">
-            <mat-icon matListIcon matTooltip="This node may be offline!" matTooltipPosition="right" color="warn"
-                *ngIf="!node.online;else elseBlock">games</mat-icon>
-            <ng-template #elseBlock>
-                <mat-icon matListIcon color="primary">games</mat-icon>
-            </ng-template>
-            <h3 matLine> {{node.last_ip}} &nbsp;&nbsp;&nbsp;&nbsp;( version: {{ node.version }} ) </h3>
 
-        </mat-list-item>
-    </mat-list>
+    <br>
+    <mat-card>
+        <h3 i18n="@@node_sync">Node Synchronization</h3>
+        <p matLine i18n="@@node_notice">Please copy the following node_key into config.json of all replica
+            nodes.
+        </p>
+        <span class="wrapkey">{{ rpcService.hexNodesKey }}</span>
+    </mat-card>
+
 </div>

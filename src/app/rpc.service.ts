@@ -31,7 +31,7 @@ export class RPCService {
   vip_app_map: object = new (Object);
   hexAPIKey: string;
   hexNodesKey: string;
-  nodes: Node[] = [];
+
   domains: Domain[] = [];
   admins: AppUser[] = [];
   vulntypes: VulnType[] = [];
@@ -142,23 +142,6 @@ export class RPCService {
       self.hexNodesKey = obj.nodes_key;
     });
     return self.hexNodesKey;
-  }
-
-  getNodes() {
-    var self = this;
-    this.getResponse('get_nodes', function (obj: Node[]) {
-      self.nodes = obj;
-      if (self.nodes == null) return;
-      var now_ms = (new Date()).getTime();
-      for (let node of self.nodes) {
-        let ms_diff = now_ms - (new Date(node.last_req_time * 1000)).getTime();
-        if (ms_diff < 630 * 1000) {
-          node.online = true;
-        } else {
-          node.online = false;
-        }
-      }
-    });
   }
 
   getAuthUser(callback: (auth_user: AuthUser) => any) {
