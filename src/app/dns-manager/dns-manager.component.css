@@ -1,8 +1,10 @@
 .search_box {
+    font-size: 14px;
     background-color: #FFFFFF;
     border: solid 1px #D0D0D0;
     border-radius: 15px;
     padding: 6px;
+    margin-top: 10px;
     vertical-align: middle;
 }
 
@@ -18,4 +20,21 @@
     margin-right: 0px;
     list-style-type: none;
     font-size: 10px;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.enable_dns_note p,
+li {
+    font-size: 12px;
+    font-family: 'Courier New', Courier, monospace;
+    margin-top: 3px;
+}
+
+.command {
+    color: #FF0000;
+    padding: 0 3px;
+    background-color: #f5f5f5;
 }

@@ -8,7 +8,7 @@
 
         <mat-form-field>
             <mat-label i18n="@@name">Name</mat-label>
-            <input matInput #name [(ngModel)]="dnsDomain.name" maxlength="128" required />
+            <input matInput #name [(ngModel)]="dnsDomain.name" maxlength="128" placeholder="example.com" required />
             <mat-hint align="end">{{name.value?.length || 0}}/128</mat-hint>
         </mat-form-field>
 

@@ -16,7 +16,7 @@ import { DnsDialogComponent } from '../dns-dialog/dns-dialog.component';
 })
 export class DnsManagerComponent implements OnInit {
   dnsDomain: DNSDomain;
-  dnsDomainID: string;
+  //dnsDomainID: string;
   dnsRecords: DNSRecord[];
   dnsRecordsDataSource: MatTableDataSource<DNSRecord>;
   displayedColumns = ['rrtype', 'name', 'value', 'ttl', 'action'];
@@ -36,9 +36,9 @@ export class DnsManagerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dnsDomainID = this.route.snapshot.paramMap.get('id');
-    this.getDNSDomainByID(this.dnsDomainID);
-    this.getDNSRecordsByDomainID(this.dnsDomainID);
+    let dnsDomainID = this.route.snapshot.paramMap.get('id');
+    this.getDNSDomainByID(dnsDomainID);
+    this.getDNSRecordsByDomainID(dnsDomainID);
   }
 
   addDNSRecord() {
@@ -56,7 +56,7 @@ export class DnsManagerComponent implements OnInit {
       width: '500px',
       data: { "dnsRecord": dnsRecord, "dnsDomain": this.dnsDomain }
     }).afterClosed().subscribe(result => {
-      this.getDNSRecordsByDomainID(this.dnsDomainID);
+      this.getDNSRecordsByDomainID(this.dnsDomain.id);
     });
   }
 
@@ -65,7 +65,7 @@ export class DnsManagerComponent implements OnInit {
       width: '500px',
       data: { "dnsRecord": dnsRecord, "dnsDomain": this.dnsDomain }
     }).afterClosed().subscribe(result => {
-      this.getDNSRecordsByDomainID(this.dnsDomainID);
+      this.getDNSRecordsByDomainID(this.dnsDomain.id);
     });
   }
 
@@ -77,7 +77,7 @@ export class DnsManagerComponent implements OnInit {
     if (!confirm("Are you sure to delete dns record: " + dnsRecord.name + "?")) return;
     var self = this;
     this.rpcService.getResponse('del_dns_record', function () {
-      self.getDNSRecordsByDomainID(this.dnsDomainID);
+      self.getDNSRecordsByDomainID(self.dnsDomain.id);
     }, dnsRecord.id, null);
   }
 
@@ -85,7 +85,7 @@ export class DnsManagerComponent implements OnInit {
     let self = this;
     this.rpcService.getResponse('get_dns_domain', function (obj: DNSDomain) {
       self.dnsDomain = obj;
-    }, this.dnsDomainID, null);
+    }, domainID, null);
   }
 
   getDNSRecordsByDomainID(domainID: string) {
@@ -94,7 +94,7 @@ export class DnsManagerComponent implements OnInit {
       self.dnsRecords = objs;
       self.dnsRecordsDataSource = new MatTableDataSource<DNSRecord>(self.dnsRecords);
       self.dnsLength = self.dnsRecords.length;
-    }, this.dnsDomainID, null);
+    }, domainID, null);
   }
 
   applyFilter(filterValue: string) {
