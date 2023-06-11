@@ -15,7 +15,7 @@ export class NodesComponent implements OnInit {
   nodes: Node[] = [];
   selectedNode: Node;
   nodesDataSource: MatTableDataSource<Node>;
-  displayedColumns = ['last_ip', 'online', 'version', 'last_req_time', 'action'];
+  displayedColumns = ['last_ip', 'public_ip', 'online', 'version', 'last_req_time', 'action'];
   nodesLength: number;
 
   @ViewChild('nodesPaginator') nodesPaginator: MatPaginator;

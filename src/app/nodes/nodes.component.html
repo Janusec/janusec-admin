@@ -24,6 +24,13 @@
                 </mat-cell>
             </ng-container>
 
+            <ng-container matColumnDef="public_ip">
+                <mat-header-cell i18n="@@public_ip" *matHeaderCellDef> Public IP </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    {{element.public_ip}}
+                </mat-cell>
+            </ng-container>
+
             <ng-container matColumnDef="online">
                 <mat-header-cell i18n="@@online" *matHeaderCellDef> Online </mat-header-cell>
                 <mat-cell *matCellDef="let element">

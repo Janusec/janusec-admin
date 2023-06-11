@@ -227,6 +227,7 @@ let zhTranslations = {
     'node_notice': '请复制如下node_key到所有从节点config.json文件中：',
     'node_detail': '节点详情',
     'last_ip': 'IP地址',
+    'public_ip': '公网IP',
     'online': '在线',
     'sync_time': '同步时间',
     'node_sync': '节点同步',
