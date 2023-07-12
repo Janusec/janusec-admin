@@ -405,6 +405,7 @@ export class PrimarySetting {
     skip_se_enabled: boolean;
     search_engines: string;
     block_html: string;
+    shield_html: string;
     smtp: SMTPSetting;
     data_discovery_enabled: boolean;
     data_discovery_api: string;

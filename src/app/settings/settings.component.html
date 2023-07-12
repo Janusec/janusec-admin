@@ -178,7 +178,19 @@
         </mat-tab>
 
         <mat-tab i18n-label="@@access_control" label="Access Control">
+
             <div class="container">
+                <h2 i18n="@@security_operation"> Security Operation </h2>
+                <section>
+                    <mat-checkbox i18n="@@webssh_enabled" [(ngModel)]="settings.webssh_enabled"
+                        [disabled]="readOnlyValue">
+                        Enable Web-based SSH
+                    </mat-checkbox>
+                </section>
+            </div>
+
+            <div class="container">
+
                 <h2 i18n="@@seo_five_second_shield">SEO and 5-second Shield</h2>
                 <section>
                     <mat-checkbox i18n="@@skip_se_enabled" [(ngModel)]="settings.skip_se_enabled"
@@ -193,24 +205,26 @@
                     </mat-label>
                     <input matInput [(ngModel)]="settings.search_engines" [readonly]="readOnlyValue" required>
                     <mat-hint i18n="@@five_second_shield_note">
-                        Note: When the 5-second shield is enabled for an application, it will affect SEO. You can set it
+                        Note: When the 5-second shield is enabled for an application, it will affect SEO. You can
+                        set it
                         to not block the search engines listed above (User-Agent).
                     </mat-hint>
                 </mat-form-field>
+
+                <h4 i18n="@@custom_shield_html">Custom 5-Shield HTML</h4>
+                <mat-form-field>
+                    <textarea matInput #shield_html [(ngModel)]="settings.shield_html" rows="30"
+                        [readonly]="readOnlyValue" required>
+                    </textarea>
+                    <mat-hint align="end">{{shield_html.value?.length || 0}}/4096</mat-hint>
+                </mat-form-field>
+                <div class="notes" i18n="@@shield_notice">
+                    Please do not modify the content in the above script.
+                </div>
             </div>
 
             <div class="container">
-                <h2 i18n="@@security_operation"> Security Operation </h2>
-                <section>
-                    <mat-checkbox i18n="@@webssh_enabled" [(ngModel)]="settings.webssh_enabled"
-                        [disabled]="readOnlyValue">
-                        Enable Web-based SSH
-                    </mat-checkbox>
-                </section>
-            </div>
-
-            <div class="container">
-                <h2 i18n="@@custom_block_html">Custom Block Content (HTML)</h2>
+                <h2 i18n="@@custom_block_html">Custom WAF Block Content (HTML)</h2>
                 <mat-form-field>
                     <textarea matInput #block_html [(ngModel)]="settings.block_html" rows="30"
                         [readonly]="readOnlyValue" required>
