@@ -33,6 +33,10 @@ mat-form-field {
     margin-right: 5px;
 }
 
+.inline-form-field-40 {
+    width: 40%;
+}
+
 .inline-form-field-50 {
     width: 50%;
 }
@@ -60,4 +64,9 @@ mat-form-field {
 
 button {
     margin-right: 5px;
+}
+
+.custom_header_div {
+    padding-left: 10px;
+    padding-bottom: 10px;
 }

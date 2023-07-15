@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { Application, Domain, Certificate, APIResponse, Destination, IPMethod, RouteType } from '../models';
+import { Application, Domain, Certificate, APIResponse, Destination, IPMethod, RouteType, CustomHeader } from '../models';
 import { RPCService } from '../rpc.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MessageService } from '../message.service';
@@ -136,7 +136,7 @@ export class ApplicationDetailComponent implements OnInit {
     new_domain.redirect = false;
     new_domain.location = "";
     this.application.domains.push(new_domain);
-    console.log(this.application.domains);
+    //console.log(this.application.domains);
   }
 
 
@@ -147,6 +147,23 @@ export class ApplicationDetailComponent implements OnInit {
       return;
     }
     this.application.domains.splice(i, 1);
+  }
+
+  addHeader() {
+    if (this.readOnlyValue) {
+      alert("It is read only now, please click edit button at first");
+      return;
+    }
+    let header: CustomHeader = {
+      key: "",
+      value: ""
+    };
+    this.application.custom_headers.push(header);
+  }
+
+  delHeader(i: number): void {
+    if (this.readOnlyValue) return;
+    this.application.custom_headers.splice(i, 1);
   }
 
   ngOnInit() {

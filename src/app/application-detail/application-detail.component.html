@@ -135,7 +135,33 @@
       </div>
     </mat-expansion-panel>
 
+    <mat-expansion-panel [expanded]="false" class="detail_panel">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <h3>
+            <span i18n="@@custom_header">Custom Header</span>
+          </h3>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div *ngIf="application.custom_headers.length==0" class="custom_header_div">
+        <button mat-stroked-button (click)="addHeader()">Add</button>
+      </div>
+      <div class="inline-form" *ngFor="let header of application.custom_headers; let i=index; trackBy:trackByFn">
+        <mat-form-field class="inline-form-field-40">
+          <mat-label>Key</mat-label>
+          <input matInput [(ngModel)]="application.custom_headers[i].key" [readonly]="readOnlyValue" />
+        </mat-form-field>
 
+        <mat-form-field class="inline-form-field-50">
+          <mat-label>Value</mat-label>
+          <input matInput [(ngModel)]="application.custom_headers[i].value" [readonly]="readOnlyValue" />
+          <mat-icon matSuffix i18n-matTooltip="@@add_header" matTooltip="Add header" matTooltipPosition="right"
+            (click)="addHeader()">add_circle_outline</mat-icon>
+          <mat-icon matSuffix *ngIf="application.custom_headers.length>0"
+            (click)="delHeader(i)">remove_circle_outline</mat-icon>
+        </mat-form-field>
+      </div>
+    </mat-expansion-panel>
 
     <mat-form-field>
       <mat-select [(ngModel)]="application.ip_method" i18n-placeholder="@@ip_for_waf" placeholder="Client IP for WAF"

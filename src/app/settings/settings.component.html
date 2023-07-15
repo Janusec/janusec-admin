@@ -216,7 +216,7 @@
                     <textarea matInput #shield_html [(ngModel)]="settings.shield_html" rows="30"
                         [readonly]="readOnlyValue" required>
                     </textarea>
-                    <mat-hint align="end">{{shield_html.value?.length || 0}}/4096</mat-hint>
+                    <mat-hint align="end">{{shield_html.value?.length || 0}}/16384</mat-hint>
                 </mat-form-field>
                 <div class="notes" i18n="@@shield_notice">
                     Please do not modify the content in the above script.
@@ -229,7 +229,7 @@
                     <textarea matInput #block_html [(ngModel)]="settings.block_html" rows="30"
                         [readonly]="readOnlyValue" required>
                     </textarea>
-                    <mat-hint align="end">{{block_html.value?.length || 0}}/4096</mat-hint>
+                    <mat-hint align="end">{{block_html.value?.length || 0}}/16384</mat-hint>
                 </mat-form-field>
                 <ng-container ngNonBindable>
                     <div class="notes">

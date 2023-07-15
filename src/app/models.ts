@@ -42,6 +42,12 @@ export class Application {
     csp_enabled: boolean;
     csp: string;
     cache_enabled: boolean;
+    custom_headers: CustomHeader[];
+}
+
+export class CustomHeader {
+    key: string;
+    value: string;
 }
 
 export class VipApp {
