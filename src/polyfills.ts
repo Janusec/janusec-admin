@@ -190,6 +190,8 @@ let zhTranslations = {
     'cookie_operation': '运算（字符串相等/字符串开头/正则匹配）',
     'operation': '运算',
     'cookie_ref_note': '备注：用于自动对发现的Cookie进行分类，如果没有对应的Cookie引用，Cookie类型会被设置为Unclassified(未分类)。',
+    'custom_header': '自定义Header',
+    'add_header': '添加Header',
     // Port forwarding
     'port_forwarding': '端口转发',
     'vip_note': '注：本模块为四层TCP/UDP端口转发（无WAF/CC防护功能）。',
@@ -335,7 +337,9 @@ let zhTranslations = {
     'search_engine_label': '搜索引擎（不能为空，不区分大小写，使用英文半角 | 分隔）',
     'five_second_shield_note': '注：当应用开启5秒盾时会影响SEO，可设置5秒盾不拦截上面列出的搜索引擎(User-Agent)。',
     'webssh_enabled': '启用基于Web的SSH运维通道',
-    'custom_block_html': '自定义拦截内容(HTML)',
+    'custom_block_html': '自定义WAF拦截内容(HTML)',
+    'custom_shield_html': '自定义5秒盾HTML',
+    'shield_notice': '请勿修改上述脚本中的内容。',
     'waf_log_days': 'WAF日志保存天数',
     'cc_log_days': 'CC日志保存天数',
     'access_log_days': '访问日志保存天数',
@@ -345,6 +349,7 @@ let zhTranslations = {
     'dns_server': 'DNS服务器',
     'enable_dns_server': '启用DNS服务器（需重启服务）',
     'manage_domains_and_dns_records': '管理域名和DNS记录',
+    'cookie_ref_for_classification': '用于对发现的Cookie自动分类',
     // DNS
     'gslb_domain_name_mgmt': 'GSLB域名管理',
     'add_domain_name': '添加域名',

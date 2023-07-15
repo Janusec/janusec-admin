@@ -71,6 +71,15 @@ export class SettingsComponent implements OnInit {
   }
 
   saveSettings() {
+    // check length of custom shield and waf template
+    if (this.settings.shield_html.length > 16384) {
+      alert("The length of the 5-second shield HTML template is too long, please cut it to below 16K !");
+      return;
+    }
+    if (this.settings.block_html.length > 16384) {
+      alert("The length of the WAF HTML template is too long, please cut it to below 16K !");
+      return;
+    }
     let self = this;
     this.rpcService.getResponse('update_primary_setting', function (obj: PrimarySetting) {
       self.settings = obj;
