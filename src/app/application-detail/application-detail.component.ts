@@ -85,6 +85,7 @@ export class ApplicationDetailComponent implements OnInit {
       this.application.csp = "";
       this.application.cache_enabled = true;
       this.application.description = "Used for ...";
+      this.application.custom_headers = [];
       this.addDomain();
       this.addDestination();
       this.initCookieMgmt();
