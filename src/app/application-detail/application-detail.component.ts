@@ -125,6 +125,7 @@ export class ApplicationDetailComponent implements OnInit {
     this.rpcService.getResponse('get_app_cookies', function (objs: Cookie[]) {
       self.application.cookies = objs;
       self.cookieDataSource = new MatTableDataSource<Cookie>(self.application.cookies);
+      self.cookieDataSource.paginator = self.cookiePaginator;
       self.cookieLength = self.application.cookies.length;
     }, appID, null);
   }
