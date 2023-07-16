@@ -39,6 +39,7 @@ export class ApplicationsComponent implements OnInit {
         this.router.navigate(['/login']);
       }
       this.appDataSource = new MatTableDataSource<Application>(this.rpcService.applications);
+      this.appDataSource.paginator = this.appPaginator;
       this.appLength = this.rpcService.applications.length;
     }, 500);
   }

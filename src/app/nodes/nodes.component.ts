@@ -54,6 +54,7 @@ export class NodesComponent implements OnInit {
     this.rpcService.getResponse('get_nodes', function (obj: Node[]) {
       self.nodes = obj;
       self.nodesDataSource = new MatTableDataSource<Node>(self.nodes);
+      self.nodesDataSource.paginator = self.nodesPaginator;
       self.nodesLength = self.nodes.length;
       if (self.nodes == null) return;
       var now_ms = (new Date()).getTime();

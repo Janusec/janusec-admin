@@ -38,6 +38,7 @@ export class CertificatesComponent implements OnInit {
     this.rpcService.getCertificates();
     setTimeout(() => {
       this.certDataSource = new MatTableDataSource<Certificate>(this.rpcService.certificates);
+      this.certDataSource.paginator = this.certPaginator;
       this.certLength = this.rpcService.certificates.length;
     }, 500);
   }
