@@ -33,16 +33,10 @@ export class UsermgmtComponent implements OnInit {
     this.rpcService.getAppUsers();
     setTimeout(() => {
       this.userDataSource = new MatTableDataSource<AppUser>(this.rpcService.admins);
+      this.userDataSource.paginator = this.userPaginator;
       this.userLength = this.rpcService.admins.length;
     }, 500);
   }
-
-  /*
-  onSelect(admin: AppAdmin): void {
-    this.selectedAdmin = admin;
-    this.router.navigate(['/appuser/'+this.selectedAdmin.id]);
-  }
-  */
 
   addAdmin() {
     this.router.navigate(['/appuser/0']);

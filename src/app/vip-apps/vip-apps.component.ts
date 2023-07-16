@@ -31,6 +31,7 @@ export class VipAppsComponent implements OnInit {
     this.rpcService.getVipApps();
     setTimeout(() => {
       this.appDataSource = new MatTableDataSource<VipApp>(this.rpcService.vip_apps);
+      this.appDataSource.paginator = this.appPaginator;
       this.appLength = this.rpcService.vip_apps.length;
     }, 500);
   }
