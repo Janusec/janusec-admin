@@ -297,7 +297,8 @@ export class ApplicationDetailComponent implements OnInit {
       type: CookieType.Unclassified,
       description: "",
       access_time: 0,
-      source: ""
+      source: "",
+      selected: false
     }
     this.dialog.open(CookieDialogComponent, {
       width: '500px',
@@ -326,6 +327,21 @@ export class ApplicationDetailComponent implements OnInit {
     this.rpcService.getResponse('del_cookie', function () {
       self.getCookiesByAppID(self.application.id);
     }, cookie.id, null);
+  }
+
+  deleteSelectedCookies() {
+    if (!confirm("Are you sure to delete these selected cookies?")) return;
+    let cookieLen = this.application.cookies.length;
+    for (let i = cookieLen - 1; i >= 0; i--) {
+      let cookie = this.application.cookies[i];
+      if (cookie.selected) {
+        this.rpcService.getResponse('del_cookie', function () {
+        }, cookie.id, null);
+      }
+    }
+    setTimeout(() => {
+      this.getCookiesByAppID(this.application.id);
+    }, 1000);
   }
 
 }

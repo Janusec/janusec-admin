@@ -170,6 +170,7 @@ let zhTranslations = {
     'enable_marketing': '在用户确认之前，启用营销Cookie（默认不启用）',
     'enable_unclassified': '在用户确认之前，启用未分类Cookie（默认不启用）',
     // Cookie
+    'delete_selected_cookies': '删除所选Cookie',
     'name': '名称',
     'domain': '域',
     'path': '路径',

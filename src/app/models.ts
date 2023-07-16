@@ -522,6 +522,8 @@ export class Cookie {
     description: string;
     access_time: number;
     source: string;
+    // local extension for deletion in batch
+    selected: boolean;
 }
 
 export class CookieRef {
