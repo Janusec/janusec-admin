@@ -22,6 +22,8 @@ export class DnsDialogComponent {
   dnsDomain: DNSDomain;
   rrtype = RRType;
   enum_rrtype_values = [];
+  rrTypeA = RRType.A;
+  rrTypeAAAA = RRType.AAAA;
 
   constructor(private route: ActivatedRoute,
     public rpcService: RPCService,

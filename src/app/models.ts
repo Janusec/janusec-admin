@@ -558,7 +558,7 @@ export class DNSRecord {
 // A, AAAA, CNAME, MX, TXT, SRV, NS, HTTPS, CAA
 export enum RRType {
     A = 1,
-    //NS = 2,
+    NS = 2,
     CNAME = 5,
     //MX = 15,
     TXT = 16,

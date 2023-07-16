@@ -24,14 +24,12 @@
             <mat-hint align="end">{{name.value?.length || 0}}/128</mat-hint>
         </mat-form-field>
 
-        <section>
+        <section *ngIf="dnsRecord.rrtype==rrTypeA || dnsRecord.rrtype==rrTypeAAAA">
             <mat-checkbox i18n="@@auto_resolve" [(ngModel)]="dnsRecord.auto" (change)="onAutoChange()"
                 [disabled]="readOnlyValue">
-                Automatically resolve to an available gateway node for load balance
+                Resolve to an available gateway node for load balance automatically
             </mat-checkbox>
-        </section>
 
-        <section>
             <mat-checkbox i18n="@@intranet_domain_name" [(ngModel)]="dnsRecord.internal" [disabled]="readOnlyValue">
                 This is an intranet domain name, resolve to Intranet IP
             </mat-checkbox>

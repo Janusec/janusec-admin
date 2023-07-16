@@ -76,41 +76,66 @@
     <mat-card>
         <div class="enable_dns_note">
             <h3 i18n="@@enable_gslb">Enable GSLB</h3>
-            <p>Assuming you have an application that provides services to internet users through <span
-                    class="command">https://service.example.com</span>, you can refer to the following steps to enable
-                GSLB (Global Server Load Balance) if you have multiple gateway nodes deployed.</p>
+            <p>
+                <span i18n="@@gslb_assuming">
+                    Refer to the following steps to enable GSLB (Global Server Load Balance) if you have multiple
+                    gateway nodes deployed. Assuming you have an application that provides services to internet users
+                    through:
+                </span>
+                <span class="command">https://demo.example.com</span>
+            </p>
             <ol>
                 <li>
-                    Step 1: Enable firewall policy, example for Debian 11: #<span class="command">ufw allow 53</span>
+                    <span i18n="@@gslb_step1">Step 1: Enable firewall policy, example for Debian 11: #</span>
+                    <span class="command">ufw allow 53</span>
                 </li>
                 <li>
-                    Step 2: Make sure port 53 is not occupied by other applications, typically in Debian 11:
+                    <span i18n="@@gslb_step2">Step 2: Make sure port 53 is not occupied by other applications, typically
+                        in Debian 11 it was occupied, stop it: </span>
                     #<span class="command">systemctl stop systemd-resolved</span> and
                     #<span class="command">systemctl disable systemd-resolved</span>, then check with:
                     #<span class="command">netstat -antulp | grep :53</span>
                 </li>
                 <li>
-                    Step 3: Enable DNS Server in <a routerLink="/settings">Settings</a> - Advanced, and then
-                    restart service:
+                    <span i18n="@@gslb_step3">Step 3: Enable DNS Server in <a routerLink="/settings">Settings</a> -
+                        Advanced, and then
+                        restart service:</span>
                     #<span class="command">systemctl restart janusec</span>
                 </li>
                 <li>
-                    Step 4: Add an A or CNAME record <span class="command">ns01</span> with value ip address points to
-                    this gateway, and a NS record <span class="command">service</span> with value <span
-                        class="command">ns01.example.com.</span> at the authoritative name server, not on this page.
-                    Individual domain name holders should modify it at the domain name registrar.
+                    <span i18n="@@gslb_step4">
+                        Step 4: Add an A or CNAME record <span class="command">ns01</span> with value ip address points
+                        to this gateway, and a NS record <span class="command">demo</span> with value <span
+                            class="command">ns01.example.com.</span> at the authoritative name server, not on this page.
+                        Individual domain name holders should modify it at the domain name registrar.
+                    </span>
                 </li>
                 <li>
-                    Step 5: Add an A record <span class="command">service</span> on this page, and enable
-                    <span class="command">Automatically resolve to an available gateway node</span>
+                    <span i18n="@@gslb_step5">
+                        Step 5: Add an A record <span class="command">demo</span> on this page, and enable
+                        <span class="command">Resolve to an available gateway node for load balance automatically</span>
+                    </span>
                 </li>
                 <li>
-                    Step 6: Configure application in <a routerLink="/applications">Application</a> and make sure the
-                    backend source servers are available to all nodes of Janusec Application Gateway.
+                    <span i18n="@@gslb_step6">
+                        Step 6 (Important): Add DNS Hostnames (aka. Glue Records) for your DNS server at the domain name
+                        registrar, if not, your own dns server will not accepted by other DNS servers. This record takes
+                        approximately 24 to 48 hours to take effect.
+                    </span>
                 </li>
                 <li>
-                    Step 7: Open <span class="command">https://service.example.com</span> with web browser, or
-                    <span class="command">nslookup service.example.com</span> under command shell.
+                    <span i18n="@@gslb_step7">
+                        Step 7: Configure application in <a routerLink="/applications">Application</a> and make sure the
+                        backend source servers are available to all nodes of Janusec Application Gateway.
+                    </span>
+                </li>
+                <li>
+                    <span i18n="@@gslb_step8">
+                        Step 8: Open <span class="command">https://demo.example.com</span> with web browser, or
+                        under command shell:
+                    </span>
+                    <span class="command">nslookup demo.example.com</span>, or
+                    <span class="command">dig demo.example.com A</span>
                 </li>
             </ol>
         </div>
