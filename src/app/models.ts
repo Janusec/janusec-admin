@@ -562,7 +562,7 @@ export enum RRType {
     A = 1,
     NS = 2,
     CNAME = 5,
-    //MX = 15,
+    MX = 15,
     TXT = 16,
     AAAA = 28,
     //SRV = 33,
