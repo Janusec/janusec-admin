@@ -45,7 +45,7 @@ export class Application {
     // cookie mgmt
     cookie_mgmt_enabled: boolean;
     concise_notice: string;
-    long_notice_link: string;
+    //long_notice_link: string;
     necessary_notice: string;
     functional_notice: string;
     enable_functional: boolean; // without consent

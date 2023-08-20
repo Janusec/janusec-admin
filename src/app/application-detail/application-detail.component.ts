@@ -95,10 +95,7 @@ export class ApplicationDetailComponent implements OnInit {
   initCookieMgmt() {
     // set default value for cookie mgmt
     if (this.application.concise_notice == null || this.application.concise_notice == '') {
-      this.application.concise_notice = "We use necessary cookies to make our site work. We'd also like to set analytics cookies that help us make improvements by measuring how you use the site. These will be set only if you accept.";
-    }
-    if (this.application.long_notice_link == null || this.application.long_notice_link == '') {
-      this.application.long_notice_link = '/privacy';
+      this.application.concise_notice = "We use necessary cookies to make our site work. We'd also like to set analytics cookies that help us make improvements by measuring how you use the site. These will be set only if you accept. For more detailed information about the cookies we use, see our <a href='/privacy' target='_blank'>Cookie notice</a>.";
     }
     if (this.application.necessary_notice == null || this.application.necessary_notice == '') {
       this.application.necessary_notice = "Necessary cookies enable core functionality such as identity authentication, session management, network management, load balance, language and UI etc. ";
