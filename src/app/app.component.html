@@ -5,11 +5,9 @@
         <mat-sidenav *ngIf="rpcService.auth_user.logged" #sidenav mode="side" [(opened)]="showSidenav" class="sidenav"
             role="navigation">
             <mat-nav-list>
-                <mat-list-item>
-                    <a routerLink="/dashboard">
-                        <mat-icon>dashboard</mat-icon>
-                        <span i18n="@@dashboard">Dashboard</span>
-                    </a>
+                <mat-list-item routerLink="/dashboard">
+                    <mat-icon>dashboard</mat-icon>
+                    <span i18n="@@dashboard">Dashboard</span>
                 </mat-list-item>
 
                 <mat-accordion>
@@ -21,32 +19,24 @@
                             </mat-panel-title>
                         </mat-expansion-panel-header>
 
-                        <mat-list-item>
-                            <a routerLink="/certificates">
-                                <mat-icon>lock_outline</mat-icon>
-                                <span i18n="@@cert_mgmt">Certificate</span>
-                            </a>
+                        <mat-list-item routerLink="/certificates">
+                            <mat-icon>lock_outline</mat-icon>
+                            <span i18n="@@cert_mgmt">Certificate</span>
                         </mat-list-item>
 
-                        <mat-list-item>
-                            <a routerLink="/applications">
-                                <mat-icon>explore</mat-icon>
-                                <span i18n="@@app_mgmt">Application</span>
-                            </a>
+                        <mat-list-item routerLink="/applications">
+                            <mat-icon>explore</mat-icon>
+                            <span i18n="@@app_mgmt">Application</span>
                         </mat-list-item>
 
-                        <mat-list-item *ngIf="rpcService.auth_user.is_super_admin==true">
-                            <a routerLink="/forwarding">
-                                <mat-icon>forward</mat-icon>
-                                <span i18n="@@vip_app">Forwarding</span>
-                            </a>
+                        <mat-list-item *ngIf="rpcService.auth_user.is_super_admin==true" routerLink="/forwarding">
+                            <mat-icon>forward</mat-icon>
+                            <span i18n="@@vip_app">Forwarding</span>
                         </mat-list-item>
 
-                        <mat-list-item>
-                            <a routerLink="/usermgmt">
-                                <mat-icon>supervisor_account</mat-icon>
-                                <span i18n="@@user_mgmt">User Management</span>
-                            </a>
+                        <mat-list-item routerLink="/usermgmt">
+                            <mat-icon>supervisor_account</mat-icon>
+                            <span i18n="@@user_mgmt">User Management</span>
                         </mat-list-item>
 
                     </mat-expansion-panel>
@@ -61,25 +51,19 @@
                             </mat-panel-title>
                         </mat-expansion-panel-header>
 
-                        <mat-list-item *ngIf="rpcService.auth_user.is_super_admin==true">
-                            <a routerLink="/waf">
-                                <mat-icon>blur_on</mat-icon>
-                                <span i18n="@@waf_mgmt">WAF</span>
-                            </a>
+                        <mat-list-item *ngIf="rpcService.auth_user.is_super_admin==true" routerLink="/waf">
+                            <mat-icon>blur_on</mat-icon>
+                            <span i18n="@@waf_mgmt">WAF</span>
                         </mat-list-item>
 
-                        <mat-list-item *ngIf="rpcService.auth_user.is_super_admin==true">
-                            <a routerLink="/cc">
-                                <mat-icon>blur_on</mat-icon>
-                                <span i18n="@@cc_defense">CC Defense</span>
-                            </a>
+                        <mat-list-item *ngIf="rpcService.auth_user.is_super_admin==true" routerLink="/cc">
+                            <mat-icon>blur_on</mat-icon>
+                            <span i18n="@@cc_defense">CC Defense</span>
                         </mat-list-item>
 
-                        <mat-list-item *ngIf="rpcService.auth_user.is_super_admin==true">
-                            <a routerLink="/ip-policy">
-                                <mat-icon>blur_on</mat-icon>
-                                <span i18n="@@ip_policy">IP Policy</span>
-                            </a>
+                        <mat-list-item *ngIf="rpcService.auth_user.is_super_admin==true" routerLink="/ip-policy">
+                            <mat-icon>blur_on</mat-icon>
+                            <span i18n="@@ip_policy">IP Policy</span>
                         </mat-list-item>
 
                     </mat-expansion-panel>
@@ -94,39 +78,29 @@
                             </mat-panel-title>
                         </mat-expansion-panel-header>
 
-                        <mat-list-item>
-                            <a routerLink="/webssh">
-                                <mat-icon>computer</mat-icon>
-                                <span>Web SSH</span>
-                            </a>
+                        <mat-list-item routerLink="/webssh">
+                            <mat-icon>computer</mat-icon>
+                            <span>Web SSH</span>
                         </mat-list-item>
 
-                        <mat-list-item *ngIf="rpcService.auth_user.is_super_admin==true">
-                            <a routerLink="/nodes">
-                                <mat-icon>games</mat-icon>
-                                <span i18n="@@node_mgmt">Node</span>
-                            </a>
+                        <mat-list-item *ngIf="rpcService.auth_user.is_super_admin==true" routerLink="/nodes">
+                            <mat-icon>games</mat-icon>
+                            <span i18n="@@node_mgmt">Node</span>
                         </mat-list-item>
 
-                        <mat-list-item *ngIf="rpcService.auth_user.is_super_admin==true">
-                            <a routerLink="/dns-domains">
-                                <mat-icon>dns</mat-icon>
-                                <span>GSLB DNS</span>
-                            </a>
+                        <mat-list-item *ngIf="rpcService.auth_user.is_super_admin==true" routerLink="/dns-domains">
+                            <mat-icon>dns</mat-icon>
+                            <span>GSLB DNS</span>
                         </mat-list-item>
 
-                        <mat-list-item *ngIf="rpcService.auth_user.is_super_admin==true">
-                            <a routerLink="/api-interface">
-                                <mat-icon>blur_circular</mat-icon>
-                                <span i18n="@@api_interface">API Interface</span>
-                            </a>
+                        <mat-list-item *ngIf="rpcService.auth_user.is_super_admin==true" routerLink="/api-interface">
+                            <mat-icon>blur_circular</mat-icon>
+                            <span i18n="@@api_interface">API Interface</span>
                         </mat-list-item>
 
-                        <mat-list-item>
-                            <a routerLink="/health">
-                                <mat-icon>check_circle_outline</mat-icon>
-                                <span i18n="@@health_check">Health</span>
-                            </a>
+                        <mat-list-item routerLink="/health">
+                            <mat-icon>check_circle_outline</mat-icon>
+                            <span i18n="@@health_check">Health</span>
                         </mat-list-item>
 
                     </mat-expansion-panel>
@@ -141,18 +115,14 @@
                             </mat-panel-title>
                         </mat-expansion-panel-header>
 
-                        <mat-list-item>
-                            <a routerLink="/logs">
-                                <mat-icon>blur_on</mat-icon>
-                                <span i18n="@@waf_logs">WAF Logs</span>
-                            </a>
+                        <mat-list-item routerLink="/logs">
+                            <mat-icon>blur_on</mat-icon>
+                            <span i18n="@@waf_logs">WAF Logs</span>
                         </mat-list-item>
 
-                        <mat-list-item>
-                            <a routerLink="/cclogs">
-                                <mat-icon>blur_on</mat-icon>
-                                <span i18n="@@cc_logs">CC Logs</span>
-                            </a>
+                        <mat-list-item routerLink="/cclogs">
+                            <mat-icon>blur_on</mat-icon>
+                            <span i18n="@@cc_logs">CC Logs</span>
                         </mat-list-item>
 
                     </mat-expansion-panel>
@@ -160,11 +130,9 @@
 
                 <mat-divider></mat-divider>
 
-                <mat-list-item *ngIf="rpcService.auth_user.is_super_admin==true">
-                    <a routerLink="/settings">
-                        <mat-icon>settings</mat-icon>
-                        <span i18n="@@global_settings">Global Settings</span>
-                    </a>
+                <mat-list-item *ngIf="rpcService.auth_user.is_super_admin==true" routerLink="/settings">
+                    <mat-icon>settings</mat-icon>
+                    <span i18n="@@global_settings">Global Settings</span>
                 </mat-list-item>
 
                 <mat-divider></mat-divider>
