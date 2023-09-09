@@ -3,6 +3,7 @@
   <div>
     <mat-form-field>
       <mat-select i18n-placeholder="@@application" [(ngModel)]="app_id" placeholder="Application">
+        <mat-option value="0">All</mat-option>
         <mat-option *ngFor="let application of rpcService.applications;" [value]="application.id">
           {{application.name}}
         </mat-option>
@@ -20,7 +21,10 @@
       <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
       <mat-datepicker #pickerEnd></mat-datepicker>
     </mat-form-field>
-    <button mat-stroked-button i18n="@@query_cc_logs" (click)="queryCCLogs()">Query CC Logs</button>
+    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <span>
+      <button mat-stroked-button i18n="@@query_cc_logs" (click)="queryCCLogs()">Query CC Logs</button>
+    </span>
   </div>
 
   <div class="mat-elevation-z8">
@@ -71,8 +75,8 @@
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
-    <mat-paginator #paginator [pageSize]="20" [pageSizeOptions]="[10, 20, 50]" [showFirstLastButtons]="true"
-      (page)="pageChanged()">
+    <mat-paginator #paginator [length]="pageLength" [pageSize]="20" [pageIndex]="pageIndex"
+      [pageSizeOptions]="[10, 20, 50]" [showFirstLastButtons]="true" (page)="pageChanged()">
     </mat-paginator>
   </div>
 </div>

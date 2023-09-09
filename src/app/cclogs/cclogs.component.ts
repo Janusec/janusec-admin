@@ -16,7 +16,8 @@ export class CCLogsComponent implements OnInit {
   start_date: Date;
   end_date: Date;
   request_count: number = 20;
-
+  pageLength: number;
+  pageIndex: number;
 
   ccLogDataSource: LogsDataSource;
   displayedColumns = ['id', 'request_time', 'client_ip', 'method', 'host', 'url_path', 'action'];
@@ -28,6 +29,7 @@ export class CCLogsComponent implements OnInit {
     private messageService: MessageService) { }
 
   ngOnInit() {
+    this.app_id = '0';
     if (this.rpcService.auth_user.logged == false) {
       this.router.navigate(['/']);
       return
@@ -41,11 +43,9 @@ export class CCLogsComponent implements OnInit {
       this.rpcService.getResponse('get_apps', function (objs: Application[]) {
         if (objs != null) {
           self.rpcService.applications = objs;
-          if (objs.length > 0) self.app_id = self.rpcService.applications[0].id;
+          //if (objs.length > 0) self.app_id = self.rpcService.applications[0].id;
         }
       });
-    } else {
-      this.app_id = this.rpcService.applications[0].id;
     }
     this.start_date = new Date();
     this.start_date.setHours(0, 0, 0, 0);
@@ -58,8 +58,8 @@ export class CCLogsComponent implements OnInit {
       this.app_id = this.rpcService.lastCCLogs.app_id;
       this.start_date = this.rpcService.lastCCLogs.start_date;
       this.end_date = this.rpcService.lastCCLogs.end_date;
-      this.paginator.length = this.rpcService.lastCCLogs.length;
-      this.paginator.pageIndex = this.rpcService.lastCCLogs.page_index;
+      this.pageLength = this.rpcService.lastCCLogs.length;
+      this.pageIndex = this.rpcService.lastCCLogs.page_index;
     }
 
   }
