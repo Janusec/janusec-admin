@@ -289,6 +289,7 @@ let zhTranslations = {
     'applicable': '适用',
     'not_applicable': '不适用',
     'ip_operation': '操作',
+    'create_time': '创建时间',
     // Policy
     'policy_detail': 'WAF规则配置',
     'policy_description': '规则名称或描述',

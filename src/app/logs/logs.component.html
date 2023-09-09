@@ -2,6 +2,7 @@
   <div>
     <mat-form-field>
       <mat-select i18n-placeholder="@@application" [(ngModel)]="app_id" placeholder="Application">
+        <mat-option value="0">All</mat-option>
         <mat-option *ngFor="let application of rpcService.applications;" [value]="application.id">
           {{application.name}}
         </mat-option>
@@ -19,7 +20,10 @@
       <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
       <mat-datepicker #pickerEnd></mat-datepicker>
     </mat-form-field>
-    <button mat-stroked-button i18n="@@query_waf_logs" (click)="queryRegexLogs()">Query WAF Logs</button>
+    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <span>
+      <button mat-stroked-button i18n="@@query_waf_logs" (click)="queryRegexLogs()">Query WAF Logs</button>
+    </span>
   </div>
   <div class="mat-elevation-z8">
     <mat-table #table [dataSource]="regexLogDataSource">

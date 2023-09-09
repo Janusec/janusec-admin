@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { RPCService } from '../rpc.service';
 import { PrimarySetting, WxworkConfig, DingtalkConfig, FeishuConfig, LDAPConfig, CAS2Config, LarkConfig, DiscoveryRule } from '../models';
 import { MessageService } from '../message.service';
@@ -22,6 +23,7 @@ export class SettingsComponent implements OnInit {
 
 
   constructor(private rpcService: RPCService,
+    private router: Router,
     private messageService: MessageService) {
     let self = this;
     this.rpcService.getResponse('get_primary_setting', function (obj: PrimarySetting) {
@@ -31,7 +33,10 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    if (this.rpcService.auth_user.logged == false) {
+      this.router.navigate(['/']);
+      return
+    }
   }
 
   loadAuthProvider(provide: string) {

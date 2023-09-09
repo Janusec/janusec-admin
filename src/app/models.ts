@@ -441,6 +441,8 @@ export class IPPolicy {
     is_allow: boolean;
     apply_to_waf: boolean;
     apply_to_cc: boolean;
+    create_time: number;
+    description: string;
     editable: boolean;
 }
 

@@ -17,7 +17,7 @@ export class IpPolicyComponent implements OnInit {
     enum_action_values: { value: number; name: string }[] = [];//number[]=[];
 
     ipPolicyDataSource: MatTableDataSource<IPPolicy>;
-    ipDisplayedColumns = ['ip_addr', 'is_allow', 'apply_to_waf', 'apply_to_cc', 'editable'];
+    ipDisplayedColumns = ['ip_addr', 'is_allow', 'apply_to_waf', 'apply_to_cc', 'create_time', 'description', 'editable'];
     ip_policies: IPPolicy[] = [];
     ipPageLength: number;
     @ViewChild('ipPaginator') ipPaginator: MatPaginator;
@@ -69,6 +69,8 @@ export class IpPolicyComponent implements OnInit {
         ip_policy.is_allow = true;
         ip_policy.apply_to_waf = true;
         ip_policy.apply_to_cc = true;
+        ip_policy.create_time = 0;
+        ip_policy.description = '';
         ip_policy.editable = true;
         this.ip_policies.splice(0, 0, ip_policy);
         this.ipPolicyDataSource.data = this.ip_policies;
