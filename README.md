@@ -20,9 +20,7 @@ Navigate to `http://localhost:4200/janusec-admin/`. The app will automatically r
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.  
 > ng build --prod  
 
-If `crypto` not found, try to change this file:
-> node_modules\@angular-devkit\build-angular\src\angular-cli-files\models\webpack-configs\browser.js  
-and set node to new value:
+If `crypto` not found, try to edit this file: `node_modules\@angular-devkit\build-angular\src\angular-cli-files\models\webpack-configs\browser.js` and set node to new value:  
 
 > node: { crypto: true, stream: true, fs: 'empty', net: 'empty' }  
 
