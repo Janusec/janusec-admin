@@ -234,7 +234,7 @@ let zhTranslations = {
     'count_each_cookie': '单独统计每个不同的Cookie串（默认不勾选，当Cookie中使用了时间戳或Cookie会经常变化时，不勾选）',
     'enable_policy': '启用该规则（默认选中）',
     "interval_milliseconds": '统计时间窗（默认100毫秒）',
-    'max_count': '最大请求数（默认6次）',
+    'max_count': '最大请求数（默认15次）',
     'block_seconds': '超限锁定（默认900秒）',
     'action': '动作',
     'slow_cc_notice': '注：慢速CC检测同时启用，使用15个统计时间窗（其他参数相同）。',
