@@ -443,6 +443,7 @@ export class DingtalkConfig {
     callback: string;
     appid: string;
     appsecret: string;
+    corpid: string; // added on Mar 23, 2024
 }
 
 export class FeishuConfig {

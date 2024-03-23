@@ -58,11 +58,16 @@
                         i18n-placeholder="@@callback" placeholder="Callback" />
                 </mat-form-field>
                 <mat-form-field *ngIf="settings.auth_provider=='dingtalk' && dingtalkConfig">
-                    <input matInput [(ngModel)]="dingtalkConfig.appid" [readonly]="readOnlyValue" placeholder="appid" />
+                    <input matInput [(ngModel)]="dingtalkConfig.corpid" [readonly]="readOnlyValue"
+                        placeholder="CorpId" />
+                </mat-form-field>
+                <mat-form-field *ngIf="settings.auth_provider=='dingtalk' && dingtalkConfig">
+                    <input matInput [(ngModel)]="dingtalkConfig.appid" [readonly]="readOnlyValue"
+                        placeholder="Client ID (AppKey)" />
                 </mat-form-field>
                 <mat-form-field *ngIf="settings.auth_provider=='dingtalk' && dingtalkConfig">
                     <input matInput [(ngModel)]="dingtalkConfig.appsecret" [readonly]="readOnlyValue"
-                        placeholder="appsecret" />
+                        placeholder="Client Secret (AppSecret)" />
                 </mat-form-field>
 
                 <!-- Feishu -->
@@ -218,8 +223,9 @@
                     </textarea>
                     <mat-hint align="end">{{shield_html.value?.length || 0}}/16384</mat-hint>
                 </mat-form-field>
-                <div class="notes" i18n="@@shield_notice">
-                    Please do not modify the content in the above script.
+                <div class="warning-notes" i18n="@@shield_notice">
+                    Danger: Please do not modify the template arbitrarily. Incorrect modifications will result in
+                    service startup failure. Please make sure to backup them before making changes.
                 </div>
             </div>
 

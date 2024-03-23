@@ -300,7 +300,7 @@ let zhTranslations = {
     'webssh_enabled': '启用基于Web的SSH运维通道',
     'custom_block_html': '自定义WAF拦截内容(HTML)',
     'custom_shield_html': '自定义5秒盾HTML',
-    'shield_notice': '请勿修改上述脚本中的内容。',
+    'shield_notice': '危险：请勿随意修改模板，错误修改将导致服务启动失败，修改前请务必备份',
     'waf_log_days': 'WAF日志保存天数',
     'cc_log_days': 'CC日志保存天数',
     'access_log_days': '访问日志保存天数',
