@@ -21,3 +21,8 @@ button {
 .notes {
     margin-left: 0;
 }
+
+.warning-notes {
+    margin-left: 0;
+    color: red;
+}
