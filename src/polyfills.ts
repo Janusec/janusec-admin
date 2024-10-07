@@ -165,6 +165,7 @@ let zhTranslations = {
     'description_of_analytics_cookies': '分析Cookie描述',
     'description_of_marketing_cookies': '营销Cookie描述',
     'description_of_uncalssified_cookies': '未分类Cookie描述',
+    'enable_essential': '启用必要Cookie（始终启用）',
     'enable_functional': '在用户确认之前，启用功能Cookie（默认不启用）',
     'enable_analytics': '在用户确认之前，启用分析Cookie（默认不启用）',
     'enable_marketing': '在用户确认之前，启用营销Cookie（默认不启用）',
