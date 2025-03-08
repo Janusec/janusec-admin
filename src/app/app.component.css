@@ -6,11 +6,12 @@
     display: flex;
     align-items: top;
     justify-content: center;
-    width: 210px;
+    width: 172px;
 }
 
 mat-icon {
     font-size: 14px;
+    height: 14px;
     vertical-align: middle;
 }
 
@@ -45,8 +46,11 @@ mat-icon {
 }
 
 .mat-expansion-panel-header {
+    margin-top: 6px;
     padding: 0px 16px;
     font-size: 12px;
+    height: 32px !important;
+    font-family: 'Arial Narrow', Arial, sans-serif;
 }
 
 .mat-accordion .mat-expansion-panel:last-of-type {

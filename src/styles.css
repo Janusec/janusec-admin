@@ -3,7 +3,7 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 body {
-    font-family: Helvetica, Arial, "PingFang SC", "Source Han Serif SC", "Microsoft YaHei";
+    font-family: Arial, Helvetica, sans-serif, "PingFang SC", "Source Han Serif SC", "Microsoft YaHei";
 }
 
 
