@@ -1,0 +1,33 @@
+<div fxLayout="row wrap">
+    <div fxFlex="30%"></div>
+    @if (rpcService.auth_user$().logged==false) {
+    <div fxFlex="40%" class="container">
+        <h1 i18n="@@login_title">Admin Login</h1>
+        <mat-form-field>
+            <input matInput i18n-placeholder="@@username" placeholder="Username" [(ngModel)]="login_user.username"
+                required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput i18n-placeholder="@@password" type="password" placeholder="Password" [(ngModel)]="password"
+                required>
+        </mat-form-field>
+
+        @if (oauth$().authenticator_enabled) {
+        <mat-form-field>
+            <input matInput i18n-placeholder="@@authenticator_code" placeholder="Authenticator Code"
+                matTooltip="000000 for first use" i18n-matTooltip="@@authenticator_code_tip" matTooltipPosition="below"
+                [(ngModel)]="login_user.totp_key" required>
+        </mat-form-field>
+        }
+
+        <button i18n="@@submit" mat-button (click)="onSubmit()" class="submit">Submit</button>
+        @if (oauth$().use_oauth) {
+        <div class="oauth">
+            <a href="{{ oauth$().entrance_url }}">{{ oauth$().display_name }}</a>
+        </div>
+        }
+    </div>
+    }
+    <div fxFlex="30%"></div>
+</div>

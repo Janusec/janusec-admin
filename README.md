@@ -1,59 +1,37 @@
-# JanusecAdmin
+# Janusec Application Gateway Web Administration
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.0.
+This project is the Unified Web Administration Portal for [Janusec Application Gateway](https://www.janusec.com/) , [Github](https://github.com/Janusec/janusec) , generated with Angular 9.  
+
+> This project is optional, and Janusec Application Gateway has already included distribution files of this project.  
 
 ## Development server
 
-To start a local development server, run:
+Angular 9+ is required.  
 
-```bash
-ng serve
-```
+Edit `proxy.config.json` with janusec-admin url and run:  
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+>  `npm start`  (instead of `ng serve`, to solve cross-domain warnings.)  
 
-## Code scaffolding
+Navigate to `http://localhost:4200/janusec-admin/`. The app will automatically reload if you change any of the source files.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
-```bash
-ng generate component component-name
-```
+## Build
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.  
+> ng build --prod  
 
-```bash
-ng generate --help
-```
+If `crypto` not found, try to edit this file: `node_modules\@angular-devkit\build-angular\src\angular-cli-files\models\webpack-configs\browser.js` and set node to new value:  
 
-## Building
+> node: { crypto: true, stream: true, fs: 'empty', net: 'empty' }  
 
-To build the project run:
+## Release
 
-```bash
-ng build
-```
+The produced files are under `./dist/`, copy all files  to `./static/janusec-admin/` under Janusec Application Gateway. 
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Backend  
 
-## Running unit tests
+Backend source code is available at [Janusec Application Gateway Github](https://github.com/Janusec/janusec).  
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## LICENSE
 
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Janusec Application Gateway source files are made available under the terms of the GNU Affero General Public License ([GNU AGPLv3](http://www.gnu.org/licenses/agpl-3.0.html)).  

@@ -1,0 +1,11 @@
+.mat-toolbar {
+    font-size: 14px;
+    height: 36px;
+    font-family: 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+}
+
+.footer {
+    text-align: center;
+    flex: 1 1 auto;
+}

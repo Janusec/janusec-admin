@@ -1,0 +1,30 @@
+mat-card {
+    margin-bottom: 7px;
+    border-radius: 0;
+    font-family: Helvetica, Arial, "PingFang SC", "Source Han Serif SC", "Microsoft YaHei";
+}
+
+.card-content {
+    padding-top: 15px;
+}
+
+.card-image {
+    width: 70%;
+    margin-left: 15%;
+}
+
+.nav-list {
+    display: flex;
+    flex-direction: row;
+}
+
+.mat-list-item {
+    font-size: 14px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mat-nav-list {
+    display: flex;
+}

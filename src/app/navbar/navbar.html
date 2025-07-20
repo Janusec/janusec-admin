@@ -1,0 +1,40 @@
+<mat-toolbar color="secondary">
+    <span>
+        <a routerLink="/" class="text-logo">JANUSEC</a>
+    </span>
+    <span class="spacer"></span>
+
+    <span>
+        <button matButton (click)="test()" class="btn-with-icon">
+            Test
+        </button>
+    </span>
+
+    @if (auth_user$().logged) {
+    <button matButton [matMenuTriggerFor]="menu" class="btn-with-icon">
+        <mat-icon color="secondary">account_circle</mat-icon>
+        <span>
+            {{auth_user$().username}}
+        </span>
+    </button>
+
+    <mat-menu #menu="matMenu" [overlapTrigger]="false">
+        <button mat-menu-item (click)="switchLanguage()" class="btn-with-icon">
+            <mat-icon>language</mat-icon>
+            <span i18n="@@lang">中文</span>
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="logout()" class="btn-with-icon">
+            <mat-icon>exit_to_app</mat-icon>
+            Exit
+        </button>
+    </mat-menu>
+    }
+    @if (auth_user$().logged==false) {
+    <button matButton i18n="@@login" (click)="navigate('/login')" class="btn-with-icon">
+        Login
+    </button>
+    }
+
+
+</mat-toolbar>

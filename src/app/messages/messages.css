@@ -1,0 +1,33 @@
+.message-container {
+    margin-bottom: 20px;
+}
+
+.message {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.warn {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.btn-clear {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}

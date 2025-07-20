@@ -1,0 +1,46 @@
+.icon {
+    padding: 0 14px;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.mat-toolbar {
+    height: 40px;
+    padding-left: 1px;
+    padding-top: 1px;
+    background-color: #f0f0f0;
+}
+
+.logo-span {
+    height: 38px;
+}
+
+.logo {
+    width: 24px;
+    height: 24px;
+    margin: 5px 0 0 5px;
+}
+
+.text-logo {
+    display: block;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    color: #f5f5f5;
+    width: 186px;
+    text-decoration: none;
+    text-shadow: 2px 2px 3px #000000;
+    box-shadow: 1px 1px 1px #f0f0f0;
+    padding-left: 5px;
+    padding-bottom: 5px;
+}
+
+.btn-with-icon {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 10px;
+    border: 1px solid #e5e5e5;
+    width: 100px;
+}

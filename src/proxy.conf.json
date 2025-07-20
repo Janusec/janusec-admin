@@ -1,0 +1,27 @@
+{
+    "/janusec-admin/#/webssh": {
+        "target": "ws://192.168.100.110:9080",
+        "secure": false,
+        "ws": true,
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    "/janusec-admin/ui-api": {
+        "target": "http://192.168.100.110:9080",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    "/janusec-admin/oauth/*": {
+        "target": "http://192.168.100.110:9080",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    "/favicon.ico": {
+        "target": "http://192.168.100.110:9080/janusec-admin/",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug"
+    }
+}
