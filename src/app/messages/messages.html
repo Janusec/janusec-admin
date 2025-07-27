@@ -1,10 +1,11 @@
-@if (msgService.messages.length) {
+@if (msgService.messages$().length>0) {
 <mat-list class="message-container">
-    @for (message of msgService.messages; track message.id) {
-    <mat-list-item class="message" class="{{message.type}}">
+    @for (message of msgService.messages$(); track message.id) {
+    <mat-list-item class="message-list {{message.type}}">
         <span class="message-content">{{ message.content }}</span>
-        <span class="spacer"></span>
-        <mat-icon (click)="removeMessage(message.id)" class="btn-clear">clear</mat-icon>
+        <button matIconButton (click)="removeMessage(message.id)" class="btn-clear" matListItemMeta>
+            <mat-icon>clear</mat-icon>
+        </button>
     </mat-list-item>
     }
 </mat-list>

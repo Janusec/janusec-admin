@@ -1,11 +1,12 @@
 import { Injectable, inject, signal } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { APIResponse } from '../models/rpc';
-import { Observable, of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { MessageService } from './message.service';
 import { AuthUser } from '../models/auth';
-import { License } from '../models/gateway';
+import { Certificate } from '../models/application';
+
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,8 @@ export class RPCService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
+  certificates: Certificate[] = [];
+
   getResponse(action: string, callback: (obj: any) => any, id?: string | null, obj?: object) {
     let body: { action: string; id?: string; object?: object } = {
       action: action
@@ -40,11 +43,12 @@ export class RPCService {
     if (obj != null) body.object = obj;
     let self = this;
     this.http.post<APIResponse>(this.apiUrl, body, this.httpOptions).pipe(
-      catchError(this.handleError<APIResponse>('Get response'))
+      //catchError(this.handleError<APIResponse>('Get response')),
+      catchError(error => this.handleHttpError(error))
     ).subscribe(
       ((response: APIResponse) => {
         if (response.err) {
-          console.log('Error: ' + response.err);
+          console.log('000 Error: ' + response.err);
           self.msgService.addWarnMessage('Error: ' + response.err);
         }
         // call back even if the result is null
@@ -56,7 +60,8 @@ export class RPCService {
   getResponseByCustomBody(body: object, callback: (obj: any) => any) {
     let self = this;
     this.http.post<APIResponse>(this.apiUrl, body, this.httpOptions).pipe(
-      catchError(this.handleError<APIResponse>('Get response'))
+      //catchError(this.handleError<APIResponse>('Get response'))
+      catchError(error => this.handleHttpError(error))
     ).subscribe((response: APIResponse) => {
       if (response.err) {
         self.msgService.addWarnMessage('Error: ' + response.err);
@@ -69,7 +74,8 @@ export class RPCService {
     // Get Request
     let self = this;
     this.http.get<APIResponse>(url, this.httpOptions).pipe(
-      catchError(this.handleError<APIResponse>('Get response'))
+      //catchError(this.handleError<APIResponse>('Get response'))
+      catchError(error => this.handleHttpError(error))
     ).subscribe((response: APIResponse) => {
       if (response.err) {
         self.msgService.addWarnMessage('Error: ' + response.err);
@@ -78,13 +84,37 @@ export class RPCService {
     });
   }
 
-  private handleError<T>(operation = 'operation', result?: T) {
+  /*
+  private handleHttpError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error); // log to console instead
       this.msgService.addWarnMessage(`${operation} failed: ${error.message}`);
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };
+  }
+*/
+
+  private handleHttpError(error: HttpErrorResponse): Observable<never> {
+    let errorMessage = 'unknown error';
+    if (error.error instanceof ErrorEvent) {
+      // client error
+      errorMessage = `client error: ${error.error.message}`;
+    } else {
+      // server error
+      if (error.status === 0) {
+        errorMessage = 'unable to connect to the server, check network';
+      } else if (error.status >= 500) {
+        errorMessage = `server error (${error.status}): ${error.message}`;
+      } else if (error.error && typeof error.error === 'object' && error.error.err) {
+        // application error
+        errorMessage = error.error.err;
+      } else {
+        errorMessage = `request failed (${error.status}): ${error.message}`;
+      }
+    }
+
+    return throwError(() => new Error(errorMessage));
   }
 
   getAuthUser(callback: (auth_user: AuthUser) => any) {
@@ -118,4 +148,22 @@ export class RPCService {
     let nowStr = now.toLocaleDateString() + ' ' + now.toLocaleTimeString('en-GB', { hour12: false });
     return nowStr;
   }
+
+  getCertificates(callback: () => any) {
+    var self = this;
+    this.getResponse('get_certs', function (obj: Certificate[]) {
+      self.certificates = obj;
+      var now_ms = (new Date()).getTime();
+      for (let cert of self.certificates) {
+        let ms_diff = (new Date(cert.expire_time * 1000)).getTime() - now_ms;
+        if (ms_diff < 30 * 86400 * 1000) {
+          cert.due_to_expire = true;
+        } else {
+          cert.due_to_expire = false;
+        }
+      }
+      callback();
+    });
+  }
+
 }

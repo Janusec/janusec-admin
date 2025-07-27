@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { RPCService } from '../services/rpc.service';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatIcon } from '@angular/material/icon';
@@ -16,7 +16,8 @@ import { MessageService } from '../services/message.service';
     MatIcon,
     MatMenu,
     MatMenuTrigger,
-    MatDivider
+    MatDivider,
+    RouterModule,
   ],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css'

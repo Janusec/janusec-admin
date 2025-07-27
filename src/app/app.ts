@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { RPCService } from './services/rpc.service';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
 import { MatDivider, MatListItem, MatNavList } from '@angular/material/list';
@@ -17,6 +17,7 @@ import { Footer } from './footer/footer';
     Messages,
     Footer,
     RouterOutlet,
+    RouterModule,
     MatSidenavContainer,
     MatSidenavContent,
     MatSidenav,

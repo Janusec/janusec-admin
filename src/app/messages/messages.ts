@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { MessageService } from '../services/message.service';
 import { MatList, MatListItem } from '@angular/material/list';
 import { MatIcon } from '@angular/material/icon';
@@ -14,9 +14,10 @@ import { MatIcon } from '@angular/material/icon';
   styleUrl: './messages.css'
 })
 export class Messages {
-  constructor(public msgService: MessageService) { }
+  constructor(public msgService: MessageService
+  ) { }
 
-  removeMessage(id: number) {
+  removeMessage(id: string) {
     this.msgService.removeMessage(id);
   }
 }

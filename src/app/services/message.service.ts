@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
+import { v7 as uuidv7 } from 'uuid';
 
 @Injectable({
   providedIn: 'root'
@@ -6,32 +7,35 @@ import { Injectable } from '@angular/core';
 export class MessageService {
 
   private messageCount = 0;
-  messages: Message[] = [];
+  private messages = signal<Message[]>([]);
+  public messages$ = this.messages.asReadonly();
 
   addSuccessMessage(msg: string) {
     this.messageCount++;
-    this.messages.push({
-      id: this.messageCount + 1,
+    this.messages.update(messages => [...messages, {
+      id: uuidv7(),
       type: 'success',
       content: msg
-    });
+    }]);
   }
 
   addWarnMessage(msg: string) {
     this.messageCount++;
-    this.messages.push({
-      id: this.messageCount + 1,
+    this.messages.update(messages => [...messages, {
+      id: uuidv7(),
       type: 'warn',
       content: msg
-    });
+    }]);
   }
 
-  removeMessage(id: number) {
-    this.messages = this.messages.filter(msg => msg.id !== id);
+  removeMessage(id: string) {
+    this.messages.update(messages =>
+      messages.filter(msg => msg.id !== id)
+    );
   }
 
   clear() {
-    this.messages = [];
+    this.messages.set([]);
     this.messageCount = 0;
   }
 
@@ -40,7 +44,7 @@ export class MessageService {
 }
 
 export interface Message {
-  id: number;
+  id: string;
   type: 'success' | 'warn';
   content: string;
 }

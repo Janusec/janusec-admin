@@ -1,7 +1,7 @@
 mat-card {
     margin-bottom: 7px;
     border-radius: 0;
-    font-family: Helvetica, Arial, "PingFang SC", "Source Han Serif SC", "Microsoft YaHei";
+    font-family: 'Arial Narrow', Arial, sans-serif;
 }
 
 .card-content {
