@@ -33,7 +33,8 @@ export class RPCService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  certificates: Certificate[] = [];
+  private certificates = signal<Certificate[]>([]);
+  public certificates$ = this.certificates.asReadonly();
 
   getResponse(action: string, callback: (obj: any) => any, id?: string | null, obj?: object) {
     let body: { action: string; id?: string; object?: object } = {
@@ -48,7 +49,6 @@ export class RPCService {
     ).subscribe(
       ((response: APIResponse) => {
         if (response.err) {
-          console.log('000 Error: ' + response.err);
           self.msgService.addWarnMessage('Error: ' + response.err);
         }
         // call back even if the result is null
@@ -152,9 +152,9 @@ export class RPCService {
   getCertificates(callback: () => any) {
     var self = this;
     this.getResponse('get_certs', function (obj: Certificate[]) {
-      self.certificates = obj;
+      self.certificates.set(obj);
       var now_ms = (new Date()).getTime();
-      for (let cert of self.certificates) {
+      for (let cert of self.certificates()) {
         let ms_diff = (new Date(cert.expire_time * 1000)).getTime() - now_ms;
         if (ms_diff < 30 * 86400 * 1000) {
           cert.due_to_expire = true;
