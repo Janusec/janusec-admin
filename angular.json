@@ -23,7 +23,6 @@
               "src/assets"
             ],
             "styles": [
-              "src/assets/material-icons/material-icons.css",
               "src/styles.css"
             ],
             "baseHref": "/janusec-admin/",

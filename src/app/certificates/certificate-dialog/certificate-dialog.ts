@@ -1,5 +1,4 @@
 import { Component, Inject, OnInit, Input, ChangeDetectorRef } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
 import { Certificate, SelfSignCert } from '../../models/application';
 import { RPCService } from '../../services/rpc.service';
 import { MessageService } from '../../services/message.service';
@@ -42,18 +41,16 @@ export class CertificateDialog {
   readOnlyButtonText: string = "Edit";
 
   constructor(
-    private route: ActivatedRoute,
     public rpcService: RPCService,
-    private router: Router,
     private cdr: ChangeDetectorRef,
-    private messageService: MessageService,
+    private msgService: MessageService,
     private fileReaderService: FileReaderService,
     public dialogRef: MatDialogRef<CertificateDialog>,
     @Inject(MAT_DIALOG_DATA) public data: IData) {
     if (data.certificate) {
       this.certificate = data.certificate;
     }
-    if (this.certificate.id == '0') {
+    if (this.certificate.id === '0') {
       this.readOnlyValue = false;
     }
   }
@@ -64,10 +61,11 @@ export class CertificateDialog {
     }
     var self = this;
     this.rpcService.getResponse('update_cert', function (obj: Certificate) {
-      self.dialogRef.close();
       if (obj != null) {
-        self.messageService.addSuccessMessage("Certificate " + obj.common_name + " saved.");
+        self.rpcService.addOrUpdateLocalCertificate(obj);
+        self.msgService.addSuccessMessage("Certificate " + obj.common_name + " saved.");
       }
+      self.dialogRef.close();
     }, null, self.certificate);
   }
 
@@ -84,7 +82,7 @@ export class CertificateDialog {
   }
 
   changeEditable() {
-    if (this.rpcService.auth_user$().is_cert_admin == false) return;
+    if (!this.rpcService.auth_user$().is_cert_admin) return;
     this.readOnlyValue = !this.readOnlyValue;
     if (this.readOnlyValue) {
       this.readOnlyButtonText = "Edit";
@@ -104,7 +102,7 @@ export class CertificateDialog {
       this.certificate.cert_content = await this.fileReaderService.readFileAsText(file);
       this.cdr.detectChanges();
     } catch (error: any) {
-      this.messageService.addWarnMessage('read file error');
+      this.msgService.addWarnMessage('read file error');
     }
   }
 
@@ -115,7 +113,7 @@ export class CertificateDialog {
       this.certificate.priv_key_content = await this.fileReaderService.readFileAsText(file);
       this.cdr.detectChanges();
     } catch (error: any) {
-      this.messageService.addWarnMessage('read file error');
+      this.msgService.addWarnMessage('read file error');
     }
   }
 

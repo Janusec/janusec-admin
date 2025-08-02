@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { RPCService } from '../services/rpc.service';
 import { Certificate } from '../models/application';
 import { MatInputModule } from '@angular/material/input';
@@ -20,7 +21,8 @@ import { CertificateDialog } from './certificate-dialog/certificate-dialog';
     RouterModule,
     MatIcon,
     MatDivider,
-    MatDialogModule
+    MatDialogModule,
+    MatTooltipModule
   ],
   templateUrl: './certificates.html',
   styleUrl: './certificates.css'
@@ -56,10 +58,6 @@ export class Certificates {
     this.dataSource.paginator = this.paginator;
   }
 
-  addCertificate() {
-    this.openCertificateDialog(null);
-  }
-
   getDate(unix: number): string {
     return this.rpcService.getDateString(unix);
   }
@@ -72,10 +70,9 @@ export class Certificates {
     if (!confirm("Are you sure to delete certificate: " + cert.common_name + "?")) return;
     var self = this;
     this.rpcService.getResponse('del_cert', function () {
+      self.rpcService.removeLocalCertificate(cert.id);
+      self.dataSource.data = self.rpcService.certificates$();
       self.msgService.addWarnMessage(cert.common_name + " deleted.");
-      self.rpcService.getCertificates(() => {
-        self.dataSource.data = self.rpcService.certificates$();
-      });
     }, cert.id);
   }
 
@@ -85,10 +82,7 @@ export class Certificates {
       maxWidth: '1000px',
       data: { "certificate": cert }
     }).afterClosed().subscribe(result => {
-      let self = this;
-      this.rpcService.getCertificates(() => {
-        self.dataSource.data = self.rpcService.certificates$();
-      });
+      this.dataSource.data = this.rpcService.certificates$();
     });
   }
 

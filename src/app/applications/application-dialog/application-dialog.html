@@ -1,0 +1,536 @@
+<div class="container">
+    <div>
+        <button matButton mat-dialog-close class="btn-close">
+            <mat-icon class="icon-close pointer">clear</mat-icon>
+        </button>
+    </div>
+    <h2 class="dialog-title">Application Detail: {{ application.name }} </h2>
+    <mat-dialog-content class="dialog-content-custom">
+        <mat-tab-group>
+            <mat-tab i18n-label="@@basic_information" label="Basic Information of Application">
+                <div class="container">
+                    <mat-form-field>
+                        <mat-label i18n="@@app_name">Application Name</mat-label>
+                        <input matInput #app_name [(ngModel)]="application.name" [readonly]="readOnlyValue" required />
+                        <mat-hint align="end">{{app_name.value.length || 0}}/128</mat-hint>
+                    </mat-form-field>
+
+                    <div class="radio-container">
+                        <label class="radio-label">Internal Scheme (From Gateway to Source Server):</label>
+                        <mat-radio-group [(ngModel)]="application.internal_scheme" [disabled]="readOnlyValue"
+                            class="radio-group">
+                            <mat-radio-button value="http">http</mat-radio-button>
+                            <mat-radio-button value="https">https</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+
+                    <mat-expansion-panel [expanded]="true" class="detail_panel">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <h3 i18n="@@routing_configuration">Routing Configuration</h3>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                        @for (dest of application.destinations; track $index) {
+                        <div class="inline-form">
+                            <mat-form-field class="inline-form-field-20">
+                                <mat-label i18n="@@request_location">Request Location</mat-label>
+                                <input matInput [(ngModel)]="application.destinations[$index].request_route"
+                                    i18n-matTooltip="@@request_location_tooltip" matTooltipPosition="below"
+                                    matTooltip="Default: / , options: /abc/ .php / , ordered from highest priority to lowest, and /abc/def/ is not supported."
+                                    [readonly]="readOnlyValue" required />
+                            </mat-form-field>
+
+                            <mat-form-field class="inline-form-field-20">
+                                <mat-label i18n="@@routing_type">Routing Type</mat-label>
+                                <mat-select [(ngModel)]="application.destinations[$index].route_type"
+                                    i18n-matTooltip="@@routing_type_tooltip" matTooltipPosition="below"
+                                    matTooltip="Default: Reverse_Proxy, other options: Local_FastCGI used for PHP/Python etc., Static_Website used for local static resources without backend servers, K8S_Ingress used for K8S Pods."
+                                    [disabled]="readOnlyValue" required>
+                                    @for (route_type of enum_route_types; track $index) {
+                                    <mat-option [value]="route_type.value">
+                                        {{ route_type.name }}
+                                    </mat-option>
+                                    }
+                                </mat-select>
+                            </mat-form-field>
+
+                            <!-- 用于非K8S类型 -->
+                            @if (dest.route_type != k8sRoute) {
+                            <ng-container>
+                                <mat-form-field class="inline-form-field-25">
+                                    <mat-label i18n="@@destination">Destination</mat-label>
+                                    <input matInput [(ngModel)]="application.destinations[$index].destination"
+                                        i18n-matTooltip="@@destination_tooltip" matTooltipPosition="below"
+                                        matTooltip="Default IP:Port (such as 10.0.0.1:80), or default file (such as index.html) if Static_Website was selected."
+                                        [readonly]="readOnlyValue" />
+                                </mat-form-field>
+
+                                <mat-form-field class="inline-form-field-25">
+                                    <mat-label i18n="@@backend_routing">Backend Routing</mat-label>
+                                    <input matInput [(ngModel)]="application.destinations[$index].backend_route"
+                                        i18n-matTooltip="@@backend_routing_tooltip" matTooltipPosition="below"
+                                        matTooltip="Default /, using /xyz/ if the backend is using different URL Path. Please fill in absolute path (/path/to/www/) if the routing type is Static_Website or Local_FastCGI."
+                                        [readonly]="readOnlyValue" />
+                                    <mat-icon matSuffix i18n-matTooltip="@@add_new_routing" class="clickable_btn"
+                                        matTooltip="Add new routing" matTooltipPosition="left"
+                                        (click)="addDestination()">add_circle_outline</mat-icon>
+                                    @if (application.destinations.length>1) {
+                                    <mat-icon matSuffix class="clickable_btn"
+                                        (click)="delDestination($index)">remove_circle_outline</mat-icon>
+                                    }
+                                </mat-form-field>
+                            </ng-container>
+                            }
+
+                            <!-- 仅用于K8S类型 -->
+                            @if (dest.route_type == k8sRoute) {
+                            <ng-container>
+                                <mat-form-field class="inline-form-field-25">
+                                    <mat-label>K8S Pods API</mat-label>
+                                    <input matInput [(ngModel)]="application.destinations[$index].pods_api"
+                                        matTooltipPosition="below"
+                                        matTooltip="Example: http://127.0.0.1:8080/api/v1/namespaces/default/pods"
+                                        [readonly]="readOnlyValue" />
+                                </mat-form-field>
+
+                                <mat-form-field class="inline-form-field-25">
+                                    <mat-label>K8S Pod Port</mat-label>
+                                    <input matInput [(ngModel)]="application.destinations[$index].pod_port"
+                                        matTooltipPosition="below" matTooltip="Example: 80"
+                                        [readonly]="readOnlyValue" />
+                                    <mat-icon matSuffix i18n-matTooltip="@@add_new_routing" class="clickable_btn"
+                                        matTooltip="Add new routing" matTooltipPosition="left"
+                                        (click)="addDestination()">add_circle_outline</mat-icon>
+                                    @if (application.destinations.length>1) {
+                                    <mat-icon matSuffix class="clickable_btn"
+                                        (click)="delDestination($index)">remove_circle_outline</mat-icon>
+                                    }
+                                </mat-form-field>
+                            </ng-container>
+                            }
+
+                        </div>
+                        }
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel [expanded]="true" class="detail_panel">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <h3 i18n="@@domain_configuration">Domain Configuration</h3>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        @for (domain of application.domains; track $index) {
+                        <div class="inline-form">
+                            <mat-form-field class="inline-form-field-20">
+                                <mat-icon matPrefix>language</mat-icon>
+                                <input matInput i18n-placeholder="@@domain_name" placeholder="Domain name (required)"
+                                    i18n-matTooltip="@@domain_name_tooltip" matTooltipPosition="below"
+                                    matTooltip="Required, format: www.your-domain.com"
+                                    [(ngModel)]="application.domains[$index].name" [disabled]="readOnlyValue"
+                                    list="domains" required>
+                            </mat-form-field>
+
+                            <mat-form-field class="inline-form-field-20">
+                                <mat-icon matPrefix>lock_outline</mat-icon>
+                                <mat-select i18n-placeholder="@@certificate" placeholder="Certificate"
+                                    i18n-matTooltip="@@acme_requirement" matTooltipPosition="below"
+                                    matTooltip="If ACME automated certificate used, default port 80/443, open to Internet, and single node are required."
+                                    [(ngModel)]="application.domains[$index].cert_id" [disabled]="readOnlyValue"
+                                    required>
+                                    <mat-option value="0" i18n="@@automated_certificate">ACME Automated
+                                        Certificate</mat-option>
+                                    @for (certificate of rpcService.certificates$(); track $index) {
+                                    <mat-option [value]="certificate.id">
+                                        {{certificate.common_name}}
+                                    </mat-option>
+                                    }
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field class="inline-form-field-50">
+                                <mat-checkbox matPrefix i18n="@@redirect"
+                                    [(ngModel)]="application.domains[$index].redirect" [disabled]="readOnlyValue">
+                                    (Disabled by default) Redirect to (308): &nbsp;
+                                </mat-checkbox>
+                                <input matInput placeholder="https://www.your-domain.com/"
+                                    [(ngModel)]="application.domains[$index].location" [disabled]="readOnlyValue">
+                                <mat-icon matSuffix i18n-matTooltip="@@add_domain" matTooltip="Add new domain"
+                                    matTooltipPosition="right" (click)="addDomain()">add_circle_outline</mat-icon>
+                                @if (application.domains.length>1) {
+                                <mat-icon matSuffix (click)="delDomain($index)">remove_circle_outline</mat-icon>
+                                }
+                            </mat-form-field>
+                        </div>
+                        }
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel [expanded]="false" class="detail_panel">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <h3>
+                                    <span i18n="@@custom_header">Custom Header</span>
+                                </h3>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        @if (application.custom_headers.length===0) {
+                        <div class="custom_header_div">
+                            <button mat-stroked-button (click)="addHeader()">Add</button>
+                        </div>
+                        }
+                        @for (header of application.custom_headers; track $index) {
+                        <div class="inline-form">
+                            <mat-form-field class="inline-form-field-40">
+                                <mat-label>Key</mat-label>
+                                <input matInput [(ngModel)]="application.custom_headers[$index].key"
+                                    [readonly]="readOnlyValue" />
+                            </mat-form-field>
+
+                            <mat-form-field class="inline-form-field-50">
+                                <mat-label>Value</mat-label>
+                                <input matInput [(ngModel)]="application.custom_headers[$index].value"
+                                    [readonly]="readOnlyValue" />
+                                <mat-icon matSuffix i18n-matTooltip="@@add_header" matTooltip="Add header"
+                                    matTooltipPosition="right" (click)="addHeader()">add_circle_outline</mat-icon>
+                                @if (application.custom_headers.length>0) {
+                                <mat-icon matSuffix (click)="delHeader($index)">remove_circle_outline</mat-icon>
+                                }
+                            </mat-form-field>
+                        </div>
+                        }
+                    </mat-expansion-panel>
+
+                    <mat-form-field>
+                        <mat-select [(ngModel)]="application.ip_method" i18n-placeholder="@@ip_for_waf"
+                            placeholder="Client IP for WAF" [disabled]="readOnlyValue">
+                            @for (ip_method_value of enum_ip_method_values; track $index) {
+                            <mat-option [value]="ip_method_value.value">
+                                {{ ip_method_value.name }}
+                            </mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
+
+                    <section>
+                        <mat-checkbox i18n="@@redirect_https" [(ngModel)]="application.redirect_https"
+                            [disabled]="readOnlyValue">
+                            Redirect HTTP to HTTPS (Certificate Required)
+                        </mat-checkbox>
+                    </section>
+
+                    <section>
+                        <mat-checkbox i18n="@@hsts_enabled" [(ngModel)]="application.hsts_enabled"
+                            [disabled]="readOnlyValue">
+                            Enable HSTS for HTTPS (Add Response Header: Strict-Transport-Security)
+                        </mat-checkbox>
+                    </section>
+
+                    <section>
+                        <mat-checkbox i18n="@@waf_enabled" [(ngModel)]="application.waf_enabled"
+                            [disabled]="readOnlyValue">
+                            Enable WAF (Web Application Firewall)
+                        </mat-checkbox>
+                    </section>
+
+                    <section>
+                        <mat-checkbox i18n="@@cache_enabled" [(ngModel)]="application.cache_enabled"
+                            [disabled]="readOnlyValue">
+                            Enable caching for static files less than 10MB (brotli, gzip compression supported)
+                        </mat-checkbox>
+                    </section>
+
+                    <section>
+                        <mat-checkbox i18n="@@shield_enabled" [(ngModel)]="application.shield_enabled"
+                            [disabled]="readOnlyValue">
+                            Enable 5-second shield (Please check the search engines list in settings, disabled by
+                            default)
+                        </mat-checkbox>
+                    </section>
+
+                    <section>
+                        <mat-checkbox i18n="@@oauth_required" [(ngModel)]="application.oauth_required"
+                            [disabled]="readOnlyValue">
+                            Enable Authentication (The provider needs to be registered and enabled in the settings, used
+                            for
+                            Internal
+                            Employees and Internal Applications. {{ oauth.display_name }})
+                        </mat-checkbox>
+                    </section>
+
+                    @if (application.oauth_required) {
+                    <mat-form-field>
+                        <input i18n-placeholder="@@session_seconds" type="number" matInput
+                            [(ngModel)]="application.session_seconds" [readonly]="readOnlyValue"
+                            placeholder="Session Expire Seconds for OAuth2" />
+                    </mat-form-field>
+                    }
+
+                    <section>
+                        <mat-checkbox i18n="@@csp_enabled" [(ngModel)]="application.csp_enabled"
+                            [disabled]="readOnlyValue">
+                            Enable CSP (Content-Security-Policy, example: default-src 'self', disabled by default)
+                        </mat-checkbox>
+                    </section>
+
+                    @if (application.csp_enabled) {
+                    <mat-form-field>
+                        <mat-label>Content-Security-Policy</mat-label>
+                        <input matInput i18n-placeholder="@@csp" [(ngModel)]="application.csp" #csp
+                            [readonly]="readOnlyValue" placeholder="" />
+                        <mat-hint align="end">{{csp.value.length || 0}}/1024</mat-hint>
+                    </mat-form-field>
+                    }
+
+                    <section>
+                        <mat-checkbox i18n="@@cookie_mgmt_enabled" [(ngModel)]="application.cookie_mgmt_enabled"
+                            [disabled]="readOnlyValue">
+                            Enable Cookie Compliance Management
+                        </mat-checkbox>
+                    </section>
+
+                    <mat-form-field>
+                        <input matInput i18n-placeholder="@@owner" [(ngModel)]="application.owner"
+                            [readonly]="readOnlyValue" placeholder="Application Owner" />
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <input matInput i18n-placeholder="@@description" #description
+                            [(ngModel)]="application.description" [readonly]="readOnlyValue"
+                            placeholder="Description" />
+                        <mat-hint align="end">{{description.value.length || 0}}/256</mat-hint>
+                    </mat-form-field>
+                </div>
+            </mat-tab>
+
+            @if (application.cookie_mgmt_enabled) {
+            <mat-tab i18n-label="@@cookie_setting" label="Cookie Setting of Application">
+                <div class="container">
+                    <mat-form-field>
+                        <mat-label i18n="@@concise_cookie_notice">Concise Cookie Notice</mat-label>
+                        <textarea matInput [(ngModel)]="application.concise_notice" #conciseNotice rows="3"
+                            [readonly]="readOnlyValue"></textarea>
+                        <mat-hint align="end">
+                            <span>HTML is supported in this field.</span>
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <span>{{conciseNotice.value.length || 0}}/512</span>
+                        </mat-hint>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label i18n="@@description_of_necessary_cookies">Description of Necessary
+                            Cookies</mat-label>
+                        <textarea matInput [(ngModel)]="application.necessary_notice" #necessaryNotice rows="3"
+                            [readonly]="readOnlyValue"></textarea>
+                        <mat-hint align="end">{{necessaryNotice.value.length || 0}}/512</mat-hint>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label i18n="@@description_of_functional_cookies">Description of Functional
+                            Cookies</mat-label>
+                        <textarea matInput [(ngModel)]="application.functional_notice" #functionalNotice rows="3"
+                            [readonly]="readOnlyValue"></textarea>
+                        <mat-hint align="end">{{functionalNotice.value.length || 0}}/512</mat-hint>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label i18n="@@description_of_analytics_cookies">Description of Analytics
+                            Cookies</mat-label>
+                        <textarea matInput [(ngModel)]="application.analytics_notice" #analyticsNotice rows="3"
+                            [readonly]="readOnlyValue"></textarea>
+                        <mat-hint align="end">{{analyticsNotice.value.length || 0}}/512</mat-hint>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label i18n="@@description_of_marketing_cookies">Description of Marketing
+                            Cookies</mat-label>
+                        <textarea matInput [(ngModel)]="application.marketing_notice" #marketingNotice rows="3"
+                            [readonly]="readOnlyValue"></textarea>
+                        <mat-hint align="end">{{marketingNotice.value.length || 0}}/512</mat-hint>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label i18n="@@description_of_uncalssified_cookies">Description of Unclassified
+                            Cookies</mat-label>
+                        <textarea matInput [(ngModel)]="application.unclassified_notice" #unclassifiedNotice rows="3"
+                            [readonly]="readOnlyValue"></textarea>
+                        <mat-hint align="end">{{unclassifiedNotice.value.length || 0}}/512</mat-hint>
+                    </mat-form-field>
+
+                    <section>
+                        <mat-checkbox checked="true" disabled="true" i18n="@@enable_essential">
+                            Enable Essential Cookies (Always Enabled)
+                        </mat-checkbox>
+                    </section>
+
+                    <section>
+                        <mat-checkbox [(ngModel)]="application.enable_functional" [disabled]="readOnlyValue"
+                            i18n="@@enable_functional">
+                            Enable Functional Cookies before User Confirmation (disabled by default)
+                        </mat-checkbox>
+                    </section>
+
+                    <section>
+                        <mat-checkbox [(ngModel)]="application.enable_analytics" [disabled]="readOnlyValue"
+                            i18n="@@enable_analytics">
+                            Enable Analytics Cookies before User Confirmation (disabled by default)
+                        </mat-checkbox>
+                    </section>
+
+                    <section>
+                        <mat-checkbox [(ngModel)]="application.enable_marketing" [disabled]="readOnlyValue"
+                            i18n="@@enable_marketing">
+                            Enable Marketing Cookies before User Confirmation (disabled by default)
+                        </mat-checkbox>
+                    </section>
+
+                    <section>
+                        <mat-checkbox [(ngModel)]="application.enable_unclassified" [disabled]="readOnlyValue"
+                            i18n="@@enable_unclassified">
+                            Enable Unclassified Cookies before User Confirmation (disabled by default)
+                        </mat-checkbox>
+                    </section>
+                </div>
+            </mat-tab>
+            }
+
+            @if (application.cookie_mgmt_enabled) {
+            <mat-tab i18n-label="@@cookie_management" label="Cookie Management of Application">
+                <div class="container">
+                    <div>
+                        <div class="line-container-custom">
+
+                            <button matButton="outlined" i18n="@@add_cookie" (click)="addCookie()" class="pointer">Add
+                                Cookie</button>
+
+                            <input matInput #keyword (keyup)="applyFilter(keyword.value)" class="search_box"
+                                placeholder="Filter">
+
+                            <span>
+                                <a mat-stroked-button i18n="@@manage_cookie_refs" routerLink="/cookie-refs">
+                                    Manage Cookie References
+                                </a>
+                            </span>
+
+                            <button matButton="outlined" (click)="refreshCookies()" class="btn-with-icon">
+                                <mat-icon>refresh</mat-icon>
+                                <span i18n="@@refresh">Refresh</span>
+                            </button>
+
+                            <button matButton="outlined" (click)="deleteSelectedCookies()">
+                                <span i18n="@@delete_selected_cookies">Delete Selected Cookies</span>
+                            </button>
+
+                        </div>
+                    </div>
+
+                    <div class="mat-elevation-z8">
+                        <mat-table #table [dataSource]="cookieDataSource">
+
+                            <ng-container matColumnDef="name">
+                                <mat-header-cell i18n="@@name" *matHeaderCellDef> Name </mat-header-cell>
+                                <mat-cell *matCellDef="let element">
+                                    <span (click)="editCookie(element)" class="pointer">{{element.name}}</span>
+                                </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="domain">
+                                <mat-header-cell i18n="@@domain" *matHeaderCellDef> Domain </mat-header-cell>
+                                <mat-cell *matCellDef="let element">
+                                    <span class="pointer">{{element.domain}}</span>
+                                </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="path">
+                                <mat-header-cell i18n="@@path" *matHeaderCellDef> Path </mat-header-cell>
+                                <mat-cell *matCellDef="let element">
+                                    <span class="pointer">{{element.path}}</span>
+                                </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="type">
+                                <mat-header-cell i18n="@@type" *matHeaderCellDef> Type </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{ getCookieTypeName(element.type) }} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="vendor">
+                                <mat-header-cell i18n="@@vendor" *matHeaderCellDef> Vendor </mat-header-cell>
+                                <mat-cell *matCellDef="let element">
+                                    <span class="pointer">{{element.vendor}}</span>
+                                </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="duration">
+                                <mat-header-cell i18n="@@duration" *matHeaderCellDef> Duration </mat-header-cell>
+                                <mat-cell *matCellDef="let element">
+                                    <span class="pointer">{{element.duration}}</span>
+                                </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="description">
+                                <mat-header-cell i18n="@@description" *matHeaderCellDef> Description </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="action">
+                                <mat-header-cell *matHeaderCellDef i18n="@@action"> Action </mat-header-cell>
+                                <mat-cell *matCellDef="let element">
+                                    <mat-icon inline="true" (click)="editCookie(element)" class="pointer">edit
+                                    </mat-icon>
+                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    <mat-icon inline="true" (click)="deleteCookie(element)" class="pointer">delete
+                                    </mat-icon>
+                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    <mat-checkbox [(ngModel)]="element.selected"></mat-checkbox>
+                                </mat-cell>
+                            </ng-container>
+
+                            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                        </mat-table>
+                        <mat-paginator #cookiePaginator [pageSize]="10" [pageSizeOptions]="[10, 20, 50]">
+                        </mat-paginator>
+                    </div>
+
+                    <div class="notes">
+                        <h3 i18n="@@cookie_scanning">Cookie Scanning</h3>
+                        <p i18n="@@steps_to_scan_cookies">For application team members: take the following steps to scan
+                            Cookies.
+                            Before this, please ensure that the domain name points to the
+                            primary node of the gateway on your browser side, if not, modify your local host file
+                            (C:\Windows\System32\drivers\etc\hosts).</p>
+                        <ul>
+                            <li i18n="@@open_website">Step 1: User Side, open the target website using a browser. If the
+                                Cookie
+                                Preferences window does not appear, please click on the Cookie icon in the bottom left
+                                corner of the
+                                window.</li>
+                            <li i18n="@@enable_unclassified_and_navigate">Step 2: User Side, Enable Unclassified Cookies
+                                and
+                                Confirm the
+                                Choice in the Cookie Preference window, and navigate pages which may
+                                set cookies.</li>
+                            <li i18n="@@refresh_and_check_cookies">Step 3: Gateway Side, click the refresh button above
+                                to
+                                view the list
+                                of
+                                recognized cookies. check or modify each cookie type until the number of
+                                unclassified cookies is reset to zero</li>
+                            <li i18n="@@navigate_website">Step 4: User Side, navigate the target website and check if
+                                the
+                                cookie
+                                settings are in effect.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </mat-tab>
+            }
+        </mat-tab-group>
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+        <button i18n="@@save" mat-stroked-button [disabled]="readOnlyValue" (click)="setApplication()"
+            class="btn-action pointer">Save</button>
+        <button mat-stroked-button (click)="changeEditable()" class="btn-action pointer">{{readOnlyButtonText}}</button>
+    </mat-dialog-actions>
+</div>

@@ -6,6 +6,7 @@ import { catchError } from 'rxjs/operators';
 import { MessageService } from './message.service';
 import { AuthUser } from '../models/auth';
 import { Certificate } from '../models/application';
+import { Application } from '../models/application';
 
 
 @Injectable({
@@ -32,9 +33,6 @@ export class RPCService {
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
-
-  private certificates = signal<Certificate[]>([]);
-  public certificates$ = this.certificates.asReadonly();
 
   getResponse(action: string, callback: (obj: any) => any, id?: string | null, obj?: object) {
     let body: { action: string; id?: string; object?: object } = {
@@ -149,6 +147,11 @@ export class RPCService {
     return nowStr;
   }
 
+  // #region CERTIFICATES
+
+  private certificates = signal<Certificate[]>([]);
+  public certificates$ = this.certificates.asReadonly();
+
   getCertificates(callback: () => any) {
     var self = this;
     this.getResponse('get_certs', function (obj: Certificate[]) {
@@ -165,5 +168,72 @@ export class RPCService {
       callback();
     });
   }
+
+  addOrUpdateLocalCertificate(cert: Certificate) {
+    let prevCerts = this.certificates$();
+    let updatedCerts: Certificate[];
+    const index = prevCerts.findIndex(item => item.id === cert.id);
+    if (index > -1) {
+      // update
+      updatedCerts = prevCerts.map(item =>
+        item.id === cert.id ? { ...item, ...cert } : item
+      );
+      this.certificates.set(updatedCerts);
+    } else {
+      // add
+      this.certificates.update(certs => [...certs, cert]);
+    }
+  }
+
+  removeLocalCertificate(certID: string) {
+    this.certificates.update(certs => certs.filter(cert => cert.id !== certID))
+  }
+
+  // #endregion
+
+  // #region APPLICATION
+
+
+  private applications = signal<Application[]>([]);
+  public applications$ = this.applications.asReadonly();
+
+  // appmap['123']='Application Name';
+  appmap: Record<string, string> = {};
+
+
+  getApplications(callback: () => any) {
+    var self = this;
+    this.getResponse('get_apps', function (obj: Application[]) {
+      self.applications.set(obj);
+      for (let app of self.applications()) {
+        self.appmap[app.id] = app.name;
+      }
+      callback();
+    });
+  }
+
+  addOrUpdateLocalApplication(app: Application) {
+    let prevApps = this.applications$();
+    let updatedApps: Application[];
+    const index = prevApps.findIndex(item => item.id === app.id);
+    if (index > -1) {
+      // update
+      updatedApps = prevApps.map(item =>
+        item.id === app.id ? { ...item, ...app } : item
+      );
+      this.applications.set(updatedApps);
+    } else {
+      // add
+      this.applications.update(apps => [...apps, app]);
+    }
+  }
+
+  removeLocalApplication(appID: string) {
+    this.applications.update(apps => apps.filter(app => app.id !== appID))
+  }
+
+  // #endregion
+
+
 
 }

@@ -3,18 +3,12 @@
         <h2 i18n="@@cert_mgmt">Certificate Management</h2>
     </div>
 
-    <div class="toolbar-custom">
+    <div class="line-container-custom">
         @if (rpcService.auth_user$().is_cert_admin) {
-        <span>
-            <button matButton="outlined" i18n="@@add_cert" class="btn-add pointer" (click)="addCertificate()">
-                Add Certificate</button>
-        </span>
+        <button matButton="outlined" i18n="@@add_cert" class="btn-add pointer" (click)="openCertificateDialog(null)">
+            Add Certificate</button>
         }
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        <span>
-            <input matInput #keyword (keyup)="applyFilter(keyword.value)" class="search-box" placeholder="Filter" />
-        </span>
-
+        <input matInput #keyword (keyup)="applyFilter(keyword.value)" class="search-box" placeholder="Filter" />
     </div>
 
 
@@ -46,9 +40,9 @@
                 <mat-header-cell i18n="@@cert_status" *matHeaderCellDef class="center_column"> Status </mat-header-cell>
                 <mat-cell *matCellDef="let element" class="center_column">
                     @if (element.due_to_expire) {
-                    <mat-icon matTooltip="This certificate is due to expire!">info</mat-icon>
+                    <mat-icon matTooltip="This certificate is due to expire!" class="icon-red">info</mat-icon>
                     } @else {
-                    <mat-icon color="primary">check_circle_outline</mat-icon>
+                    <mat-icon class="icon-green">check_circle_outline</mat-icon>
                     }
                 </mat-cell>
             </ng-container>

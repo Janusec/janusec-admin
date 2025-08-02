@@ -16,19 +16,19 @@
           <mat-expansion-panel [expanded]="true" class="nav-panel">
             <mat-expansion-panel-header>
               <mat-panel-title>
-                <mat-icon>list</mat-icon>
+                <mat-icon>dataset</mat-icon>
                 <span i18n="@@basic_configuration" class="main-menu">Basic Configuration</span>
               </mat-panel-title>
             </mat-expansion-panel-header>
 
             <mat-list-item routerLink="/certificates">
               <mat-icon>lock_outline</mat-icon>
-              <span i18n="@@cert_mgmt" class="sub-menu">Certificate</span>
+              <span i18n="@@cert_mgmt" class="sub-menu">Certificates</span>
             </mat-list-item>
 
             <mat-list-item routerLink="/applications">
               <mat-icon>explore</mat-icon>
-              <span i18n="@@app_mgmt" class="sub-menu">Application</span>
+              <span i18n="@@app_mgmt" class="sub-menu">Applications</span>
             </mat-list-item>
 
             @if (rpcService.auth_user$().is_super_admin==true) {
@@ -60,12 +60,12 @@
             @if (rpcService.auth_user$().is_super_admin==true) {
 
             <mat-list-item routerLink="/waf">
-              <mat-icon>blur_on</mat-icon>
+              <mat-icon>identity_aware_proxy</mat-icon>
               <span i18n="@@waf_mgmt" class="sub-menu">WAF</span>
             </mat-list-item>
 
             <mat-list-item routerLink="/cc">
-              <mat-icon>blur_on</mat-icon>
+              <mat-icon>shield_toggle</mat-icon>
               <span i18n="@@cc_defense" class="sub-menu">CC Defense</span>
             </mat-list-item>
 
@@ -85,21 +85,21 @@
           <mat-expansion-panel [expanded]="true" class="nav-panel">
             <mat-expansion-panel-header>
               <mat-panel-title>
-                <mat-icon>cloud_queue</mat-icon>
+                <mat-icon>desktop_windows</mat-icon>
                 <span i18n="@@security_operation" class="main-menu">Security Operation</span>
               </mat-panel-title>
             </mat-expansion-panel-header>
 
             <mat-list-item routerLink="/webssh">
-              <mat-icon>computer</mat-icon>
+              <mat-icon>terminal</mat-icon>
               <span class="sub-menu">Web SSH</span>
             </mat-list-item>
 
             @if (rpcService.auth_user$().is_super_admin==true) {
 
             <mat-list-item routerLink="/nodes">
-              <mat-icon>games</mat-icon>
-              <span i18n="@@node_mgmt" class="sub-menu">Node</span>
+              <mat-icon>graph_2</mat-icon>
+              <span i18n="@@node_mgmt" class="sub-menu">Nodes</span>
             </mat-list-item>
 
             <mat-list-item routerLink="/dns-domains">
@@ -128,7 +128,7 @@
           <mat-expansion-panel [expanded]="true" class="nav-panel">
             <mat-expansion-panel-header>
               <mat-panel-title>
-                <mat-icon>assignment</mat-icon>
+                <mat-icon>lightbulb</mat-icon>
                 <span i18n="@@security_audit" class="main-menu">Security Audit</span>
               </mat-panel-title>
             </mat-expansion-panel-header>

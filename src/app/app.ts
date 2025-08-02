@@ -8,7 +8,7 @@ import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionP
 import { Navbar } from './navbar/navbar';
 import { Messages } from './messages/messages';
 import { Footer } from './footer/footer';
-
+import { MatIconRegistry } from '@angular/material/icon';
 
 @Component({
   selector: 'app-root',
@@ -37,7 +37,9 @@ export class App {
   position = 'right';
   showSidenav = true;
   constructor(
-    public rpcService: RPCService) {
+    public rpcService: RPCService,
+    private iconRegistry: MatIconRegistry) {
+    this.iconRegistry.setDefaultFontSetClass('material-symbols-outlined');
   }
 
   ngOnInit() {

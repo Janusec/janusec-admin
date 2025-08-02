@@ -1,3 +1,5 @@
+@import 'material-symbols/outlined.css';
+
 body {
     font-family: 'Arial Narrow', Arial, sans-serif, Helvetica, sans-serif, "PingFang SC", "Source Han Serif SC", "Microsoft YaHei";
 }
@@ -15,6 +17,57 @@ body {
     background-color: #F0F0F0;
     margin-top: 5px;
     margin-bottom: 5px;
+}
+
+
+.header-custom {
+    background-color: #f5f5f5;
+    padding-left: 10px;
+}
+
+.line-container-custom {
+    display: flex;
+    align-items: stretch;
+    background-color: #f5f5f5;
+    margin-top: 2px;
+    padding: 5px;
+    gap: 20px;
+}
+
+.line-container-custom input {
+    height: 16px;
+    flex: 1;
+}
+
+.btn-add {
+    padding: 5px 10px;
+}
+
+.btn-with-icon {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 10px;
+    border: 1px solid #808080;
+    width: 100px;
+}
+
+
+.notes {
+    background-color: #F0F0F0;
+    padding: 5px;
+    margin-top: 5px;
+    margin-left: 3px;
+    margin-right: 0px;
+    list-style-type: none;
+}
+
+.search-box {
+    background-color: #FFFFFF;
+    border: solid 1px #D0D0D0;
+    border-radius: 15px;
+    padding: 6px;
+    vertical-align: middle;
 }
 
 .middle {
@@ -67,6 +120,14 @@ body {
     cursor: pointer;
 }
 
+.icon-green {
+    color: green;
+}
+
+.icon-red {
+    color: red;
+}
+
 /* for dialog */
 
 .btn-close {
@@ -84,6 +145,7 @@ body {
 .dialog-title {
     padding: 0 10px;
     margin-top: 0;
+    margin-left: 5px;
 }
 
 .btn-action {
