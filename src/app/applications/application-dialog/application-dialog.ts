@@ -1,4 +1,4 @@
-import { Component, Inject, inject, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, inject, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
@@ -83,7 +83,7 @@ export class ApplicationDialog {
 
   constructor(
     private msgService: MessageService,
-    //private http: HttpClient,
+    private cdr: ChangeDetectorRef,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<ApplicationDialog>,
     @Inject(MAT_DIALOG_DATA) public data: IData
@@ -105,6 +105,16 @@ export class ApplicationDialog {
     if (this.application.cookie_mgmt_enabled) {
       this.getCookiesByAppID(this.application.id);
     }
+    // get oauth config
+    let self = this;
+    this.rpcService.getResponseByURL('/janusec-admin/oauth/info',
+      function (obj: OAuthInfo) {
+        if (obj != null) {
+          self.oauth = obj;
+          self.cdr.detectChanges();
+        }
+      }
+    );
   }
 
   readOnlyValue: boolean = true;
@@ -133,6 +143,11 @@ export class ApplicationDialog {
   displayedColumns = ['name', 'domain', 'path', 'type', 'vendor', 'duration', 'description', 'action'];
   @ViewChild('cookiePaginator') cookiePaginator!: MatPaginator;
   keyword: string = '';
+
+  ngAfterViewInit(): void {
+    this.cookieDataSource.paginator = this.cookiePaginator;
+  }
+
 
   cookie_type = CookieType;
 
@@ -166,8 +181,7 @@ export class ApplicationDialog {
     let self = this;
     this.rpcService.getResponse('get_app_cookies', function (objs: Cookie[]) {
       self.application.cookies = objs;
-      self.cookieDataSource = new MatTableDataSource<Cookie>(self.application.cookies);
-      self.cookieDataSource.paginator = self.cookiePaginator;
+      self.cookieDataSource.data = self.application.cookies;
     }, appID);
   }
 
@@ -269,13 +283,6 @@ export class ApplicationDialog {
         this.enum_route_types.push({ value: <any>RouteType[n], name: n });
       }
     }
-
-    // get oauth config
-    let self = this;
-    this.rpcService.getResponseByURL('/janusec-admin/oauth/info',
-      function (obj: OAuthInfo) {
-        if (obj != null) self.oauth = obj;
-      });
   }
 
   trackByFn(index: any, item: any) {
@@ -318,7 +325,7 @@ export class ApplicationDialog {
   editCookie(cookie: Cookie) {
     this.dialog.open(CookieDialog, {
       width: '500px',
-      data: { "cookie": cookie }
+      data: { "cookie": { ...cookie } }
     }).afterClosed().subscribe(result => {
       this.getCookiesByAppID(this.application.id);
     });
@@ -338,17 +345,15 @@ export class ApplicationDialog {
 
   deleteSelectedCookies() {
     if (!confirm("Are you sure to delete these selected cookies?")) return;
-    let cookieLen = this.application.cookies.length;
-    for (let i = cookieLen - 1; i >= 0; i--) {
-      let cookie = this.application.cookies[i];
-      if (cookie.selected) {
-        this.rpcService.getResponse('del_cookie', function () {
-        }, cookie.id);
-      }
-    }
-    setTimeout(() => {
-      this.getCookiesByAppID(this.application.id);
-    }, 1000);
+    let selectedIds = this.application.cookies.filter(item => item.selected).map(item => item.id);
+    let body: { action: string; ids: string[] } = {
+      action: 'del_cookies',
+      ids: selectedIds
+    };
+    let self = this;
+    this.rpcService.getResponseByCustomBody(body, () => {
+      self.getCookiesByAppID(self.application.id);
+    });
   }
 
 }

@@ -80,7 +80,7 @@ export class Certificates {
     this.dialog.open(CertificateDialog, {
       width: '800px',
       maxWidth: '1000px',
-      data: { "certificate": cert }
+      data: { "certificate": { ...cert } }
     }).afterClosed().subscribe(result => {
       this.dataSource.data = this.rpcService.certificates$();
     });

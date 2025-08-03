@@ -100,6 +100,7 @@ export class RPCService {
       errorMessage = `client error: ${error.error.message}`;
     } else {
       // server error
+      console.log('handleHttpError', error);
       if (error.status === 0) {
         errorMessage = 'unable to connect to the server, check network';
       } else if (error.status >= 500) {

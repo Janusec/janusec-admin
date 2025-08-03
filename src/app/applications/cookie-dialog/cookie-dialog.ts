@@ -51,7 +51,7 @@ export class CookieDialog {
     let self = this;
     this.rpcService.getResponse('update_cookie', function (obj: Cookie) {
       self.cookie = obj;
+      self.dialogRef.close();
     }, this.cookie.id, this.cookie);
-    this.dialogRef.close();
   }
 }
