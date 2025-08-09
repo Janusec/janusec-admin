@@ -78,8 +78,8 @@ export class Applications {
       width: '95%',
       maxWidth: '100%',
       disableClose: true,
-      data: { "application": { ...app } }
-    }).afterClosed().subscribe(result => {
+      data: { "application": app ? { ...app } : null }
+    }).afterClosed().subscribe(() => {
       this.dataSource.data = this.rpcService.applications$();
     });
   }

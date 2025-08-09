@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Inject, inject, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogModule } from '@angular/material/dialog';
@@ -21,6 +21,7 @@ import { Application, CustomHeader, Destination, Domain, IPMethod, RouteType } f
 import { Certificate } from '../../models/application';
 import { Cookie, CookieType } from '../../models/cookie';
 import { CookieDialog } from '../cookie-dialog/cookie-dialog';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 export interface IData {
   application: Application;
@@ -41,7 +42,9 @@ export interface IData {
     MatCheckboxModule,
     MatTableModule,
     MatPaginatorModule,
-    MatRadioModule
+    MatRadioModule,
+    RouterModule,
+    MatTooltipModule
   ],
   templateUrl: './application-dialog.html',
   styleUrl: './application-dialog.css'
@@ -50,14 +53,14 @@ export class ApplicationDialog {
   rpcService = inject(RPCService);
   application: Application = {
     id: '0',
-    name: "XXX",
+    name: "Application 1",
     internal_scheme: "http",
     redirect_https: true,
     hsts_enabled: false,
     waf_enabled: true,
     shield_enabled: false,
     domains: [],
-    ip_method: 1,
+    ip_method: IPMethod.REMOTE_ADDR,
     destinations: [],
     oauth_required: false,
     session_seconds: 7200,
@@ -81,30 +84,45 @@ export class ApplicationDialog {
     cookies: []
   };
 
+  ipMethodEntries: [string, string | IPMethod][] = [];
+  routeTypeEntries: [string, string | RouteType][] = [];
+
   constructor(
     private msgService: MessageService,
     private cdr: ChangeDetectorRef,
     public dialog: MatDialog,
+    private router: Router,
     public dialogRef: MatDialogRef<ApplicationDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: IData
-  ) {
-    if (data.application) {
+    @Inject(MAT_DIALOG_DATA) public data: IData) {
+    if (data.application !== null) {
       this.application = data.application;
-    }
-    if (this.application.id === '0') {
+    } else {
+      // add new application
       this.readOnlyValue = false;
+      // init domain, destination and cookie
+      this.addDomain();
+      this.addDestination();
+      this.initCookieMgmt();
     }
+    // init enum
+    this.ipMethodEntries = Object.entries(IPMethod).filter(
+      ([key, value]) => typeof value === 'number'
+    );
+    this.routeTypeEntries = Object.entries(RouteType).filter(
+      ([key, value]) => typeof value === 'number'
+    );
+
     // check certificates
     if (this.rpcService.certificates$().length === 0) {
       this.rpcService.getCertificates(() => { });
     }
-    // 
-    this.addDomain();
-    this.addDestination();
-    this.initCookieMgmt();
+
     if (this.application.cookie_mgmt_enabled) {
       this.getCookiesByAppID(this.application.id);
     }
+  }
+
+  ngOnInit() {
     // get oauth config
     let self = this;
     this.rpcService.getResponseByURL('/janusec-admin/oauth/info',
@@ -128,8 +146,7 @@ export class ApplicationDialog {
     description: 'ACME certificate',
     due_to_expire: false
   };
-  enum_ip_method_values: { value: number; name: string }[] = [];
-  enum_route_types: { value: number; name: string }[] = [];
+
   oauth: OAuthInfo = {
     use_oauth: false,
     display_name: '',
@@ -271,24 +288,6 @@ export class ApplicationDialog {
     this.application.custom_headers.splice(i, 1);
   }
 
-  ngOnInit() {
-    //init IPMethod enum
-    for (var n in IPMethod) {
-      if (typeof IPMethod[n] == 'number') {
-        this.enum_ip_method_values.push({ value: <any>IPMethod[n], name: n });
-      }
-    }
-    for (var n in RouteType) {
-      if (typeof RouteType[n] == 'number') {
-        this.enum_route_types.push({ value: <any>RouteType[n], name: n });
-      }
-    }
-  }
-
-  trackByFn(index: any, item: any) {
-    return index;
-  }
-
   changeEditable() {
     this.readOnlyValue = !this.readOnlyValue;
     if (this.readOnlyValue) {
@@ -354,6 +353,11 @@ export class ApplicationDialog {
     this.rpcService.getResponseByCustomBody(body, () => {
       self.getCookiesByAppID(self.application.id);
     });
+  }
+
+  jumpToCookieRefs() {
+    this.dialogRef.close();
+    this.router.navigate(['/cookie-refs']);
   }
 
 }

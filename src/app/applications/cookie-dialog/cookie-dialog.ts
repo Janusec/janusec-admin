@@ -30,21 +30,18 @@ export interface ICookie {
 export class CookieDialog {
   cookie: Cookie;
   cookie_type = CookieType;
-  //enum_cookie_type_values = [];
   cookieTypeEntries: [string, string | CookieType][] = [];
 
   constructor(private route: ActivatedRoute,
     public rpcService: RPCService,
-    private router: Router,
-    private msgService: MessageService,
+    //private router: Router,
+    //private msgService: MessageService,
     public dialogRef: MatDialogRef<CookieDialog>,
     @Inject(MAT_DIALOG_DATA) public data: ICookie) {
     this.cookie = data.cookie;
-    //this.enum_cookie_type_values = Object.values(CookieType).filter(f => !isNaN(Number(f)));
     this.cookieTypeEntries = Object.entries(CookieType).filter(
       ([key, value]) => typeof value === 'number'
     );
-    console.log(this.cookieTypeEntries);
   }
 
   setCookie() {

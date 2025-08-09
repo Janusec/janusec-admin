@@ -41,3 +41,7 @@ mat-icon {
     height: 16px;
     vertical-align: middle;
 }
+
+.fullwidth {
+    width: 100%;
+}

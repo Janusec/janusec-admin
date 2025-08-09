@@ -5,7 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MessageService } from './message.service';
 import { AuthUser } from '../models/auth';
-import { Certificate } from '../models/application';
+import { Certificate, VipApp } from '../models/application';
 import { Application } from '../models/application';
 
 
@@ -81,17 +81,6 @@ export class RPCService {
       callback(response.object);
     });
   }
-
-  /*
-  private handleHttpError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error); // log to console instead
-      this.msgService.addWarnMessage(`${operation} failed: ${error.message}`);
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
-  }
-*/
 
   private handleHttpError(error: HttpErrorResponse): Observable<never> {
     let errorMessage = 'unknown error';
@@ -235,6 +224,47 @@ export class RPCService {
 
   // #endregion
 
+  // #region VIPAPP
 
+
+  private vipApps = signal<VipApp[]>([]);
+  public vipApps$ = this.vipApps.asReadonly();
+
+  // vipAppMap['123']='VipApp Name';
+  vipAppMap: Record<string, string> = {};
+
+
+  getVipApps(callback: () => any) {
+    var self = this;
+    this.getResponse('get_vip_apps', function (obj: VipApp[]) {
+      self.vipApps.set(obj);
+      for (let app of self.vipApps()) {
+        self.vipAppMap[app.id] = app.name;
+      }
+      callback();
+    });
+  }
+
+  addOrUpdateLocalVipApp(app: VipApp) {
+    let prevApps = this.vipApps$();
+    let updatedApps: VipApp[];
+    const index = prevApps.findIndex(item => item.id === app.id);
+    if (index > -1) {
+      // update
+      updatedApps = prevApps.map(item =>
+        item.id === app.id ? { ...item, ...app } : item
+      );
+      this.vipApps.set(updatedApps);
+    } else {
+      // add
+      this.vipApps.update(apps => [...apps, app]);
+    }
+  }
+
+  removeLocalVipApp(appID: string) {
+    this.vipApps.update(apps => apps.filter(app => app.id !== appID))
+  }
+
+  // #endregion
 
 }

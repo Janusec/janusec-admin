@@ -7,7 +7,7 @@
     <h2 class="dialog-title">Application Detail: {{ application.name }} </h2>
     <mat-dialog-content class="dialog-content-custom">
         <mat-tab-group>
-            <mat-tab i18n-label="@@basic_information" label="Basic Information of Application">
+            <mat-tab i18n-label="@@basic_information" label="Basic Information">
                 <div class="container">
                     <mat-form-field>
                         <mat-label i18n="@@app_name">Application Name</mat-label>
@@ -36,20 +36,19 @@
                             <mat-form-field class="inline-form-field-20">
                                 <mat-label i18n="@@request_location">Request Location</mat-label>
                                 <input matInput [(ngModel)]="application.destinations[$index].request_route"
-                                    i18n-matTooltip="@@request_location_tooltip" matTooltipPosition="below"
-                                    matTooltip="Default: / , options: /abc/ .php / , ordered from highest priority to lowest, and /abc/def/ is not supported."
+                                    matTooltipClass="tooltip-custom" i18n-matTooltip="@@request_location_tooltip"
+                                    matTooltipPosition="below"
+                                    matTooltip="Default: / , 3 options: /abc/ .php  / (ordered from highest priority to lowest), and /abc/def/ is not supported."
                                     [readonly]="readOnlyValue" required />
                             </mat-form-field>
 
                             <mat-form-field class="inline-form-field-20">
                                 <mat-label i18n="@@routing_type">Routing Type</mat-label>
                                 <mat-select [(ngModel)]="application.destinations[$index].route_type"
-                                    i18n-matTooltip="@@routing_type_tooltip" matTooltipPosition="below"
-                                    matTooltip="Default: Reverse_Proxy, other options: Local_FastCGI used for PHP/Python etc., Static_Website used for local static resources without backend servers, K8S_Ingress used for K8S Pods."
                                     [disabled]="readOnlyValue" required>
-                                    @for (route_type of enum_route_types; track $index) {
-                                    <mat-option [value]="route_type.value">
-                                        {{ route_type.name }}
+                                    @for (entry of routeTypeEntries; track $index) {
+                                    <mat-option [value]="entry[1]" class="option-custom">
+                                        {{ entry[0] }}
                                     </mat-option>
                                     }
                                 </mat-select>
@@ -62,6 +61,7 @@
                                     <mat-label i18n="@@destination">Destination</mat-label>
                                     <input matInput [(ngModel)]="application.destinations[$index].destination"
                                         i18n-matTooltip="@@destination_tooltip" matTooltipPosition="below"
+                                        matTooltipClass="tooltip-custom"
                                         matTooltip="Default IP:Port (such as 10.0.0.1:80), or default file (such as index.html) if Static_Website was selected."
                                         [readonly]="readOnlyValue" />
                                 </mat-form-field>
@@ -70,10 +70,12 @@
                                     <mat-label i18n="@@backend_routing">Backend Routing</mat-label>
                                     <input matInput [(ngModel)]="application.destinations[$index].backend_route"
                                         i18n-matTooltip="@@backend_routing_tooltip" matTooltipPosition="below"
+                                        matTooltipClass="tooltip-custom"
                                         matTooltip="Default /, using /xyz/ if the backend is using different URL Path. Please fill in absolute path (/path/to/www/) if the routing type is Static_Website or Local_FastCGI."
                                         [readonly]="readOnlyValue" />
                                     <mat-icon matSuffix i18n-matTooltip="@@add_new_routing" class="clickable_btn"
                                         matTooltip="Add new routing" matTooltipPosition="left"
+                                        matTooltipClass="tooltip-custom"
                                         (click)="addDestination()">add_circle_outline</mat-icon>
                                     @if (application.destinations.length>1) {
                                     <mat-icon matSuffix class="clickable_btn"
@@ -91,16 +93,17 @@
                                     <input matInput [(ngModel)]="application.destinations[$index].pods_api"
                                         matTooltipPosition="below"
                                         matTooltip="Example: http://127.0.0.1:8080/api/v1/namespaces/default/pods"
-                                        [readonly]="readOnlyValue" />
+                                        matTooltipClass="tooltip-custom" [readonly]="readOnlyValue" />
                                 </mat-form-field>
 
                                 <mat-form-field class="inline-form-field-25">
                                     <mat-label>K8S Pod Port</mat-label>
                                     <input matInput [(ngModel)]="application.destinations[$index].pod_port"
                                         matTooltipPosition="below" matTooltip="Example: 80"
-                                        [readonly]="readOnlyValue" />
+                                        matTooltipClass="tooltip-custom" [readonly]="readOnlyValue" />
                                     <mat-icon matSuffix i18n-matTooltip="@@add_new_routing" class="clickable_btn"
-                                        matTooltip="Add new routing" matTooltipPosition="left"
+                                        matTooltip="Add new routing" matTooltipClass="tooltip-custom"
+                                        matTooltipPosition="left"
                                         (click)="addDestination()">add_circle_outline</mat-icon>
                                     @if (application.destinations.length>1) {
                                     <mat-icon matSuffix class="clickable_btn"
@@ -126,7 +129,7 @@
                                 <mat-icon matPrefix>language</mat-icon>
                                 <input matInput i18n-placeholder="@@domain_name" placeholder="Domain name (required)"
                                     i18n-matTooltip="@@domain_name_tooltip" matTooltipPosition="below"
-                                    matTooltip="Required, format: www.your-domain.com"
+                                    matTooltip="Required, format: www.your-domain.com" matTooltipClass="tooltip-custom"
                                     [(ngModel)]="application.domains[$index].name" [disabled]="readOnlyValue"
                                     list="domains" required>
                             </mat-form-field>
@@ -136,12 +139,13 @@
                                 <mat-select i18n-placeholder="@@certificate" placeholder="Certificate"
                                     i18n-matTooltip="@@acme_requirement" matTooltipPosition="below"
                                     matTooltip="If ACME automated certificate used, default port 80/443, open to Internet, and single node are required."
-                                    [(ngModel)]="application.domains[$index].cert_id" [disabled]="readOnlyValue"
-                                    required>
-                                    <mat-option value="0" i18n="@@automated_certificate">ACME Automated
-                                        Certificate</mat-option>
+                                    matTooltipClass="tooltip-custom" [(ngModel)]="application.domains[$index].cert_id"
+                                    [disabled]="readOnlyValue" required>
+                                    <mat-option value="0" i18n="@@automated_certificate" class="option-custom">
+                                        ACME Automated Certificate
+                                    </mat-option>
                                     @for (certificate of rpcService.certificates$(); track $index) {
-                                    <mat-option [value]="certificate.id">
+                                    <mat-option [value]="certificate.id" class="option-custom">
                                         {{certificate.common_name}}
                                     </mat-option>
                                     }
@@ -156,7 +160,8 @@
                                 <input matInput placeholder="https://www.your-domain.com/"
                                     [(ngModel)]="application.domains[$index].location" [disabled]="readOnlyValue">
                                 <mat-icon matSuffix i18n-matTooltip="@@add_domain" matTooltip="Add new domain"
-                                    matTooltipPosition="right" (click)="addDomain()">add_circle_outline</mat-icon>
+                                    matTooltipClass="tooltip-custom" matTooltipPosition="right"
+                                    (click)="addDomain()">add_circle_outline</mat-icon>
                                 @if (application.domains.length>1) {
                                 <mat-icon matSuffix (click)="delDomain($index)">remove_circle_outline</mat-icon>
                                 }
@@ -191,7 +196,8 @@
                                 <input matInput [(ngModel)]="application.custom_headers[$index].value"
                                     [readonly]="readOnlyValue" />
                                 <mat-icon matSuffix i18n-matTooltip="@@add_header" matTooltip="Add header"
-                                    matTooltipPosition="right" (click)="addHeader()">add_circle_outline</mat-icon>
+                                    matTooltipClass="tooltip-custom" matTooltipPosition="right"
+                                    (click)="addHeader()">add_circle_outline</mat-icon>
                                 @if (application.custom_headers.length>0) {
                                 <mat-icon matSuffix (click)="delHeader($index)">remove_circle_outline</mat-icon>
                                 }
@@ -201,11 +207,11 @@
                     </mat-expansion-panel>
 
                     <mat-form-field>
-                        <mat-select [(ngModel)]="application.ip_method" i18n-placeholder="@@ip_for_waf"
-                            placeholder="Client IP for WAF" [disabled]="readOnlyValue">
-                            @for (ip_method_value of enum_ip_method_values; track $index) {
-                            <mat-option [value]="ip_method_value.value">
-                                {{ ip_method_value.name }}
+                        <mat-label i18n="@@ip_for_waf">Client IP for WAF</mat-label>
+                        <mat-select [(ngModel)]="application.ip_method" [disabled]="readOnlyValue">
+                            @for (entry of ipMethodEntries; track $index) {
+                            <mat-option [value]="entry[1]" class="option-custom">
+                                {{ entry[0] }}
                             </mat-option>
                             }
                         </mat-select>
@@ -303,7 +309,7 @@
             </mat-tab>
 
             @if (application.cookie_mgmt_enabled) {
-            <mat-tab i18n-label="@@cookie_setting" label="Cookie Setting of Application">
+            <mat-tab i18n-label="@@cookie_notice" label="Cookie Notice">
                 <div class="container">
                     <mat-form-field>
                         <mat-label i18n="@@concise_cookie_notice">Concise Cookie Notice</mat-label>
@@ -394,7 +400,7 @@
             }
 
             @if (application.cookie_mgmt_enabled) {
-            <mat-tab i18n-label="@@cookie_management" label="Cookie Management of Application">
+            <mat-tab i18n-label="@@cookie_management" label="Cookie Management">
                 <div class="container">
                     <div>
                         <div class="line-container-custom">
@@ -405,19 +411,20 @@
                             <input matInput #keyword (keyup)="applyFilter(keyword.value)" class="search_box"
                                 placeholder="Filter">
 
-                            <span>
-                                <a mat-stroked-button i18n="@@manage_cookie_refs" routerLink="/cookie-refs">
-                                    Manage Cookie References
-                                </a>
-                            </span>
+                            <button matButton="outlined" (click)="jumpToCookieRefs()" class="btn-with-icon pointer">
+                                <mat-icon>cookie</mat-icon>
+                                <span i18n="@@manage_cookie_refs" matTooltip="Manage Cookie References">CookieRef</span>
+                            </button>
 
-                            <button matButton="outlined" (click)="refreshCookies()" class="btn-with-icon">
+                            <button matButton="outlined" (click)="refreshCookies()" class="btn-with-icon pointer">
                                 <mat-icon>refresh</mat-icon>
                                 <span i18n="@@refresh">Refresh</span>
                             </button>
 
-                            <button matButton="outlined" (click)="deleteSelectedCookies()">
-                                <span i18n="@@delete_selected_cookies">Delete Selected Cookies</span>
+                            <button matButton="outlined" (click)="deleteSelectedCookies()"
+                                class="btn-with-icon pointer">
+                                <mat-icon>delete</mat-icon>
+                                <span i18n="@@delete_selected_cookies">Delete Selected</span>
                             </button>
 
                         </div>

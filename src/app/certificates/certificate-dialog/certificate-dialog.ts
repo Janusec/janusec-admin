@@ -47,10 +47,9 @@ export class CertificateDialog {
     private fileReaderService: FileReaderService,
     public dialogRef: MatDialogRef<CertificateDialog>,
     @Inject(MAT_DIALOG_DATA) public data: IData) {
-    if (data.certificate) {
+    if (data.certificate !== null) {
       this.certificate = data.certificate;
-    }
-    if (this.certificate.id === '0') {
+    } else {
       this.readOnlyValue = false;
     }
   }

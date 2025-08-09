@@ -1,0 +1,73 @@
+<div class="container">
+    <div class="header-custom">
+        <h2 i18n="@@port_forwardings">Port Forwardings</h2>
+    </div>
+
+    <div class="line-container-custom">
+        @if (rpcService.auth_user$().is_super_admin) {
+        <button matButton i18n="@@add_vip" (click)="openVipAppDialog(null)">Add Port Forwarding</button>
+        }
+        <input matInput #keyword (keyup)="applyFilter(keyword.value)" class="search-box" placeholder="Filter">
+    </div>
+
+    <div>
+        <mat-table #table [dataSource]="dataSource" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="name">
+                <mat-header-cell i18n="@@app_name" *matHeaderCellDef> Name </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <span (click)="openVipAppDialog(element)" class="pointer">
+                        {{element.name}}
+                    </span>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="is_tcp">
+                <mat-header-cell i18n="@@protocol" *matHeaderCellDef> Protocol </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    @if (element.is_tcp) {
+                    <span>TCP</span>
+                    } @else {
+                    <span>UDP</span>
+                    }
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="listen_port">
+                <mat-header-cell i18n="@@listen_port2" *matHeaderCellDef> Listen Port </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    {{element.listen_port}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="description">
+                <mat-header-cell i18n="@@description" *matHeaderCellDef> Description </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-icon (click)="openVipAppDialog(element)" class="pointer">
+                        edit
+                    </mat-icon>
+                    <span>&nbsp;</span>
+                    <mat-icon (click)="delVipApp(element)" class="pointer">
+                        delete
+                    </mat-icon>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[10, 20, 50]">
+        </mat-paginator>
+    </div>
+
+    <br />
+    <mat-divider></mat-divider>
+    <div i18n="@@vip_note" class="notes">
+        Note: Layer-4 TCP/UDP Port forwarding (No WAF/CC protection).
+    </div>
+</div>

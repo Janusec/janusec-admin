@@ -46,10 +46,10 @@ body {
 .btn-with-icon {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 2px;
     padding: 2px 10px;
     border: 1px solid #808080;
-    width: 100px;
+    /* width: 120px; */
 }
 
 
@@ -153,3 +153,21 @@ body {
 }
 
 /* end dialog */
+
+/* drop down menu */
+
+.option-custom {
+    background-color: #d0d0d0 !important;
+    border: 1px solid #f5f5f5;
+
+}
+
+/* end */
+
+.tooltip-custom {
+    background-color: #0000ff !important;
+    color: white !important;
+    font-size: 16px !important;
+    padding: 8px !important;
+    border-radius: 8px !important;
+}
