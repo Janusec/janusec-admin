@@ -25,10 +25,8 @@ import { MessageService } from '../services/message.service';
 export class Navbar {
   logoPath: string = 'assets/images/logo.png';
   personIcon: string = 'assets/images/person_1x.png';
-  private rpcService = inject(RPCService);
+  rpcService = inject(RPCService);
   private msgService = inject(MessageService);
-  auth_user$ = this.rpcService.auth_user$;
-
 
   constructor(
     private router: Router) {
@@ -66,7 +64,6 @@ export class Navbar {
   }
 
   test() {
-    //console.log(this.auth_user$());
     this.msgService.addSuccessMessage('Test msg!');
     this.msgService.addWarnMessage('Warning!');
   }

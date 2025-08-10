@@ -57,6 +57,7 @@ export interface GroupPolicy {
     hit_value: number;
     action: PolicyAction;
     is_enabled: boolean;
+    update_time: number;
     // extends
     unique_hash: string;
 }

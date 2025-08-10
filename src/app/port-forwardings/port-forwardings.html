@@ -4,7 +4,7 @@
     </div>
 
     <div class="line-container-custom">
-        @if (rpcService.auth_user$().is_super_admin) {
+        @if (rpcService.authUser$().is_super_admin) {
         <button matButton i18n="@@add_vip" (click)="openVipAppDialog(null)">Add Port Forwarding</button>
         }
         <input matInput #keyword (keyup)="applyFilter(keyword.value)" class="search-box" placeholder="Filter">

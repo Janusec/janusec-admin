@@ -41,12 +41,13 @@ export class Certificates {
     private router: Router) { }
 
   ngOnInit(): void {
-    if (!this.rpcService.auth_user$().logged) {
+    if (!this.rpcService.authUser$().logged) {
       this.router.navigate(['/']);
       return
     }
-    if (this.rpcService.auth_user$().need_modify_pwd) {
-      this.router.navigate(['/appuser/' + this.rpcService.auth_user$().user_id]);
+    if (this.rpcService.authUser$().need_modify_pwd) {
+      this.router.navigate(['/appuser/' + this.rpcService.authUser$().user_id]);
+      return
     }
     let self = this;
     this.rpcService.getCertificates(() => {

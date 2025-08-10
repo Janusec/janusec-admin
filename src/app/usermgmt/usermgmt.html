@@ -1,0 +1,76 @@
+<div class="container">
+    <div class="header-custom">
+        <h2 i18n="@@user_mgmt">User Management</h2>
+    </div>
+
+    <div class="line-container-custom">
+        @if (rpcService.authUser$().is_super_admin) {
+        <button matButton="outlined" i18n="@@add_user" class="btn-add pointer" (click)="openAppUserDialog(null)">
+            Add User</button>
+        }
+        <input matInput #keyword (keyup)="applyFilter(keyword.value)" class="search-box" placeholder="Filter" />
+    </div>
+
+    <div class="mat-elevation-z8">
+        <mat-table #table [dataSource]="dataSource">
+
+            <ng-container matColumnDef="username">
+                <mat-header-cell *matHeaderCellDef i18n="@@username"> Username </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <span (click)="openAppUserDialog(element)" class="pointer">
+                        {{element.username}}
+                    </span>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="is_super_admin">
+                <mat-header-cell i18n="@@is_super_admin" *matHeaderCellDef class="center_column"> Super Admin
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element" class="center_column">
+                    @if (element.is_super_admin) {
+                    <mat-icon class="icon-green">check_circle_outline</mat-icon>
+                    }
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="is_cert_admin">
+                <mat-header-cell i18n="@@is_cert_admin" *matHeaderCellDef class="center_column"> Certificate Admin
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element" class="center_column">
+                    @if (element.is_cert_admin) {
+                    <mat-icon class="icon-green">check_circle_outline</mat-icon>
+                    }
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="is_app_admin">
+                <mat-header-cell i18n="@@is_app_admin" *matHeaderCellDef class="center_column"> Application Admin
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element" class="center_column">
+                    @if (element.is_app_admin) {
+                    <mat-icon class="icon-green">check_circle_outline</mat-icon>
+                    }
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-icon (click)="openAppUserDialog(element)" class="pointer">
+                        edit
+                    </mat-icon>
+                    <span>&nbsp;</span>
+                    <mat-icon (click)="delAppUser(element)" class="pointer">
+                        delete
+                    </mat-icon>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[10, 20, 50]">
+        </mat-paginator>
+    </div>
+
+</div>

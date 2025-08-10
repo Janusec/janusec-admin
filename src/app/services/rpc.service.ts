@@ -4,16 +4,17 @@ import { APIResponse } from '../models/rpc';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MessageService } from './message.service';
-import { AuthUser } from '../models/auth';
+import { AppUser, AuthUser } from '../models/auth';
 import { Certificate, VipApp } from '../models/application';
 import { Application } from '../models/application';
-
+import { GroupPolicy, VulnType } from '../models/security';
+import * as cryptojs from 'crypto-js';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RPCService {
-  private auth_user = signal<AuthUser>({
+  private authUser = signal<AuthUser>({
     user_id: '0',
     username: "",
     passwd: "",
@@ -25,7 +26,7 @@ export class RPCService {
     totp_key: "",
     totp_verified: false
   });
-  auth_user$ = this.auth_user.asReadonly();
+  authUser$ = this.authUser.asReadonly();
 
   private msgService = inject(MessageService)
   private apiUrl = '/janusec-admin/ui-api';
@@ -105,19 +106,19 @@ export class RPCService {
     return throwError(() => new Error(errorMessage));
   }
 
-  getAuthUser(callback: (auth_user: AuthUser) => any) {
+  getAuthUser(callback: (authUser: AuthUser) => any) {
     var self = this;
     this.getResponse('get_auth_user', function (obj: AuthUser) {
       if (obj != null) {
-        self.auth_user.set(obj);
+        self.authUser.set(obj);
       }
-      // obj may be null, use self.auth_user() instead
-      callback(self.auth_user());
+      // obj may be null, use self.authUser() instead
+      callback(self.authUser());
     });
   }
 
   logout() {
-    this.auth_user.set({
+    this.authUser.set({
       user_id: '0',
       username: "",
       passwd: "",
@@ -263,6 +264,109 @@ export class RPCService {
 
   removeLocalVipApp(appID: string) {
     this.vipApps.update(apps => apps.filter(app => app.id !== appID))
+  }
+
+  // #endregion
+
+  // #region USERMGMT
+
+  private appUsers = signal<AppUser[]>([]);
+  public appUsers$ = this.appUsers.asReadonly();
+
+  getAppUsers(callback: () => any) {
+    var self = this;
+    this.getResponse('get_app_users', function (obj: AppUser[]) {
+      self.appUsers.set(obj);
+      callback();
+    });
+  }
+
+
+  addOrUpdateLocalAppUser(appUser: AppUser) {
+    let prevAppUsers = this.appUsers$();
+    let updatedAppUsers: AppUser[];
+    const index = prevAppUsers.findIndex(item => item.id === appUser.id);
+    if (index > -1) {
+      // update
+      updatedAppUsers = prevAppUsers.map(item =>
+        item.id === appUser.id ? { ...item, ...appUser } : item
+      );
+      this.appUsers.set(updatedAppUsers);
+    } else {
+      // add
+      this.appUsers.update(appUsers => [...appUsers, appUser]);
+    }
+  }
+
+  removeLocalAppUser(appUserID: string) {
+    this.appUsers.update(appUsers => appUsers.filter(appUser => appUser.id !== appUserID))
+  }
+
+  // #endregion
+
+  // #region WAF GROUP POLICY
+
+  private groupPolicies = signal<GroupPolicy[]>([]);
+  public groupPolicies$ = this.groupPolicies.asReadonly();
+
+  getGroupPolicies(callback: () => any) {
+    var self = this;
+    this.getResponse('get_group_policies', function (obj: GroupPolicy[]) {
+      self.groupPolicies.set(obj);
+      // calc and update HASH of each policy
+      self.groupPolicies.update(groupPolicies =>
+        groupPolicies.map(groupPolicy => ({
+          ...groupPolicy,
+          unique_hash: self.calcUniqueHash(groupPolicy)
+        }))
+      );
+      callback();
+    });
+  }
+
+  calcUniqueHash(groupPolicy: GroupPolicy) {
+    let preHashString = "" + groupPolicy.app_id + groupPolicy.description + groupPolicy.vuln_id + groupPolicy.hit_value + groupPolicy.action;
+    for (let check_item of groupPolicy.check_items) {
+      preHashString += "^" + check_item.check_point + check_item.operation + check_item.key_name + check_item.regex_policy;
+    }
+    let hash = String(cryptojs.SHA256(preHashString));
+    return hash;
+  }
+
+
+  addOrUpdateLocalGroupPolicy(groupPolicy: GroupPolicy) {
+    let prevGroupPolicies = this.groupPolicies$();
+    let updatedGroupPolicies: GroupPolicy[];
+    const index = prevGroupPolicies.findIndex(item => item.id === groupPolicy.id);
+    if (index > -1) {
+      // update
+      updatedGroupPolicies = prevGroupPolicies.map(item =>
+        item.id === groupPolicy.id ? { ...item, ...groupPolicy } : item
+      );
+      this.groupPolicies.set(updatedGroupPolicies);
+    } else {
+      // add
+      this.groupPolicies.update(groupPolicies => [...groupPolicies, groupPolicy]);
+    }
+  }
+
+  removeLocalGroupPolicy(groupPolicyID: string) {
+    this.groupPolicies.update(groupPolicies => groupPolicies.filter(groupPolicy => groupPolicy.id !== groupPolicyID))
+  }
+
+  // #endregion
+
+  // #region WAF GROUP POLICY
+
+  private vulnTypes = signal<VulnType[]>([]);
+  public vulnTypes$ = this.vulnTypes.asReadonly();
+
+  getVulnTypes(callback: () => any) {
+    var self = this;
+    this.getResponse('get_vuln_types', function (obj: VulnType[]) {
+      self.vulnTypes.set(obj);
+      callback();
+    });
   }
 
   // #endregion

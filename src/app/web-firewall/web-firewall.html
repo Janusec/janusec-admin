@@ -1,0 +1,68 @@
+<div class="container">
+    <div class="header-custom">
+        <h2 i18n="@@waf_mgmt">WAF Management</h2>
+    </div>
+
+    <div class="line-container-custom">
+        @if (rpcService.authUser$().is_super_admin) {
+        <button matButton="outlined" i18n="@@add_rule" class="btn-add pointer" (click)="openGroupPolicyDialog(null)">
+            Add Rule
+        </button>
+        <input matInput #keyword (keyup)="applyFilter(keyword.value)" class="search-box" placeholder="Filter" />
+        <button matButton i18n="@@export_policies" (click)="exportWAF()" class="btn-with-icon pointer">
+            Export Rules</button>
+        <span>
+            <button matButton i18n="@@import_policies" (click)="importWAF()" class="btn-with-icon pointer">
+                Import Rules
+            </button>
+            <input #fileInput type="file" (change)="readFile($event)" style="display: none;" />
+        </span>
+        }
+
+    </div>
+
+    <div class="mat-elevation-z8">
+        <table mat-table #table [dataSource]="dataSource">
+
+            <ng-container matColumnDef="description">
+                <mat-header-cell i18n="@@description" *matHeaderCellDef> Description </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <span (click)="openGroupPolicyDialog(element)" class="pointer">
+                        {{element.description}}
+                    </span>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="is_enabled">
+                <mat-header-cell i18n="@@enabled" *matHeaderCellDef> Enabled </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    @if (element.is_enabled) {
+                    <mat-icon class="icon-green">check_circle_outline</mat-icon>
+                    } @else {
+                    <mat-icon class="icon-red">highlight_off</mat-icon>
+                    }
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-icon (click)="openGroupPolicyDialog(element)" class="pointer">
+                        edit
+                    </mat-icon>
+                    <span>&nbsp;</span>
+                    <mat-icon (click)="delGroupPolicy(element)" class="pointer">
+                        delete
+                    </mat-icon>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </table>
+
+        <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons>
+        </mat-paginator>
+    </div>
+
+</div>

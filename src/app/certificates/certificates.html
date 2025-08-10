@@ -4,7 +4,7 @@
     </div>
 
     <div class="line-container-custom">
-        @if (rpcService.auth_user$().is_cert_admin) {
+        @if (rpcService.authUser$().is_cert_admin) {
         <button matButton="outlined" i18n="@@add_cert" class="btn-add pointer" (click)="openCertificateDialog(null)">
             Add Certificate</button>
         }

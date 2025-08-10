@@ -30,15 +30,15 @@ export class Frontpage {
 
   ngOnInit() {
     let self = this;
-    this.rpcService.getAuthUser(function (auth_user: AuthUser) {
-      if (!auth_user.logged) {
+    this.rpcService.getAuthUser(function (authUser: AuthUser) {
+      if (!authUser.logged) {
         self.router.navigate(['/login']);
         return
       } else {
         // logged
-        if (auth_user.need_modify_pwd) {
+        if (authUser.need_modify_pwd) {
           self.msgService.addWarnMessage("Please modify your password before next step!")
-          self.router.navigate(['/appuser/' + auth_user.user_id]);
+          self.router.navigate(['/appuser/' + authUser.user_id]);
           return
         }
       }

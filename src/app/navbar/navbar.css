@@ -42,6 +42,8 @@ mat-icon {
     vertical-align: middle;
 }
 
-.fullwidth {
-    width: 100%;
+.nav-menu-custom {
+    width: 110px;
+    border: 1px solid #e5e5e5;
+    background-color: #f0f0f0;
 }

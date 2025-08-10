@@ -1,6 +1,6 @@
 <div fxLayout="row wrap">
     <div fxFlex="30%"></div>
-    @if (rpcService.auth_user$().logged==false) {
+    @if (rpcService.authUser$().logged==false) {
     <div fxFlex="40%" class="container">
         <h1 i18n="@@login_title">Admin Login</h1>
         <mat-form-field>

@@ -42,7 +42,7 @@ export class PortForwardingDialog {
     listen_port: 8001,
     is_tcp: true,
     targets: [],
-    owner: this.rpcService.auth_user$().username,
+    owner: this.rpcService.authUser$().username,
     description: 'Used for YYY'
   };
 

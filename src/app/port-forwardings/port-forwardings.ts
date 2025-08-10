@@ -35,7 +35,7 @@ export class PortForwardings {
     private router: Router) { }
 
   ngOnInit(): void {
-    if (this.rpcService.auth_user$().logged == false) {
+    if (this.rpcService.authUser$().logged == false) {
       this.router.navigate(['/']);
       return
     }

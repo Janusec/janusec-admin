@@ -60,7 +60,7 @@ export class LoginForm {
     this.rpcService.getResponse('login', function (obj: AuthUser) {
       if (obj != null) {
         self.submitted = true;
-        if (self.oauth$().authenticator_enabled && !self.rpcService.auth_user$().logged) {
+        if (self.oauth$().authenticator_enabled && !self.rpcService.authUser$().logged) {
           self.router.navigate(['/authcode-register']);
         } else {
           self.router.navigate(['/']);

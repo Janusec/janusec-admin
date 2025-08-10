@@ -81,7 +81,7 @@ export class CertificateDialog {
   }
 
   changeEditable() {
-    if (!this.rpcService.auth_user$().is_cert_admin) return;
+    if (!this.rpcService.authUser$().is_cert_admin) return;
     this.readOnlyValue = !this.readOnlyValue;
     if (this.readOnlyValue) {
       this.readOnlyButtonText = "Edit";

@@ -47,8 +47,8 @@
         <button matButton i18n="@@save" [disabled]="readOnlyValue" (click)="setCertificate()"
             class="btn-action pointer">Save</button>
 
-        @if (rpcService.auth_user$().is_super_admin) {
-        <button mat-stroked-button (click)="changeEditable()" class="btn-action pointer">
+        @if (rpcService.authUser$().is_super_admin) {
+        <button matButton (click)="changeEditable()" class="btn-action pointer">
             {{readOnlyButtonText}}
         </button>
         }

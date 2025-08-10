@@ -2,7 +2,7 @@
   <app-navbar></app-navbar>
   <app-messages></app-messages>
   <mat-sidenav-container class="sidenav-container">
-    @if (rpcService.auth_user$().logged) {
+    @if (rpcService.authUser$().logged) {
     <mat-sidenav #sidenav mode="side" [(opened)]="showSidenav" class="sidenav" role="navigation">
       <mat-nav-list>
         <mat-list-item routerLink="/dashboard">
@@ -31,14 +31,14 @@
               <span i18n="@@app_mgmt" class="sub-menu">Applications</span>
             </mat-list-item>
 
-            @if (rpcService.auth_user$().is_super_admin==true) {
+            @if (rpcService.authUser$().is_super_admin==true) {
             <mat-list-item routerLink="/port-forwardings">
               <mat-icon>forward</mat-icon>
               <span i18n="@@port_forwardings" class="sub-menu">Port Forwardings</span>
             </mat-list-item>
             }
 
-            <mat-list-item routerLink="/usermgmt">
+            <mat-list-item routerLink="/user-management">
               <mat-icon>supervisor_account</mat-icon>
               <span i18n="@@user_mgmt" class="sub-menu">User Management</span>
             </mat-list-item>
@@ -57,7 +57,7 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
 
-            @if (rpcService.auth_user$().is_super_admin==true) {
+            @if (rpcService.authUser$().is_super_admin==true) {
 
             <mat-list-item routerLink="/waf">
               <mat-icon>identity_aware_proxy</mat-icon>
@@ -95,7 +95,7 @@
               <span class="sub-menu">Web SSH</span>
             </mat-list-item>
 
-            @if (rpcService.auth_user$().is_super_admin==true) {
+            @if (rpcService.authUser$().is_super_admin==true) {
 
             <mat-list-item routerLink="/nodes">
               <mat-icon>graph_2</mat-icon>
@@ -148,7 +148,7 @@
 
         <mat-divider></mat-divider>
 
-        @if (rpcService.auth_user$().is_super_admin==true) {
+        @if (rpcService.authUser$().is_super_admin==true) {
         <mat-list-item routerLink="/settings">
           <mat-icon>settings</mat-icon>
           <span i18n="@@global_settings" class="main-menu">Global Settings</span>

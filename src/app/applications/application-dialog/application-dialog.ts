@@ -64,7 +64,7 @@ export class ApplicationDialog {
     destinations: [],
     oauth_required: false,
     session_seconds: 7200,
-    owner: this.rpcService.auth_user$().username,
+    owner: this.rpcService.authUser$().username,
     csp_enabled: false,
     csp: "",
     cache_enabled: true,

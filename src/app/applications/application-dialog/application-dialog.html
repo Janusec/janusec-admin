@@ -536,8 +536,9 @@
     </mat-dialog-content>
 
     <mat-dialog-actions>
-        <button i18n="@@save" mat-stroked-button [disabled]="readOnlyValue" (click)="setApplication()"
+        <button matButton i18n="@@save" [disabled]="readOnlyValue" (click)="setApplication()"
             class="btn-action pointer">Save</button>
-        <button mat-stroked-button (click)="changeEditable()" class="btn-action pointer">{{readOnlyButtonText}}</button>
+        <button matButton (click)="changeEditable()" class="btn-action pointer">{{readOnlyButtonText}}</button>
+        <button matButton mat-dialog-close class="btn-action pointer">Close</button>
     </mat-dialog-actions>
 </div>

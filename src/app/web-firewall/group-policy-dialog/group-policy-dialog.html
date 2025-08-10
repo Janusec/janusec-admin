@@ -1,0 +1,148 @@
+<div class="container">
+    <div>
+        <button matButton mat-dialog-close class="btn-close">
+            <mat-icon class="icon-close pointer">clear</mat-icon>
+        </button>
+    </div>
+    <h2 i18n="@@policy_detail" class="dialog-title">WAF Rule Details</h2>
+    <mat-dialog-content class="dialog-content-custom">
+
+        <mat-form-field>
+            <mat-label i18n="@@policy_description">Description</mat-label>
+            <input matInput [(ngModel)]="groupPolicy.description" required [disabled]="readOnlyValue">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label i18n="@@apply_to">Applies to</mat-label>
+            <mat-select [(ngModel)]="groupPolicy.app_id" [disabled]="readOnlyValue">
+                <mat-option i18n="@@all" value="0" class="option-custom">All applications</mat-option>
+                @for (application of rpcService.applications$(); track $index) {
+                <mat-option [value]="application.id" class="option-custom">
+                    {{application.name}}
+                </mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label i18n="@@vulnerability">Vulnerability</mat-label>
+            <mat-select [(ngModel)]="groupPolicy.vuln_id" [disabled]="readOnlyValue">
+                @for (vulnType of rpcService.vulnTypes$(); track $index) {
+                <mat-option [value]="vulnType.id" class="option-custom">
+                    {{ vulnType.name }}
+                </mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+
+
+        @for (check_item of groupPolicy.check_items; track $index) {
+        <div class="inner-container">
+            <mat-form-field>
+                <mat-label i18n="@@check_point">Check Point</mat-label>
+                <mat-select [(ngModel)]="groupPolicy.check_items[$index].check_point" [disabled]="readOnlyValue"
+                    required>
+                    @for (entry of chkPointEntries; track $index) {
+                    <mat-option [value]="entry[1]" class="option-custom">
+                        {{ entry[0] }}
+                    </mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label i18n="@@groupPolicy_operation">Operation</mat-label>
+                <mat-select [(ngModel)]="groupPolicy.check_items[$index].operation" [disabled]="readOnlyValue" required>
+                    @for (entry of operationEntries; track $index) {
+                    <mat-option [value]="entry[1]" class="option-custom">
+                        {{ entry[0] }}
+                    </mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+
+            @if (check_item.check_point===chkpointHeadValue) {
+            <mat-form-field>
+                <mat-label i18n="@@designated_headerkey">Designated HeaderKey (optional)</mat-label>
+                <input matInput [(ngModel)]="check_item.key_name" [disabled]="readOnlyValue">
+            </mat-form-field>
+            }
+
+            <mat-form-field>
+                <mat-label i18n="@@value_or_regex">Value or RegexPolicy (Google RE2,start with (?i) if
+                    CaseInsensitive
+                    required)</mat-label>
+                <input matInput [(ngModel)]="check_item.regex_policy" required [disabled]="readOnlyValue">
+            </mat-form-field>
+            <div>
+                <mat-icon i18n-matTooltip="@@add_new_checkpoint" matTooltip="Add new check point"
+                    matTooltipPosition="right" (click)="addCheckItem()">add_circle_outline</mat-icon>
+                @if (groupPolicy.check_items.length>1) {
+                <mat-icon (click)="delCheckItem($index)">remove_circle_outline</mat-icon>
+                }
+            </div>
+        </div>
+        }
+
+        <mat-form-field>
+            <mat-label i18n="@@action">Action</mat-label>
+            <mat-select [(ngModel)]="groupPolicy.action" [disabled]="readOnlyValue">
+                @for (entry of policyActionEntries; track $index) {
+                <mat-option [value]="entry[1]" class="option-custom">
+                    {{ entry[0] }}
+                </mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+
+        @if (groupPolicy.id!= '0') {
+        <mat-form-field>
+            <mat-label i18n="@@update_time">Latest Update Time</mat-label>
+            <input matInput [value]="getDate(groupPolicy.update_time)" disabled="true">
+        </mat-form-field>
+        }
+
+        <section>
+            <mat-checkbox i18n="@@enable_policy" [(ngModel)]="groupPolicy.is_enabled" [disabled]="readOnlyValue">
+                Enable this policy
+            </mat-checkbox>
+        </section>
+
+        <mat-dialog-actions>
+            @if (rpcService.authUser$().is_super_admin) {
+            <button matButton [disabled]="readOnlyValue" (click)="setGroupPolicy()" i18n="@@save"
+                class="btn-action pointer">Save</button>
+            <button matButton (click)="changeEditable()" class="btn-action pointer">{{readOnlyButtonText}}</button>
+            }
+            <button matButton mat-dialog-close class="btn-action pointer">Close</button>
+        </mat-dialog-actions>
+
+        <hr>
+
+        <h3 i18n="@@regex_test_tool">Regex Test Tool</h3>
+        <mat-form-field>
+            <mat-label i18n="@@regex_pattern">Policy Pattern (Google RE2 Regex Expression, Single-Line
+                Mode)</mat-label>
+            <input matInput [(ngModel)]="regexMatch.pattern" required>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label i18n="@@payload_to_test">Payload Value to Test</mat-label>
+            <input matInput [(ngModel)]="regexMatch.payload" required>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label i18n="@@matched_result">Match Result</mat-label>
+            <input matInput [(ngModel)]="regexMatch.matched" readonly>
+        </mat-form-field>
+        <section>
+            <mat-checkbox i18n="@@regex_preprocess" [(ngModel)]="regexMatch.preprocess">
+                Preprocess Payload Value by Janusec (Selected, Remove &#34; &#39; , replace /**/ with backspace.)
+            </mat-checkbox>
+        </section>
+        <mat-dialog-actions>
+            <button matButton (click)="testRegex()" i18n="@@test" class="btn-action pointer">Test</button>
+            <button matButton mat-dialog-close class="btn-action pointer">Close</button>
+        </mat-dialog-actions>
+
+    </mat-dialog-content>
+
+</div>
