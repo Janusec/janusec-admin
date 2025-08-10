@@ -5,9 +5,11 @@ import { MatToolbar } from '@angular/material/toolbar';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import { MatDivider } from '@angular/material/divider';
-import { AuthUser } from '../models/auth';
+import { AppUser, AuthUser } from '../models/auth';
 import { WritableSignal } from '@angular/core';
 import { MessageService } from '../services/message.service';
+import { MatDialog } from '@angular/material/dialog';
+import { UserDialog } from '../usermgmt/user-dialog/user-dialog';
 
 @Component({
   selector: 'app-navbar',
@@ -29,6 +31,7 @@ export class Navbar {
   private msgService = inject(MessageService);
 
   constructor(
+    public dialog: MatDialog,
     private router: Router) {
   }
 
@@ -42,6 +45,16 @@ export class Navbar {
       localStorage.setItem('lang', 'zh-cn');
       window.location.reload();
     }
+  }
+
+  openAppUserDialog(appUser: AppUser | null) {
+    this.dialog.open(UserDialog, {
+      width: '600px',
+      maxWidth: '800px',
+      data: { "appUser": appUser }
+    }).afterClosed().subscribe(() => {
+      //
+    });
   }
 
   switchLanguage() {

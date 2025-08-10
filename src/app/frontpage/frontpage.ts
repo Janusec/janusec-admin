@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { RPCService } from '../services/rpc.service';
 import { MessageService } from '../services/message.service';
-import { AuthUser } from '../models/auth';
+import { AppUser, AuthUser } from '../models/auth';
 import { License } from '../models/gateway';
 import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
 import { MatList, MatListItem, MatNavList } from '@angular/material/list';
@@ -36,9 +36,9 @@ export class Frontpage {
         return
       } else {
         // logged
+        self.rpcService.getCurAppUser();
         if (authUser.need_modify_pwd) {
-          self.msgService.addWarnMessage("Please modify your password before next step!")
-          self.router.navigate(['/appuser/' + authUser.user_id]);
+          self.msgService.addWarnMessage("Please modify your password before next step!");
           return
         }
       }

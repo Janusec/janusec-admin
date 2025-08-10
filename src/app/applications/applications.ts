@@ -46,7 +46,7 @@ export class Applications {
       return
     }
     if (this.rpcService.authUser$().need_modify_pwd) {
-      this.router.navigate(['/appuser/' + this.rpcService.authUser$().user_id]);
+      this.msgService.addWarnMessage('Please modify your password!');
     }
     let self = this;
     this.rpcService.getApplications(() => {

@@ -13,6 +13,12 @@
     </button>
 
     <mat-menu #menu="matMenu" [overlapTrigger]="false">
+        <button mat-menu-item (click)="openAppUserDialog(rpcService.curAppUser$())"
+            class="btn-with-icon nav-menu-custom">
+            <mat-icon>account_circle</mat-icon>
+            <span i18n="@@lang">My Information</span>
+        </button>
+        <mat-divider></mat-divider>
         <button mat-menu-item (click)="switchLanguage()" class="btn-with-icon nav-menu-custom">
             <mat-icon>language</mat-icon>
             <span i18n="@@lang">中文</span>

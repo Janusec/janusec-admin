@@ -28,6 +28,19 @@ export class RPCService {
   });
   authUser$ = this.authUser.asReadonly();
 
+  // curAppUser i.e. current AppUser, used for modify personal information
+  private curAppUser = signal<AppUser>({
+    id: '0',
+    username: '',
+    password: '',
+    email: '',
+    is_super_admin: false,
+    is_cert_admin: false,
+    is_app_admin: false,
+    need_modify_pwd: false,
+  });
+  curAppUser$ = this.curAppUser.asReadonly();
+
   private msgService = inject(MessageService)
   private apiUrl = '/janusec-admin/ui-api';
   private http = inject(HttpClient);
@@ -114,6 +127,21 @@ export class RPCService {
       }
       // obj may be null, use self.authUser() instead
       callback(self.authUser());
+    });
+  }
+
+  getAppUserByID(id: string, callback: (appUser: AppUser) => any) {
+    this.getResponse('get_app_user', function (obj: AppUser) {
+      if (obj != null) {
+        callback(obj);
+      }
+    }, id);
+  }
+
+  getCurAppUser() {
+    let self = this;
+    this.getAppUserByID(this.authUser().user_id, (appUser: AppUser) => {
+      self.curAppUser.set(appUser);
     });
   }
 
