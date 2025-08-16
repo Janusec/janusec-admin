@@ -1,0 +1,139 @@
+<div class="container">
+    <div>
+        <button matButton mat-dialog-close class="btn-close">
+            <mat-icon class="icon-close pointer">clear</mat-icon>
+        </button>
+    </div>
+    <h2 i18n="@@dns_record_mgmt" class="dialog-title">DNS Record Management - {{ dnsDomain.name }}</h2>
+    <div class="line-container-custom">
+        <button matButton="outlined" i18n="@@add_dns_record" class="btn-add pointer"
+            (click)="openDNSRecordDialog(null)">
+            Add DNS Record
+        </button>
+        <input matInput #keyword (keyup)="applyFilter(keyword.value)" class="search-box" placeholder="Filter" />
+    </div>
+
+    <div class="mat-elevation-z8">
+        <mat-table #table [dataSource]="dataSource">
+
+            <ng-container matColumnDef="rrtype">
+                <mat-header-cell i18n="@@rrtype" *matHeaderCellDef> Resource Type </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{ getRRTypeName(element.rrtype) }} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <mat-header-cell i18n="@@name" *matHeaderCellDef> Name </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <span (click)="openDNSRecordDialog(element)" class="pointer">{{element.name}}</span>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="value">
+                <mat-header-cell i18n="@@value" *matHeaderCellDef> Value </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    @if (element.auto) {
+                    <span>Auto</span>
+                    } @else {
+                    <span>{{element.value}}</span>
+                    }
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="ttl">
+                <mat-header-cell i18n="@@ttl_seconds" *matHeaderCellDef> TTL (Seconds) </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <span>{{element.ttl}}</span>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef i18n="@@action"> Action </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-icon inline="true" (click)="openDNSRecordDialog(element)" class="pointer">edit
+                    </mat-icon>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <mat-icon inline="true" (click)="deleteDNSRecord(element)" class="pointer">delete
+                    </mat-icon>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator #paginator [pageSize]="20" [pageSizeOptions]="[10, 20, 50]">
+        </mat-paginator>
+    </div>
+
+    <br>
+
+
+    <div class="container2 enable_dns_note">
+        <h3 i18n="@@enable_gslb">Enable GSLB</h3>
+        <p>
+            <span i18n="@@gslb_assuming">
+                Refer to the following steps to enable GSLB (Global Server Load Balance) if you have multiple
+                gateway nodes deployed. Assuming you have an application that provides services to internet users
+                through:
+            </span>
+            <span class="command">https://demo.example.com</span>
+        </p>
+        <ol>
+            <li>
+                <span i18n="@@gslb_step1">Step 1: Enable firewall policy, example for Debian 11: #</span>
+                <span class="command">ufw allow 53</span>
+            </li>
+            <li>
+                <span i18n="@@gslb_step2">Step 2: Make sure port 53 is not occupied by other applications, typically
+                    in Debian 11 it was occupied, stop it: </span>
+                #<span class="command">systemctl stop systemd-resolved</span> and
+                #<span class="command">systemctl disable systemd-resolved</span>, then check with:
+                #<span class="command">netstat -antulp | grep :53</span>
+            </li>
+            <li>
+                <span i18n="@@gslb_step3">Step 3: Enable DNS Server in <a routerLink="/settings">Settings</a> -
+                    Advanced, and then
+                    restart service:</span>
+                #<span class="command">systemctl restart janusec</span>
+            </li>
+            <li>
+                <span i18n="@@gslb_step4">
+                    Step 4: Add an A or CNAME record <span class="command">ns01</span> with value ip address points
+                    to this gateway, and a NS record <span class="command">demo</span> with value <span
+                        class="command">ns01.example.com.</span> at the authoritative name server, not on this page.
+                    Individual domain name holders should modify it at the domain name registrar.
+                </span>
+            </li>
+            <li>
+                <span i18n="@@gslb_step5">
+                    Step 5: Add an A record <span class="command">demo</span> on this page, and enable
+                    <span class="command">Resolve to an available gateway node for load balance automatically</span>
+                </span>
+            </li>
+            <li>
+                <span i18n="@@gslb_step6">
+                    Step 6 (Important): Add DNS Hostnames (aka. Glue Records) for your DNS server at the domain name
+                    registrar, if not, your own dns server will not accepted by other DNS servers. This record takes
+                    approximately 24 to 48 hours to take effect.
+                </span>
+            </li>
+            <li>
+                <span i18n="@@gslb_step7">
+                    Step 7: Configure application in <a routerLink="/applications">Application</a> and make sure the
+                    backend source servers are available to all nodes of Janusec Application Gateway.
+                </span>
+            </li>
+            <li>
+                <span i18n="@@gslb_step8">
+                    Step 8: Open <span class="command">https://demo.example.com</span> with web browser, or
+                    under command shell:
+                </span>
+                <span class="command">nslookup demo.example.com</span>, or
+                <span class="command">dig demo.example.com A</span>
+            </li>
+        </ol>
+    </div>
+    <mat-dialog-actions>
+        <button matButton mat-dialog-close class="btn-action pointer">Close</button>
+    </mat-dialog-actions>
+
+</div>

@@ -64,14 +64,14 @@
               <span i18n="@@waf_mgmt" class="sub-menu">WAF</span>
             </mat-list-item>
 
-            <mat-list-item routerLink="/cc">
+            <mat-list-item routerLink="/cc-firewall">
               <mat-icon>shield_toggle</mat-icon>
-              <span i18n="@@cc_defense" class="sub-menu">CC Defense</span>
+              <span i18n="@@cc_firewall" class="sub-menu">CC Firewall</span>
             </mat-list-item>
 
-            <mat-list-item routerLink="/ip-policy">
+            <mat-list-item routerLink="/ip-firewall">
               <mat-icon>blur_on</mat-icon>
-              <span i18n="@@ip_policy" class="sub-menu">IP Policy</span>
+              <span i18n="@@ip_firewall" class="sub-menu">IP Firewall</span>
             </mat-list-item>
 
             }
@@ -102,21 +102,21 @@
               <span i18n="@@node_mgmt" class="sub-menu">Nodes</span>
             </mat-list-item>
 
-            <mat-list-item routerLink="/dns-domains">
+            <mat-list-item routerLink="/gslb">
               <mat-icon>dns</mat-icon>
-              <span class="sub-menu">GSLB DNS</span>
+              <span class="sub-menu">GSLB</span>
             </mat-list-item>
 
-            <mat-list-item routerLink="/api-interface">
+            <mat-list-item routerLink="/api">
               <mat-icon>blur_circular</mat-icon>
-              <span i18n="@@api_interface" class="sub-menu">API Interface</span>
+              <span i18n="@@api" class="sub-menu">API</span>
             </mat-list-item>
 
             }
 
-            <mat-list-item routerLink="/health">
+            <mat-list-item routerLink="/status">
               <mat-icon>blur_on</mat-icon>
-              <span i18n="@@health_check" class="sub-menu">Health</span>
+              <span i18n="@@health_status" class="sub-menu">Health Status</span>
             </mat-list-item>
 
           </mat-expansion-panel>
@@ -133,7 +133,7 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
 
-            <mat-list-item routerLink="/logs">
+            <mat-list-item routerLink="/waf-logs">
               <mat-icon>blur_on</mat-icon>
               <span i18n="@@waf_logs" class="sub-menu">WAF Logs</span>
             </mat-list-item>

@@ -7,8 +7,9 @@ import { MessageService } from './message.service';
 import { AppUser, AuthUser } from '../models/auth';
 import { Certificate, VipApp } from '../models/application';
 import { Application } from '../models/application';
-import { GroupPolicy, VulnType } from '../models/security';
+import { GroupPolicy, LastRegexLogs, VulnType } from '../models/security';
 import * as cryptojs from 'crypto-js';
+import { NodesKey } from '../models/gateway';
 
 @Injectable({
   providedIn: 'root'
@@ -217,7 +218,7 @@ export class RPCService {
   public applications$ = this.applications.asReadonly();
 
   // appmap['123']='Application Name';
-  appmap: Record<string, string> = {};
+  appMap: Record<string, string> = {};
 
 
   getApplications(callback: () => any) {
@@ -225,7 +226,7 @@ export class RPCService {
     this.getResponse('get_apps', function (obj: Application[]) {
       self.applications.set(obj);
       for (let app of self.applications()) {
-        self.appmap[app.id] = app.name;
+        self.appMap[app.id] = app.name;
       }
       callback();
     });
@@ -398,5 +399,17 @@ export class RPCService {
   }
 
   // #endregion
+
+  lastRegexLogs: LastRegexLogs = {
+    app_id: '0',
+    start_date: new Date(),
+    end_date: new Date(),
+    page_index: 0,
+    length: 0,
+    regex_logs: []
+  };
+
+
+
 
 }

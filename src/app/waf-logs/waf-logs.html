@@ -1,0 +1,77 @@
+<div class="container">
+    <div>
+        <mat-form-field>
+            <mat-label i18n="@@application">Application</mat-label>
+            <mat-select [(ngModel)]="app_id">
+                <mat-option value="0">All</mat-option>
+                @for (application of rpcService.applications$(); track $index) {
+                <mat-option [value]="application.id" class="option-custom">
+                    {{application.name}}
+                </mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label i18n="@@begin_time">Begin Time (00:00:00)</mat-label>
+            <input matInput [(ngModel)]="start_date" [matDatepicker]="pickerStart">
+            <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+            <mat-datepicker #pickerStart></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label i18n="@@end_time">End Time (23:59:59)</mat-label>
+            <input matInput i18n-placeholder="@@end_time" [(ngModel)]="end_date" [matDatepicker]="pickerEnd"
+                placeholder="End Time (23:59:59)">
+            <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+            <mat-datepicker #pickerEnd></mat-datepicker>
+        </mat-form-field>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>
+            <button matButton i18n="@@query_waf_logs" (click)="queryRegexLogs()" class="pointer">Query WAF Logs</button>
+        </span>
+    </div>
+    <div class="mat-elevation-z8">
+        <mat-table #table [dataSource]="dataSource">
+
+            <ng-container matColumnDef="request_time">
+                <mat-header-cell *matHeaderCellDef> Time </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{ getDate(element.request_time) }} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="client_ip">
+                <mat-header-cell *matHeaderCellDef> Client IP </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.client_ip}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="method">
+                <mat-header-cell *matHeaderCellDef> Method </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.method}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="host">
+                <mat-header-cell *matHeaderCellDef> Host </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.host}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="url_path">
+                <mat-header-cell *matHeaderCellDef> URL Path </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.url_path}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{ getPolicyActionEnumString(element.action) }} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="policy_id">
+                <mat-header-cell *matHeaderCellDef> PolicyID </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.policy_id}} </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator #paginator [pageSize]="20" [pageIndex]="pageIndex" [pageSizeOptions]="[10, 20, 50]"
+            [showFirstLastButtons]="true" (page)="pageChanged()">
+        </mat-paginator>
+    </div>
+</div>

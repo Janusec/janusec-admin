@@ -180,7 +180,7 @@
                         </mat-expansion-panel-header>
                         @if (application.custom_headers.length===0) {
                         <div class="custom_header_div">
-                            <button mat-stroked-button (click)="addHeader()">Add</button>
+                            <mat-icon (click)="addHeader()">add_circle_outline</mat-icon>
                         </div>
                         }
                         @for (header of application.custom_headers; track $index) {

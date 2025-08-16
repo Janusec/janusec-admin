@@ -272,10 +272,7 @@ export class ApplicationDialog {
   }
 
   addHeader() {
-    if (this.readOnlyValue) {
-      alert("It is read only now, please click edit button at first");
-      return;
-    }
+    if (this.readOnlyValue) return;
     let header: CustomHeader = {
       key: "",
       value: ""

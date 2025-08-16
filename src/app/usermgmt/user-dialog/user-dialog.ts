@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { AppUser } from '../../models/auth';
 import { APIResponse } from '../../models/rpc';

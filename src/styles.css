@@ -11,6 +11,10 @@ body {
     margin: 1px 0px 0px 1px;
 }
 
+.container2 {
+    padding: 10px;
+}
+
 .inner-container {
     display: flex;
     flex-direction: column;
@@ -171,4 +175,12 @@ body {
     font-size: 16px !important;
     padding: 8px !important;
     border-radius: 8px !important;
+}
+
+.code-wrap {
+    font-size: 14px;
+    background-color: #f4f4f4;
+    padding: 10px;
+    line-height: 20px;
+    word-break: break-all;
 }

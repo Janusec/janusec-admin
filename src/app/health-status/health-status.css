@@ -1,0 +1,25 @@
+mat-list-item {
+    background-color: #F0F0F0;
+    margin: 3px 0px;
+}
+
+.refresh_pointer:hover {
+    cursor: pointer;
+    background-color: #e0e0e0;
+}
+
+mat-icon {
+    font-size: 16px;
+    height: 16px;
+    vertical-align: middle;
+}
+
+.list-block-custom {
+    height: 50px !important;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 2px 10px;
+    background-color: #F0F0F0;
+    margin-top: 2px;
+}
