@@ -1,0 +1,17 @@
+/* Datepicker */
+::ng-deep .mat-datepicker-popup {
+    background-color: #f5f5f5;
+    opacity: 1;
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+::ng-deep .mat-calendar-header {
+    background-color: #f0f0f0;
+}
+
+::ng-deep .mat-calendar-body-cell:hover {
+    background-color: #737bc1;
+}
+
+/* end */

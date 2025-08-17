@@ -17,7 +17,9 @@
             <ng-container matColumnDef="name">
                 <mat-header-cell i18n="@@name" *matHeaderCellDef> Name </mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <span>{{element.name}}</span>
+                    <span (click)="openDNSRecordsDialog(element)" class="pointer">
+                        {{element.name}}
+                    </span>
                 </mat-cell>
             </ng-container>
 

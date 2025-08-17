@@ -1,0 +1,409 @@
+@if (settings) {
+<div class="container">
+    <mat-tab-group>
+        <mat-tab i18n-label="@@security_auth" label="Authentication">
+            <div class="container2">
+                <section>
+                    <mat-checkbox i18n="@@authenticator_enabled" [(ngModel)]="settings.authenticator_enabled"
+                        [disabled]="readOnlyValue">
+                        Enable Authenticator (2-factor Authentication) for Gateway Management
+                    </mat-checkbox>
+                </section>
+                <section>
+                    <mat-checkbox i18n="@@auth_enabled" [(ngModel)]="settings.auth_enabled" [disabled]="readOnlyValue">
+                        Enable Single Sign On Authentication for Applications
+                    </mat-checkbox>
+                </section>
+                <br />
+                <mat-form-field>
+                    <mat-select [(ngModel)]="settings.auth_provider" i18n-placeholder="@@auth_provider"
+                        placeholder="Authentication Provider" [disabled]="readOnlyValue"
+                        (selectionChange)="loadAuthProvider(settings.auth_provider)">
+                        <mat-option value="wxwork" class="option-custom">WxWork（企业微信扫码）</mat-option>
+                        <mat-option value="dingtalk" class="option-custom">DingTalk（钉钉扫码）</mat-option>
+                        <mat-option value="feishu" class="option-custom">Feishu（飞书扫码）</mat-option>
+                        <mat-option value="lark" class="option-custom">Lark（Lark扫码）</mat-option>
+                        <mat-option value="ldap" class="option-custom">LDAP</mat-option>
+                        <mat-option value="cas2" class="option-custom">CAS 2.0 Protocol</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                @switch (settings.auth_provider) {
+                @case ('wxwork') {
+                <!-- WxWork -->
+                @if (wxworkConfig) {
+                <mat-form-field>
+                    <mat-label i18n="@@display_name">Display Name</mat-label>
+                    <input matInput [(ngModel)]="wxworkConfig.display_name" [readonly]="readOnlyValue" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label i18n="@@callback">Callback</mat-label>
+                    <input matInput [(ngModel)]="wxworkConfig.callback" [readonly]="readOnlyValue" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>corpid</mat-label>
+                    <input matInput [(ngModel)]="wxworkConfig.corpid" [readonly]="readOnlyValue" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>agentid</mat-label>
+                    <input matInput [(ngModel)]="wxworkConfig.agentid" [readonly]="readOnlyValue" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>corpsecret</mat-label>
+                    <input matInput [(ngModel)]="wxworkConfig.corpsecret" [readonly]="readOnlyValue" />
+                </mat-form-field>
+                }
+                }
+                @case ('dingtalk') {
+                <!-- DingTalk -->
+                @if (dingtalkConfig) {
+                <mat-form-field>
+                    <mat-label i18n="@@display_name">Display Name</mat-label>
+                    <input matInput [(ngModel)]="dingtalkConfig.display_name" [readonly]="readOnlyValue" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label i18n="@@callback">Callback</mat-label>
+                    <input matInput [(ngModel)]="dingtalkConfig.callback" [readonly]="readOnlyValue" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>CorpId</mat-label>
+                    <input matInput [(ngModel)]="dingtalkConfig.corpid" [readonly]="readOnlyValue" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Client ID (AppKey)</mat-label>
+                    <input matInput [(ngModel)]="dingtalkConfig.appid" [readonly]="readOnlyValue" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Client Secret (AppSecret)</mat-label>
+                    <input matInput [(ngModel)]="dingtalkConfig.appsecret" [readonly]="readOnlyValue" />
+                </mat-form-field>
+                }
+                }
+                @case ('feishu') {
+                <!-- Feishu -->
+                @if (feishuConfig) {
+                <mat-form-field>
+                    <mat-label i18n="@@display_name">Display Name</mat-label>
+                    <input matInput [(ngModel)]="feishuConfig.display_name" [readonly]="readOnlyValue" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label i18n="@@callback">Callback</mat-label>
+                    <input matInput [(ngModel)]="feishuConfig.callback" [readonly]="readOnlyValue"
+                        i18n-placeholder="@@callback" placeholder="Callback" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>appid</mat-label>
+                    <input matInput [(ngModel)]="feishuConfig.appid" [readonly]="readOnlyValue" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>appsecret</mat-label>
+                    <input matInput [(ngModel)]="feishuConfig.appsecret" [readonly]="readOnlyValue" />
+                </mat-form-field>
+                }
+                }
+                @case ('lark') {
+                <!-- Lark -->
+                @if (larkConfig) {
+                <mat-form-field>
+                    <mat-label i18n="@@display_name">Display Name</mat-label>
+                    <input matInput [(ngModel)]="larkConfig.display_name" [readonly]="readOnlyValue" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label i18n="@@callback">Callback</mat-label>
+                    <input matInput [(ngModel)]="larkConfig.callback" [readonly]="readOnlyValue" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>appid</mat-label>
+                    <input matInput [(ngModel)]="larkConfig.appid" [readonly]="readOnlyValue" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>appsecret</mat-label>
+                    <input matInput [(ngModel)]="larkConfig.appsecret" [readonly]="readOnlyValue" />
+                </mat-form-field>
+                }
+                }
+                @case ('ldap') {
+                <!-- LDAP -->
+                @if (ldapConfig) {
+                <mat-form-field>
+                    <mat-label i18n="@@display_name">Display Name</mat-label>
+                    <input matInput [(ngModel)]="ldapConfig.display_name" [readonly]="readOnlyValue" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>entrance</mat-label>
+                    <input matInput [(ngModel)]="ldapConfig.entrance" [readonly]="readOnlyValue" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>address</mat-label>
+                    <input matInput [(ngModel)]="ldapConfig.address" [readonly]="readOnlyValue" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>dn</mat-label>
+                    <input matInput [(ngModel)]="ldapConfig.dn" [readonly]="readOnlyValue" placeholder="dn" />
+                </mat-form-field>
+
+                <section>
+                    <mat-checkbox i18n="@@bind_required" [(ngModel)]="ldapConfig.bind_required"
+                        [disabled]="readOnlyValue">
+                        BindDN required (for Active Directory)
+                    </mat-checkbox>
+                </section>
+
+                @if (ldapConfig.bind_required) {
+                <mat-form-field>
+                    <mat-label>BaseDN</mat-label>
+                    <input matInput [(ngModel)]="ldapConfig.base_dn" [readonly]="readOnlyValue" placeholder="BaseDN" />
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Bind Username</mat-label>
+                    <input matInput [(ngModel)]="ldapConfig.bind_username" [readonly]="readOnlyValue" />
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Bind Password</mat-label>
+                    <input type="password" matInput [(ngModel)]="ldapConfig.bind_password" [readonly]="readOnlyValue" />
+                </mat-form-field>
+                }
+
+                <mat-divider></mat-divider>
+
+                <section>
+                    <mat-checkbox i18n="@@using_tls" [(ngModel)]="ldapConfig.using_tls" [disabled]="readOnlyValue">
+                        Using TLS Encryption
+                    </mat-checkbox>
+                </section>
+
+                <section>
+                    <mat-checkbox i18n="@@enable_authenticator" [(ngModel)]="ldapConfig.authenticator_enabled"
+                        [disabled]="readOnlyValue">
+                        Enable Authenticator
+                    </mat-checkbox>
+                </section>
+                }
+                }
+                @case ('cas2') {
+                <!-- CAS2 -->
+                @if (cas2Config) {
+                <mat-form-field>
+                    <mat-label i18n="@@display_name">Display Name</mat-label>
+                    <input matInput [(ngModel)]="cas2Config.display_name" [readonly]="readOnlyValue" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>entrance</mat-label>
+                    <input matInput [(ngModel)]="cas2Config.entrance" [readonly]="readOnlyValue" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label i18n="@@callback">Callback</mat-label>
+                    <input matInput [(ngModel)]="cas2Config.callback" [readonly]="readOnlyValue" />
+                </mat-form-field>
+                }
+                }
+                }
+                <br />
+                <mat-divider></mat-divider>
+                <div i18n="@@auth_provider_note" class="notes">
+                    Note: Janusec on replica nodes need to be restarted if authentication provider changed.
+                </div>
+            </div>
+        </mat-tab>
+
+        <mat-tab i18n-label="@@access_control" label="Access Control">
+
+            <div class="container2">
+                <h2 i18n="@@security_operation"> Security Operation </h2>
+                <section>
+                    <mat-checkbox i18n="@@webssh_enabled" [(ngModel)]="settings.webssh_enabled"
+                        [disabled]="readOnlyValue">
+                        Enable Web-based SSH
+                    </mat-checkbox>
+                </section>
+
+
+                <h2 i18n="@@seo_five_second_shield">SEO and 5-second Shield</h2>
+                <section>
+                    <mat-checkbox i18n="@@skip_se_enabled" [(ngModel)]="settings.skip_se_enabled"
+                        [disabled]="readOnlyValue">
+                        Allow search engines bypass 5-second shield.
+                    </mat-checkbox>
+                </section>
+                <br>
+                <mat-form-field>
+                    <mat-label i18n="@@search_engine_label">
+                        Search Engines (not empty, case insensitive, seperated by | )
+                    </mat-label>
+                    <input matInput [(ngModel)]="settings.search_engines" [readonly]="readOnlyValue" required>
+                    <mat-hint i18n="@@five_second_shield_note">
+                        Note: When the 5-second shield is enabled for an application, it will affect SEO. You can
+                        set it
+                        to not block the search engines listed above (User-Agent).
+                    </mat-hint>
+                </mat-form-field>
+
+                <h4 i18n="@@custom_shield_html">Custom 5-Shield HTML</h4>
+                <mat-form-field>
+                    <textarea matInput #shield_html [(ngModel)]="settings.shield_html" rows="30"
+                        [readonly]="readOnlyValue" required>
+                    </textarea>
+                    <mat-hint align="end">{{shield_html.value.length || 0}}/16384</mat-hint>
+                </mat-form-field>
+                <div class="warning-notes" i18n="@@shield_notice">
+                    Danger: Please do not modify the template arbitrarily. Incorrect modifications will result in
+                    service startup failure. Please make sure to backup them before making changes.
+                </div>
+
+                <h2 i18n="@@custom_block_html">Custom WAF Block Content (HTML)</h2>
+                <mat-form-field>
+                    <textarea matInput #block_html [(ngModel)]="settings.block_html" rows="30"
+                        [readonly]="readOnlyValue" required>
+                    </textarea>
+                    <mat-hint align="end">{{block_html.value.length || 0}}/16384</mat-hint>
+                </mat-form-field>
+                <ng-container ngNonBindable>
+                    <div class="notes">
+                        Built-in variables:
+                        <ul>
+                            <li> {{ .PolicyID }} : the id of WAF policy/rule.</li>
+                            <li> {{ .VulnName }} : the vulnerability name. </li>
+                        </ul>
+                    </div>
+                </ng-container>
+            </div>
+
+        </mat-tab>
+
+        <mat-tab i18n-label="@@security_audit" label="Security Audit">
+            <div class="container2">
+                <mat-form-field>
+                    <mat-label i18n="@@waf_log_days">WAF Log Days</mat-label>
+                    <input type="number" matInput [(ngModel)]="settings.waf_log_days" [readonly]="readOnlyValue" />
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label i18n="@@cc_log_days">CC Log Days</mat-label>
+                    <input type="number" matInput [(ngModel)]="settings.cc_log_days" [readonly]="readOnlyValue" />
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label i18n="@@access_log_days">Access Log Days</mat-label>
+                    <input type="number" matInput [(ngModel)]="settings.access_log_days" [readonly]="readOnlyValue" />
+                </mat-form-field>
+            </div>
+        </mat-tab>
+
+        <mat-tab i18n-label="@@data_discovery" label="Data Discovery">
+            <div class="container2">
+                <section>
+                    <mat-checkbox i18n="@@enable_json_data_discovery" [(ngModel)]="settings.data_discovery_enabled"
+                        [disabled]="readOnlyValue">
+                        Enable JSON Data Discovery (Only for WAF-enabled applications)
+                    </mat-checkbox>
+                </section>
+
+                <mat-form-field>
+                    <mat-label>API</mat-label>
+                    <input matInput [(ngModel)]="settings.data_discovery_api" [readonly]="readOnlyValue" required />
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Tenant ID</mat-label>
+                    <input matInput [(ngModel)]="settings.data_discovery_tenant_id" [readonly]="readOnlyValue"
+                        required />
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label i18n="@@api_key">API Key</mat-label>
+                    <input matInput [(ngModel)]="settings.data_discovery_key" [readonly]="readOnlyValue" required />
+                </mat-form-field>
+
+                <section>
+                    <a matButton routerLink="/discovery-rules" i18n="@@manage_discovery_rules" class="btn-link">
+                        Manage Discovery Rules</a>
+                </section>
+
+                <br />
+                <mat-divider></mat-divider>
+                <div i18n="@@data_discovery_note" class="notes">
+                    Note: Data discovery function module is integrated with JANUCAT (Compliance, Accountability and
+                    Transparency).
+                </div>
+
+            </div>
+        </mat-tab>
+
+        <mat-tab i18n-label="@@email_notification" label="Email Notification">
+            <div class="container2">
+                <section>
+                    <mat-checkbox i18n="@@smtp_enabled" [(ngModel)]="settings.smtp.smtp_enabled"
+                        [disabled]="readOnlyValue">
+                        Enable SMTP Notification (certificate expiration, server offline etc.)
+                    </mat-checkbox>
+                </section>
+                <mat-form-field>
+                    <mat-label i18n="@@smtp_server">Server</mat-label>
+                    <input matInput [(ngModel)]="settings.smtp.smtp_server" [readonly]="readOnlyValue" required />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label i18n="@@smtp_port">Port (25, 587, 465)</mat-label>
+                    <input matInput [(ngModel)]="settings.smtp.smtp_port" [readonly]="readOnlyValue" required />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label i18n="@@smtp_account">Account (Sender's Email)</mat-label>
+                    <input matInput [(ngModel)]="settings.smtp.smtp_account" [readonly]="readOnlyValue" required />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label i18n="@@smtp_password">Password (Access Token)</mat-label>
+                    <input matInput [(ngModel)]="settings.smtp.smtp_password" type="password" [readonly]="readOnlyValue"
+                        required />
+                </mat-form-field>
+                <section>
+                    <button matButton i18n="@@test_smtp" (click)="testSMTP()" class="btn-action pointer">Test
+                        SMTP</button>
+                </section>
+            </div>
+        </mat-tab>
+
+        <mat-tab i18n-label="@@advanced" label="Advanced">
+            <div class="container2">
+                <h2 i18n="@@cookie_ref_mgmt">Cookie Reference Management</h2>
+                <mat-card>
+                    <mat-card-content>
+                        <p i18n="@@cookie_ref_for_classification">Used for automatic classification of discovered
+                            cookies</p>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <a matButton i18n="@@manage_cookie_refs" routerLink="/cookie-refs" class="btn-link">
+                            Manage Cookie References
+                        </a>
+                    </mat-card-actions>
+                </mat-card>
+                <br>
+
+                <h2 i18n="@@gslb_and_dns_server">GSLB and DNS Server</h2>
+                <mat-card>
+                    <section>
+                        <mat-checkbox i18n="@@enable_dns_server" [(ngModel)]="settings.dns_enabled"
+                            [disabled]="readOnlyValue">
+                            Enable GSLB and DNS Server (service restart is required)
+                        </mat-checkbox>
+                    </section>
+                    <br>
+                    <mat-card-actions>
+                        <a matButton i18n="@@manage_domains_and_dns_records" routerLink="/gslb" class="btn-link">
+                            Manage Domain Names and DNS Records
+                        </a>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </mat-tab>
+
+    </mat-tab-group>
+    <div class="container">
+        <section>
+            <button matButton i18n="@@save" [disabled]="readOnlyValue" (click)="saveSettings()"
+                class="btn-action pointer">Save</button>
+            <button matButton (click)="changeEditable()" class="btn-action">{{readOnlyButtonText}}</button>
+        </section>
+    </div>
+</div>
+}

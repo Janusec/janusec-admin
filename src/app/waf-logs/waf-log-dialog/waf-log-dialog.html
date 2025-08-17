@@ -1,0 +1,66 @@
+<div class="container2">
+    <div>
+        <button matButton mat-dialog-close class="btn-close">
+            <mat-icon class="icon-close pointer">clear</mat-icon>
+        </button>
+    </div>
+    <h2 i18n="@@waf_log_details" class="dialog-title">WAF Log Details</h2>
+
+    <mat-dialog-content class="dialog-content-custom">
+        @if (regexLog) {
+        <mat-form-field>
+            <mat-label>Time</mat-label>
+            <input matInput [value]="getDate(regexLog.request_time)" readonly="true" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>IP</mat-label>
+            <input matInput [value]="regexLog.client_ip" readonly="true" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Host</mat-label>
+            <input matInput [value]="regexLog.host" readonly="true" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Method</mat-label>
+            <input matInput [value]="regexLog.method" readonly="true" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>URL Path</mat-label>
+            <input matInput [value]="regexLog.url_path" readonly="true" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>URL Query</mat-label>
+            <input matInput [value]="regexLog.url_query" readonly="true" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Content Type</mat-label>
+            <input matInput [value]="regexLog.content_type" readonly="true" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>User-Agent</mat-label>
+            <textarea matInput [value]="regexLog.user_agent" rows="2" readonly="true"></textarea>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Cookie</mat-label>
+            <input matInput [value]="regexLog.cookies" readonly="true" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Action</mat-label>
+            <input matInput [value]="getPolicyActionEnumString(regexLog.action)" placeholder="Action" readonly="true" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Raw Request</mat-label>
+            <textarea matInput [value]="regexLog.raw_request" rows="16" readonly="true"></textarea>
+        </mat-form-field>
+        }
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+        @if (regexLog) {
+        <button matButton (click)="openGroupPolicyDialog(regexLog.policy_id)" class="btn-action pointer">View WAF
+            Rule</button>
+        }
+        <button matButton mat-dialog-close class="btn-action pointer">Close</button>
+    </mat-dialog-actions>
+
+</div>

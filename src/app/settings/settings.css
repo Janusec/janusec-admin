@@ -1,0 +1,17 @@
+mat-form-field {
+    display: block;
+}
+
+.btn-link {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 3px;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #000000;
+    border: solid 1px #808080;
+    background-color: #f0f0f0;
+}

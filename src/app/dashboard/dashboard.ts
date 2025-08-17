@@ -1,0 +1,354 @@
+import { Component, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
+import { RPCService } from '../services/rpc.service';
+import { ArcElement, BarController, BarElement, CategoryScale, Chart, Title, DoughnutController, LinearScale, LineController, LineElement, PointElement, Legend, Tooltip } from 'chart.js';
+import { PopContent, RefererHost } from '../models/gateway';
+import { VulnStat } from '../models/security';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { FormsModule } from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { RefererLinksDialog } from '../referer-links-dialog/referer-links-dialog';
+import { MatDialog } from '@angular/material/dialog';
+
+@Component({
+  selector: 'app-dashboard',
+  imports: [
+    FormsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    FlexLayoutModule
+  ],
+  templateUrl: './dashboard.html',
+  styleUrl: './dashboard.css'
+})
+export class Dashboard {
+  todayVulnChart: Chart | null = null;
+  weekCountChart: Chart | null = null;;
+  accessStatChart: Chart | null = null;
+  // today chart
+  today_stat_vuln_name: string[] = [];
+  today_stat_count: number[] = [];
+  today_stat_counts: number = 0;
+  today_stat_bgcolor: string[] = [];
+  // week chart
+  week_stat_date: string[] = [];
+  week_stat_count: number[] = [];
+  selected_app_id: string = '0';
+  selected_vuln_id: number = 0;
+  // access stat chart
+  access_stat_date: string[] = [];
+  access_stat_count: number[] = [];
+  pop_contents: PopContent[] = [];
+  referer_hosts: RefererHost[] = [];
+
+
+  constructor(private elementRef: ElementRef,
+    public rpcService: RPCService,
+    public cdr: ChangeDetectorRef,
+    public dialog: MatDialog,
+    private router: Router) {
+    Chart.register(
+      DoughnutController,
+      LineController,
+      BarController,
+      ArcElement,
+      CategoryScale,
+      LinearScale,
+      LineElement,
+      BarElement,
+      PointElement,
+      Legend,
+      Tooltip,
+      Title);
+  }
+
+  initTodayChart() {
+    let htmlRef = this.elementRef.nativeElement.querySelector('#today_canvas');
+    if (this.todayVulnChart != null) this.todayVulnChart.destroy();
+    this.todayVulnChart = new Chart(htmlRef, {
+      type: 'doughnut',
+      data: {
+        labels: this.today_stat_vuln_name,
+        datasets: [{
+          data: this.today_stat_count,
+          backgroundColor: this.today_stat_bgcolor,
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        layout: {
+          padding: {
+            bottom: 20
+          }
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: 'Today Attack Statistics',
+            position: 'top',
+            align: 'center',
+            font: {
+              size: 18
+            }
+          },
+          legend: {
+            display: true,
+            position: 'right'
+          },
+        },
+      }
+    });
+  }
+
+  initWeekChart() {
+    setTimeout(() => {
+      let htmlRef = this.elementRef.nativeElement.querySelector('#week_canvas');
+      if (this.weekCountChart != null) this.weekCountChart.destroy();
+      this.weekCountChart = new Chart(htmlRef, {
+        type: 'bar',
+        data: {
+          labels: this.week_stat_date,
+          datasets: [{
+            label: 'Count',
+            data: this.week_stat_count,
+            backgroundColor: 'rgba(250,10,10,0.8)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          plugins: {
+            title: {
+              display: true,
+              text: 'Week Attack Statistics',
+              font: {
+                size: 18
+              },
+              padding: 10,
+              fullSize: true
+            },
+            legend: {
+              position: 'bottom',
+              labels: {
+                padding: 20,
+                font: {
+                  size: 13
+                }
+              }
+            },
+          }
+        }
+      });
+    }, 300);
+  }
+
+  initAccessStatChart() {
+    setTimeout(() => {
+      let htmlRef = this.elementRef.nativeElement.querySelector('#stat_canvas');
+      if (this.accessStatChart != null) this.accessStatChart.destroy();
+      this.accessStatChart = new Chart(htmlRef, {
+        type: 'line',
+        data: {
+          labels: this.access_stat_date,
+          datasets: [{
+            label: 'Count',
+            //lineTension: 0,
+            fill: false,
+            data: this.access_stat_count,
+            borderColor: 'rgba(00, 95, 200, 1.0)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          plugins: {
+            title: {
+              display: true,
+              text: 'Access Statistics',
+              font: {
+                size: 20,
+                weight: 'bold'
+              },
+              padding: {
+                top: 10,
+                bottom: 30
+              }
+            },
+            legend: {
+              position: 'bottom',
+              labels: {
+                padding: 20,
+                font: {
+                  size: 13
+                }
+              }
+            },
+          },
+          maintainAspectRatio: false
+        }
+      });
+    }, 300);
+  }
+
+  ngOnInit() {
+    if (this.rpcService.authUser$().logged == false) {
+      this.router.navigate(['/']);
+      return
+    }
+    if (this.rpcService.authUser$().need_modify_pwd) {
+      this.router.navigate(['/appuser/' + this.rpcService.authUser$().user_id]);
+    }
+    if (this.rpcService.vulnTypes$().length == 0) {
+      let self = this;
+      this.rpcService.getVulnTypes(function () {
+        self.getTodayVulnStat('0');
+        self.getWeekStat('0', 0);
+        self.getAccessStat('0');
+        self.getPopContents('0');
+        self.getRefererHosts('0');
+      });
+    } else {
+      this.getTodayVulnStat('0');
+      this.getWeekStat('0', 0);
+      this.getAccessStat('0');
+      this.getPopContents('0');
+      this.getRefererHosts('0');
+    }
+    if (this.rpcService.applications$().length == 0) {
+      this.rpcService.getApplications(() => { });
+    }
+    this.initWeekChart();
+    this.initAccessStatChart();
+  }
+
+  getVulnNameByID(vuln_id: number) {
+    return this.rpcService.vulnTypeMap[vuln_id];
+  }
+
+  getAppNameByID(app_id: string) {
+    return this.rpcService.appMap[app_id];
+  }
+
+  getTodayVulnStat(app_id: string) {
+    let start_date = new Date();
+    start_date.setHours(0, 0, 0, 0);
+    let end_date = new Date();
+    end_date.setHours(23, 59, 59, 0);
+    let start_time = start_date.getTime() / 1000;
+    let end_time = end_date.getTime() / 1000 + 1;
+    this.today_stat_vuln_name = [];
+    this.today_stat_count = [];
+    this.today_stat_counts = 0;
+    this.today_stat_bgcolor = [];
+    let body = { action: "get_vuln_stat", app_id: app_id, start_time: start_time, end_time: end_time }
+    let self = this;
+    this.rpcService.getResponseByCustomBody(body, function (vuln_stats: VulnStat[]) {
+      if (vuln_stats == null) {
+        vuln_stats = [];
+      }
+      for (let vuln_stat of vuln_stats) {
+        let vuln_name = self.getVulnNameByID(vuln_stat.vuln_id);
+        self.today_stat_vuln_name.push(vuln_name);
+        self.today_stat_count.push(vuln_stat.count);
+        self.today_stat_counts += vuln_stat.count;
+        self.today_stat_bgcolor.push(self.getColorString(vuln_stat.vuln_id));
+      }
+      if (self.today_stat_counts == 0) {
+        self.today_stat_vuln_name.push("None");
+        self.today_stat_count.push(1e-9);
+      }
+      self.initTodayChart();
+      self.cdr.detectChanges();
+    });
+  }
+
+  getWeekStat(app_id: string, vuln_id: number) {
+    let begin_date = new Date();
+    begin_date.setHours(0, 0, 0, 0);
+    let start_time = begin_date.getTime() - 86400 * 1000 * 6;
+    this.week_stat_date = [];
+    for (let i = 0; i < 7; i++) {
+      let tmp_date = new Date(start_time + 86400 * 1000 * i);
+      this.week_stat_date.push(tmp_date.toLocaleDateString());
+    }
+    let body = { action: "get_week_stat", app_id: app_id, vuln_id: vuln_id, start_time: start_time / 1000 }
+    let self = this;
+    this.rpcService.getResponseByCustomBody(body, function (week_stats: number[]) {
+      if (week_stats == null) {
+        week_stats = [0, 0, 0, 0, 0, 0, 0];
+      }
+      self.week_stat_count = week_stats;
+      self.initWeekChart();
+      self.cdr.detectChanges();
+    });
+  }
+
+  getAccessStat(app_id: string) {
+    let begin_date = new Date();
+    begin_date.setHours(0, 0, 0, 0);
+    let start_time = begin_date.getTime() - 86400 * 1000 * 13;
+    this.access_stat_date = [];
+    for (let i = 0; i < 14; i++) {
+      let tmp_date = new Date(start_time + 86400 * 1000 * i);
+      this.access_stat_date.push(tmp_date.toLocaleDateString());
+    }
+    let body = { action: "get_access_stat", app_id: app_id }
+    let self = this;
+    this.rpcService.getResponseByCustomBody(body, function (access_stats: number[]) {
+      if (access_stats == null) {
+        access_stats = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      }
+      self.access_stat_count = access_stats;
+      self.initAccessStatChart();
+      self.cdr.detectChanges();
+    });
+  }
+
+  getPopContents(app_id: string) {
+    let body = { action: "get_pop_contents", app_id: app_id }
+    let self = this;
+    this.rpcService.getResponseByCustomBody(body, function (pop_contents: PopContent[]) {
+      self.pop_contents = pop_contents;
+      self.cdr.detectChanges();
+    });
+  }
+
+  getRefererHosts(app_id: string) {
+    let body = { action: "get_referer_hosts", app_id: app_id }
+    let self = this;
+    this.rpcService.getResponseByCustomBody(body, function (referer_hosts: RefererHost[]) {
+      self.referer_hosts = referer_hosts;
+      self.cdr.detectChanges();
+    });
+  }
+
+  getColorString(value: number): string {
+    let value_r = value * 60;// + Math.floor(Math.random()*20);
+    let value_g = value * 50;// + Math.floor(Math.random()*20);
+    let value_b = value * 50;// + Math.floor(Math.random()*20);
+    let color = 'rgba(' + value_r % 256 + ',' + value_g % 256 + ',' + value_b % 256 + ',0.9)';
+    return color
+  }
+
+  statByAppID() {
+    this.getTodayVulnStat(this.selected_app_id);
+    this.statByAppAndVuln();
+    this.getAccessStat(this.selected_app_id);
+    this.getPopContents(this.selected_app_id);
+    this.getRefererHosts(this.selected_app_id);
+  }
+
+  statByAppAndVuln() {
+    this.getWeekStat(this.selected_app_id, this.selected_vuln_id);
+  }
+
+  openRefererLinksDialog(appID: string, host: string) {
+    this.dialog.open(RefererLinksDialog, {
+      width: '800px',
+      maxWidth: '1000px',
+      data: { "appID": appID, "host": host }
+    });
+  }
+
+}

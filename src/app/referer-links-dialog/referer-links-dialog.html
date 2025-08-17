@@ -1,0 +1,43 @@
+<div class="container2">
+    <div>
+        <button matButton mat-dialog-close class="btn-close">
+            <mat-icon class="icon-close pointer">clear</mat-icon>
+        </button>
+    </div>
+    <h2 class="dialog-title">
+        <span i18n="@@refer_links">Referer Links from</span>: {{ host }}
+    </h2>
+    <div>
+        <span i18n="@@target_site">Target site</span>: {{ getAppNameByID(appID) }}
+    </div>
+    <br />
+    <div fxLayout="row wrap">
+        <div fxFlex="100%" class="access_div">
+            <table class="referer_table">
+                <tr>
+                    <th width="60%" i18n="@@referring_link">Referring Link</th>
+                    <th width="20%">PV (14 days)</th>
+                    <th width="20%">UV (14 days)</th>
+                </tr>
+                @for (refererLink of refererLinks; track $index) {
+                <tr>
+                    <td>
+                        <a href="{{ refererLink.url }}" target="_blank">
+                            {{ refererLink.url }}
+                        </a>
+                    </td>
+                    <td class="td-align-center">
+                        {{ refererLink.PV }}
+                    </td>
+                    <td class="td-align-center">
+                        {{ refererLink.UV }}
+                    </td>
+                </tr>
+                }
+            </table>
+        </div>
+    </div>
+    <mat-dialog-actions>
+        <button matButton mat-dialog-close class="btn-action pointer">Close</button>
+    </mat-dialog-actions>
+</div>

@@ -7,7 +7,7 @@ import { MessageService } from './message.service';
 import { AppUser, AuthUser } from '../models/auth';
 import { Certificate, VipApp } from '../models/application';
 import { Application } from '../models/application';
-import { GroupPolicy, LastRegexLogs, VulnType } from '../models/security';
+import { GroupPolicy, LastCCLogs, LastRegexLogs, VulnType } from '../models/security';
 import * as cryptojs from 'crypto-js';
 import { NodesKey } from '../models/gateway';
 
@@ -129,6 +129,10 @@ export class RPCService {
       // obj may be null, use self.authUser() instead
       callback(self.authUser());
     });
+  }
+
+  setAuthUser(authUser: AuthUser) {
+    this.authUser.set(authUser);
   }
 
   getAppUserByID(id: string, callback: (appUser: AppUser) => any) {
@@ -389,11 +393,16 @@ export class RPCService {
 
   private vulnTypes = signal<VulnType[]>([]);
   public vulnTypes$ = this.vulnTypes.asReadonly();
+  // appmap['123']='Application Name';
+  vulnTypeMap: Record<string, string> = {};
 
   getVulnTypes(callback: () => any) {
     var self = this;
     this.getResponse('get_vuln_types', function (obj: VulnType[]) {
       self.vulnTypes.set(obj);
+      for (let vulnType of self.vulnTypes$()) {
+        self.vulnTypeMap[vulnType.id] = vulnType.name;
+      }
       callback();
     });
   }
@@ -409,6 +418,14 @@ export class RPCService {
     regex_logs: []
   };
 
+  lastCCLogs: LastCCLogs = {
+    app_id: '0',
+    start_date: new Date(),
+    end_date: new Date(),
+    page_index: 0,
+    length: 0,
+    cc_logs: []
+  }
 
 
 

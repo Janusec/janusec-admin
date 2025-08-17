@@ -1,0 +1,61 @@
+<div class="container2">
+    <div>
+        <button matButton mat-dialog-close class="btn-close">
+            <mat-icon class="icon-close pointer">clear</mat-icon>
+        </button>
+    </div>
+    <h2 i18n="@@cc_log_details" class="dialog-title">CC Log Details</h2>
+
+    <mat-dialog-content class="dialog-content-custom">
+        @if (ccLog) {
+
+        <mat-form-field>
+            <mat-label>Time</mat-label>
+            <input matInput [value]="getDate(ccLog.request_time)" readonly="true" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>IP</mat-label>
+            <input matInput [value]="ccLog.client_ip" readonly="true" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Host</mat-label>
+            <input matInput [value]="ccLog.host" readonly="true" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Method</mat-label>
+            <input matInput [value]="ccLog.method" readonly="true" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>URL Path</mat-label>
+            <input matInput [value]="ccLog.url_path" readonly="true" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>URL Query</mat-label>
+            <input matInput [value]="ccLog.url_query" readonly="true" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Content Type</mat-label>
+            <input matInput [value]="ccLog.content_type" readonly="true" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>User-Agent</mat-label>
+            <textarea matInput [value]="ccLog.user_agent" rows="2" readonly="true"></textarea>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Cookie</mat-label>
+            <input matInput [value]="ccLog.cookies" readonly="true" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Action</mat-label>
+            <input matInput [value]="getPolicyActionEnumString(ccLog.action)" placeholder="Action" readonly="true" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Raw Request</mat-label>
+            <textarea matInput [value]="ccLog.raw_request" rows="16" readonly="true"></textarea>
+        </mat-form-field>
+        }
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button matButton mat-dialog-close class="btn-action pointer">Close</button>
+    </mat-dialog-actions>
+</div>

@@ -71,7 +71,7 @@ export class WebFirewall {
 
   openGroupPolicyDialog(groupPolicy: GroupPolicy | null) {
     this.dialog.open(GroupPolicyDialog, {
-      width: '800px',
+      width: '900px',
       maxWidth: '1000px',
       data: { "groupPolicy": groupPolicy ? { ...groupPolicy } : null }
     }).afterClosed().subscribe(result => {

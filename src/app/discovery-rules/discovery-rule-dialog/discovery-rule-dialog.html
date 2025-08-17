@@ -1,0 +1,48 @@
+<div class="container2">
+    <div>
+        <button matButton mat-dialog-close class="btn-close">
+            <mat-icon class="icon-close pointer">clear</mat-icon>
+        </button>
+    </div>
+    <h2 i18n="@@data_discovery_rule" class="dialog-title">Data Discovery Rule</h2>
+
+    <div mat-dialog-content>
+
+        <mat-form-field>
+            <mat-label i18n="@@field_name">Field Name</mat-label>
+            <input matInput #field_name [(ngModel)]="discovery_rule.field_name" required>
+            <mat-hint align="end">{{field_name.value.length || 0}}/256</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label i18n="@@sample">Sample</mat-label>
+            <input matInput #sample [(ngModel)]="discovery_rule.sample" required>
+            <mat-hint align="end">{{sample.value.length || 0}}/512</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label i18n="@@regex_pattern">Regular Expression Pattern</mat-label>
+            <input matInput #regex_pattern [(ngModel)]="discovery_rule.regex" (focusout)="saveDiscoveryRule()" required>
+            @if (regex_match.matched===true) {
+            <mat-icon matSuffix class="icon-green">check_circle_outline</mat-icon>
+            } @else if (regex_match.matched===false) {
+            <mat-icon matSuffix class="icon-red">highlight_off</mat-icon>
+            }
+            <mat-hint align="end">{{regex_pattern.value.length || 0}}/512</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label i18n="@@description">Description</mat-label>
+            <input matInput #description [(ngModel)]="discovery_rule.description">
+            <mat-hint align="end">{{description.value.length || 0}}/512</mat-hint>
+        </mat-form-field>
+
+    </div>
+    <mat-dialog-actions>
+        <button matButton (click)="checkRegex()" i18n="@@check_regex" class="btn-action pointer">Check Regex</button>
+        @if (regex_match.matched) {
+        <button matButton (click)="saveDiscoveryRule()" i18n="@@save" class="btn-action pointer">Save</button>
+        }
+        <button matButton mat-dialog-close class="btn-action pointer">Close</button>
+    </mat-dialog-actions>
+</div>

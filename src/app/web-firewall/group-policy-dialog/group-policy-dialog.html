@@ -114,7 +114,6 @@
                 class="btn-action pointer">Save</button>
             <button matButton (click)="changeEditable()" class="btn-action pointer">{{readOnlyButtonText}}</button>
             }
-            <button matButton mat-dialog-close class="btn-action pointer">Close</button>
         </mat-dialog-actions>
 
         <hr>
@@ -140,9 +139,12 @@
         </section>
         <mat-dialog-actions>
             <button matButton (click)="testRegex()" i18n="@@test" class="btn-action pointer">Test</button>
-            <button matButton mat-dialog-close class="btn-action pointer">Close</button>
         </mat-dialog-actions>
 
     </mat-dialog-content>
+
+    <mat-dialog-actions>
+        <button matButton mat-dialog-close class="btn-action pointer">Close</button>
+    </mat-dialog-actions>
 
 </div>

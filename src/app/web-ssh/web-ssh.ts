@@ -62,7 +62,8 @@ export class WebSSH {
   ngAfterViewInit() {
     this.term = new Terminal({
       rows: 40,
-      cols: 120
+      cols: 120,
+      cursorBlink: true
     });
     this.term.open(this.terminalDiv.nativeElement);
   }

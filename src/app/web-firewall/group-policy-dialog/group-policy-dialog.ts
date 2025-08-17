@@ -98,6 +98,7 @@ export class GroupPolicyDialog {
       if (obj != null) {
         self.rpcService.addOrUpdateLocalGroupPolicy(obj)
         self.msgService.addSuccessMessage("WAF rule " + obj.description + " saved.");
+        self.dialogRef.close();
       }
     }, null, self.groupPolicy);
   }

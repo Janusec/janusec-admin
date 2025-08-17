@@ -10,6 +10,7 @@ import { OAuthInfo, AuthUser } from '../models/auth';
 import * as bcrypt from 'bcryptjs';
 import * as cryptojs from 'crypto-js';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @Component({
@@ -18,14 +19,14 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatTooltipModule
   ],
   templateUrl: './login-form.html',
   styleUrl: './login-form.css'
 })
 export class LoginForm {
   password: string = '';
-  submitted = false;
   private oauth = signal<OAuthInfo>({
     use_oauth: false,
     display_name: '',
@@ -49,7 +50,6 @@ export class LoginForm {
   onSubmit() {
     if (!this.login_user.username || !this.password) {
       this.msgService.addWarnMessage("Please input your username and password!");
-      this.submitted = false;
       return;
     }
     this.msgService.clear();
@@ -59,7 +59,8 @@ export class LoginForm {
     var self = this;
     this.rpcService.getResponse('login', function (obj: AuthUser) {
       if (obj != null) {
-        self.submitted = true;
+        self.rpcService.setAuthUser(obj);
+        // username and password OK but logged is false, auth code registration is required
         if (self.oauth$().authenticator_enabled && !self.rpcService.authUser$().logged) {
           self.router.navigate(['/authcode-register']);
         } else {

@@ -83,7 +83,7 @@ export interface CheckItem {
 export interface RegexMatch {
     pattern: string;
     payload: string;
-    matched: boolean;
+    matched: boolean | null;
     preprocess: boolean;
 }
 

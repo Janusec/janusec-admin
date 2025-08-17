@@ -1,0 +1,85 @@
+<div class="container">
+
+    <div>
+        <mat-form-field>
+            <mat-select i18n-placeholder="@@application" [(ngModel)]="app_id" placeholder="Application">
+                <mat-option value="0" class="option-custom">All</mat-option>
+                @for (application of rpcService.applications$(); track $index) {
+                <mat-option [value]="application.id" class="option-custom">
+                    {{application.name}}
+                </mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput i18n-placeholder="@@begin_time" [(ngModel)]="start_date" [matDatepicker]="pickerStart"
+                placeholder="Begin Time (00:00:00)">
+            <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+            <mat-datepicker #pickerStart></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput i18n-placeholder="@@end_time" [(ngModel)]="end_date" [matDatepicker]="pickerEnd"
+                placeholder="End Time (23:59:59)">
+            <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+            <mat-datepicker #pickerEnd></mat-datepicker>
+        </mat-form-field>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>
+            <button mat-stroked-button i18n="@@query_cc_logs" (click)="queryCCLogs()">Query CC Logs</button>
+        </span>
+    </div>
+
+    <div class="mat-elevation-z8">
+        <mat-table #table [dataSource]="dataSource">
+
+            <ng-container matColumnDef="request_time">
+                <mat-header-cell *matHeaderCellDef> Time </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <span (click)="openCCLogDialog(element)" class="pointer">
+                        {{ getDate(element.request_time) }}
+                    </span>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="client_ip">
+                <mat-header-cell *matHeaderCellDef> Client IP </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <span (click)="openCCLogDialog(element)" class="pointer">
+                        {{element.client_ip}}
+                    </span>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="method">
+                <mat-header-cell *matHeaderCellDef> Method </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.method}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="host">
+                <mat-header-cell *matHeaderCellDef> Host </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.host}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="url_path">
+                <mat-header-cell *matHeaderCellDef> URL Path </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.url_path}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{ getPolicyActionEnumString(element.action) }} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="policy_id">
+                <mat-header-cell *matHeaderCellDef> PolicyID </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.policy_id}} </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator #paginator [pageSize]="20" [pageIndex]="pageIndex" [pageSizeOptions]="[10, 20, 50]"
+            [showFirstLastButtons]="true" (page)="pageChanged()">
+        </mat-paginator>
+    </div>
+</div>

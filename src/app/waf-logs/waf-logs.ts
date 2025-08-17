@@ -1,6 +1,5 @@
-import { Component, inject, ViewChild } from '@angular/core';
-import { Application } from '../models/application';
-import { SimpleRegexHitLog, RegexHitLogsCount, PolicyAction } from '../models/security';
+import { ChangeDetectorRef, Component, inject, ViewChild } from '@angular/core';
+import { SimpleRegexHitLog, RegexHitLogsCount, PolicyAction, RegexHitLog } from '../models/security';
 import { Router } from '@angular/router';
 import { RPCService } from '../services/rpc.service';
 import { MessageService } from '../services/message.service';
@@ -38,7 +37,9 @@ export class WAFLogs {
   dataSource = new LogsDataSource(this.paginator);
 
   constructor(public rpcService: RPCService,
+    public dialog: MatDialog,
     private router: Router,
+    public cdr: ChangeDetectorRef,
     private msgService: MessageService) { }
 
   ngOnInit() {
@@ -77,6 +78,7 @@ export class WAFLogs {
         self.paginator.length = obj.count;
         self.dataSource.loadLogs(self.app_id, start_time, end_time, 0, self.request_count);
         self.rpcService.lastRegexLogs.length = obj.count;
+        self.cdr.detectChanges();
       }
     });
   }
@@ -101,6 +103,15 @@ export class WAFLogs {
     return PolicyAction[value];
   }
 
+  openWAFLogDialog(simpleLog: RegexHitLog) {
+    this.dialog.open(WAFLogDialog, {
+      width: '900px',
+      maxWidth: '1000px',
+      disableClose: true,
+      data: { "simpleLog": simpleLog }
+    });
+  }
+
 }
 
 import { CollectionViewer, DataSource } from "@angular/cdk/collections";
@@ -111,6 +122,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { WAFLogDialog } from './waf-log-dialog/waf-log-dialog';
+import { MatDialog } from '@angular/material/dialog';
 export class LogsDataSource extends DataSource<SimpleRegexHitLog> {
 
   private logsSubject = new BehaviorSubject<SimpleRegexHitLog[]>([]);
