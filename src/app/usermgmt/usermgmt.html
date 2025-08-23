@@ -15,7 +15,7 @@
         <mat-table #table [dataSource]="dataSource">
 
             <ng-container matColumnDef="username">
-                <mat-header-cell *matHeaderCellDef i18n="@@username"> Username </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef i18n="@@username">Username</mat-header-cell>
                 <mat-cell *matCellDef="let element">
                     <span (click)="openAppUserDialog(element)" class="pointer">
                         {{element.username}}

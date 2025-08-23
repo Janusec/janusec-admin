@@ -16,8 +16,8 @@
                 </section>
                 <br />
                 <mat-form-field>
-                    <mat-select [(ngModel)]="settings.auth_provider" i18n-placeholder="@@auth_provider"
-                        placeholder="Authentication Provider" [disabled]="readOnlyValue"
+                    <mat-label i18n="@@auth_provider">Authentication Provider</mat-label>
+                    <mat-select [(ngModel)]="settings.auth_provider" [disabled]="readOnlyValue"
                         (selectionChange)="loadAuthProvider(settings.auth_provider)">
                         <mat-option value="wxwork" class="option-custom">WxWork（企业微信扫码）</mat-option>
                         <mat-option value="dingtalk" class="option-custom">DingTalk（钉钉扫码）</mat-option>
@@ -88,8 +88,7 @@
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label i18n="@@callback">Callback</mat-label>
-                    <input matInput [(ngModel)]="feishuConfig.callback" [readonly]="readOnlyValue"
-                        i18n-placeholder="@@callback" placeholder="Callback" />
+                    <input matInput [(ngModel)]="feishuConfig.callback" [readonly]="readOnlyValue" />
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>appid</mat-label>
@@ -139,7 +138,7 @@
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>dn</mat-label>
-                    <input matInput [(ngModel)]="ldapConfig.dn" [readonly]="readOnlyValue" placeholder="dn" />
+                    <input matInput [(ngModel)]="ldapConfig.dn" [readonly]="readOnlyValue" />
                 </mat-form-field>
 
                 <section>
@@ -152,7 +151,7 @@
                 @if (ldapConfig.bind_required) {
                 <mat-form-field>
                     <mat-label>BaseDN</mat-label>
-                    <input matInput [(ngModel)]="ldapConfig.base_dn" [readonly]="readOnlyValue" placeholder="BaseDN" />
+                    <input matInput [(ngModel)]="ldapConfig.base_dn" [readonly]="readOnlyValue" />
                 </mat-form-field>
 
                 <mat-form-field>

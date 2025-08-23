@@ -2,7 +2,8 @@
 
     <div>
         <mat-form-field>
-            <mat-select i18n-placeholder="@@application" [(ngModel)]="app_id" placeholder="Application">
+            <mat-label i18n="@@application">Application</mat-label>
+            <mat-select [(ngModel)]="app_id">
                 <mat-option value="0" class="option-custom">All</mat-option>
                 @for (application of rpcService.applications$(); track $index) {
                 <mat-option [value]="application.id" class="option-custom">
@@ -12,20 +13,20 @@
             </mat-select>
         </mat-form-field>
         <mat-form-field>
-            <input matInput i18n-placeholder="@@begin_time" [(ngModel)]="start_date" [matDatepicker]="pickerStart"
-                placeholder="Begin Time (00:00:00)">
+            <mat-label i18n="@@begin_time">Begin Time (00:00:00)</mat-label>
+            <input matInput [(ngModel)]="start_date" [matDatepicker]="pickerStart">
             <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
             <mat-datepicker #pickerStart></mat-datepicker>
         </mat-form-field>
         <mat-form-field>
-            <input matInput i18n-placeholder="@@end_time" [(ngModel)]="end_date" [matDatepicker]="pickerEnd"
-                placeholder="End Time (23:59:59)">
+            <mat-label i18n="@@end_time">End Time (23:59:59)</mat-label>
+            <input matInput [(ngModel)]="end_date" [matDatepicker]="pickerEnd">
             <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
             <mat-datepicker #pickerEnd></mat-datepicker>
         </mat-form-field>
         <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
         <span>
-            <button mat-stroked-button i18n="@@query_cc_logs" (click)="queryCCLogs()">Query CC Logs</button>
+            <button matButton i18n="@@query_cc_logs" (click)="queryCCLogs()">Query CC Logs</button>
         </span>
     </div>
 

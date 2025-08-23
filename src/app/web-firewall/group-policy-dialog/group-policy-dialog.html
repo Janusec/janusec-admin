@@ -51,7 +51,7 @@
             </mat-form-field>
 
             <mat-form-field>
-                <mat-label i18n="@@groupPolicy_operation">Operation</mat-label>
+                <mat-label i18n="@@group_policy_operation">Operation</mat-label>
                 <mat-select [(ngModel)]="groupPolicy.check_items[$index].operation" [disabled]="readOnlyValue" required>
                     @for (entry of operationEntries; track $index) {
                     <mat-option [value]="entry[1]" class="option-custom">
@@ -144,7 +144,7 @@
     </mat-dialog-content>
 
     <mat-dialog-actions>
-        <button matButton mat-dialog-close class="btn-action pointer">Close</button>
+        <button matButton mat-dialog-close class="btn-action pointer" i18n="@@close">Close</button>
     </mat-dialog-actions>
 
 </div>

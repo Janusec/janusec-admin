@@ -33,13 +33,15 @@
     "angularx-qrcode": "^20.0.0",
     "bcryptjs": "^3.0.2",
     "chart.js": "^4.5.0",
+    "classlist.js": "^1.1.20150312",
     "crypto-js": "^4.2.0",
     "material-symbols": "^0.33.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "uuid": "^11.1.0",
     "xterm": "^5.3.0",
-    "xterm-addon-attach": "^0.9.0"
+    "xterm-addon-attach": "^0.9.0",
+    "zone.js": "^0.15.1"
   },
   "devDependencies": {
     "@angular/build": "^20.1.6",

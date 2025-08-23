@@ -3,7 +3,8 @@
     <div fxLayout="row wrap">
         <div fxFlex="50%">
             <mat-form-field>
-                <mat-select i18n-placeholder="@@application" [(ngModel)]="selected_app_id" placeholder="Application">
+                <mat-label i18n="@@application">Application</mat-label>
+                <mat-select [(ngModel)]="selected_app_id">
                     <mat-option i18n="@@all" value="0" class="option-custom">All applications</mat-option>
                     @for (application of rpcService.applications$(); track $index) {
                     <mat-option [value]="application.id" class="option-custom">
@@ -20,8 +21,8 @@
 
         <div fxFlex="50%">
             <mat-form-field>
-                <mat-select i18n-placeholder="@@vulnerability" [(ngModel)]="selected_vuln_id"
-                    placeholder="Vulnerability">
+                <mat-label i18n="@@vulnerability">Vulnerability</mat-label>
+                <mat-select [(ngModel)]="selected_vuln_id">
                     <mat-option i18n="@@all" [value]=0 class="option-custom">All</mat-option>
                     @for (vulntype of rpcService.vulnTypes$(); track $index) {
                     <mat-option [value]="vulntype.id" class="option-custom">

@@ -127,8 +127,8 @@
                         <div class="inline-form">
                             <mat-form-field class="inline-form-field-20">
                                 <mat-icon matPrefix>language</mat-icon>
-                                <input matInput i18n-placeholder="@@domain_name" placeholder="Domain name (required)"
-                                    i18n-matTooltip="@@domain_name_tooltip" matTooltipPosition="below"
+                                <mat-label i18n="@@domain_name">Domain name (required)</mat-label>
+                                <input matInput i18n-matTooltip="@@domain_name_tooltip" matTooltipPosition="below"
                                     matTooltip="Required, format: www.your-domain.com" matTooltipClass="tooltip-custom"
                                     [(ngModel)]="application.domains[$index].name" [disabled]="readOnlyValue"
                                     list="domains" required>
@@ -136,8 +136,8 @@
 
                             <mat-form-field class="inline-form-field-20">
                                 <mat-icon matPrefix>lock_outline</mat-icon>
-                                <mat-select i18n-placeholder="@@certificate" placeholder="Certificate"
-                                    i18n-matTooltip="@@acme_requirement" matTooltipPosition="below"
+                                <mat-label i18n="@@certificate">Certificate</mat-label>
+                                <mat-select i18n-matTooltip="@@acme_requirement" matTooltipPosition="below"
                                     matTooltip="If ACME automated certificate used, default port 80/443, open to Internet, and single node are required."
                                     matTooltipClass="tooltip-custom" [(ngModel)]="application.domains[$index].cert_id"
                                     [disabled]="readOnlyValue" required>
@@ -265,9 +265,9 @@
 
                     @if (application.oauth_required) {
                     <mat-form-field>
-                        <input i18n-placeholder="@@session_seconds" type="number" matInput
-                            [(ngModel)]="application.session_seconds" [readonly]="readOnlyValue"
-                            placeholder="Session Expire Seconds for OAuth2" />
+                        <mat-label i18n="@@session_seconds">Session Expire Seconds for OAuth2</mat-label>
+                        <input type="number" matInput [(ngModel)]="application.session_seconds"
+                            [readonly]="readOnlyValue" />
                     </mat-form-field>
                     }
 
@@ -282,7 +282,7 @@
                     <mat-form-field>
                         <mat-label>Content-Security-Policy</mat-label>
                         <input matInput i18n-placeholder="@@csp" [(ngModel)]="application.csp" #csp
-                            [readonly]="readOnlyValue" placeholder="" />
+                            [readonly]="readOnlyValue" />
                         <mat-hint align="end">{{csp.value.length || 0}}/1024</mat-hint>
                     </mat-form-field>
                     }
@@ -295,14 +295,13 @@
                     </section>
 
                     <mat-form-field>
-                        <input matInput i18n-placeholder="@@owner" [(ngModel)]="application.owner"
-                            [readonly]="readOnlyValue" placeholder="Application Owner" />
+                        <mat-label i18n="@@owner">Application Owner</mat-label>
+                        <input matInput [(ngModel)]="application.owner" [readonly]="readOnlyValue" />
                     </mat-form-field>
 
                     <mat-form-field>
-                        <input matInput i18n-placeholder="@@description" #description
-                            [(ngModel)]="application.description" [readonly]="readOnlyValue"
-                            placeholder="Description" />
+                        <mat-label i18n="@@description">Description</mat-label>
+                        <input matInput #description [(ngModel)]="application.description" [readonly]="readOnlyValue" />
                         <mat-hint align="end">{{description.value.length || 0}}/256</mat-hint>
                     </mat-form-field>
                 </div>
@@ -413,7 +412,8 @@
 
                             <button matButton="outlined" (click)="jumpToCookieRefs()" class="btn-with-icon pointer">
                                 <mat-icon>cookie</mat-icon>
-                                <span i18n="@@manage_cookie_refs" matTooltip="Manage Cookie References">CookieRef</span>
+                                <span i18n="@@manage_cookie_refs" matTooltip="Manage Cookie References"
+                                    matTooltipClass="tooltip-custom">CookieRef</span>
                             </button>
 
                             <button matButton="outlined" (click)="refreshCookies()" class="btn-with-icon pointer">
@@ -539,6 +539,6 @@
         <button matButton i18n="@@save" [disabled]="readOnlyValue" (click)="setApplication()"
             class="btn-action pointer">Save</button>
         <button matButton (click)="changeEditable()" class="btn-action pointer">{{readOnlyButtonText}}</button>
-        <button matButton mat-dialog-close class="btn-action pointer">Close</button>
+        <button matButton mat-dialog-close class="btn-action pointer" i18n="@@close">Close</button>
     </mat-dialog-actions>
 </div>

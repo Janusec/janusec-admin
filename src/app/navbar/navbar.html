@@ -5,7 +5,7 @@
     <span class="spacer"></span>
 
     @if (rpcService.authUser$().logged) {
-    <button matButton [matMenuTriggerFor]="menu" class="btn-with-icon nav-menu-custom">
+    <button matButton [matMenuTriggerFor]="menu" class="btn-with-icon nav-menu-end">
         <mat-icon color="secondary">account_circle</mat-icon>
         <span>
             {{rpcService.authUser$().username}}
@@ -14,24 +14,24 @@
 
     <mat-menu #menu="matMenu" [overlapTrigger]="false">
         <button mat-menu-item (click)="openAppUserDialog(rpcService.curAppUser$())"
-            class="btn-with-icon nav-menu-custom">
+            class="btn-with-icon nav-menu-start">
             <mat-icon>account_circle</mat-icon>
-            <span i18n="@@lang">My Information</span>
+            <span i18n="@@my_information">My Information</span>
         </button>
         <mat-divider></mat-divider>
-        <button mat-menu-item (click)="switchLanguage()" class="btn-with-icon nav-menu-custom">
+        <button mat-menu-item (click)="switchLanguage()" class="btn-with-icon nav-menu-start">
             <mat-icon>language</mat-icon>
             <span i18n="@@lang">中文</span>
         </button>
         <mat-divider></mat-divider>
-        <button mat-menu-item (click)="logout()" class="btn-with-icon nav-menu-custom">
+        <button mat-menu-item (click)="logout()" class="btn-with-icon nav-menu-start">
             <mat-icon>logout</mat-icon>
             Logout
         </button>
     </mat-menu>
     }
     @if (rpcService.authUser$().logged===false) {
-    <button matButton i18n="@@login" (click)="navigate('/login')" class="btn-with-icon nav-menu-custom">
+    <button matButton i18n="@@login" (click)="navigate('/login')" class="btn-with-icon nav-menu-start">
         Login
     </button>
     }

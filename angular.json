@@ -28,7 +28,13 @@
             "baseHref": "/janusec-admin/",
             "deployUrl": "/janusec-admin/",
             "polyfills": [
-              "@angular/localize/init"
+              "src/polyfills.ts"
+            ],
+            "allowedCommonJsDependencies": [
+              "xterm",
+              "xterm-addon-attach",
+              "crypto-js",
+              "qrcode"
             ]
           },
           "configurations": {
@@ -36,12 +42,12 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "2000kB",
+                  "maximumError": "3MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
+                  "maximumWarning": "5kB",
                   "maximumError": "8kB"
                 }
               ],
@@ -87,7 +93,7 @@
               "src/styles.css"
             ],
             "polyfills": [
-              "@angular/localize/init"
+              "src/polyfills.ts"
             ]
           }
         }

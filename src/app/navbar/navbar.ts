@@ -1,12 +1,11 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { RPCService } from '../services/rpc.service';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import { MatDivider } from '@angular/material/divider';
-import { AppUser, AuthUser } from '../models/auth';
-import { WritableSignal } from '@angular/core';
+import { AppUser } from '../models/auth';
 import { MessageService } from '../services/message.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UserDialog } from '../usermgmt/user-dialog/user-dialog';
@@ -42,7 +41,7 @@ export class Navbar {
   ngOnInit() {
     var lang = localStorage.getItem('lang');
     if (lang == null && navigator.language.indexOf('zh') > -1) {
-      localStorage.setItem('lang', 'zh-cn');
+      localStorage.setItem('lang', 'zh-CN');
       window.location.reload();
     }
   }
@@ -59,10 +58,10 @@ export class Navbar {
 
   switchLanguage() {
     var lang = localStorage.getItem('lang');
-    if (lang == null || lang == "" || lang == "en") {
-      localStorage.setItem('lang', 'zh-cn');
+    if (lang == null || lang == '' || lang == 'en-US') {
+      localStorage.setItem('lang', 'zh-CN');
     } else {
-      localStorage.setItem('lang', 'en');
+      localStorage.setItem('lang', 'en-US');
     }
     window.location.reload();
   }
@@ -76,8 +75,4 @@ export class Navbar {
     });
   }
 
-  test() {
-    this.msgService.addSuccessMessage('Test msg!');
-    this.msgService.addWarnMessage('Warning!');
-  }
 }

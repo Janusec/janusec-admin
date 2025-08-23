@@ -19,8 +19,7 @@
         </mat-form-field>
         <mat-form-field>
             <mat-label i18n="@@end_time">End Time (23:59:59)</mat-label>
-            <input matInput i18n-placeholder="@@end_time" [(ngModel)]="end_date" [matDatepicker]="pickerEnd"
-                placeholder="End Time (23:59:59)">
+            <input matInput [(ngModel)]="end_date" [matDatepicker]="pickerEnd">
             <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
             <mat-datepicker #pickerEnd></mat-datepicker>
         </mat-form-field>

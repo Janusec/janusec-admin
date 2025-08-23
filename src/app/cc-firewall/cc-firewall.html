@@ -24,9 +24,8 @@
                     </mat-form-field>
 
                     <mat-form-field>
-                        <mat-label i18n="@@actin">Action</mat-label>
-                        <mat-select i18n-placeholder="@@action" [(ngModel)]="global_cc_policy.action"
-                            placeholder="Action">
+                        <mat-label i18n="@@action">Action</mat-label>
+                        <mat-select i18n-placeholder="@@action" [(ngModel)]="global_cc_policy.action">
                             @for (policyAction of policyActionEntries; track $index) {
                             <mat-option [value]="policyAction[1]" class="option-custom">
                                 {{ policyAction[0] }}
@@ -72,8 +71,8 @@
                 <div>
                     <h2 i18n="@@custom_cc_title">Custom CC Policy (Only show when an application selected)</h2>
                     <mat-form-field class="fullrow">
-                        <mat-select [(ngModel)]="selected_app_id" i18n-placeholder="@@select_application"
-                            placeholder="Select the Application" (selectionChange)="onSelectApp()">
+                        <mat-label i18n="@@select_application">Select the Application</mat-label>
+                        <mat-select [(ngModel)]="selected_app_id" (selectionChange)="onSelectApp()">
                             @for (application of rpcService.applications$(); track $index) {
                             <mat-option [value]="application.id" class="option-custom">
                                 {{application.name}}
@@ -107,8 +106,8 @@
                         <input matInput [(ngModel)]="app_cc_policy.block_seconds" type="number" required>
                     </mat-form-field>
                     <mat-form-field>
-                        <mat-label i18n="@@actin">Action</mat-label>
-                        <mat-select i18n-placeholder="@@action" [(ngModel)]="app_cc_policy.action" placeholder="Action">
+                        <mat-label i18n="@@action">Action</mat-label>
+                        <mat-select i18n-placeholder="@@action" [(ngModel)]="app_cc_policy.action">
                             @for (policyAction of policyActionEntries; track $index) {
                             <mat-option [value]="policyAction[1]" class="option-custom">
                                 {{ policyAction[0] }}

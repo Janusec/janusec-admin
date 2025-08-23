@@ -46,7 +46,7 @@
         </mat-form-field>
         <mat-form-field>
             <mat-label>Action</mat-label>
-            <input matInput [value]="getPolicyActionEnumString(regexLog.action)" placeholder="Action" readonly="true" />
+            <input matInput [value]="getPolicyActionEnumString(regexLog.action)" readonly="true" />
         </mat-form-field>
         <mat-form-field>
             <mat-label>Raw Request</mat-label>
@@ -60,7 +60,7 @@
         <button matButton (click)="openGroupPolicyDialog(regexLog.policy_id)" class="btn-action pointer">View WAF
             Rule</button>
         }
-        <button matButton mat-dialog-close class="btn-action pointer">Close</button>
+        <button matButton mat-dialog-close class="btn-action pointer" i18n="@@close">Close</button>
     </mat-dialog-actions>
 
 </div>

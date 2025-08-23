@@ -257,6 +257,7 @@ export class Dashboard {
       if (self.today_stat_counts == 0) {
         self.today_stat_vuln_name.push("None");
         self.today_stat_count.push(1e-9);
+        self.today_stat_bgcolor.push(self.getColorString(100));
       }
       self.initTodayChart();
       self.cdr.detectChanges();

@@ -42,8 +42,16 @@ mat-icon {
     vertical-align: middle;
 }
 
-.nav-menu-custom {
+.nav-menu-start {
     width: 150px;
     border: 1px solid #f0f0f0;
     background-color: #f0f0f0;
+    justify-content: flex-start;
+}
+
+.nav-menu-end {
+    width: 150px;
+    border: 1px solid #f0f0f0;
+    background-color: #f0f0f0;
+    justify-content: flex-end;
 }

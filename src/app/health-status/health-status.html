@@ -129,7 +129,8 @@
             <br>
             <div class="container2">
                 <mat-form-field>
-                    <mat-select i18n-placeholder="@@application" [(ngModel)]="selectedAppID" placeholder="Application">
+                    <mat-label i18n="@@application">Application</mat-label>
+                    <mat-select [(ngModel)]="selectedAppID">
                         @for (application of rpcService.applications$(); track $index) {
                         <mat-option [value]="application.id" class="option-custom">
                             {{application.name}}
@@ -138,7 +139,7 @@
                     </mat-select>
                 </mat-form-field>
                 <span>&nbsp;&nbsp;</span>
-                <button matButton i18n="@@view" (click)="health_check_by_app_id()"
+                <button matButton i18n="@@check" (click)="health_check_by_app_id()"
                     matTooltip="routine detection only when received a request and offline found"
                     matTooltipClass="tooltip-custom">Check</button>
 
