@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
-import { AppUser } from '../../models/auth';
+import { AppUser, AuthUser } from '../../models/auth';
 import { APIResponse } from '../../models/rpc';
 import { RPCService } from '../../services/rpc.service';
 import { MessageService } from '../../services/message.service';
@@ -84,9 +84,25 @@ export class UserDialog {
       this.appUser.password = "";
     }
     let self = this;
-    this.rpcService.getResponse('update_app_user', function (obj: AppUser) {
-      if (obj !== null) {
-        self.rpcService.addOrUpdateLocalAppUser(obj);
+    this.rpcService.getResponse('update_app_user', function (appUser: AppUser) {
+      if (appUser !== null) {
+        self.rpcService.addOrUpdateLocalAppUser(appUser);
+        if (appUser.id == self.rpcService.authUser$().user_id) {
+          // current user
+          let authUser: AuthUser = {
+            user_id: appUser.id,
+            username: appUser.username,
+            passwd: '',
+            logged: true,
+            is_super_admin: appUser.is_super_admin,
+            is_cert_admin: appUser.is_cert_admin,
+            is_app_admin: appUser.is_app_admin,
+            need_modify_pwd: appUser.need_modify_pwd,
+            totp_key: self.rpcService.authUser$().totp_key,
+            totp_verified: self.rpcService.authUser$().totp_verified
+          }
+          self.rpcService.setAuthUser(authUser);
+        }
         self.messageService.addSuccessMessage(self.appUser.username + " saved.");
       }
       self.dialogRef.close();
